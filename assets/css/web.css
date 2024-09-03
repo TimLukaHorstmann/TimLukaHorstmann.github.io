@@ -8,16 +8,43 @@ body {
     align-items: center;
     height: 100vh;
     overflow: hidden;
+    position: relative;
+    background: linear-gradient(to right, #2980b9, #6dd5fa, #ffffff);
+}
+
+.background-animation {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 0;
+    background: linear-gradient(45deg, #2980b9, #6dd5fa);
+    background-size: 400% 400%;
+    animation: gradientAnimation 15s ease infinite;
+}
+
+@keyframes gradientAnimation {
+    0% {
+        background-position: 0% 50%;
+    }
+    50% {
+        background-position: 100% 50%;
+    }
+    100% {
+        background-position: 0% 50%;
+    }
 }
 
 .hero-section {
     width: 100%;
     height: 100%;
-    background: linear-gradient(to right, #2980b9, #6dd5fa, #ffffff);
     display: flex;
     justify-content: center;
     align-items: center;
     text-align: center;
+    z-index: 1;
+    position: relative;
 }
 
 .content {
@@ -34,10 +61,11 @@ h1 {
     color: #2c3e50;
 }
 
-p {
+.construction-message {
     margin: 20px 0;
     font-size: 1.2em;
     color: #7f8c8d;
+    font-style: italic;
 }
 
 .buttons {
@@ -68,4 +96,8 @@ p {
 .btn-secondary:hover {
     background-color: #2ecc71;
     transform: scale(1.05);
+}
+
+.btn i {
+    margin-right: 8px;
 }
