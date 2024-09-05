@@ -6,6 +6,8 @@
     <meta name="description" content="CV of Tim Luka Horstmann">
     <title>CV - Tim Luka Horstmann</title>
     <link rel="stylesheet" href="assets/css/style.css">
+    <!-- Link to Leaflet CSS for interactive maps -->
+    <link rel="stylesheet" href="https://unpkg.com/leaflet/dist/leaflet.css" />
 </head>
 <body>
     <!-- Navigation Bar -->
@@ -19,13 +21,13 @@
         </nav>
     </header>
 
-    <!-- CV Section -->
+    <!-- CV Section with Map -->
     <section id="cv" class="cv-section">
-        <div class="content">
-            <h2>My CV / Resume</h2>
-            <p>A brief overview of my career, education, and skills.</p>
-            
+        <div class="cv-content">
             <div class="cv-details">
+                <h2>My CV / Resume</h2>
+                <p>A brief overview of my career, education, and skills.</p>
+                
                 <h3>Education</h3>
                 <ul>
                     <li><strong>Institut Polytechnique de Paris, France (2024-2025):</strong> MSc in Data and Artificial Intelligence</li>
@@ -56,11 +58,43 @@
                     <li><strong>Deutschlandstipendium</strong></li>
                 </ul>
             </div>
+
+            <!-- Map Section -->
+            <div id="map" class="cv-map"></div>
         </div>
     </section>
 
     <footer>
         <p>&copy; 2024 Tim Luka Horstmann - All Rights Reserved</p>
     </footer>
+
+    <!-- Leaflet.js for map rendering -->
+    <script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
+<script>
+    var map = L.map('map').setView([50.1109, 8.6821], 4);  // Initial center of the map (Europe)
+
+    // Use a more subtle map style (Carto Light or Stamen Toner Lite)
+    L.tileLayer('https://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}{r}.png', {
+        attribution: '&copy; <a href="https://carto.com/">CARTO</a>',
+        maxZoom: 18,
+    }).addTo(map);
+
+    // Add markers for each location
+    var locations = [
+        { lat: 48.858844, lng: 2.294351, title: "Institut Polytechnique de Paris", description: "MSc in Data and Artificial Intelligence (2024-2025)" },
+        { lat: 52.2053, lng: 0.1218, title: "University of Cambridge", description: "MPhil in Advanced Computer Science (2023-2024)" },
+        { lat: 50.1109, lng: 8.6821, title: "RheinMain University of Applied Sciences", description: "BSc in Business Informatics (2019-2022)" },
+        { lat: 48.1351, lng: 11.5820, title: "McKinsey & Company, Munich", description: "Fellow Intern (2023)" },
+        { lat: 51.5074, lng: -0.1278, title: "Amazon, London", description: "Business Intelligence Intern (2022-2023)" },
+        { lat: 51.6184, lng: 8.3393, title: "Erwitte, Germany", description: "Städtisches Gymnasium Erwitte (2011-2019)" } // Erwitte added
+    ];
+
+    locations.forEach(function(location) {
+        L.marker([location.lat, location.lng]).addTo(map)
+        .bindPopup('<b>' + location.title + '</b><br>' + location.description);
+    });
+</script>
+
+
 </body>
 </html>

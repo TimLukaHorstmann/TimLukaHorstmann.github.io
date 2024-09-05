@@ -34,6 +34,7 @@ header {
     z-index: 10;
 }
 
+/* Navigation Links */
 .nav-links {
     display: flex;
     justify-content: center;
@@ -51,6 +52,7 @@ header {
     color: #0a9396;
 }
 
+/* Button Style */
 .nav-links .btn {
     background-color: #0a9396;
     padding: 10px 20px;
@@ -177,6 +179,42 @@ header {
 
 .cv-section ul li strong {
     color: #333333;
+}
+
+/* CV Content Layout */
+.cv-content {
+    display: flex;
+    align-items: center;  /* Vertically center the map */
+    justify-content: space-between;  /* Evenly distribute the content */
+    gap: 30px;
+    padding-top: 80px; /* Prevent content from overlapping with header */
+    padding-bottom: 50px; /* Avoid cut-off at the bottom */
+}
+
+/* Make the map narrower */
+.cv-map {
+    height: 500px;
+    width: 50%; /* Set the map to be 70% of the container */
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    position: sticky;
+    top: 100px; /* Ensure the map stays below the header */
+}
+
+/* Remove zoom controls from the map */
+.leaflet-control-zoom {
+    display: none;
+}
+
+/* Mobile Responsiveness for CV Content */
+@media only screen and (max-width: 768px) {
+    .cv-content {
+        flex-direction: column; /* Stack layout for mobile */
+    }
+    .cv-map {
+        height: 300px;
+        width: 100%; /* Full width on mobile */
+    }
 }
 
 /* Contact Section */
