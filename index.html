@@ -4,24 +4,58 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="description" content="Personal website of Tim Luka Horstmann">
-    <title>Tim Luka Horstmann</title>
+    <title>Tim Luka Horstmann - CV and Portfolio</title>
     <link rel="stylesheet" href="assets/css/web.css">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&display=swap" rel="stylesheet">
-    <script src="https://kit.fontawesome.com/a076d05399.js" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/js/all.min.js" crossorigin="anonymous"></script>
 </head>
 <body>
-    <div class="background-animation"></div>
-    <div class="hero-section">
+    <!-- Navigation Bar -->
+    <header>
+        <nav>
+            <ul class="nav-links">
+                <li><a href="#home">Home</a></li>
+                <li><a href="#cv">CV</a></li>
+                <li><a href="mailto:lukahorstmann@gmx.de" class="btn"><i class="fas fa-envelope"></i> Contact</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <!-- Landing Section -->
+    <section id="home" class="hero-section">
         <div class="content">
             <h1>Tim Luka Horstmann</h1>
-            <p class="construction-message">This website is under construction. Stay tuned for more updates!</p>
+            <p>Welcome to my personal website. Stay tuned for more updates!</p>
             <div class="buttons">
                 <a href="https://www.linkedin.com/in/luka512" class="btn" target="_blank"><i class="fab fa-linkedin"></i> Connect on LinkedIn</a>
-                <a href="mailto:lukahorstmann@gmx.de" class="btn btn-secondary"><i class="fas fa-envelope"></i> Contact Me</a>
             </div>
         </div>
-    </div>
+    </section>
+
+    <!-- CV/Resume Section -->
+    <section id="cv" class="cv-section">
+        <div class="content">
+            <h2>My CV / Resume</h2>
+            <p>Here's a quick overview of my career, education, and skills.</p>
+            <div class="cv-details">
+                <h3>Career</h3>
+                <p>Details about your work experience...</p>
+                <h3>Education</h3>
+                <p>Details about your education...</p>
+                <h3>Skills</h3>
+                <ul>
+                    <li>Skill 1</li>
+                    <li>Skill 2</li>
+                    <li>Skill 3</li>
+                </ul>
+            </div>
+        </div>
+    </section>
+
+    <footer>
+        <p>&copy; 2024 Tim Luka Horstmann - All Rights Reserved</p>
+    </footer>
 </body>
 </html>

@@ -1,103 +1,49 @@
-body {
-    margin: 0;
-    font-family: 'Montserrat', sans-serif;
-    background-color: #f4f4f4;
-    color: #333;
+/* Navigation */
+nav {
     display: flex;
-    justify-content: center;
-    align-items: center;
-    height: 100vh;
-    overflow: hidden;
-    position: relative;
-    background: linear-gradient(to right, #2980b9, #6dd5fa, #ffffff);
+    justify-content: space-between;
+    background-color: #2c3e50;
+    padding: 15px;
 }
 
-.background-animation {
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    z-index: 0;
-    background: linear-gradient(45deg, #2980b9, #6dd5fa);
-    background-size: 400% 400%;
-    animation: gradientAnimation 15s ease infinite;
+.nav-links {
+    list-style: none;
+    display: flex;
+    gap: 15px;
 }
 
-@keyframes gradientAnimation {
-    0% {
-        background-position: 0% 50%;
-    }
-    50% {
-        background-position: 100% 50%;
-    }
-    100% {
-        background-position: 0% 50%;
-    }
+.nav-links a {
+    text-decoration: none;
+    color: white;
+    font-weight: bold;
+}
+
+.nav-links a:hover {
+    color: #2980b9;
+}
+
+/* Sections */
+section {
+    padding: 100px 20px;
+    text-align: center;
 }
 
 .hero-section {
-    width: 100%;
-    height: 100%;
+    height: 100vh;
     display: flex;
     justify-content: center;
     align-items: center;
-    text-align: center;
-    z-index: 1;
-    position: relative;
+    background: linear-gradient(to right, #2980b9, #6dd5fa);
 }
 
-.content {
-    background-color: rgba(255, 255, 255, 0.85);
-    padding: 40px;
-    border-radius: 10px;
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
-    max-width: 600px;
+.cv-section {
+    background-color: #f4f4f4;
+    color: #333;
 }
 
-h1 {
-    margin: 0;
-    font-size: 3em;
-    color: #2c3e50;
-}
-
-.construction-message {
-    margin: 20px 0;
-    font-size: 1.2em;
-    color: #7f8c8d;
-    font-style: italic;
-}
-
-.buttons {
-    margin-top: 30px;
-}
-
-.btn {
-    display: inline-block;
-    margin: 10px;
-    padding: 12px 25px;
-    font-size: 1em;
+footer {
+    background-color: #2c3e50;
     color: white;
-    background-color: #2980b9;
-    text-decoration: none;
-    border-radius: 50px;
-    transition: background-color 0.3s, transform 0.3s;
-}
-
-.btn-secondary {
-    background-color: #27ae60;
-}
-
-.btn:hover {
-    background-color: #3498db;
-    transform: scale(1.05);
-}
-
-.btn-secondary:hover {
-    background-color: #2ecc71;
-    transform: scale(1.05);
-}
-
-.btn i {
-    margin-right: 8px;
+    text-align: center;
+    padding: 20px;
 }
