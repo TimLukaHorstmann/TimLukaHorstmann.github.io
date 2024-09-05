@@ -1,49 +1,145 @@
-/* Navigation */
-nav {
-    display: flex;
-    justify-content: space-between;
-    background-color: #2c3e50;
-    padding: 15px;
+/* General Styling */
+body {
+    margin: 0;
+    font-family: 'Roboto', sans-serif;
+    background-color: #f4f4f4;
+    color: #333333;
+}
+
+h1, h2, h3 {
+    font-family: 'Poppins', sans-serif;
+    font-weight: 700;
+    color: #005f73;
+}
+
+p, li {
+    font-family: 'Roboto', sans-serif;
+    font-weight: 400;
+    line-height: 1.6;
+}
+
+a {
+    text-decoration: none;
+    color: inherit;
+}
+
+/* Navigation Bar */
+header {
+    background-color: #005f73;
+    padding: 15px 0;
+    position: fixed;
+    width: 100%;
+    top: 0;
+    z-index: 10;
 }
 
 .nav-links {
-    list-style: none;
     display: flex;
-    gap: 15px;
+    justify-content: center;
+    list-style: none;
 }
 
 .nav-links a {
-    text-decoration: none;
-    color: white;
-    font-weight: bold;
+    padding: 10px 20px;
+    font-weight: 500;
+    color: #ffffff;
+    transition: color 0.3s;
 }
 
 .nav-links a:hover {
-    color: #2980b9;
+    color: #0a9396;
 }
 
-/* Sections */
-section {
-    padding: 100px 20px;
-    text-align: center;
+.nav-links .btn {
+    background-color: #0a9396;
+    padding: 10px 20px;
+    color: white;
+    border-radius: 25px;
+    transition: background-color 0.3s;
 }
 
+.nav-links .btn:hover {
+    background-color: #94d2bd;
+}
+
+/* Hero Section */
 .hero-section {
     height: 100vh;
     display: flex;
     justify-content: center;
     align-items: center;
-    background: linear-gradient(to right, #2980b9, #6dd5fa);
+    text-align: center;
+    background-color: #e0fbfc;
 }
 
+.hero-section h1 {
+    font-size: 3.5rem;
+}
+
+.hero-section p {
+    font-size: 1.2rem;
+    margin: 20px 0;
+}
+
+.buttons {
+    margin-top: 30px;
+}
+
+.buttons .btn {
+    background-color: #0a9396;
+    color: white;
+    padding: 12px 30px;
+    border-radius: 30px;
+    font-size: 1rem;
+    transition: background-color 0.3s, transform 0.3s;
+}
+
+.buttons .btn:hover {
+    background-color: #94d2bd;
+    transform: scale(1.05);
+}
+
+/* CV Section Styling */
 .cv-section {
     background-color: #f4f4f4;
-    color: #333;
+    padding: 100px 20px;
 }
 
+.cv-section h2 {
+    font-size: 2.5rem;
+    margin-bottom: 20px;
+    color: #005f73;
+}
+
+.cv-section h3 {
+    font-size: 1.8rem;
+    margin-top: 30px;
+    color: #0a9396;
+}
+
+.cv-section ul {
+    list-style-type: none;
+    padding-left: 0;
+    font-size: 1rem;
+    line-height: 1.8;
+}
+
+.cv-section ul li {
+    margin-bottom: 10px;
+}
+
+.cv-section ul li strong {
+    color: #333333;
+}
+
+
+/* Footer */
 footer {
-    background-color: #2c3e50;
+    background-color: #005f73;
     color: white;
     text-align: center;
     padding: 20px;
+    position: relative;
+    bottom: 0;
+    width: 100%;
 }
