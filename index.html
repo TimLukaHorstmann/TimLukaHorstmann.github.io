@@ -18,7 +18,7 @@
             <ul class="nav-links">
                 <li><a href="#home">Home</a></li>
                 <li><a href="#cv">CV</a></li>
-                <li><a href="mailto:lukahorstmann@gmx.de" class="btn"><i class="fas fa-envelope"></i> Contact</a></li>
+                <li><a href="#contact">Contact</a></li>
             </ul>
         </nav>
     </header>
@@ -27,9 +27,10 @@
     <section id="home" class="hero-section">
         <div class="content">
             <h1>Tim Luka Horstmann</h1>
-            <p>Welcome to my professional website.</p>
+            <p>Data Scientist | AI Enthusiast | Innovator</p>
             <div class="buttons">
-                <a href="https://www.linkedin.com/in/luka512" class="btn" target="_blank"><i class="fab fa-linkedin"></i> Connect on LinkedIn</a>
+                <a href="https://www.linkedin.com/in/luka512" class="btn" target="_blank"><i class="fab fa-linkedin"></i> LinkedIn</a>
+                <a href="mailto:lukahorstmann@gmx.de" class="btn"><i class="fas fa-envelope"></i> Mail</a>
             </div>
         </div>
     </section>
@@ -48,17 +49,47 @@
                     <li><strong>RheinMain University of Applied Sciences, Germany (2019-2022):</strong> BSc in Business Informatics, Graduated with Distinction.</li>
                     <li><strong>Städtisches Gymnasium Erwitte, Germany (2011-2019):</strong> Allgemeine Hochschulreife, Top of the Year.</li>
                 </ul>
-    
+
                 <h3>Professional Experience</h3>
                 <ul>
                     <li><strong>McKinsey & Company, Fellow Intern (May 2023 - July 2023):</strong> Munich, Germany.</li>
                     <li><strong>Amazon, Business Intelligence Intern (Oct 2022 - Apr 2023):</strong> London, United Kingdom.</li>
                     <li><strong>Continental AG, Dual Student (Sep 2019 - Sep 2022):</strong> Frankfurt, Germany.</li>
                 </ul>
+
+                <h3>Skills</h3>
+                <ul>
+                    <li><strong>Languages:</strong> Python, Java, SQL, VBA, JavaScript, HTML/CSS.</li>
+                    <li><strong>Tools:</strong> Machine Learning (PyTorch, Scikit-Learn), IoT, ETL, Linux, Ansible.</li>
+                    <li><strong>Languages:</strong> German (native), English (fluent), French (fluent).</li>
+                </ul>
+
+                <h3>Scholarships</h3>
+                <ul>
+                    <li>France Excellence Europa Scholarship (>€15,000).</li>
+                    <li>Institut Polytechnique de Paris Excellence Scholarship (>€90,000).</li>
+                    <li>Studienstiftung des deutschen Volkes (>€30,000).</li>
+                    <li>Deutschlandstipendium (€3,600).</li>
+                </ul>
             </div>
         </div>
     </section>
-    
+
+    <!-- Contact Section -->
+    <section id="contact" class="contact-section">
+        <div class="content">
+            <h2>Contact Me</h2>
+            <form action="mailto:lukahorstmann@gmx.de" method="post" enctype="text/plain">
+                <label for="name">Name:</label>
+                <input type="text" id="name" name="name" required>
+                <label for="email">Email:</label>
+                <input type="email" id="email" name="email" required>
+                <label for="message">Message:</label>
+                <textarea id="message" name="message" rows="4" required></textarea>
+                <button type="submit" class="btn">Send Message</button>
+            </form>
+        </div>
+    </section>
 
     <footer>
         <p>&copy; 2024 Tim Luka Horstmann - All Rights Reserved</p>
