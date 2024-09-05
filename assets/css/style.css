@@ -92,6 +92,8 @@ header {
     text-align: center;
     background: rgba(255, 255, 255, 0.9);
     padding: 20px;
+    z-index: 1;
+    position: relative;
 }
 
 .hero-section h1 {
@@ -119,6 +121,10 @@ header {
 .buttons .btn:hover {
     background-color: #94d2bd;
     transform: scale(1.05);
+}
+
+.buttons .btn i {
+    margin-right: 8px; /* Add space between icon and text */
 }
 
 /* Photo Placeholder Styling */
@@ -218,12 +224,30 @@ footer {
     width: 100%;
 }
 
-
+/* Particle.js */
 #particles-js {
     position: absolute;
     width: 100%;
     height: 100vh; /* Ensure the height fills the entire viewport */
-    background-color: #0a9396;
+    background-color: #007f86;
     background-size: cover;
-    z-index: -1;
+    z-index: 0; /* Ensure it stays behind the content */
+}
+
+/* Mobile Responsiveness */
+@media only screen and (max-width: 768px) {
+    .hero-section h1 {
+        font-size: 2.5rem;
+    }
+    .hero-section p {
+        font-size: 1rem;
+    }
+    .buttons .btn {
+        padding: 10px 20px;
+        font-size: 0.9rem;
+    }
+    .photo-placeholder img {
+        width: 120px;
+        height: 120px;
+    }
 }
