@@ -62,6 +62,19 @@ header {
     background-color: #94d2bd;
 }
 
+/* Photo Placeholder Styling */
+.photo-placeholder {
+    margin-bottom: 20px;
+}
+
+.photo-placeholder img {
+    width: 150px;
+    height: 150px;
+    border-radius: 50%;
+    object-fit: cover;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
 /* Hero Section */
 .hero-section {
     height: 100vh;
