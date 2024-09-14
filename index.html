@@ -1,19 +1,33 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+    <!-- Meta Tags -->
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="description" content="Personal website of Tim Luka Horstmann">
-    <title>Tim Luka Horstmann - CV and Portfolio</title>
+    <title>Tim Luka Horstmann - Portfolio</title>
+    
+    <!-- Stylesheets -->
     <link rel="stylesheet" href="assets/css/style.css">
+    
+    <!-- Google Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;500;700&family=Roboto:wght@400;500&display=swap" rel="stylesheet">
     
     <!-- Font Awesome for Icons -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
-
-    <!-- Particle.js for Animation -->
+    
+    <!-- Devicon CSS -->
+    <link rel="stylesheet" type='text/css' href="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/devicon.min.css" />
+    
+    <!-- AOS (Animate On Scroll) Library for Animations -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/aos/2.3.4/aos.css">
+    
+    <!-- Leaflet CSS -->
+    <link rel="stylesheet" href="https://unpkg.com/leaflet/dist/leaflet.css" />
+    
+    <!-- Particle.js for Background Animation -->
     <script src="https://cdn.jsdelivr.net/particles.js/2.0.0/particles.min.js"></script>
 </head>
 <body>
@@ -21,9 +35,12 @@
     <header>
         <nav>
             <ul class="nav-links">
-                <li><a href="index.html">Home</a></li>
-                <li><a href="cv.html">CV</a></li>
-                <li><a href="contact.html">Contact</a></li>
+                <li><a href="#home">Home</a></li>
+                <li><a href="#cv">CV</a></li>
+                <li><a href="#projects">Projects</a></li>
+                <li><a href="#skills">Skills</a></li>
+                <li><a href="#awards">Awards</a></li>
+                <li><a href="#contact">Contact</a></li>
             </ul>
         </nav>
     </header>
@@ -34,15 +51,280 @@
     <!-- Landing Section -->
     <section id="home" class="hero-section">
         <div class="content">
-            <div class="photo-placeholder">
+            <div class="photo-placeholder" data-aos="fade-down">
                 <img src="assets/images/profile_pic.jpg" alt="Tim Luka Horstmann Photo">
             </div>
-            <h1>Tim Luka Horstmann</h1>
-            <p>Computer Science Student | Data Scientist | AI Enthusiast</p>
-            <div class="buttons">
+            <h1 data-aos="fade-up">Tim Luka Horstmann</h1>
+            <p data-aos="fade-up" data-aos-delay="100">Computer Science Student | Data Scientist | AI Enthusiast</p>
+            <div class="buttons" data-aos="fade-up" data-aos-delay="200">
                 <a href="https://www.linkedin.com/in/luka512" class="btn" target="_blank"><i class="fab fa-linkedin"></i> LinkedIn</a>
                 <a href="mailto:lukahorstmann@gmx.de" class="btn"><i class="fas fa-envelope"></i> Mail</a>
             </div>
+        </div>
+    </section>
+
+    <!-- CV Section -->
+    <section id="cv" class="cv-section">
+        <div class="cv-content">
+            <div class="cv-details" data-aos="fade-right">
+                <h2>My CV / Resume</h2>
+                <p>A brief overview of my career, education, and experience.</p>
+                
+                <h3>Education</h3>
+                <ul>
+                    <li><strong>Institut Polytechnique de Paris, France (2024-2025):</strong> MSc in Data and Artificial Intelligence</li>
+                    <li><strong>University of Cambridge, United Kingdom (2023-2024):</strong> MPhil in Advanced Computer Science</li>
+                    <li><strong>RheinMain University of Applied Sciences, Germany (2019-2022):</strong> BSc in Business Informatics</li>
+                    <li><strong>Städtisches Gymnasium Erwitte, Germany (2011-2019):</strong> Allgemeine Hochschulreife</li>
+                </ul>
+
+                <h3>Professional Experience</h3>
+                <ul>
+                    <li><strong>McKinsey & Company, Fellow Intern (2023):</strong> Munich, Germany</li>
+                    <li><strong>Amazon, Business Intelligence Intern (2022-2023):</strong> London, UK</li>
+                    <li><strong>Continental AG, Dual Student (2019-2022):</strong> Frankfurt, Germany</li>
+                </ul>
+            </div>
+
+            <!-- Map Section -->
+            <div id="map" class="cv-map" data-aos="fade-left"></div>
+        </div>
+    </section>
+
+    <!-- Projects Section -->
+    <section id="projects" class="projects-section">
+        <div class="content">
+            <h2 data-aos="fade-up">Projects</h2>
+            <div class="projects-grid">
+                <!-- Project 1 -->
+                <div class="project-card" data-aos="fade-up" data-aos-delay="100">
+                    <div class="project-images">
+                        <img src="assets/images/cambridge.jpg" alt="University of Cambridge">
+                        <img src="assets/images/reggenome.png" alt="reggenome">
+                    </div>
+                    <h3>“Discovery and Ontology Matching of Financial Regulatory Information”</h3>
+                    <p>AI research project in regulatory technology (RegTech), utilising advanced machine learning and natural language processing techniques. The project focused on improving regulatory compliance in financial institutions through innovative automated analysis of thousands of legal documents containing financial regulatory information.</p>
+                    <!--  <a href="#" class="btn">Learn More</a> -->
+                </div>
+                <!-- Project 2 -->
+                <div class="project-card" data-aos="fade-up" data-aos-delay="200">
+                    <div class="project-images">
+                        <img src="assets/images/amazon.svg" alt="Amazon">
+                    </div>
+                    <h3>Inbound logistics project for Amazon's PanEu surface network</h3>
+                    <p>Worked with stakeholders across different organisations and drove resolution of the defect by setting up a QuickSight dashboard on top of Redshift ETL pipelines and using machine learning.</p>
+                    <!--  <a href="#" class="btn">Learn More</a> -->
+                </div>
+                <!-- Project 3 -->
+                <div class="project-card" data-aos="fade-up" data-aos-delay="300">
+                    <div class="project-images">
+                        <img src="assets/images/hsrm.png" alt="HSRM">
+                        <img src="assets/images/continental.png" alt="Continental AG">
+                    </div>
+                    <h3>“A Disaggregation Algorithm for Customer Demand Planning Using Machine Learning”</h3>
+                    <p>Development of a novel time series forecasting algorithm based on XGBoost regression models for accurately disaggregating customer demand data for use in Continental AG's customer demand planning processes.</p>
+                    <!--  <a href="#" class="btn">Learn More</a> -->
+                </div>
+                <!-- Add more project cards as needed -->
+            </div>
+        </div>
+    </section>
+
+    <!-- Skills Section -->
+    <section id="skills" class="skills-section">
+        <div class="content">
+            <h2 data-aos="fade-up">Skills & Tools</h2>
+            <div class="skills-content" data-aos="fade-up" data-aos-delay="100">
+                <h3>Languages</h3>
+                <p>German (native) | English (fluent, TOEFL: 109) | French (fluent, DELF A1, A2 & B1, DFP affaires B2)</p>
+
+                <h3>Programming Languages</h3>
+                <div class="programming-languages">
+                    <!-- Skill Card: Python -->
+                    <div class="skill-card">
+                        <i class="devicon-python-plain"></i>
+                        <p>Python (advanced)</p>
+                    </div>
+                    <!-- Skill Card: Java -->
+                    <div class="skill-card">
+                        <i class="devicon-java-plain"></i>
+                        <p>Java (advanced)</p>
+                    </div>
+                    <!-- Skill Card: SQL -->
+                    <div class="skill-card">
+                        <i class="devicon-mysql-plain"></i>
+                        <p>SQL (advanced)</p>
+                    </div>
+                    <!-- Skill Card: VBA -->
+                    <div class="skill-card">       
+                        <i class="devicon-visualbasic-plain"></i>
+                        <p>VBA (advanced)</p>
+                    </div>
+                    <!-- Skill Card: JavaScript -->
+                    <div class="skill-card">
+                        <i class="devicon-javascript-plain"></i>
+                        <p>JavaScript (intermediate)</p>
+                    </div>
+                    <!-- Skill Card: HTML/CSS -->
+                    <div class="skill-card">
+                        <i class="devicon-html5-plain"></i>
+                        <i class="devicon-css3-plain"></i>
+                        <p>HTML/CSS (intermediate)</p>
+                    </div>
+                    <!-- Skill Card: Ruby -->
+                    <div class="skill-card">
+                        <i class="devicon-ruby-plain"></i>
+                        <p>Ruby (beginner)</p>
+                    </div>
+                </div>
+
+                <h3>Further Skills</h3>
+                <div class="further-skills">
+                    <!-- Skill Card: PyTorch -->
+                    <div class="skill-card">
+                        <i class="devicon-pytorch-plain"></i>
+                        <p>PyTorch</p>
+                    </div>
+                    <!-- Skill Card: Tensorflow -->
+                    <div class="skill-card">
+                        <i class="devicon-tensorflow-original"></i>
+                        <p>Tensorflow</p>
+                    </div>
+                    <!-- Skill Card: Scikit-Learn -->
+                    <div class="skill-card">
+                        <i class="devicon-scikitlearn-plain"></i>
+                        <p>Scikit-Learn</p>
+                    </div>
+                    <!-- Skill Card: Numpy -->
+                    <div class="skill-card">
+                        <i class="devicon-numpy-plain"></i>
+                        <p>NumPy</p>
+                    </div>
+                    <!-- Skill Card: Pandas -->
+                    <div class="skill-card">
+                        <i class="devicon-pandas-plain"></i>
+                        <p>Pandas</p>
+                    </div>
+                    <!-- Skill Card: Matplotlib -->
+                    <div class="skill-card">
+                        <i class="devicon-scikitlearn-plain"></i>
+                        <p>Matplotlib</p>
+                    </div>
+                    <!-- Skill Card: Bash -->
+                    <div class="skill-card">
+                        <i class="devicon-bash-plain"></i>
+                        <p>Bash</p>
+                    </div>
+                    <!-- Skill Card: IoT -->
+                    <div class="skill-card">
+                        <i class="devicon-raspberrypi-plain"></i>
+                        <p>IoT</p>
+                    </div>
+                    <!-- Skill Card: Linux -->
+                    <div class="skill-card">
+                        <i class="devicon-linux-plain"></i>
+                        <p>Linux</p>
+                    </div>
+                    <!-- Skill Card: Ansible -->
+                    <div class="skill-card">
+                        <i class="devicon-ansible-plain"></i>
+                        <p>Ansible</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Scholarships, Programs, and Awards Section -->
+    <section id="awards" class="awards-section">
+        <div class="content">
+            <h2 data-aos="fade-up">Scholarships, Programs, and Awards</h2>
+            <div class="awards-content" data-aos="fade-up" data-aos-delay="100">
+                <h3>Scholarships</h3>
+                <div class="scholarships">
+                    <!-- Scholarship 1 -->
+                    <div class="scholarship-item">
+                        <img src="assets/images/fee.jpg" alt="France Excellence Europa Scholarship Logo">
+                        <p><strong>France Excellence Europa Scholarship:</strong>
+                            Awarded by the French government to top-performing European students for outstanding academic achievement.
+                        </p>
+                    </div>
+                    <!-- Scholarship 2 -->
+                    <div class="scholarship-item">
+                        <img src="assets/images/ipparis.png" alt="Institut Polytechnique de Paris Excellence Scholarship Logo">
+                        <p><strong>IP Paris Excellence Scholarship:</strong><br>
+                            Awarded for academic excellence. Exemption from tuition fees, annual five-figure allowance during master‘s program, and fully funded PhD program.
+                        </p>
+                    </div>
+                    <!-- Scholarship 3 -->
+                    <div class="scholarship-item">
+                        <img src="assets/images/studienstiftung.png" alt="Studienstiftung des deutschen Volkes Logo">
+                        <p><strong>Studienstiftung des deutschen Volkes:</strong><br>
+                            Awarded for outstanding academic potential by Germany's largest, oldest, and most prestigious scholarship foundation. Scholarships are awarded to fewer than 0.3% of German students.
+                        </p>
+                    </div>
+                    <!-- Scholarship 4 -->
+                    <div class="scholarship-item">
+                        <img src="assets/images/deutschlandstipendium.jpg" alt="Deutschlandstipendium Logo">
+                        <p><strong>Deutschlandstipendium:</strong><br>
+                            Awarded for excellent academic results, civic engagement, and special personal achievements.
+                        </p>
+                    </div>
+                </div>
+
+                <h3>Other Programs</h3>
+                <div class="programs">
+                    <!-- Program 1 -->
+                    <div class="program-item">
+                        <img src="assets/images/bain.png" alt="Bain Spark">
+                        <p>Bain Spark (since 2023)</p>
+                    </div>
+                    <!-- Program 2 -->
+                    <div class="program-item">
+                        <img src="assets/images/mckinsey_logo.webp" alt="McKinsey College">
+                        <p>McKinsey College (since 2023) <br>
+                        McKinsey Firsthand (since 2021)</p>
+                    </div>
+                    <!-- Program 3 -->
+                    <div class="program-item">
+                        <img src="assets/images/bcg.jpg" alt="BCG LINK">
+                        <p>BCG LINK (since 2023)</br>
+                            BCG Emerald (since 2022)</p>
+                    </div>
+                    <!-- Program 6 -->
+                    <div class="program-item">
+                        <img src="assets/images/e-fellows.jpg" alt="e-fellows.net">
+                        <p>e-fellows.net (since 2019)</p>
+                    </div>
+                </div>
+
+                <h3>Awards</h3>
+                <ul>
+                    <li>Honoured for outstanding achievements in Mathematics by the German Mathematical Society</li>
+                    <li>Honoured for outstanding accomplishments as one of the best graduates of North Rhine-Westphalia, Germany’s largest federal state, by Minister-President (ret.) Armin Laschet</li>
+                    <li>Honoured as one of the best graduates from Continental AG´s corporate dual study programme</li>
+                </ul>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section id="contact" class="contact-section">
+        <div class="content">
+            <h2 data-aos="fade-up">Contact Me</h2>
+            <!-- Contact Form -->
+            <form action="https://formspree.io/f/mnnarzrl" method="POST" data-aos="fade-up" data-aos-delay="100">
+                <label for="name">Name:</label>
+                <input type="text" id="name" name="name" required>
+    
+                <label for="email">Email:</label>
+                <input type="email" id="email" name="email" required>
+    
+                <label for="message">Message:</label>
+                <textarea id="message" name="message" rows="4" required></textarea>
+    
+                <button type="submit" class="btn">Send Message</button>
+            </form>
         </div>
     </section>
 
@@ -53,108 +335,164 @@
     <!-- Initialize Particle.js -->
     <script>
         particlesJS("particles-js", {
-        "particles": {
-            "number": {
-                "value": 80,
-                "density": {
-                    "enable": true,
-                    "value_area": 800
-                }
-            },
-            "color": {
-                "value": "#ffffff" // White color for visibility
-            },
-            "shape": {
-                "type": "circle",
-                "stroke": {
-                    "width": 0,
-                    "color": "#000000"
-                }
-            },
-            "opacity": {
-                "value": 0.9, // Increase opacity for more visibility
-                "random": false,
-                "anim": {
-                    "enable": false,
-                    "speed": 1,
-                    "opacity_min": 0.7, // Higher minimum opacity
-                    "sync": false
-                }
-            },
-            "size": {
-                "value": 6, // Increase particle size for visibility
-                "random": true,
-                "anim": {
-                    "enable": false,
-                    "speed": 40,
-                    "size_min": 0.1,
-                    "sync": false
-                }
-            },
-            "line_linked": {
-                "enable": true,
-                "distance": 150,
-                "color": "#ffffff",
-                "opacity": 0.9, // Increase the opacity of the connecting lines
-                "width": 1.5
-            },
-            "move": {
-                "enable": true,
-                "speed": 2, // Slow down the movement for a more subtle effect
-                "direction": "none",
-                "random": false,
-                "straight": false,
-                "out_mode": "out",
-                "bounce": false,
-                "attract": {
-                    "enable": false,
-                    "rotateX": 600,
-                    "rotateY": 1200
-                }
-            }
-        },
-        "interactivity": {
-            "detect_on": "canvas",
-            "events": {
-                "onhover": {
-                    "enable": true,
-                    "mode": "repulse"
-                },
-                "onclick": {
-                    "enable": true,
-                    "mode": "push"
-                },
-                "resize": true
-            },
-            "modes": {
-                "grab": {
-                    "distance": 400,
-                    "line_linked": {
-                        "opacity": 1
+            "particles": {
+                "number": {
+                    "value": 80,
+                    "density": {
+                        "enable": true,
+                        "value_area": 800
                     }
                 },
-                "bubble": {
-                    "distance": 400,
-                    "size": 40,
-                    "duration": 2,
-                    "opacity": 8,
-                    "speed": 3
+                "color": {
+                    "value": "#ffffff"
                 },
-                "repulse": {
-                    "distance": 200,
-                    "duration": 0.4
+                "shape": {
+                    "type": "circle",
+                    "stroke": {
+                        "width": 0,
+                        "color": "#000000"
+                    }
                 },
-                "push": {
-                    "particles_nb": 4
+                "opacity": {
+                    "value": 0.9,
+                    "random": false,
+                    "anim": {
+                        "enable": false,
+                        "speed": 1,
+                        "opacity_min": 0.7,
+                        "sync": false
+                    }
                 },
-                "remove": {
-                    "particles_nb": 2
+                "size": {
+                    "value": 6,
+                    "random": true,
+                    "anim": {
+                        "enable": false,
+                        "speed": 40,
+                        "size_min": 0.1,
+                        "sync": false
+                    }
+                },
+                "line_linked": {
+                    "enable": true,
+                    "distance": 150,
+                    "color": "#ffffff",
+                    "opacity": 0.9,
+                    "width": 1.5
+                },
+                "move": {
+                    "enable": true,
+                    "speed": 2,
+                    "direction": "none",
+                    "random": false,
+                    "straight": false,
+                    "out_mode": "out",
+                    "bounce": false,
+                    "attract": {
+                        "enable": false,
+                        "rotateX": 600,
+                        "rotateY": 1200
+                    }
                 }
-            }
-        },
-        "retina_detect": true
-    });
+            },
+            "interactivity": {
+                "detect_on": "canvas",
+                "events": {
+                    "onhover": {
+                        "enable": true,
+                        "mode": "repulse"
+                    },
+                    "onclick": {
+                        "enable": true,
+                        "mode": "push"
+                    },
+                    "resize": true
+                },
+                "modes": {
+                    "grab": {
+                        "distance": 400,
+                        "line_linked": {
+                            "opacity": 1
+                        }
+                    },
+                    "bubble": {
+                        "distance": 400,
+                        "size": 40,
+                        "duration": 2,
+                        "opacity": 8,
+                        "speed": 3
+                    },
+                    "repulse": {
+                        "distance": 200,
+                        "duration": 0.4
+                    },
+                    "push": {
+                        "particles_nb": 4
+                    },
+                    "remove": {
+                        "particles_nb": 2
+                    }
+                }
+            },
+            "retina_detect": true
+        });
+    </script>
 
+    <!-- Leaflet JS -->
+    <script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
+    
+    <!-- Initialize the Map -->
+    <script>
+        window.onload = function() {
+            var map = L.map('map', {
+                zoomControl: false,
+                scrollWheelZoom: false,
+                dragging: false,
+                tap: false
+            }).setView([50.1109, 8.6821], 4);  // Initial center of the map (Europe)
+
+            // Use a custom map style to match background color
+            L.tileLayer('https://{s}.basemaps.cartocdn.com/light_nolabels/{z}/{x}/{y}{r}.png', {
+                attribution: '&copy; <a href="https://carto.com/">CARTO</a>',
+                maxZoom: 18,
+                opacity: 0.7
+            }).addTo(map);
+
+            // Remove map controls
+            map.zoomControl.remove();
+
+            // Add markers for each location
+            var locations = [
+                { lat: 48.858844, lng: 2.294351, title: "Institut Polytechnique de Paris", description: "MSc in Data and Artificial Intelligence (2024-2025)" },
+                { lat: 52.2053, lng: 0.1218, title: "University of Cambridge", description: "MPhil in Advanced Computer Science (2023-2024)" },
+                { lat: 50.1109, lng: 8.6821, title: "RheinMain University of Applied Sciences", description: "BSc in Business Informatics (2019-2022)" },
+                { lat: 48.1351, lng: 11.5820, title: "McKinsey & Company, Munich", description: "Fellow Intern (2023)" },
+                { lat: 51.5074, lng: -0.1278, title: "Amazon, London", description: "Business Intelligence Intern (2022-2023)" },
+                { lat: 51.6184, lng: 8.3393, title: "Erwitte, Germany", description: "Städtisches Gymnasium Erwitte (2011-2019)" }
+            ];
+
+            locations.forEach(function(location) {
+                L.circleMarker([location.lat, location.lng], {
+                    radius: 6,
+                    fillColor: "#ff7800",
+                    color: "#fff",
+                    weight: 2,
+                    opacity: 1,
+                    fillOpacity: 0.8
+                }).addTo(map)
+                .bindPopup('<b>' + location.title + '</b><br>' + location.description);
+            });
+        };
+    </script>
+
+    <!-- Include AOS Library -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/aos/2.3.4/aos.js"></script>
+    <script>
+        AOS.init({
+            duration: 800,
+            easing: 'slide',
+            once: true,
+        });
     </script>
 </body>
 </html>

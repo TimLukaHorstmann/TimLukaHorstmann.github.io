@@ -5,6 +5,7 @@ body {
     background-color: #f4f4f4;
     color: #333333;
     overflow-x: hidden;
+    scroll-behavior: smooth; /* Smooth scrolling */
 }
 
 h1, h2, h3 {
@@ -24,9 +25,14 @@ a {
     color: inherit;
 }
 
+ul {
+    list-style-type: none;
+    padding-left: 0;
+}
+
 /* Navigation Bar */
 header {
-    background-color: #005f73;
+    background-color: rgba(0, 95, 115, 0.8); /* Semi-transparent background */
     padding: 15px 0;
     position: fixed;
     width: 100%;
@@ -34,7 +40,6 @@ header {
     z-index: 10;
 }
 
-/* Navigation Links */
 .nav-links {
     display: flex;
     justify-content: center;
@@ -46,43 +51,11 @@ header {
     font-weight: 500;
     color: #ffffff;
     transition: color 0.3s;
+    cursor: pointer;
 }
 
 .nav-links a:hover {
     color: #0a9396;
-}
-
-/* Button Style */
-.nav-links .btn {
-    background-color: #0a9396;
-    padding: 10px 20px;
-    color: white;
-    border-radius: 25px;
-    transition: background-color 0.3s;
-}
-
-.nav-links .btn:hover {
-    background-color: #94d2bd;
-}
-
-/* Animated Background */
-.animated-background {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background: linear-gradient(45deg, #0a9396, #005f73, #94d2bd);
-    background-size: 400% 400%;
-    animation: gradientAnimation 15s ease infinite;
-    z-index: -1;
-    opacity: 0.8;
-}
-
-@keyframes gradientAnimation {
-    0% { background-position: 0% 50%; }
-    50% { background-position: 100% 50%; }
-    100% { background-position: 0% 50%; }
 }
 
 /* Hero Section */
@@ -126,7 +99,7 @@ header {
 }
 
 .buttons .btn i {
-    margin-right: 8px; /* Add space between icon and text */
+    margin-right: 8px;
 }
 
 /* Photo Placeholder Styling */
@@ -184,37 +157,216 @@ header {
 /* CV Content Layout */
 .cv-content {
     display: flex;
-    align-items: center;  /* Vertically center the map */
-    justify-content: space-between;  /* Evenly distribute the content */
+    align-items: flex-start;
+    justify-content: space-between;
     gap: 30px;
-    padding-top: 80px; /* Prevent content from overlapping with header */
-    padding-bottom: 50px; /* Avoid cut-off at the bottom */
+    padding-top: 80px;
+    padding-bottom: 50px;
 }
 
-/* Make the map narrower */
+.cv-details {
+    width: 50%; /* Adjusted width to give more space to the map */
+}
+
 .cv-map {
-    height: 500px;
-    width: 50%; /* Set the map to be 70% of the container */
+    width: 50%; /* Adjusted width */
+    height: 600px; /* Increased height for better visibility */
+    position: relative;
+}
+
+#map {
+    width: 100%;
+    height: 100%;
+}
+
+.leaflet-container {
+    background: transparent !important;
+}
+
+/* Remove box shadow from map */
+.cv-map {
+    box-shadow: none;
+    border-radius: 0;
+}
+
+/* Projects Section */
+.projects-section {
+    background-color: #ffffff;
+    padding: 100px 20px;
+    text-align: center;
+}
+
+.projects-section h2 {
+    margin-bottom: 50px;
+}
+
+.projects-grid {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 30px;
+}
+
+.project-card {
+    background-color: #f4f4f4;
+    width: 300px;
     border-radius: 10px;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-    position: sticky;
-    top: 100px; /* Ensure the map stays below the header */
+    overflow: hidden;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
 }
 
-/* Remove zoom controls from the map */
-.leaflet-control-zoom {
-    display: none;
+.project-images {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 10px;
+    padding: 10px;
 }
 
-/* Mobile Responsiveness for CV Content */
-@media only screen and (max-width: 768px) {
-    .cv-content {
-        flex-direction: column; /* Stack layout for mobile */
-    }
-    .cv-map {
-        height: 300px;
-        width: 100%; /* Full width on mobile */
-    }
+.project-images img {
+    width: 120px;
+    height: 80px;
+    object-fit: contain;
+    background-color: #ffffff;
+    border-radius: 5px;
+    padding: 5px;
+}
+
+.project-card h3 {
+    font-size: 1.5rem;
+    margin: 15px 0;
+    color: #005f73;
+}
+
+.project-card p {
+    padding: 0 15px;
+    font-size: 1rem;
+    color: #333333;
+}
+
+.project-card .btn {
+    margin: 20px;
+    background-color: #0a9396;
+    color: white;
+}
+
+.project-card .btn:hover {
+    background-color: #94d2bd;
+}
+
+/* Skills Section */
+.skills-section {
+    background-color: #e0fbfc;
+    padding: 100px 20px;
+    text-align: center;
+}
+
+.skills-section h2 {
+    margin-bottom: 50px;
+}
+
+.skills-content h3 {
+    font-size: 1.8rem;
+    margin-top: 30px;
+    color: #0a9396;
+}
+
+.programming-languages, .further-skills {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 30px;
+    margin-top: 20px;
+}
+
+.skill-card {
+    width: 150px;
+    text-align: center;
+}
+
+.skill-card i, .skill-card img {
+    font-size: 4rem; /* Adjust as needed */
+    margin-bottom: 10px;
+    max-width: 100px;
+    max-height: 100px;
+}
+
+.skill-card img {
+    width: 100px;
+    height: 100px;
+    object-fit: contain;
+    background-color: #ffffff;
+    border-radius: 5px;
+    padding: 5px;
+}
+
+.skill-card p {
+    font-size: 1rem;
+    color: #333333;
+}
+
+/* Scholarships Section */
+.awards-section {
+    background-color: #f4f4f4;
+    padding: 100px 20px;
+}
+
+.awards-section h2 {
+    font-size: 2.5rem;
+    margin-bottom: 20px;
+    color: #005f73;
+    text-align: center;
+}
+
+.awards-section h3 {
+    font-size: 1.8rem;
+    margin-top: 30px;
+    color: #0a9396;
+}
+
+.scholarships, .programs {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 30px;
+    margin-top: 20px;
+}
+
+.scholarship-item, .program-item {
+    width: 300px;
+    text-align: center;
+}
+
+.scholarship-item img, .program-item img {
+    width: 150px;
+    height: 100px;
+    object-fit: contain;
+    background-color: #ffffff;
+    border-radius: 10px;
+    padding: 10px;
+    margin-bottom: 10px;
+}
+
+.scholarship-item p, .program-item p {
+    font-size: 1rem;
+    color: #333333;
+}
+
+.awards-section ul {
+    list-style-type: none;
+    padding-left: 0;
+    font-size: 1rem;
+    line-height: 1.8;
+    max-width: 800px;
+    margin: 0 auto;
+}
+
+.awards-section ul li {
+    margin-bottom: 10px;
+}
+
+.awards-section ul li strong {
+    color: #333333;
 }
 
 /* Contact Section */
@@ -224,6 +376,10 @@ header {
     text-align: center;
 }
 
+.contact-section h2 {
+    margin-bottom: 50px;
+}
+
 .contact-section form {
     max-width: 600px;
     margin: 0 auto;
@@ -231,10 +387,11 @@ header {
 
 .contact-section input, .contact-section textarea {
     width: 100%;
-    padding: 10px;
+    padding: 12px;
     margin: 10px 0;
     border: 1px solid #ccc;
     border-radius: 5px;
+    font-size: 1rem;
 }
 
 .contact-section button {
@@ -244,6 +401,8 @@ header {
     border-radius: 30px;
     font-size: 1rem;
     transition: background-color 0.3s, transform 0.3s;
+    border: none;
+    cursor: pointer;
 }
 
 .contact-section button:hover {
@@ -258,7 +417,6 @@ footer {
     text-align: center;
     padding: 20px;
     position: relative;
-    bottom: 0;
     width: 100%;
 }
 
@@ -266,26 +424,109 @@ footer {
 #particles-js {
     position: absolute;
     width: 100%;
-    height: 100vh; /* Ensure the height fills the entire viewport */
+    height: 100vh;
     background-color: #007f86;
     background-size: cover;
-    z-index: 0; /* Ensure it stays behind the content */
+    z-index: 0;
+}
+
+/* AOS Animations */
+[data-aos] {
+    opacity: 0;
+    transition-property: opacity, transform;
+}
+
+[data-aos].aos-animate {
+    opacity: 1;
+}
+
+[data-aos][data-aos][data-aos-duration="400"] {
+    transition-duration: 400ms;
 }
 
 /* Mobile Responsiveness */
 @media only screen and (max-width: 768px) {
+    /* Navigation Bar */
+    .nav-links {
+        flex-direction: column;
+        background-color: rgba(0, 95, 115, 0.9);
+        position: fixed;
+        top: 0;
+        right: -100%;
+        height: 100%;
+        width: 200px;
+        padding-top: 60px;
+        transition: right 0.3s ease;
+    }
+
+    .nav-links.show {
+        right: 0;
+    }
+
+    .nav-links a {
+        display: block;
+        margin: 20px 0;
+        text-align: center;
+    }
+
+    /* Toggle Button */
+    .toggle-btn {
+        position: absolute;
+        top: 15px;
+        right: 20px;
+        cursor: pointer;
+        color: #ffffff;
+        font-size: 1.5rem;
+    }
+
+    /* Hero Section */
     .hero-section h1 {
         font-size: 2.5rem;
     }
+
     .hero-section p {
         font-size: 1rem;
     }
+
     .buttons .btn {
         padding: 10px 20px;
         font-size: 0.9rem;
     }
+
     .photo-placeholder img {
         width: 120px;
         height: 120px;
+    }
+
+    /* CV Content Layout */
+    .cv-content {
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .cv-details {
+        width: 100%;
+    }
+
+    .cv-map {
+        width: 100%;
+        height: 300px;
+        margin-top: 30px;
+    }
+
+    /* Programming Languages Grid */
+    .programming-languages, .further-skills {
+        flex-direction: column;
+        align-items: center;
+    }
+
+    /* Projects Grid */
+    .projects-grid, .skills-grid, .scholarships, .programs {
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .project-card, .skill-card, .scholarship-item, .program-item {
+        width: 80%;
     }
 }
