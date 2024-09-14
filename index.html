@@ -20,6 +20,9 @@
     <!-- Stylesheets -->
     <link rel="stylesheet" href="assets/css/style.css">
 
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick-theme.css">
+
     <!-- Google Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -42,6 +45,13 @@
 
     <!-- Particle.js for Background Animation -->
     <script src="https://cdn.jsdelivr.net/particles.js/2.0.0/particles.min.js"></script>
+
+    <!-- jQuery -->
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
+    <!-- Slick Carousel JS -->
+    <script src="https://cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.min.js"></script>
+
 </head>
 <body>
     <!-- Navigation Bar -->
@@ -114,7 +124,7 @@
     <section id="projects" class="projects-section">
         <div class="content">
             <h2 data-aos="fade-up">Projects</h2>
-            <div class="projects-grid">
+            <div class="projects-grid carousel">
                 <!-- Project 1 -->
                 <div class="project-card" data-aos="fade-up" data-aos-delay="100">
                     <div class="project-images">
@@ -132,6 +142,42 @@
                 <!-- Project 2 -->
                 <div class="project-card" data-aos="fade-up" data-aos-delay="200">
                     <div class="project-images">
+                        <img src="assets/images/cambridge.jpg" alt="University of Cambridge" loading="lazy">
+                    </div>
+                    <h3>"Comparative Analysis of Parsing Techniques: Evaluating Performance and Error Patterns in Two Contrasting Constituency Parsers"</h3>
+                    <div class="project-toggle">
+                        <i class="fas fa-chevron-down"></i>
+                    </div>
+                    <div class="project-description">
+                        <p>To come...</p>
+                        <p>
+                            <a href="assets/documents/l95_report.pdf" target="_blank" class="btn">
+                                <i class="fas fa-file-pdf"></i> View PDF
+                            </a>
+                        </p>
+                    </div>
+                </div>
+                <!-- Project 3 -->
+                <div class="project-card" data-aos="fade-up" data-aos-delay="300">
+                    <div class="project-images">
+                        <img src="assets/images/cambridge.jpg" alt="University of Cambridge" loading="lazy">
+                    </div>
+                    <h3>Abstractive Summarization System</h3>
+                    <div class="project-toggle">
+                        <i class="fas fa-chevron-down"></i>
+                    </div>
+                    <div class="project-description">
+                        <p>Development of a transformer-based machine learning model capable of providing abstractive summarizations to news articles as part of Cambridge's L90, "Overview of Natural Language Processing", course. Implemented in PyTorch.</p>
+                        <p>
+                            <a href="https://github.com/TimLukaHorstmann/L90_tlh45_exercise3" target="_blank" class="btn">
+                                <i class="fab fa-github"></i>
+                            </a>
+                        </p>
+                    </div>
+                </div>
+                <!-- Project 4 -->
+                <div class="project-card" data-aos="fade-up" data-aos-delay="400">
+                    <div class="project-images">
                         <img src="assets/images/amazon.svg" alt="Amazon Logo" loading="lazy">
                     </div>
                     <h3>Inbound Logistics Project for Amazon's PanEU Surface Network</h3>
@@ -142,8 +188,8 @@
                         <p>Worked with stakeholders across different organizations and drove resolution of the defect by setting up a QuickSight dashboard on top of Redshift ETL pipelines and using machine learning.</p>
                     </div>
                 </div>
-                <!-- Project 3 -->
-                <div class="project-card" data-aos="fade-up" data-aos-delay="300">
+                <!-- Project 5 -->
+                <div class="project-card" data-aos="fade-up" data-aos-delay="500">
                     <div class="project-images">
                         <img src="assets/images/hsrm.png" alt="HSRM Logo" loading="lazy">
                         <img src="assets/images/continental.png" alt="Continental AG Logo" loading="lazy">
@@ -565,5 +611,39 @@
             return true;
         }
     </script>
+
+
+    <script>
+        $(document).ready(function(){
+            $('.carousel').slick({
+                infinite: true,
+                slidesToShow: 3, /* Number of project cards visible */
+                slidesToScroll: 1,
+                arrows: true, /* Enable next/prev arrows */
+                dots: true, /* Enable dots navigation */
+                autoplay: true, /* Optional: auto-slide */
+                autoplaySpeed: 4000, /* Optional: auto-slide speed */
+                responsive: [
+                    {
+                        breakpoint: 1024,
+                        settings: {
+                            slidesToShow: 2,
+                            slidesToScroll: 1,
+                            infinite: true,
+                            dots: true
+                        }
+                    },
+                    {
+                        breakpoint: 600,
+                        settings: {
+                            slidesToShow: 1,
+                            slidesToScroll: 1
+                        }
+                    }
+                ]
+            });
+        });
+    </script>
+
 </body>
 </html>

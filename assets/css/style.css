@@ -255,8 +255,8 @@ nav {
 
 .project-images img {
     width: auto;
-    height: 80px;
-    max-width: 100px;
+    height: 90px;
+    max-width: 120px;
     object-fit: contain;
     background-color: #ffffff;
     border-radius: 5px;
@@ -264,8 +264,8 @@ nav {
 }
 
 .project-card h3 {
-    font-size: 1.2rem;
-    margin: 15px 0;
+    font-size: 1.1rem;
+    margin: 10px 15px;
     color: #005f73;
 }
 
@@ -284,14 +284,75 @@ nav {
 
 .project-description {
     display: none;
-    padding: 0 15px 15px 15px;
-    font-size: 1rem;
+    padding: 15px;
+    font-size: 0.95rem;
     color: #333333;
     animation: fadeIn 0.3s ease-in-out;
 }
 
 .project-description.show {
     display: block;
+}
+
+/* Style for GitHub icon in project descriptions */
+.project-description .fab.fa-github {
+    font-size: 20px; 
+    transition: transform 0.3s ease; /* Smooth scaling effect on hover */
+}
+.project-description .fab.fa-github:hover {
+    transform: scale(1.2); 
+    color: #4078c0;
+}
+
+/* Carousel Styling */
+.carousel .slick-slide {
+    padding: 0 15px; /* Space between the cards horizontally */
+    margin-bottom: 30px; /* Add space below the cards */
+}
+
+.carousel .slick-list {
+    margin: 0 -15px; /* Align slides with padding */
+}
+
+.project-card {
+    background-color: #fff;
+    border: 1px solid #ddd;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    transition: box-shadow 0.3s ease, transform 0.3s ease;
+}
+
+.project-card:hover {
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+    transform: scale(1.02); /* Slightly enlarge the card on hover */
+}
+
+.slick-prev, .slick-next {
+    background-color: #005f73;
+    border-radius: 50%;
+    color: white;
+    width: 40px;
+    height: 40px;
+    z-index: 1;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    transition: background-color 0.3s ease, transform 0.3s ease;
+}
+
+.slick-prev:hover, .slick-next:hover {
+    background-color: #0a9396;
+    transform: scale(1.1); /* Slightly enlarge on hover */
+}
+
+.slick-dots li button:before {
+    color: #0a9396; /* Customize dots color */
+}
+
+.slick-dots li.slick-active button:before {
+    color: #005f73; /* Customize active dot color */
+    transform: scale(1.2); /* Slightly enlarge active dot */
 }
 
 @keyframes fadeIn {
