@@ -410,6 +410,11 @@ nav {
     color: #333333;
 }
 
+.soon, .soon p{
+    /*set font opacity to 0.5*/
+    color: rgba(0, 0, 0, 0.2);
+}
+
 /* Scholarships Section */
 .awards-section {
     background-color: #f4f4f4;
@@ -443,8 +448,8 @@ nav {
 }
 
 .scholarship-item img, .program-item img {
-    width: 150px;
-    height: 100px;
+    width: 170px;
+    height: 120px;
     object-fit: contain;
     background-color: #ffffff;
     border-radius: 10px;
