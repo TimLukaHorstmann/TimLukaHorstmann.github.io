@@ -4,32 +4,42 @@
     <!-- Meta Tags -->
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="Personal website of Tim Luka Horstmann">
     <title>Tim Luka Horstmann - Portfolio</title>
-    
+    <meta name="description" content="Personal website of Tim Luka Horstmann, a Computer Science student, Data Scientist, and AI Enthusiast based in Paris, France.">
+
+    <!-- Open Graph Meta Tags -->
+    <meta property="og:title" content="Tim Luka Horstmann - Portfolio">
+    <meta property="og:description" content="Personal website of Tim Luka Horstmann, a Computer Science student, Data Scientist, and AI Enthusiast based in Paris, France.">
+    <meta property="og:image" content="assets/images/profile_pic.jpg">
+    <meta property="og:url" content="https://timlukahorstmann.github.io/">
+    <meta name="twitter:card" content="summary_large_image">
+
+    <!-- Favicon -->
+    <link rel="icon" href="assets/images/favicon_io/favicon.ico" type="image/x-icon">
+
     <!-- Stylesheets -->
     <link rel="stylesheet" href="assets/css/style.css">
-    
+
     <!-- Google Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;500;700&family=Roboto:wght@400;500&display=swap" rel="stylesheet">
-    
+
     <!-- Font Awesome for Icons -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
-    
+
     <!-- Devicon CSS -->
-    <link rel="stylesheet" type='text/css' href="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/devicon.min.css" />
-    
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/devicon.min.css" />
+
     <!-- AOS (Animate On Scroll) Library for Animations -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/aos/2.3.4/aos.css">
-    
+
     <!-- Leaflet CSS -->
     <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
 
     <!-- MapTiler SDK CSS -->
     <link href="https://cdn.maptiler.com/maptiler-sdk-js/v2.2.2/maptiler-sdk.css" rel="stylesheet" />
-    
+
     <!-- Particle.js for Background Animation -->
     <script src="https://cdn.jsdelivr.net/particles.js/2.0.0/particles.min.js"></script>
 </head>
@@ -37,6 +47,9 @@
     <!-- Navigation Bar -->
     <header>
         <nav>
+            <div class="toggle-btn">
+                <i class="fas fa-bars"></i>
+            </div>
             <ul class="nav-links">
                 <li><a href="#home">Home</a></li>
                 <li><a href="#cv">CV</a></li>
@@ -55,7 +68,7 @@
     <section id="home" class="hero-section">
         <div class="content">
             <div class="photo-placeholder" data-aos="fade-down">
-                <img src="assets/images/profile_pic.jpg" alt="Tim Luka Horstmann Photo">
+                <img src="assets/images/profile_pic.jpg" alt="Photo of Tim Luka Horstmann" loading="lazy">
             </div>
             <h1 data-aos="fade-up">Tim Luka Horstmann</h1>
             <p data-aos="fade-up" data-aos-delay="100">Computer Science Student | Data Scientist | AI Enthusiast</p>
@@ -105,33 +118,44 @@
                 <!-- Project 1 -->
                 <div class="project-card" data-aos="fade-up" data-aos-delay="100">
                     <div class="project-images">
-                        <img src="assets/images/cambridge.jpg" alt="University of Cambridge">
-                        <img src="assets/images/reggenome.png" alt="reggenome">
+                        <img src="assets/images/cambridge.jpg" alt="University of Cambridge" loading="lazy">
+                        <img src="assets/images/reggenome.png" alt="RegGenome Logo" loading="lazy">
                     </div>
                     <h3>“Discovery and Ontology Matching of Financial Regulatory Information”</h3>
-                    <p>AI research project in regulatory technology (RegTech), utilising advanced machine learning and natural language processing techniques. The project focused on improving regulatory compliance in financial institutions through innovative automated analysis of thousands of legal documents containing financial regulatory information.</p>
-                    <!--  <a href="#" class="btn">Learn More</a> -->
+                    <div class="project-toggle">
+                        <i class="fas fa-chevron-down"></i>
+                    </div>
+                    <div class="project-description">
+                        <p>AI research project in regulatory technology (RegTech), utilizing advanced machine learning and natural language processing techniques. The project focused on improving regulatory compliance in financial institutions through innovative automated analysis of thousands of legal documents containing financial regulatory information.</p>
+                    </div>
                 </div>
                 <!-- Project 2 -->
                 <div class="project-card" data-aos="fade-up" data-aos-delay="200">
                     <div class="project-images">
-                        <img src="assets/images/amazon.svg" alt="Amazon">
+                        <img src="assets/images/amazon.svg" alt="Amazon Logo" loading="lazy">
                     </div>
-                    <h3>Inbound logistics project for Amazon's PanEu surface network</h3>
-                    <p>Worked with stakeholders across different organisations and drove resolution of the defect by setting up a QuickSight dashboard on top of Redshift ETL pipelines and using machine learning.</p>
-                    <!--  <a href="#" class="btn">Learn More</a> -->
+                    <h3>Inbound Logistics Project for Amazon's PanEU Surface Network</h3>
+                    <div class="project-toggle">
+                        <i class="fas fa-chevron-down"></i>
+                    </div>
+                    <div class="project-description">
+                        <p>Worked with stakeholders across different organizations and drove resolution of the defect by setting up a QuickSight dashboard on top of Redshift ETL pipelines and using machine learning.</p>
+                    </div>
                 </div>
                 <!-- Project 3 -->
                 <div class="project-card" data-aos="fade-up" data-aos-delay="300">
                     <div class="project-images">
-                        <img src="assets/images/hsrm.png" alt="HSRM">
-                        <img src="assets/images/continental.png" alt="Continental AG">
+                        <img src="assets/images/hsrm.png" alt="HSRM Logo" loading="lazy">
+                        <img src="assets/images/continental.png" alt="Continental AG Logo" loading="lazy">
                     </div>
                     <h3>“A Disaggregation Algorithm for Customer Demand Planning Using Machine Learning”</h3>
-                    <p>Development of a novel time series forecasting algorithm based on XGBoost regression models for accurately disaggregating customer demand data for use in Continental AG's customer demand planning processes.</p>
-                    <!--  <a href="#" class="btn">Learn More</a> -->
+                    <div class="project-toggle">
+                        <i class="fas fa-chevron-down"></i>
+                    </div>
+                    <div class="project-description">
+                        <p>Development of a novel time series forecasting algorithm based on XGBoost regression models for accurately disaggregating customer demand data for use in Continental AG's customer demand planning processes.</p>
+                    </div>
                 </div>
-                <!-- Add more project cards as needed -->
             </div>
         </div>
     </section>
@@ -146,38 +170,32 @@
 
                 <h3>Programming Languages</h3>
                 <div class="programming-languages">
-                    <!-- Skill Card: Python -->
+                    <!-- Skill Cards -->
                     <div class="skill-card" data-aos="fade-up" data-aos-delay="100">
                         <i class="devicon-python-plain"></i>
                         <p>Python (advanced)</p>
                     </div>
-                    <!-- Skill Card: Java -->
                     <div class="skill-card" data-aos="fade-up" data-aos-delay="150">
                         <i class="devicon-java-plain"></i>
                         <p>Java (advanced)</p>
                     </div>
-                    <!-- Skill Card: SQL -->
                     <div class="skill-card" data-aos="fade-up" data-aos-delay="200">
                         <i class="devicon-mysql-plain"></i>
                         <p>SQL (advanced)</p>
                     </div>
-                    <!-- Skill Card: VBA -->
                     <div class="skill-card" data-aos="fade-up" data-aos-delay="250">       
                         <i class="devicon-visualbasic-plain"></i>
                         <p>VBA (advanced)</p>
                     </div>
-                    <!-- Skill Card: JavaScript -->
                     <div class="skill-card" data-aos="fade-up" data-aos-delay="300">
                         <i class="devicon-javascript-plain"></i>
                         <p>JavaScript (intermediate)</p>
                     </div>
-                    <!-- Skill Card: HTML/CSS -->
                     <div class="skill-card" data-aos="fade-up" data-aos-delay="350">
                         <i class="devicon-html5-plain"></i>
                         <i class="devicon-css3-plain"></i>
                         <p>HTML/CSS (intermediate)</p>
                     </div>
-                    <!-- Skill Card: Ruby -->
                     <div class="skill-card" data-aos="fade-up" data-aos-delay="400">
                         <i class="devicon-ruby-plain"></i>
                         <p>Ruby (beginner)</p>
@@ -186,52 +204,43 @@
 
                 <h3>Further Skills</h3>
                 <div class="further-skills">
-                    <!-- Skill Card: PyTorch -->
+                    <!-- Skill Cards -->
                     <div class="skill-card" data-aos="fade-up" data-aos-delay="100">
                         <i class="devicon-pytorch-plain"></i>
                         <p>PyTorch</p>
                     </div>
-                    <!-- Skill Card: Tensorflow -->
                     <div class="skill-card" data-aos="fade-up" data-aos-delay="150">
                         <i class="devicon-tensorflow-original"></i>
-                        <p>Tensorflow</p>
+                        <p>TensorFlow</p>
                     </div>
-                    <!-- Skill Card: Scikit-Learn -->
                     <div class="skill-card" data-aos="fade-up" data-aos-delay="200">
                         <i class="devicon-scikitlearn-plain"></i>
                         <p>Scikit-Learn</p>
                     </div>
-                    <!-- Skill Card: Numpy -->
                     <div class="skill-card" data-aos="fade-up" data-aos-delay="250">
                         <i class="devicon-numpy-plain"></i>
                         <p>NumPy</p>
                     </div>
-                    <!-- Skill Card: Pandas -->
                     <div class="skill-card" data-aos="fade-up" data-aos-delay="300">
                         <i class="devicon-pandas-plain"></i>
                         <p>Pandas</p>
                     </div>
-                    <!-- Skill Card: Matplotlib -->
                     <div class="skill-card" data-aos="fade-up" data-aos-delay="350">
                         <i class="devicon-matplotlib-plain"></i>
                         <p>Matplotlib</p>
                     </div>
-                    <!-- Skill Card: Bash -->
                     <div class="skill-card" data-aos="fade-up" data-aos-delay="400">
                         <i class="devicon-bash-plain"></i>
                         <p>Bash</p>
                     </div>
-                    <!-- Skill Card: IoT -->
                     <div class="skill-card" data-aos="fade-up" data-aos-delay="450">
                         <i class="devicon-raspberrypi-plain"></i>
                         <p>IoT</p>
                     </div>
-                    <!-- Skill Card: Linux -->
                     <div class="skill-card" data-aos="fade-up" data-aos-delay="500">
                         <i class="devicon-linux-plain"></i>
                         <p>Linux</p>
                     </div>
-                    <!-- Skill Card: Ansible -->
                     <div class="skill-card" data-aos="fade-up" data-aos-delay="550">
                         <i class="devicon-ansible-plain"></i>
                         <p>Ansible</p>
@@ -248,30 +257,27 @@
             <div class="awards-content" data-aos="fade-up" data-aos-delay="100">
                 <h3>Scholarships</h3>
                 <div class="scholarships">
-                    <!-- Scholarship 1 -->
+                    <!-- Scholarship Items -->
                     <div class="scholarship-item">
-                        <img src="assets/images/fee.jpg" alt="France Excellence Europa Scholarship Logo">
+                        <img src="assets/images/fee.jpg" alt="France Excellence Europa Scholarship Logo" loading="lazy">
                         <p><strong>France Excellence Europa Scholarship:</strong>
                             Awarded by the French government to top-performing European students for outstanding academic achievement.
                         </p>
                     </div>
-                    <!-- Scholarship 2 -->
                     <div class="scholarship-item">
-                        <img src="assets/images/ipparis.png" alt="Institut Polytechnique de Paris Excellence Scholarship Logo">
+                        <img src="assets/images/ipparis.png" alt="Institut Polytechnique de Paris Excellence Scholarship Logo" loading="lazy">
                         <p><strong>IP Paris Excellence Scholarship:</strong><br>
                             Awarded for academic excellence. Exemption from tuition fees, annual five-figure allowance during master‘s program, and fully funded PhD program.
                         </p>
                     </div>
-                    <!-- Scholarship 3 -->
                     <div class="scholarship-item">
-                        <img src="assets/images/studienstiftung.png" alt="Studienstiftung des deutschen Volkes Logo">
+                        <img src="assets/images/studienstiftung.png" alt="Studienstiftung des deutschen Volkes Logo" loading="lazy">
                         <p><strong>Studienstiftung des deutschen Volkes:</strong><br>
                             Awarded for outstanding academic potential by Germany's largest, oldest, and most prestigious scholarship foundation. Scholarships are awarded to fewer than 0.3% of German students.
                         </p>
                     </div>
-                    <!-- Scholarship 4 -->
                     <div class="scholarship-item">
-                        <img src="assets/images/deutschlandstipendium.jpg" alt="Deutschlandstipendium Logo">
+                        <img src="assets/images/deutschlandstipendium.jpg" alt="Deutschlandstipendium Logo" loading="lazy">
                         <p><strong>Deutschlandstipendium:</strong><br>
                             Awarded for excellent academic results, civic engagement, and special personal achievements.
                         </p>
@@ -280,35 +286,32 @@
 
                 <h3>Other Programs</h3>
                 <div class="programs">
-                    <!-- Program 1 -->
+                    <!-- Program Items -->
                     <div class="program-item">
-                        <img src="assets/images/bain.png" alt="Bain Spark">
+                        <img src="assets/images/bain.png" alt="Bain Spark" loading="lazy">
                         <p>Bain Spark (since 2023)</p>
                     </div>
-                    <!-- Program 2 -->
                     <div class="program-item">
-                        <img src="assets/images/mckinsey_logo.webp" alt="McKinsey College">
+                        <img src="assets/images/mckinsey_logo.webp" alt="McKinsey College" loading="lazy">
                         <p>McKinsey College (since 2023) <br>
                         McKinsey Firsthand (since 2021)</p>
                     </div>
-                    <!-- Program 3 -->
                     <div class="program-item">
-                        <img src="assets/images/bcg.jpg" alt="BCG LINK">
-                        <p>BCG LINK (since 2023)</br>
+                        <img src="assets/images/bcg.jpg" alt="BCG LINK" loading="lazy">
+                        <p>BCG LINK (since 2023)<br>
                             BCG Emerald (since 2022)</p>
                     </div>
-                    <!-- Program 6 -->
                     <div class="program-item">
-                        <img src="assets/images/e-fellows.jpg" alt="e-fellows.net">
+                        <img src="assets/images/e-fellows.jpg" alt="e-fellows.net" loading="lazy">
                         <p>e-fellows.net (since 2019)</p>
                     </div>
                 </div>
 
                 <h3>Awards</h3>
                 <ul>
-                    <li>Honoured for outstanding achievements in Mathematics by the German Mathematical Society</li>
-                    <li>Honoured for outstanding accomplishments as one of the best graduates of North Rhine-Westphalia, Germany’s largest federal state, by Minister-President (ret.) Armin Laschet</li>
-                    <li>Honoured as one of the best graduates from Continental AG´s corporate dual study programme</li>
+                    <li>Honored for outstanding achievements in Mathematics by the German Mathematical Society</li>
+                    <li>Honored for outstanding accomplishments as one of the best graduates of North Rhine-Westphalia, Germany’s largest federal state, by Minister-President (ret.) Armin Laschet</li>
+                    <li>Honored as one of the best graduates from Continental AG´s corporate dual study program</li>
                 </ul>
             </div>
         </div>
@@ -319,23 +322,30 @@
         <div class="content">
             <h2 data-aos="fade-up">Contact Me</h2>
             <!-- Contact Form -->
-            <form action="https://formspree.io/f/mnnarzrl" method="POST" data-aos="fade-up" data-aos-delay="100">
+            <form action="https://formspree.io/f/mnnarzrl" method="POST" data-aos="fade-up" data-aos-delay="100" onsubmit="return validateForm()">
                 <label for="name">Name:</label>
                 <input type="text" id="name" name="name" required>
-    
+
                 <label for="email">Email:</label>
                 <input type="email" id="email" name="email" required>
-    
+
                 <label for="message">Message:</label>
                 <textarea id="message" name="message" rows="4" required></textarea>
-    
+
                 <button type="submit" class="btn">Send Message</button>
             </form>
         </div>
     </section>
 
+    <!-- Footer -->
     <footer>
-        <p>&copy; 2024 Tim Luka Horstmann - All Rights Reserved</p>
+        <div class="footer-content">
+            <p>&copy; 2024 Tim Luka Horstmann - All Rights Reserved</p>
+            <div class="social-icons">
+                <a href="https://www.linkedin.com/in/luka512" target="_blank"><i class="fab fa-linkedin"></i></a>
+                <!-- Add other social icons as needed -->
+            </div>
+        </div>
     </footer>
 
     <!-- Initialize Particle.js -->
@@ -444,19 +454,17 @@
         });
     </script>
 
-        <!-- Leaflet JS -->
-        <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+    <!-- Leaflet JS -->
+    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
 
-        <!-- MapTiler SDK JS -->
-        <script src="https://cdn.maptiler.com/maptiler-sdk-js/v2.2.2/maptiler-sdk.umd.js"></script>
+    <!-- MapTiler SDK JS -->
+    <script src="https://cdn.maptiler.com/maptiler-sdk-js/v2.2.2/maptiler-sdk.umd.js"></script>
 
-        <!-- Leaflet MapTiler SDK Integration -->
-        <script src="https://cdn.maptiler.com/leaflet-maptilersdk/v2.0.0/leaflet-maptilersdk.js"></script>
+    <!-- Leaflet MapTiler SDK Integration -->
+    <script src="https://cdn.maptiler.com/leaflet-maptilersdk/v2.0.0/leaflet-maptilersdk.js"></script>
 
-        <!-- Initialize the Map -->
-        <script>
-            // Initialize the Map
-            // Initialize the Map
+    <!-- Initialize the Map -->
+    <script>
         document.addEventListener('DOMContentLoaded', function() {
             var map = L.map('map', {
                 zoomControl: false,
@@ -496,12 +504,9 @@
                 L.marker([location.lat, location.lng]).addTo(map)
                 .bindPopup('<b>' + location.title + '</b><br>' + location.description);
             });
-
-
         });
-        </script>
-    
-    
+    </script>
+
     <!-- Include AOS Library -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/aos/2.3.4/aos.js"></script>
     <script>
@@ -510,6 +515,46 @@
             easing: 'slide',
             once: true,
         });
+    </script>
+
+    <!-- Toggle Navigation Menu -->
+    <script>
+        const toggleBtn = document.querySelector('.toggle-btn');
+        const navLinks = document.querySelector('.nav-links');
+
+        toggleBtn.addEventListener('click', () => {
+            navLinks.classList.toggle('show');
+        });
+    </script>
+
+    <!-- Expandable Project Cards -->
+    <script>
+        document.querySelectorAll('.project-card').forEach(card => {
+            const toggle = card.querySelector('.project-toggle');
+            const description = card.querySelector('.project-description');
+
+            toggle.addEventListener('click', () => {
+                description.classList.toggle('show');
+                toggle.querySelector('i').classList.toggle('fa-chevron-down');
+                toggle.querySelector('i').classList.toggle('fa-chevron-up');
+            });
+        });
+    </script>
+    
+    <!-- Form Validation -->
+    <script>
+        function validateForm() {
+            const name = document.getElementById('name').value.trim();
+            const email = document.getElementById('email').value.trim();
+            const message = document.getElementById('message').value.trim();
+
+            if (name === '' || email === '' || message === '') {
+                alert('Please fill in all fields.');
+                return false;
+            }
+            // Add more validation as needed
+            return true;
+        }
     </script>
 </body>
 </html>
