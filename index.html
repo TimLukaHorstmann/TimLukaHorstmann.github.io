@@ -510,57 +510,95 @@
     <script src="https://cdn.maptiler.com/leaflet-maptilersdk/v2.0.0/leaflet-maptilersdk.js"></script>
 
     <!-- Initialize the Map -->
-    <script>
-        document.addEventListener('DOMContentLoaded', function() {
-            var map = L.map('map', {
-                zoomControl: false,
-                scrollWheelZoom: false,
-                dragging: true,
-                tap: false
-            }).setView([50.1109, 8.6821], 5);
-    
-            // Set map bounds to Europe
-            var southWest = L.latLng(35, -10);
-            var northEast = L.latLng(60, 30);
-            var bounds = L.latLngBounds(southWest, northEast);
-            map.setMaxBounds(bounds);
-            map.on('drag', function() {
-                map.panInsideBounds(bounds, { animate: false });
-            });
-    
-            // Use MapTiler SDK to add your custom vector tile layer
-            const key = 'moHcWGL55oQVePpoGrB5'; 
-    
-            const mtLayer = L.maptilerLayer({
-                apiKey: key,
-                style: 'c9280907-adb2-45e8-8a4c-8054cc121082',
-            }).addTo(map);
-    
-            // Define a custom DivIcon
-            var emojiIcon = L.divIcon({
-                className: 'emoji-icon',
-                html: '📍',
-                iconSize: [24, 24],
-                iconAnchor: [12, 24],
-                popupAnchor: [0, -24]
-            });
-    
-            // Add markers with the custom emoji icon
-            var locations = [
-                { lat: 48.858844, lng: 2.294351, title: "Institut Polytechnique de Paris", description: "MSc in Data and AI (2024-2025)" },
-                { lat: 52.2053, lng: 0.1218, title: "University of Cambridge", description: "MPhil in Advanced CS (2023-2024)" },
-                { lat: 50.1109, lng: 8.6821, title: "RheinMain Univ. of Applied Sciences", description: "BSc in Business Informatics (2019-2022)" },
-                { lat: 48.1351, lng: 11.5820, title: "McKinsey & Company, Munich", description: "Fellow Intern (2023)" },
-                { lat: 51.5074, lng: -0.1278, title: "Amazon, London", description: "Business Intelligence Intern (2022-2023)" },
-                { lat: 51.6184, lng: 8.3393, title: "Erwitte, Germany", description: "Städtisches Gymnasium Erwitte (2011-2019)" }
-            ];
-    
-            locations.forEach(function(location) {
-                L.marker([location.lat, location.lng], { icon: emojiIcon }).addTo(map)
-                .bindPopup('<b>' + location.title + '</b><br>' + location.description);
-            });
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        // Center the map on Paris
+        var map = L.map('map', {
+            zoomControl: false,
+            scrollWheelZoom: false,
+            dragging: true,
+            tap: false
+        }).setView([48.8566, 2.3522], 5); // Paris coordinates with appropriate zoom
+
+        // Set map bounds to cover Europe excluding countries east of Poland
+        var southWest = L.latLng(35, -10); // Southwest corner (Latitude, Longitude)
+        var northEast = L.latLng(60, 24);  // Northeast corner (Latitude, Longitude)
+        var bounds = L.latLngBounds(southWest, northEast);
+        map.setMaxBounds(bounds);
+        map.on('drag', function() {
+            map.panInsideBounds(bounds, { animate: false });
         });
-    </script>
+
+        // Use MapTiler SDK to add your custom vector tile layer
+        const key = 'moHcWGL55oQVePpoGrB5'; 
+
+        const mtLayer = L.maptilerLayer({
+            apiKey: key,
+            style: 'c9280907-adb2-45e8-8a4c-8054cc121082',
+        }).addTo(map);
+
+        // Define a custom DivIcon
+        var emojiIcon = L.divIcon({
+            className: 'emoji-icon',
+            html: '📍',
+            iconSize: [24, 24],
+            iconAnchor: [12, 24],
+            popupAnchor: [0, -24]
+        });
+
+        // Updated Locations Array with Continental AG in Frankfurt
+        var locations = [
+            { 
+                lat: 48.8393, 
+                lng: 2.2851, 
+                title: "Institut Polytechnique de Paris", 
+                description: "MSc in Data and AI (2024-2025)" 
+            },
+            { 
+                lat: 52.2053, 
+                lng: 0.1218, 
+                title: "University of Cambridge", 
+                description: "MPhil in Advanced CS (2023-2024)" 
+            },
+            { 
+                lat: 49.9973, 
+                lng: 8.4017, 
+                title: "RheinMain University of Applied Sciences", 
+                description: "BSc in Business Informatics (2019-2022)" 
+            },
+            { 
+                lat: 48.1351, 
+                lng: 11.5820, 
+                title: "McKinsey & Company, Munich", 
+                description: "Fellow Intern (2023)" 
+            },
+            { 
+                lat: 51.5074, 
+                lng: -0.1278, 
+                title: "Amazon, London", 
+                description: "Business Intelligence Intern (2022-2023)" 
+            },
+            { 
+                lat: 51.6184, 
+                lng: 8.3393, 
+                title: "Erwitte, Germany", 
+                description: "Städtisches Gymnasium Erwitte (2011-2019)" 
+            },
+            { 
+                lat: 50.1181, 
+                lng: 8.6654, 
+                title: "Continental AG, Frankfurt", 
+                description: "Dual Student at Continental AG (2019-2022)" 
+            }
+        ];
+
+        // Add markers to the map
+        locations.forEach(function(location) {
+            L.marker([location.lat, location.lng], { icon: emojiIcon }).addTo(map)
+            .bindPopup('<b>' + location.title + '</b><br>' + location.description);
+        });
+    });
+</script>
 
     <!-- Include AOS Library -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/aos/2.3.4/aos.js"></script>
