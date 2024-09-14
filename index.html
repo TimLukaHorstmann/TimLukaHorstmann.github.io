@@ -472,7 +472,7 @@
                 dragging: true,
                 tap: false
             }).setView([50.1109, 8.6821], 5);
-
+    
             // Set map bounds to Europe
             var southWest = L.latLng(35, -10);
             var northEast = L.latLng(60, 30);
@@ -481,16 +481,25 @@
             map.on('drag', function() {
                 map.panInsideBounds(bounds, { animate: false });
             });
-
+    
             // Use MapTiler SDK to add your custom vector tile layer
             const key = 'moHcWGL55oQVePpoGrB5'; 
-
+    
             const mtLayer = L.maptilerLayer({
                 apiKey: key,
                 style: 'c9280907-adb2-45e8-8a4c-8054cc121082',
             }).addTo(map);
-
-            // Add markers
+    
+            // Define a custom DivIcon
+            var emojiIcon = L.divIcon({
+                className: 'emoji-icon',
+                html: '📍',
+                iconSize: [24, 24],
+                iconAnchor: [12, 24],
+                popupAnchor: [0, -24]
+            });
+    
+            // Add markers with the custom emoji icon
             var locations = [
                 { lat: 48.858844, lng: 2.294351, title: "Institut Polytechnique de Paris", description: "MSc in Data and AI (2024-2025)" },
                 { lat: 52.2053, lng: 0.1218, title: "University of Cambridge", description: "MPhil in Advanced CS (2023-2024)" },
@@ -499,9 +508,9 @@
                 { lat: 51.5074, lng: -0.1278, title: "Amazon, London", description: "Business Intelligence Intern (2022-2023)" },
                 { lat: 51.6184, lng: 8.3393, title: "Erwitte, Germany", description: "Städtisches Gymnasium Erwitte (2011-2019)" }
             ];
-
+    
             locations.forEach(function(location) {
-                L.marker([location.lat, location.lng]).addTo(map)
+                L.marker([location.lat, location.lng], { icon: emojiIcon }).addTo(map)
                 .bindPopup('<b>' + location.title + '</b><br>' + location.description);
             });
         });
@@ -540,7 +549,7 @@
             });
         });
     </script>
-    
+
     <!-- Form Validation -->
     <script>
         function validateForm() {

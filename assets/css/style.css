@@ -211,6 +211,13 @@ nav {
     height: 100%;
 }
 
+/* More specific selector */
+.leaflet-marker-icon.emoji-icon {
+    font-size: 32px;
+    line-height: 1;
+    text-align: center;
+}
+
 /* Projects Section */
 .projects-section {
     background-color: #ffffff;
