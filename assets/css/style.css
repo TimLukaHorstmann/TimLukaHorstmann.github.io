@@ -186,6 +186,11 @@ nav {
     color: #333333;
 }
 
+.cv-section ul li span {
+    font-size: 0.8rem;
+    font-style: italic;
+}
+
 /* CV Content Layout */
 .cv-content {
     display: flex;
@@ -232,17 +237,24 @@ nav {
 .projects-grid {
     display: flex;
     flex-wrap: wrap;
-    justify-content: center;
-    align-items: flex-start; /* Add this line */
-    gap: 30px;
+    justify-content: space-between; /* Ensure space between the cards */
+    align-items: flex-start;
+    gap: 30px; /* Space between the cards */
 }
 
 .project-card {
-    background-color: #f4f4f4;
-    width: 300px;
+    flex: 1 1 calc(33.333% - 40px); /* Three cards in a row, considering gaps */
+    background-color: #fff;
+    border: 1px solid #ddd;
     border-radius: 10px;
-    overflow: hidden;
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    transition: box-shadow 0.3s ease, transform 0.3s ease;
+    margin: 0 10px; /* Additional margin if needed */
+}
+
+.project-card:hover {
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+    transform: scale(1.02); /* Slightly enlarge the card on hover */
 }
 
 .project-images {
@@ -311,39 +323,33 @@ nav {
 }
 
 .carousel .slick-list {
-    margin: 0 -15px; /* Align slides with padding */
-}
-
-.project-card {
-    background-color: #fff;
-    border: 1px solid #ddd;
-    border-radius: 10px;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-    transition: box-shadow 0.3s ease, transform 0.3s ease;
-}
-
-.project-card:hover {
-    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
-    transform: scale(1.02); /* Slightly enlarge the card on hover */
+    margin: 2 -15px; /* Align slides with padding */
 }
 
 .slick-prev, .slick-next {
-    background-color: #005f73;
+    background-color: #005f73 !important; /* Change to a darker color for better visibility */
     border-radius: 50%;
-    color: white;
-    width: 40px;
-    height: 40px;
+    color: white; /* Ensure the arrow color is white */
+    width: 50px; /* Increase size if needed */
+    height: 50px;
     z-index: 1;
     display: flex;
     justify-content: center;
-    align-items: center;
+    align-items: right;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
     transition: background-color 0.3s ease, transform 0.3s ease;
+    margin-left: 10px;
+    margin-right: 10px;
 }
 
 .slick-prev:hover, .slick-next:hover {
-    background-color: #0a9396;
-    transform: scale(1.1); /* Slightly enlarge on hover */
+    background-color: #0a9396; /* Slightly lighter on hover */
+    transform: scale(1.1); /* Slightly enlarge on hover for better interaction */
+}
+
+.slick-prev::before, .slick-next::before {
+    font-size: 20px; /* Increase icon size for better visibility */
+    color: white; /* Ensure the arrow icon is white */
 }
 
 .slick-dots li button:before {
@@ -377,7 +383,7 @@ nav {
     color: #0a9396;
 }
 
-.programming-languages, .further-skills {
+.programming-languages, .libraries, .os {
     display: flex;
     flex-wrap: wrap;
     justify-content: center;
@@ -569,6 +575,10 @@ footer {
 [data-aos][data-aos][data-aos-duration="400"] {
     transition-duration: 400ms;
 }
+
+
+/* ######################################################## */
+
 
 /* Mobile Responsiveness */
 @media only screen and (max-width: 768px) {
