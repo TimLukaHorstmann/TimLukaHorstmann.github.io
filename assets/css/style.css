@@ -114,7 +114,7 @@ nav {
     left: 0;
     width: 100%;
     height: 100%;
-    background: linear-gradient(var(--overlay-color), var(--overlay-color)), url('/assets/images/paris.jpg') no-repeat center center/cover;
+    background: linear-gradient(var(--overlay-color), var(--overlay-color)), url('/assets/images/paris4.jpg') no-repeat center center/cover;
     filter: brightness(var(--background-brightness));
     z-index: -1; /* Background image behind the content */
 }
@@ -721,3 +721,6 @@ img {
     max-width: 100%;
     height: auto;
 }
+
+
+
