@@ -71,17 +71,17 @@
         </nav>
     </header>
 
-    <!-- Particle Animation Background -->
-    <div id="particles-js"></div>
-
     <!-- Landing Section -->
     <section id="home" class="hero-section">
+        <!-- Particle Animation Background -->
+        <div id="particles-js"></div>
+
         <div class="content">
             <div class="photo-placeholder" data-aos="fade-down">
                 <img src="assets/images/profile_pic.jpg" alt="Photo of Tim Luka Horstmann" loading="lazy">
             </div>
             <h1 data-aos="fade-up">Tim Luka Horstmann</h1>
-            <p data-aos="fade-up" data-aos-delay="100">Computer Science Student | Data Scientist | AI Enthusiast</p>
+            <p data-aos="fade-up" data-aos-delay="100">Computer Science Student <br> Data Scientist <br> AI Enthusiast</p>
             <p data-aos="fade-up" data-aos-delay="200">📍 Paris, France </p>
             <div class="buttons" data-aos="fade-up" data-aos-delay="200">
                 <a href="https://www.linkedin.com/in/luka512" class="btn" target="_blank"><i class="fab fa-linkedin"></i> LinkedIn</a>
@@ -459,12 +459,12 @@
                     }
                 },
                 "opacity": {
-                    "value": 0.9,
+                    "value": 0.5, /* Reduced opacity for subtle effect */
                     "random": false,
                     "anim": {
                         "enable": false,
                         "speed": 1,
-                        "opacity_min": 0.7,
+                        "opacity_min": 0.3,
                         "sync": false
                     }
                 },
@@ -482,7 +482,7 @@
                     "enable": true,
                     "distance": 150,
                     "color": "#ffffff",
-                    "opacity": 0.9,
+                    "opacity": 0.4, /* Reduced opacity for lines */
                     "width": 1.5
                 },
                 "move": {
