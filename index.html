@@ -81,7 +81,7 @@
                 <img src="assets/images/profile_pic.jpg" alt="Photo of Tim Luka Horstmann" loading="lazy">
             </div>
             <h1 data-aos="fade-up">Tim Luka Horstmann</h1>
-            <p data-aos="fade-up" data-aos-delay="100">Computer Science Student <br> Data Scientist <br> AI Enthusiast</p>
+            <p data-aos="fade-up" data-aos-delay="100">Computer Science Student | Data Scientist | AI Enthusiast</p>
             <p data-aos="fade-up" data-aos-delay="200">📍 Paris, France </p>
             <div class="buttons" data-aos="fade-up" data-aos-delay="200">
                 <a href="https://www.linkedin.com/in/luka512" class="btn" target="_blank"><i class="fab fa-linkedin"></i> LinkedIn</a>
@@ -501,41 +501,25 @@
                 }
             },
             "interactivity": {
-                "detect_on": "canvas",
                 "events": {
                     "onhover": {
                         "enable": true,
-                        "mode": "repulse"
+                        "mode": "grab"
                     },
                     "onclick": {
                         "enable": true,
-                        "mode": "push"
-                    },
-                    "resize": true
+                        "mode": "repulse"
+                    }
                 },
                 "modes": {
                     "grab": {
-                        "distance": 400,
+                        "distance": 200,
                         "line_linked": {
                             "opacity": 1
                         }
                     },
-                    "bubble": {
-                        "distance": 400,
-                        "size": 40,
-                        "duration": 2,
-                        "opacity": 8,
-                        "speed": 3
-                    },
                     "repulse": {
-                        "distance": 200,
-                        "duration": 0.4
-                    },
-                    "push": {
-                        "particles_nb": 4
-                    },
-                    "remove": {
-                        "particles_nb": 2
+                        "distance": 100
                     }
                 }
             },

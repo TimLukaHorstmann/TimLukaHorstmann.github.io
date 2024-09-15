@@ -1,7 +1,7 @@
 /* Define CSS Variables for Easy Adjustments */
 :root {
-    --overlay-color: rgba(0, 0, 0, 0.1); /* Black overlay with 20% opacity */
-    --background-brightness: 1.2; /* 20% increase in brightness */
+    --overlay-color: rgba(146, 146, 146, 0.8); /* Black overlay with 20% opacity */
+    --background-brightness: 1; /* 20% increase in brightness */
 }
 
 /* General Styling */
