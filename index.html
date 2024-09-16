@@ -52,6 +52,40 @@
     <!-- Slick Carousel JS -->
     <script src="https://cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.min.js"></script>
 
+    <!-- Tarteaucitron CSS -->
+    <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/tarteaucitronjs@1.9.3/tarteaucitron.css" />
+
+    <!-- Tarteaucitron JS -->
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/tarteaucitronjs@1.9.3/tarteaucitron.min.js"></script>
+
+    <!-- Initialize Tarteaucitron -->
+    <script type="text/javascript">
+        tarteaucitron.init({
+            "privacyUrl": "/privacy-policy.html", /* Privacy policy URL */
+            "hashtag": "#tarteaucitron", /* Open the panel with this hashtag */
+            "cookieName": "tarteaucitron", /* Cookie name */
+
+            "orientation": "bottom", /* Banner position (top - bottom) */
+            "showAlertSmall": false, /* Show the small banner on bottom right */
+            "cookieslist": true, /* Show the cookie list */
+
+            "closePopup": false, /* Show a close X on the banner */
+            "showIcon": true, /* Show cookie icon to manage cookies */
+            "iconPosition": "BottomRight", /* Position of the cookie icon */
+            "adblocker": false, /* Show a Warning if an adblocker is detected */
+            "AcceptAllCta": true, /* Show the accept all button */
+            "highPrivacy": false, /* Disable auto consent */
+            "handleBrowserDNTRequest": false, /* Respect Do Not Track */
+            "removeCredit": false, /* Remove credit link */
+            "moreInfoLink": true, /* Show more info link */
+            "useExternalCss": false, /* Use external CSS */
+            "useExternalJs": false, /* Use external JS */
+
+            "readmoreLink": "/privacy-policy.html", /* Read more link */
+            "mandatory": true /* Show a message about mandatory cookies */
+        });
+    </script>
+
     <!-- Google tag (gtag.js) -->
     <script async src="https://www.googletagmanager.com/gtag/js?id=G-6L4JDDYWZP"></script>
     <script>
@@ -641,6 +675,33 @@
         });
     });
 </script>
+
+    <!-- Google Analytics Managed by Tarteaucitron.js -->
+    <script type="text/javascript">
+        tarteaucitron.user.gajsUa = 'G-6L4JDDYWZP'; // Your GA Measurement ID
+        tarteaucitron.user.gajsMore = function () {
+            // Any additional GA configurations can go here
+        };
+        tarteaucitron.job = tarteaucitron.job || {};
+        tarteaucitron.job.googleAnalytics = {
+            "key": "googleAnalytics",
+            "type": "analytic",
+            "name": "Google Analytics",
+            "uri": "https://policies.google.com/privacy",
+            "needConsent": true,
+            "cookies": ['_ga', '_gat', '_gid'],
+            "js": function () {
+                /* Google Analytics script */
+                window.dataLayer = window.dataLayer || [];
+                function gtag(){dataLayer.push(arguments);}
+                gtag('js', new Date());
+
+                gtag('config', tarteaucitron.user.gajsUa, {
+                    'anonymize_ip': true
+                });
+            }
+        };
+    </script>
 
     <!-- Include AOS Library -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/aos/2.3.4/aos.js"></script>
