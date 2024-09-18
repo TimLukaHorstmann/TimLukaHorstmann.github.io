@@ -1,7 +1,7 @@
 /* Define CSS Variables for Easy Adjustments */
 :root {
-    --overlay-color: rgba(146, 146, 146, 0.8); /* Black overlay with 20% opacity */
-    --background-brightness: 1; /* 20% increase in brightness */
+    --overlay-color: rgba(0,0,0, 0.5); /* Black overlay with 20% opacity */
+    --background-brightness: 0.9; /* 20% increase in brightness */
 }
 
 /* General Styling */
@@ -136,12 +136,13 @@ nav {
 }
 
 .hero-section h1 {
-    font-size: 3.5rem;
+    font-size: 4rem;
+    color: #ffffff; /* Change text color to white */
 }
 
 .hero-section p {
-    font-size: 1.2rem;
-    margin: 20px 0;
+    font-size: 1.5rem;
+    color: #f0f0f0; /* Change text color to light grey */
 }
 
 .buttons {
@@ -288,7 +289,7 @@ nav {
 
 .project-card:hover {
     box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
-    transform: scale(1.02); /* Slightly enlarge the card on hover */
+    transform: scale(1.05); /* Slightly enlarge the card on hover */
 }
 
 .project-images {
@@ -330,8 +331,8 @@ nav {
 
 .project-description {
     display: none;
-    padding: 15px;
-    font-size: 0.95rem;
+    padding: 10px;
+    font-size: 0.9rem;
     color: #333333;
     animation: fadeIn 0.3s ease-in-out;
 }
@@ -361,7 +362,7 @@ nav {
 }
 
 .slick-prev, .slick-next {
-    background-color: #005f73 !important; /* Change to a darker color for better visibility */
+    background-color: #0a9396 !important; /* Change to a darker color for better visibility */
     border-radius: 50%;
     color: white; /* Ensure the arrow color is white */
     width: 50px; /* Increase size if needed */
@@ -387,7 +388,7 @@ nav {
 }
 
 .slick-dots li button:before {
-    color: #0a9396; /* Customize dots color */
+    color: #005f73; /* Customize dots color */
 }
 
 .slick-dots li.slick-active button:before {
@@ -589,15 +590,25 @@ footer {
 /* AOS Animations */
 [data-aos] {
     opacity: 0;
+    transform: translateY(20px); /* Adds a slight upward slide effect */
     transition-property: opacity, transform;
+    transition-timing-function: ease-in-out; /* Smoother animation */
+    transition-duration: 800ms; /* Increased duration for smoother animations */
 }
 
 [data-aos].aos-animate {
     opacity: 1;
+    transform: translateY(0); /* Reset transform once animation is triggered */
 }
 
-[data-aos][data-aos][data-aos-duration="400"] {
-    transition-duration: 400ms;
+[data-aos][data-aos-duration="400"] {
+    transition-duration: 400ms; /* Shorter duration where specified */
+}
+
+/* Custom easing and duration */
+[data-aos] {
+    transition-duration: 1s; /* Increase for a longer animation effect */
+    transition-timing-function: cubic-bezier(0.25, 0.1, 0.25, 1); /* Smooth easing */
 }
 
 
@@ -647,8 +658,8 @@ footer {
     }
 
     .buttons .btn {
-        padding: 10px 20px;
-        font-size: 0.9rem;
+        font-size: 0.95rem; 
+        padding: 10px 25px;
     }
 
     .photo-placeholder img {
@@ -669,6 +680,28 @@ footer {
     .cv-map {
         height: 300px;
         margin-top: 30px;
+    }
+
+    /* Styling for the Download CV Button */
+    .btn {
+        background-color: #0a9396;
+        color: white;
+        padding: 12px 30px;
+        border-radius: 30px;
+        font-size: 1rem;
+        transition: background-color 0.3s, transform 0.3s;
+        display: inline-block;
+        text-decoration: none;
+        margin: 20px 0;
+    }
+
+    .btn:hover {
+        background-color: #94d2bd;
+        transform: scale(1.05);
+    }
+
+    .btn i {
+        margin-right: 8px;
     }
 
     /* Skill Cards */

@@ -141,6 +141,11 @@
             <div class="cv-details" data-aos="fade-right">
                 <h2>My CV / Resume</h2>
                 <p>A brief overview of my career, education, and experience.</p>
+
+                <!-- View CV Button (opens in a new tab) -->
+                <a href="assets/documents/CV_TimLukaHorstmann.pdf" class="btn" target="_blank">
+                    <i class="fas fa-file-pdf"></i> View CV
+                </a>
                 
                 <h3>Education</h3>
                 <ul>
@@ -423,20 +428,18 @@
                     </div>
                 </div>
 
-                <h3>Career Development & Mentorship Programs</h3>
-                <div class="programs">
+                <h3 data-aos="fade-up">Career Development & Mentorship Programs</h3>
+                <div class="programs" data-aos="fade-up" data-aos-delay="200">
                     <!-- Program Items -->
-                    <div class="program-item">
+                    <div class="program-item" data-aos="fade-up" data-aos-delay="300">
                         <img src="assets/images/mckinsey_logo.webp" alt="McKinsey College" loading="lazy">
-                        <p>McKinsey College (since 2023) <br>
-                        McKinsey Firsthand (since 2021)</p>
+                        <p>McKinsey College (since 2023) <br> McKinsey Firsthand (since 2021)</p>
                     </div>
-                    <div class="program-item">
+                    <div class="program-item" data-aos="fade-up" data-aos-delay="400">
                         <img src="assets/images/bcg.jpg" alt="BCG LINK" loading="lazy">
-                        <p>BCG LINK (since 2023)<br>
-                            BCG Emerald (since 2022)</p>
+                        <p>BCG LINK (since 2023)<br> BCG Emerald (since 2022)</p>
                     </div>
-                    <div class="program-item">
+                    <div class="program-item" data-aos="fade-up" data-aos-delay="500">
                         <img src="assets/images/bain.png" alt="Bain Spark" loading="lazy">
                         <p>Bain Spark (since 2023)</p>
                     </div>
@@ -740,11 +743,18 @@
             const name = document.getElementById('name').value.trim();
             const email = document.getElementById('email').value.trim();
             const message = document.getElementById('message').value.trim();
+            const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 
             if (name === '' || email === '' || message === '') {
                 alert('Please fill in all fields.');
                 return false;
             }
+
+            if (!emailPattern.test(email)) {
+                alert('Please enter a valid email address.');
+                return false;
+            }
+
             // Add more validation as needed
             return true;
         }
@@ -760,7 +770,7 @@
                 arrows: true, /* Enable next/prev arrows */
                 dots: true, /* Enable dots navigation */
                 autoplay: true, /* Optional: auto-slide */
-                autoplaySpeed: 4000, /* Optional: auto-slide speed */
+                autoplaySpeed: 3000, /* Optional: auto-slide speed */
                 responsive: [
                     {
                         breakpoint: 1024,
