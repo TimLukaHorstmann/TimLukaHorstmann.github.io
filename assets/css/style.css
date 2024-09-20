@@ -772,6 +772,10 @@ footer {
     .project-card, .scholarship-item, .program-item {
         width: calc(100% - 20px); /* Full width */
     }
+
+    .skill-card .custom-icon {
+        filter: grayscale(1);
+    }
 }
 
 /* Responsive Images */
