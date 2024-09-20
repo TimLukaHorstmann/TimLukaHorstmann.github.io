@@ -446,6 +446,17 @@ nav {
     padding: 5px;
 }
 
+/* Reusable Custom Icon Class */
+.skill-card .custom-icon {
+    width: auto; /* Adjust size as needed */
+    height: 4rem;
+    display: block;
+    margin: 0 auto 10px; /* Center the icon and add spacing */
+    background-color: transparent;
+    /* Ensure consistency with Devicon icons */
+    filter: grayscale(1); /* Example: Adjust color if needed */
+}
+
 .skill-card p {
     font-size: 1rem;
     color: #333333;
@@ -622,6 +633,9 @@ footer {
         display: block;
     }
 
+    header {
+        background-color: transparent;
+    }
     /* Hide nav-links initially */
     .nav-links {
         flex-direction: column;
@@ -712,11 +726,22 @@ footer {
         margin: 5px 0;
     }
 
-    .skill-card i, .skill-card img {
+    .skill-card i, .skill-card img, .skill-card .custom-icon {
         font-size: 2rem; /* Smaller icons */
         max-width: 60px;
         max-height: 60px;
         margin-bottom: 5px;
+    }
+
+    .skill-card .custom-icon {
+        width: auto;
+        max-height: 2rem;
+        text-align: center;
+        padding: 0;
+        margin-bottom: 2px;
+        display: block;
+        background-color: transparent;
+        filter: grayscale(1);
     }
 
     .skill-card p {
