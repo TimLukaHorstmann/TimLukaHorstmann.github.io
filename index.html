@@ -152,9 +152,6 @@
             <div class="timeline">
                 <h3>Education</h3>
                 <div class="timeline-item" id="ip-paris" data-marker-id="ip-paris">
-                    <div class="timeline-icon" aria-label="Institut Polytechnique de Paris Logo">
-                        <img src="assets/images/ipparis.png" alt="Institut Polytechnique de Paris Logo">
-                    </div>
                     <div class="timeline-content">
                         <h3>Institut Polytechnique de Paris</h3>
                         <span class="timeline-date">2024-2025</span>
@@ -162,9 +159,6 @@
                     </div>
                 </div>
                 <div class="timeline-item" id="cambridge" data-marker-id="cambridge">
-                    <div class="timeline-icon" aria-label="University of Cambridge Logo">
-                        <img src="assets/images/cambridge.jpg" alt="University of Cambridge Logo">
-                    </div>
                     <div class="timeline-content">
                         <h3>University of Cambridge</h3>
                         <span class="timeline-date">2023-2024</span>
@@ -172,9 +166,6 @@
                     </div>
                 </div>
                 <div class="timeline-item" id="hsrm" data-marker-id="hsrm">
-                    <div class="timeline-icon" aria-label="RheinMain University Logo">
-                        <img src="assets/images/hsrm.png" alt="RheinMain University Logo">
-                    </div>
                     <div class="timeline-content">
                         <h3>RheinMain University of Applied Sciences</h3>
                         <span class="timeline-date">2019-2022</span>
@@ -182,9 +173,6 @@
                     </div>
                 </div>
                 <div class="timeline-item" id="sge" data-marker-id="sge">
-                    <div class="timeline-icon" aria-label="Gymnasium Erwitte Logo">
-                        <img src="assets/images/sge.jpg" alt="Gymnasium Erwitte Logo">
-                    </div>
                     <div class="timeline-content">
                         <h3>Städtisches Gymnasium Erwitte, Germany</h3>
                         <span class="timeline-date">2011-2019</span>
@@ -198,9 +186,6 @@
                 <h3>Professional Experience</h3>
 
                 <div class="timeline-item" id="mck" data-marker-id="mck">
-                    <div class="timeline-icon" aria-label="McKinsey & Company Logo">
-                        <img src="assets/images/mckinsey_logo.webp" alt="McKinsey & Company Logo">
-                    </div>
                     <div class="timeline-content">
                         <h3>McKinsey & Company</h3>
                         <span class="timeline-date">2023</span>
@@ -210,9 +195,6 @@
                 </div>
                 <!-- Add more professional experience timeline items as needed -->
                 <div class="timeline-item" id="amazon" data-marker-id="amazon">
-                    <div class="timeline-icon" aria-label="Amazon Logo">
-                        <img src="assets/images/amazon.svg" alt="Amazon Logo">
-                    </div>
                     <div class="timeline-content">
                         <h3>Amazon</h3>
                         <span class="timeline-date">2022-2023</span>
@@ -221,9 +203,6 @@
                     </div>
                 </div>
                 <div class="timeline-item" id="continental" data-marker-id="continental">
-                    <div class="timeline-icon" aria-label="Continental AG Logo">
-                        <img src="assets/images/continental.png" alt="Continental AG Logo">
-                    </div>
                     <div class="timeline-content">
                         <h3>Continental AG</h3>
                         <span class="timeline-date">2019-2022</span>
@@ -656,7 +635,7 @@
             // Center the map on Paris
             var map = L.map('map', {
                 zoomControl: false,
-                scrollWheelZoom: false,
+                scrollWheelZoom: true,
                 dragging: true,
                 tap: false
             }).setView([48.8566, 2.3522], 4); // Paris coordinates with appropriate zoom
@@ -694,49 +673,49 @@
                     lat: 48.7134020130425,
                     lng: 2.200214340663505, 
                     title: "Institut Polytechnique de Paris", 
-                    description: "MSc in Data and Artificial Intelligence (2024-2025)" 
+                    description: "Palaiseau, France <br> MSc in Data and Artificial Intelligence (2024-2025)" 
                 },
                 { 
                     id: "cambridge",
                     lat: 52.20560907290666,
                     lng: 0.11312239071815315, 
                     title: "University of Cambridge", 
-                    description: "MPhil in Advanced Computer Science (2023-2024)" 
+                    description: "Cambridge, UK <br> MPhil in Advanced Computer Science (2023-2024)" 
                 },
                 { 
                     id: "hsrm",
                     lat: 50.09835443081745, 
                     lng: 8.215862348868724, 
                     title: "RheinMain University of Applied Sciences", 
-                    description: "BSc in Business Informatics (2019-2022)" 
+                    description: "Wiesbaden, Germany <br> BSc in Business Informatics (2019-2022)" 
                 },
                 { 
                     id: "mck",
                     lat: 48.14334819083518,
                     lng: 11.562918373179789, 
                     title: "McKinsey & Company", 
-                    description: "Fellow Intern (2023)" 
+                    description: "Munich, Germany <br> Fellow Intern (2023)" 
                 },
                 { 
                     id: "amazon",
                     lat: 51.52191542111632, 
                     lng: -0.07924095706239208,
                     title: "Amazon", 
-                    description: "Business Intelligence Intern (2022-2023)" 
+                    description: "London, UK <br> Business Intelligence Intern (2022-2023)" 
                 },
                 { 
                     id: "sge",
                     lat: 51.6127099067384,
                     lng: 8.332399269599152, 
                     title: "Städtisches Gymnasium Erwitte", 
-                    description: "Abitur (2019)" 
+                    description: "Erwitte, Germany <br> Abitur (2019)" 
                 },
                 { 
                     id: "continental",
                     lat: 50.135490818761454,
                     lng: 8.594796479427476, 
                     title: "Continental AG", 
-                    description: "Dual Student (2019-2022)" 
+                    description: "Frankfurt am Main, Germany <br> Dual Student (2019-2022)" 
                 }
             ];
 
@@ -756,7 +735,7 @@
                 marker.on('click', function() {
                     const timelineItem = document.querySelector('.timeline-item[data-marker-id="' + location.id + '"]');
                     if(timelineItem){
-                        /* timelineItem.scrollIntoView({ behavior: 'smooth' }); */
+                        timelineItem.scrollIntoView({ behavior: 'smooth', block: 'center', inline: 'center' });
                         highlightTimelineItem(timelineItem);
                     }
                 });

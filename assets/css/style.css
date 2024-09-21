@@ -233,13 +233,13 @@ nav {
     border-left: 4px solid var(--primary-color);
     position: relative;
     max-width: 100%;
-    padding-left: 60px;
+    padding-left: 20px;
     max-height: 900px;
     overflow-y: auto;
 }
 
 .timeline-item {
-    padding: 5px 30px;
+    padding: 5px 0px;
     position: relative;
     background-color: inherit;
     width: 100%;
@@ -247,36 +247,54 @@ nav {
 }
 
 .timeline-item.highlight .timeline-content {
+    background-image: none !important;
     background-color: var(--accent-color);
-    color: white;
     transition: background-color 0.3s, color 0.3s;
 }
 
-.timeline-icon {
-    position: absolute;
-    left: -50px;
-    width: 70px;
-    height: 70px;
-    background-color: #e0fbfc;
-    border-radius: 50%;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    overflow: hidden;
-}
-
-.timeline-icon img {
-    width: 100%;
-    height: 100%;
-    object-fit: contain;
-    background-color: white;
-}
-
+/* Base styling for timeline content with background */
 .timeline-content {
-    padding: 10px 20px;
-    background-color: white;
+    background-size: auto 70%; /* Adjusts the image to cover the entire container */
+    background-position: center; /* Centers the image */
+    background-repeat: no-repeat; /* Prevents the image from repeating */
+    padding: 20px; /* Adjust padding as needed */
+    border-radius: 8px; /* Optional: for rounded corners */
     position: relative;
-    border-radius: 6px;
+    background-blend-mode: overlay; /* Optional: blend background color with image */
+    background-color: rgba(256, 256, 256, 0.9);
+}
+
+/* Applying background images for each timeline item */
+#ip-paris .timeline-content {
+    background-image: url("../images/ipparis.png");
+}
+
+#cambridge .timeline-content {
+    background-image: url("../images/cambridge.jpg");
+}
+
+#hsrm .timeline-content {
+    background-image: url("../images/hsrm.png");
+    background-size: auto 50%;
+}
+
+#sge .timeline-content {
+    background-image: url("../images/sge.jpg");
+}
+
+#mck .timeline-content {
+    background-image: url("../images/mckinsey_logo.webp");
+    background-size: auto 60%;
+}
+
+#amazon .timeline-content {
+    background-image: url("../images/amazon.svg");
+    background-size: auto 50%;
+}
+
+#continental .timeline-content {
+    background-image: url("../images/continental.png");
+    background-size: auto 50%;
 }
 
 .timeline-content h3 {
@@ -760,6 +778,9 @@ footer {
         margin-top: 30px;
     }
 
+    .timeline-content {
+        background-size: auto 50%; 
+    }
     /* Styling for the Download CV Button */
     .btn {
         background-color: var(--primary-color);
@@ -831,13 +852,6 @@ footer {
         max-width: 100%;
         padding: 0 15px;
         margin: 0 auto;
-    }
-
-    /* Timeline Adjustments for Smaller Screens */
-    .timeline-item .timeline-icon {
-        left: -35px;
-        width: 60px;
-        height: 60px;
     }
 
     .timeline-content h3 {
