@@ -136,51 +136,108 @@
     </section>
 
     <!-- CV Section -->
-    <section id="cv" class="cv-section">
-        <div class="cv-content">
-            <div class="cv-details" data-aos="fade-right">
-                <h2>My CV / Resume</h2>
-                <p>A brief overview of my career, education, and experience.</p>
+<section id="cv" class="cv-section">
+    <h2>My CV / Resume</h2>
 
-                <!-- View CV Button (opens in a new tab) -->
-                <a href="assets/documents/CV_TimLukaHorstmann.pdf" class="btn" target="_blank">
-                    <i class="fas fa-file-pdf"></i> View CV
-                </a>
-                
+    <p>A brief overview of my career, education, and experience.</p>
+
+    <!-- View CV Button (opens in a new tab) -->
+    <a href="assets/documents/CV_TimLukaHorstmann.pdf" class="btn" target="_blank" rel="noopener noreferrer">
+        <i class="fas fa-file-pdf"></i> View CV
+    </a>
+    <div class="cv-content">
+        <div class="cv-timeline" data-aos="fade-right">
+            
+            <!-- Education Timeline -->
+            <div class="timeline">
                 <h3>Education</h3>
-                <ul>
-                    <li>
-                        <strong>Institut Polytechnique de Paris, France (2024-2025):</strong> MSc in Data and Artificial Intelligence
-                    </li>
-                    <li>
-                        <strong>University of Cambridge, United Kingdom (2023-2024):</strong> MPhil in Advanced Computer Science <br>
-                        <span>Grade: Distinction (86%), graduated 3rd out of 61 students (top 5%) </span>
-                    </li>
-                    
-                    <li>
-                        <strong>RheinMain University of Applied Sciences, Germany (2019-2022):</strong> BSc in Business Informatics <br>
-                        <span>Grade: 1.0, top of the year, graduated with distinction (scale 1-5, 1 being best)</span> <br>
-                        <span>First business informatics student to ever achieve this grade.</span>
-                    </li>
-                    <li>
-                        <strong>Städtisches Gymnasium Erwitte, Germany (2011-2019):</strong> Abitur (University Entrance Qualification) <br>
-                        <span>Grade: 0.9, top of the year (scale 1-5, 1 being best) </span>
-                    </li>
-                </ul>
-
-                <h3>Professional Experience</h3>
-                <ul>
-                    <li><strong>McKinsey & Company, Fellow Intern (2023):</strong> Munich, Germany</li>
-                    <li><strong>Amazon, Business Intelligence Intern (2022-2023):</strong> London, United Kingdom</li>
-                    <li><strong>Continental AG, Dual Student (2019-2022):</strong> Frankfurt, Germany</li>
-                </ul>
+                <div class="timeline-item" id="ip-paris" data-marker-id="ip-paris">
+                    <div class="timeline-icon" aria-label="Institut Polytechnique de Paris Logo">
+                        <img src="assets/images/ipparis.png" alt="Institut Polytechnique de Paris Logo">
+                    </div>
+                    <div class="timeline-content">
+                        <h3>Institut Polytechnique de Paris</h3>
+                        <span class="timeline-date">2024-2025</span>
+                        <p>MSc in Data and Artificial Intelligence</p>
+                    </div>
+                </div>
+                <div class="timeline-item" id="cambridge" data-marker-id="cambridge">
+                    <div class="timeline-icon" aria-label="University of Cambridge Logo">
+                        <img src="assets/images/cambridge.jpg" alt="University of Cambridge Logo">
+                    </div>
+                    <div class="timeline-content">
+                        <h3>University of Cambridge</h3>
+                        <span class="timeline-date">2023-2024</span>
+                        <p>MPhil in Advanced Computer Science</p>
+                    </div>
+                </div>
+                <div class="timeline-item" id="hsrm" data-marker-id="hsrm">
+                    <div class="timeline-icon" aria-label="RheinMain University Logo">
+                        <img src="assets/images/hsrm.png" alt="RheinMain University Logo">
+                    </div>
+                    <div class="timeline-content">
+                        <h3>RheinMain University of Applied Sciences</h3>
+                        <span class="timeline-date">2019-2022</span>
+                        <p>BSc in Business Informatics</p>
+                    </div>
+                </div>
+                <div class="timeline-item" id="sge" data-marker-id="sge">
+                    <div class="timeline-icon" aria-label="Gymnasium Erwitte Logo">
+                        <img src="assets/images/sge.jpg" alt="Gymnasium Erwitte Logo">
+                    </div>
+                    <div class="timeline-content">
+                        <h3>Städtisches Gymnasium Erwitte, Germany</h3>
+                        <span class="timeline-date">2011-2019</span>
+                        <p>Abitur (University Entrance Qualification)</p>
+                    </div>
+                </div>
             </div>
 
-            <!-- Map Section -->
-            <div class="cv-map" data-aos="fade-left">
-                <div id="map"></div>
+            <!-- Professional Experience Timeline -->
+            <div class="timeline">
+                <h3>Professional Experience</h3>
+
+                <div class="timeline-item" id="mck" data-marker-id="mck">
+                    <div class="timeline-icon" aria-label="McKinsey & Company Logo">
+                        <img src="assets/images/mckinsey_logo.webp" alt="McKinsey & Company Logo">
+                    </div>
+                    <div class="timeline-content">
+                        <h3>McKinsey & Company</h3>
+                        <span class="timeline-date">2023</span>
+                        <p>Fellow Intern</p>
+                        <p>Munich, Germany</p>
+                    </div>
+                </div>
+                <!-- Add more professional experience timeline items as needed -->
+                <div class="timeline-item" id="amazon" data-marker-id="amazon">
+                    <div class="timeline-icon" aria-label="Amazon Logo">
+                        <img src="assets/images/amazon.svg" alt="Amazon Logo">
+                    </div>
+                    <div class="timeline-content">
+                        <h3>Amazon</h3>
+                        <span class="timeline-date">2022-2023</span>
+                        <p>Business Intelligence Intern</p>
+                        <p>London, United Kingdom</p>
+                    </div>
+                </div>
+                <div class="timeline-item" id="continental" data-marker-id="continental">
+                    <div class="timeline-icon" aria-label="Continental AG Logo">
+                        <img src="assets/images/continental.png" alt="Continental AG Logo">
+                    </div>
+                    <div class="timeline-content">
+                        <h3>Continental AG</h3>
+                        <span class="timeline-date">2019-2022</span>
+                        <p>Dual Student</p>
+                        <p>Frankfurt, Germany</p>
+                    </div>
+                </div>
             </div>
         </div>
+        <!-- Map Section -->
+        <div class="cv-map" data-aos="fade-left">
+            <div id="map"></div>
+        </div>
+        
     </section>
 
     <!-- Projects Section -->
@@ -436,7 +493,7 @@
                     </div>
                 </div>
 
-                <h3 data-aos="fade-up">Career Development & Mentorship Programs</h3>
+                <h3>Career Development & Mentorship Programs</h3>
                 <div class="programs" data-aos="fade-up" data-aos-delay="200">
                     <!-- Program Items -->
                     <div class="program-item" data-aos="fade-up" data-aos-delay="300">
@@ -593,96 +650,146 @@
     <!-- Leaflet MapTiler SDK Integration -->
     <script src="https://cdn.maptiler.com/leaflet-maptilersdk/v2.0.0/leaflet-maptilersdk.js"></script>
 
-    <!-- Initialize the Map -->
-<script>
-    document.addEventListener('DOMContentLoaded', function() {
-        // Center the map on Paris
-        var map = L.map('map', {
-            zoomControl: false,
-            scrollWheelZoom: false,
-            dragging: true,
-            tap: false
-        }).setView([48.8566, 2.3522], 4); // Paris coordinates with appropriate zoom
+    <!-- Initialize the Map with Enhanced Interactivity -->
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // Center the map on Paris
+            var map = L.map('map', {
+                zoomControl: false,
+                scrollWheelZoom: false,
+                dragging: true,
+                tap: false
+            }).setView([48.8566, 2.3522], 4); // Paris coordinates with appropriate zoom
 
-        // Set map bounds to cover Europe excluding countries east of Poland
-        var southWest = L.latLng(35, -10); // Southwest corner (Latitude, Longitude)
-        var northEast = L.latLng(60, 24);  // Northeast corner (Latitude, Longitude)
-        var bounds = L.latLngBounds(southWest, northEast);
-        map.setMaxBounds(bounds);
-        map.on('drag', function() {
-            map.panInsideBounds(bounds, { animate: false });
-        });
+            // Set map bounds to cover Europe excluding countries east of Poland
+            var southWest = L.latLng(35, -10); // Southwest corner (Latitude, Longitude)
+            var northEast = L.latLng(60, 24);  // Northeast corner (Latitude, Longitude)
+            var bounds = L.latLngBounds(southWest, northEast);
+            map.setMaxBounds(bounds);
+            map.on('drag', function() {
+                map.panInsideBounds(bounds, { animate: false });
+            });
 
-        // Use MapTiler SDK to add your custom vector tile layer
-        const key = 'moHcWGL55oQVePpoGrB5'; 
+            // Use MapTiler SDK to add your custom vector tile layer
+            const key = 'moHcWGL55oQVePpoGrB5'; 
 
-        const mtLayer = L.maptilerLayer({
-            apiKey: key,
-            style: 'c9280907-adb2-45e8-8a4c-8054cc121082',
-        }).addTo(map);
+            const mtLayer = L.maptilerLayer({
+                apiKey: key,
+                style: 'c9280907-adb2-45e8-8a4c-8054cc121082',
+            }).addTo(map);
 
-        // Define a custom DivIcon
-        var emojiIcon = L.divIcon({
-            className: 'emoji-icon',
-            html: '📍',
-            iconSize: [24, 24],
-            iconAnchor: [12, 24],
-            popupAnchor: [0, -24]
-        });
+            // Define a custom DivIcon
+            var emojiIcon = L.divIcon({
+                className: 'emoji-icon',
+                html: '📍',
+                iconSize: [24, 24],
+                iconAnchor: [12, 24],
+                popupAnchor: [0, -24]
+            });
 
-        // Updated Locations Array with Continental AG in Frankfurt
-        var locations = [
-            { 
-                lat: 48.7134020130425,
-                lng: 2.200214340663505, 
-                title: "Institut Polytechnique de Paris", 
-                description: "MSc in Data and Artificial Intelligence (2024-2025)" 
-            },
-            { 
-                lat: 52.20560907290666,
-                lng: 0.11312239071815315, 
-                title: "University of Cambridge", 
-                description: "MPhil in Advanced Computer Science (2023-2024)" 
-            },
-            { 
-                lat: 50.09835443081745, 
-                lng: 8.215862348868724, 
-                title: "RheinMain University of Applied Sciences", 
-                description: "BSc in Business Informatics (2019-2022)" 
-            },
-            { 
-                lat: 48.14334819083518,
-                lng: 11.562918373179789, 
-                title: "McKinsey & Company", 
-                description: "Fellow Intern (2023)" 
-            },
-            { 
-                lat: 51.52191542111632, 
-                lng: -0.07924095706239208,
-                title: "Amazon", 
-                description: "Business Intelligence Intern (2022-2023)" 
-            },
-            { 
-                lat: 51.6127099067384,
-                lng: 8.332399269599152, 
-                title: "Städtisches Gymnasium Erwitte ", 
-                description: "Abitur (2019)" 
-            },
-            { 
-                lat: 50.135490818761454,
-                lng: 8.594796479427476, 
-                title: "Continental AG", 
-                description: "Dual Student (2019-2022)" 
+            // Updated Locations Array with Unique IDs
+            var locations = [
+                { 
+                    id: "ip-paris",
+                    lat: 48.7134020130425,
+                    lng: 2.200214340663505, 
+                    title: "Institut Polytechnique de Paris", 
+                    description: "MSc in Data and Artificial Intelligence (2024-2025)" 
+                },
+                { 
+                    id: "cambridge",
+                    lat: 52.20560907290666,
+                    lng: 0.11312239071815315, 
+                    title: "University of Cambridge", 
+                    description: "MPhil in Advanced Computer Science (2023-2024)" 
+                },
+                { 
+                    id: "hsrm",
+                    lat: 50.09835443081745, 
+                    lng: 8.215862348868724, 
+                    title: "RheinMain University of Applied Sciences", 
+                    description: "BSc in Business Informatics (2019-2022)" 
+                },
+                { 
+                    id: "mck",
+                    lat: 48.14334819083518,
+                    lng: 11.562918373179789, 
+                    title: "McKinsey & Company", 
+                    description: "Fellow Intern (2023)" 
+                },
+                { 
+                    id: "amazon",
+                    lat: 51.52191542111632, 
+                    lng: -0.07924095706239208,
+                    title: "Amazon", 
+                    description: "Business Intelligence Intern (2022-2023)" 
+                },
+                { 
+                    id: "sge",
+                    lat: 51.6127099067384,
+                    lng: 8.332399269599152, 
+                    title: "Städtisches Gymnasium Erwitte", 
+                    description: "Abitur (2019)" 
+                },
+                { 
+                    id: "continental",
+                    lat: 50.135490818761454,
+                    lng: 8.594796479427476, 
+                    title: "Continental AG", 
+                    description: "Dual Student (2019-2022)" 
+                }
+            ];
+
+            // Store markers with their unique IDs
+            var markers = {};
+
+            // Add markers to the map and store them
+            locations.forEach(function(location) {
+                var marker = L.marker([location.lat, location.lng], { icon: emojiIcon }).addTo(map)
+                    .bindPopup('<b>' + location.title + '</b><br>' + location.description);
+                markers[location.id] = marker;
+            });
+
+            // Add click event to markers to highlight corresponding timeline item
+            locations.forEach(function(location) {
+                var marker = markers[location.id];
+                marker.on('click', function() {
+                    const timelineItem = document.querySelector('.timeline-item[data-marker-id="' + location.id + '"]');
+                    if(timelineItem){
+                        /* timelineItem.scrollIntoView({ behavior: 'smooth' }); */
+                        highlightTimelineItem(timelineItem);
+                    }
+                });
+            });
+
+            // Function to highlight timeline item
+            function highlightTimelineItem(item) {
+                // Remove highlight from all items
+                document.querySelectorAll('.timeline-item').forEach(it => {
+                    it.classList.remove('highlight');
+                });
+                // Add highlight to the selected item
+                item.classList.add('highlight');
+                // Optionally, remove highlight after a few seconds
+                setTimeout(() => {
+                    item.classList.remove('highlight');
+                }, 3000);
             }
-        ];
 
-        // Add markers to the map
-        locations.forEach(function(location) {
-            L.marker([location.lat, location.lng], { icon: emojiIcon }).addTo(map)
-            .bindPopup('<b>' + location.title + '</b><br>' + location.description);
+            // Add click event to timeline items to highlight corresponding marker
+            document.querySelectorAll('.timeline-item').forEach(item => {
+                item.addEventListener('click', () => {
+                    const markerId = item.getAttribute('data-marker-id');
+                    const marker = markers[markerId];
+                    if(marker){
+                        marker.openPopup();
+                        highlightTimelineItem(item);
+                    }
+                });
+            });
+
         });
-    });
-</script>
+    </script>
 
     <!-- Google Analytics Managed by Tarteaucitron.js -->
     <script type="text/javascript">
@@ -768,7 +875,6 @@
         }
     </script>
 
-
     <script>
         $(document).ready(function(){
             $('.carousel').slick({
@@ -794,7 +900,7 @@
                         settings: {
                             slidesToShow: 1,
                             slidesToScroll: 1
-                        }
+                                    }
                     }
                 ]
             });
