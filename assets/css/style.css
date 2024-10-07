@@ -1,5 +1,6 @@
 /* Define CSS Variables for Easy Adjustments */
 :root {
+    --header-height: 60px;
     --overlay-color: rgba(0, 0, 0, 0.5); /* Black overlay with 50% opacity */
     --background-brightness: 0.9; /* 10% reduction in brightness */
     --primary-color: #0a9396;
@@ -54,7 +55,8 @@ ul {
 /* Navigation Bar */
 header {
     background-color: rgba(0, 95, 115, 0.8); /* Semi-transparent background */
-    padding: 15px 0;
+    height: var(--header-height);
+    padding: 0;
     position: fixed;
     width: 100%;
     top: 0;
@@ -108,12 +110,12 @@ nav {
 /* Hero Section */
 .hero-section {
     position: relative;
-    height: 100vh;
+    min-height: 100vh;
     display: flex;
     justify-content: center;
     align-items: center;
     text-align: center;
-    padding: 20px;
+    padding: 0px;
     z-index: 1; /* Content sits above the particles */
 }
 
@@ -183,6 +185,7 @@ nav {
 
 /* Photo Placeholder Styling */
 .photo-placeholder {
+    margin-top: var(--header-height);
     margin-bottom: 20px;
 }
 
