@@ -106,7 +106,7 @@
             </div>
             <ul class="nav-links">
                 <li><a href="#home">Home</a></li>
-                <li><a href="#cv">CV</a></li>
+                <li><a href="#cv">Resume/CV</a></li>
                 <li><a href="#projects">Projects</a></li>
                 <li><a href="#skills">Skills</a></li>
                 <li><a href="#awards">Scholarships</a></li>
@@ -138,13 +138,13 @@
 
     <!-- CV Section -->
 <section id="cv" class="cv-section">
-    <h2>My CV / Resume</h2>
+    <h2>My Resume/CV</h2>
 
     <p>A brief overview of my career, education, and experience.</p>
 
     <!-- View CV Button (opens in a new tab) -->
-    <a href="assets/documents/CV_TimLukaHorstmann.pdf" class="btn" target="_blank" rel="noopener noreferrer">
-        <i class="fas fa-file-pdf"></i> View CV
+    <a href="assets/documents/Resume_TimLukaHorstmann.pdf" class="btn" target="_blank" rel="noopener noreferrer">
+        <i class="fas fa-file-pdf"></i> View Resume
     </a>
     <div class="cv-content">
         <div class="cv-timeline" data-aos="fade-right">
@@ -626,15 +626,18 @@
                 }
             },
             "interactivity": {
-                "detect_on": "canvas",  /* Ensure interaction is detected on the canvas */
+                "detect_on": "canvas",
                 "events": {
                     "onhover": {
                         "enable": true,
-                        "mode": "grab"  /* Options: "grab", "bubble", "repulse" */
+                        "mode": "grab"
                     },
                     "onclick": {
                         "enable": true,
-                        "mode": "push"  /* Options: "push", "remove", "bubble", "repulse" */
+                        "mode": "push",
+                        "callback": function(event) {
+                            createRipple(event);
+                        }
                     },
                     "resize": true
                 },
@@ -645,22 +648,8 @@
                             "opacity": 1
                         }
                     },
-                    "bubble": {
-                        "distance": 200,
-                        "size": 80,
-                        "duration": 2,
-                        "opacity": 0.8,
-                        "speed": 3
-                    },
-                    "repulse": {
-                        "distance": 200,
-                        "duration": 0.4
-                    },
                     "push": {
                         "particles_nb": 4
-                    },
-                    "remove": {
-                        "particles_nb": 2
                     }
                 }
             },
@@ -944,6 +933,37 @@
                     }
                 ]
             });
+        });
+    </script>
+
+
+    <script>
+        // Function to create a ripple effect at the exact click location
+        function createRipple(event) {
+            const ripple = document.createElement('span');
+            ripple.classList.add('ripple');
+            
+            // Set the size of the ripple
+            const size = 50; // Smaller size for elegance
+            ripple.style.width = ripple.style.height = `${size}px`;
+
+            // Position ripple precisely based on the mouse click location
+            const rect = event.target.getBoundingClientRect();
+            ripple.style.left = `${event.clientX - rect.left - size / 2}px`;
+            ripple.style.top = `${event.clientY - rect.top - size / 2}px`;
+
+            // Add the ripple to the hero section
+            document.querySelector('.hero-section').appendChild(ripple);
+
+            // Remove the ripple after animation ends
+            ripple.addEventListener('animationend', () => {
+                ripple.remove();
+            });
+        }
+
+        // Add ripple effect when clicking inside the hero section
+        document.querySelector('.hero-section').addEventListener('click', function(event) {
+            createRipple(event);
         });
     </script>
 
