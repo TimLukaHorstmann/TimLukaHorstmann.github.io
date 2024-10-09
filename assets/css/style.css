@@ -140,7 +140,7 @@ nav {
     height: 100%;
     z-index: 0; /* Positioned between the background and the content */
     opacity: 0.3; /* Adjust for desired subtlety */
-    pointer-events: none; /* Ensure particles don't interfere with user interactions */
+
 }
 
 .content {
@@ -247,7 +247,15 @@ nav {
     background-color: inherit;
     width: 100%;
     margin-bottom: 10px;
+    transition: background-color 0.3s ease, transform 0.3s ease;
+    cursor: pointer;
 }
+
+.timeline-item:hover {
+    /* Highlight the timeline item on hover by adding a nice border */
+    border-left: 4px solid var(--accent-color);
+}
+
 
 .timeline-item.highlight .timeline-content {
     background-image: none !important;
@@ -430,6 +438,52 @@ nav {
     transform: scale(1.2);
     color: #4078c0;
 }
+
+/* Upcoming Projects Section */
+
+/* Style for Upcoming Project Cards */
+.project-card.upcoming {
+    position: relative;
+    overflow: hidden;
+    filter: grayscale(100%); /* Grey out the card */
+    pointer-events: none; /* Disable interaction */
+    transition: none; /* Disable hover transitions */
+    border: 1px solid #ccc; /* Optional: Add a subtle border */
+    background-color: #f9f9f9; /* Optional: Light background */
+    cursor: default; /* Indicate non-interactive element */
+}
+
+/* Apply grayscale and opacity to images inside upcoming project cards */
+.project-card.upcoming img {
+    filter: grayscale(100%);
+    opacity: 0.6;
+    transition: none; /* Disable image hover transitions */
+}
+
+/* Add a diagonal "Coming Soon" ribbon */
+.project-card.upcoming::before {
+    content: "Coming soon!";
+    position: absolute;
+    top: 10px;
+    right: -40px;
+    width: 160px;
+    background: var(--primary-color);
+    color: #fff;
+    text-align: center;
+    transform: rotate(45deg);
+    font-size: 0.8rem;
+    font-weight: bold;
+    padding: 15px 0;
+    z-index: 2;
+    box-shadow: 0 2px 6px rgba(0,0,0,0.2);
+}
+
+/* Disable hover effects on upcoming projects */
+.project-card.upcoming:hover {
+    transform: none;
+    box-shadow: none;
+}
+
 
 /* Carousel Styling */
 .carousel .slick-slide {

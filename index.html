@@ -250,7 +250,7 @@
                         <i class="fas fa-chevron-down"></i>
                     </div>
                     <div class="project-description">
-                        <p></p>
+                        <p>Conducted a comparative analysis of two state-of-the-art constituency parsers, the Charniak-Johnson parser and the Berkeley Neural Parser, as part of Cambridge’s L95, "Introduction to Natural Language Syntax and Parsing" course. The project focused on evaluating performance and identifying error patterns, highlighting the advantages of modern neural parsing techniques. Implemented in Python using bllipparser and benepar libraries.</p>
                         <p>
                             <a href="assets/documents/l95_report.pdf" target="_blank" class="btn">
                                 <i class="fas fa-file-pdf"></i> View PDF
@@ -310,6 +310,35 @@
                     </div>
                     <div class="project-description">
                         <p>Development of a novel time series forecasting algorithm based on XGBoost regression models for accurately disaggregating customer demand data for use in Continental AG's customer demand planning processes.</p>
+                    </div>
+                </div>
+
+                <!-- Upcoming Project 1 -->
+                <div class="project-card upcoming" data-aos="fade-up" data-aos-delay="600">
+                    <div class="project-images">
+                        <!-- Placeholder Image or Icon -->
+                        <img src="assets/images/ipparis.png" alt="Coming Soon" loading="lazy">
+                    </div>
+                    <h3>Research Internship Project</h3>
+                    <div class="project-toggle">
+                        <i class="fas fa-chevron-down"></i>
+                    </div>
+                    <div class="project-description">
+                        <p>Details coming soon...</p>
+                    </div>
+                </div>
+
+                <!-- Upcoming Project 2 -->
+                <div class="project-card upcoming" data-aos="fade-up" data-aos-delay="700">
+                    <div class="project-images">
+                        <img src="assets/images/coding.png" alt="Coming Soon" loading="lazy">
+                    </div>
+                    <h3>Transformer from scratch</h3>
+                    <div class="project-toggle">
+                        <i class="fas fa-chevron-down"></i>
+                    </div>
+                    <div class="project-description">
+                        <p>Details coming soon...</p>
                     </div>
                 </div>
             </div>
@@ -566,31 +595,25 @@
                     }
                 },
                 "opacity": {
-                    "value": 0.5, /* Reduced opacity for subtle effect */
+                    "value": 0.5,
                     "random": false,
                     "anim": {
-                        "enable": false,
-                        "speed": 1,
-                        "opacity_min": 0.3,
-                        "sync": false
+                        "enable": false
                     }
                 },
                 "size": {
-                    "value": 6,
+                    "value": 3,
                     "random": true,
                     "anim": {
-                        "enable": false,
-                        "speed": 40,
-                        "size_min": 0.1,
-                        "sync": false
+                        "enable": false
                     }
                 },
                 "line_linked": {
                     "enable": true,
                     "distance": 150,
                     "color": "#ffffff",
-                    "opacity": 0.4, /* Reduced opacity for lines */
-                    "width": 1.5
+                    "opacity": 0.4,
+                    "width": 1
                 },
                 "move": {
                     "enable": true,
@@ -599,24 +622,21 @@
                     "random": false,
                     "straight": false,
                     "out_mode": "out",
-                    "bounce": false,
-                    "attract": {
-                        "enable": false,
-                        "rotateX": 600,
-                        "rotateY": 1200
-                    }
+                    "bounce": false
                 }
             },
             "interactivity": {
+                "detect_on": "canvas",  /* Ensure interaction is detected on the canvas */
                 "events": {
                     "onhover": {
                         "enable": true,
-                        "mode": "grab"
+                        "mode": "grab"  /* Options: "grab", "bubble", "repulse" */
                     },
                     "onclick": {
                         "enable": true,
-                        "mode": "repulse"
-                    }
+                        "mode": "push"  /* Options: "push", "remove", "bubble", "repulse" */
+                    },
+                    "resize": true
                 },
                 "modes": {
                     "grab": {
@@ -625,8 +645,22 @@
                             "opacity": 1
                         }
                     },
+                    "bubble": {
+                        "distance": 200,
+                        "size": 80,
+                        "duration": 2,
+                        "opacity": 0.8,
+                        "speed": 3
+                    },
                     "repulse": {
-                        "distance": 100
+                        "distance": 200,
+                        "duration": 0.4
+                    },
+                    "push": {
+                        "particles_nb": 4
+                    },
+                    "remove": {
+                        "particles_nb": 2
                     }
                 }
             },
