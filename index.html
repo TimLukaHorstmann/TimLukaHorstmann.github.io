@@ -671,8 +671,8 @@
         document.addEventListener('DOMContentLoaded', function() {
             // Center the map on Paris
             var map = L.map('map', {
-                zoomControl: false,
-                scrollWheelZoom: true,
+                zoomControl: true,
+                scrollWheelZoom: false,
                 dragging: true,
                 tap: false
             }).setView([48.8566, 2.3522], 4); // Paris coordinates with appropriate zoom
@@ -907,13 +907,15 @@
     <script>
         $(document).ready(function(){
             $('.carousel').slick({
-                infinite: false,
+                infinite: true,
                 slidesToShow: 3, /* Number of project cards visible */
                 slidesToScroll: 1,
                 arrows: true, /* Enable next/prev arrows */
                 dots: true, /* Enable dots navigation */
                 autoplay: true, /* Optional: auto-slide */
                 autoplaySpeed: 3000, /* Optional: auto-slide speed */
+                lazyLoad: 'ondemand', /* Optional: lazy load images */
+                vertical: false, /* Optional: vertical carousel */
                 responsive: [
                     {
                         breakpoint: 1024,

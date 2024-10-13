@@ -241,7 +241,6 @@ nav {
     display: flex;
     align-items: stretch;
     justify-content: space-between;
-    gap: 30px;
     padding: 0px 0 50px;
 }
 
@@ -340,7 +339,7 @@ nav {
 
 /* Map Section */
 .cv-map {
-    margin-top: 90px;
+    margin-top: 100px;
     width: 45%;
     max-height: 100%;
     position: relative;
@@ -349,6 +348,38 @@ nav {
 #map {
     width: 100%;
     height: 100%;
+    border-radius: 8px;
+}
+
+/* Style the zoom control container */
+.leaflet-control-zoom {
+    background-color: rgba(255, 255, 255, 0.5); /* Semi-transparent background */
+    border-radius: 10px; /* Rounded corners */
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2); /* Subtle shadow for depth */
+    width: auto; /* Adjust the width */
+    height: auto; /* Adjust the height */
+}
+
+/* Style the zoom-in and zoom-out buttons */
+.leaflet-control-zoom-in,
+.leaflet-control-zoom-out {
+    background-color: transparent !important; /* Make the buttons transparent */
+    border: none; /* Remove border */
+    font-size: 18px; /* Adjust the font size */
+    color: #333 !important; /* Dark color for the icons */
+    transition: background-color 0.3s, color 0.3s; /* Smooth transitions */
+}
+
+/* Hover effect for zoom buttons */
+.leaflet-control-zoom-in:hover,
+.leaflet-control-zoom-out:hover {
+    background-color: rgba(0, 0, 0, 0.1); /* Slight background on hover */
+    color: #000; /* Darker text on hover */
+}
+
+/* Customize the size and shape of zoom control buttons */
+.leaflet-control-zoom-in {
+    border-bottom: 1px solid rgba(0, 0, 0, 0.1); /* Line separating the buttons */
 }
 
 /* Leaflet Marker Icon Adjustments */
