@@ -18,6 +18,12 @@
     box-sizing: border-box; /* Include padding and borders within element dimensions */
 }
 
+/* Prevent horizontal overflow on html and body */
+html, body {
+    max-width: 100%;
+    overflow-x: hidden;
+}
+
 body {
     margin: 0;
     font-family: 'Roboto', sans-serif;
@@ -829,16 +835,17 @@ footer {
         background-color: rgba(0, 95, 115, 0.9);
         position: fixed;
         top: 0;
-        right: -100%;
+        right: 0;
+        transform: translateX(100%); /* Hide off-screen to the right */
         height: 100%;
         width: 250px;
         padding-top: 60px;
-        transition: right 0.3s ease;
+        transition: transform 0.3s ease;
         z-index: 10;
     }
 
     .nav-links.show {
-        right: 0;
+        transform: translateX(0);
     }
 
     .nav-links a {
