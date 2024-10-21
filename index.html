@@ -4,11 +4,11 @@
     <!-- Meta Tags -->
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Tim Luka Horstmann - Portfolio</title>
+    <title>Tim Luka Horstmann</title>
     <meta name="description" content="Personal website of Tim Luka Horstmann, a Computer Science student, Data Scientist, and AI Enthusiast based in Paris, France.">
 
     <!-- Open Graph Meta Tags -->
-    <meta property="og:title" content="Tim Luka Horstmann - Portfolio">
+    <meta property="og:title" content="Tim Luka Horstmann">
     <meta property="og:description" content="Personal website of Tim Luka Horstmann, a Computer Science student, Data Scientist, and AI Enthusiast based in Paris, France.">
     <meta property="og:image" content="assets/images/profile_pic.jpg">
     <meta property="og:url" content="https://horstmann.tech">
@@ -101,17 +101,33 @@
     <!-- Navigation Bar -->
     <header>
         <nav>
-            <div class="toggle-btn">
-                <i class="fas fa-bars"></i>
+            <div class="container">
+                <!-- Logo for larger screens -->
+                <a href="#home" class="nav-logo-wrapper">
+                    <img src="assets/images/logo_white.png" alt="Logo" class="nav-logo">
+                </a>
+                
+                <!-- Navigation links -->
+                <ul class="nav-links">
+                    <!-- Logo for small screens -->
+                    <li class="mobile-logo">
+                        <a href="#home">
+                            <img src="assets/images/logo_white.png" alt="Logo" class="nav-logo-mobile">
+                        </a>
+                    </li>
+                    <li><a href="#home">Home</a></li>
+                    <li><a href="#cv">Resume/CV</a></li>
+                    <li><a href="#projects">Projects</a></li>
+                    <li><a href="#skills">Skills</a></li>
+                    <li><a href="#awards">Scholarships</a></li>
+                    <li><a href="#contact">Contact</a></li>
+                </ul>
+                
+                <!-- Toggle Button for Mobile -->
+                <div class="toggle-btn">
+                    <i class="fas fa-bars"></i>
+                </div>
             </div>
-            <ul class="nav-links">
-                <li><a href="#home">Home</a></li>
-                <li><a href="#cv">Resume/CV</a></li>
-                <li><a href="#projects">Projects</a></li>
-                <li><a href="#skills">Skills</a></li>
-                <li><a href="#awards">Scholarships</a></li>
-                <li><a href="#contact">Contact</a></li>
-            </ul>
         </nav>
     </header>
 
