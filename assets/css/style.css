@@ -104,6 +104,7 @@ nav {
     height: 45px; /* Adjust size */
     width: auto;
     margin-right: 15px;
+    padding: 4px;
 }
 
 .nav-logo-mobile {
