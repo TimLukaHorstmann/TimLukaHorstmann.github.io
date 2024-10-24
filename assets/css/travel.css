@@ -1,10 +1,27 @@
 /* Travel-specific styles */
 
 /* Introduction Section */
+/* Travel Introduction Section */
 .travel-intro {
-    margin-top: calc(var(--header-height) + 20px); /* Push content below the fixed header */
-    padding: 50px 20px;
+    position: relative;
     text-align: center;
+    color: #fff;
+    padding: 150px 20px;
+    margin-top: calc(var(--header-height) + 20px);
+    overflow: hidden;
+    /* text-shadow: 0 0 5px rgba(0,0,0,0.5); */
+}
+
+.travel-intro .travel-background-image {
+    position: absolute;
+    top: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 20%;
+    height: 100%;
+    object-fit: cover;
+    opacity: 0.3;
+    z-index: -1;
 }
 
 .travel-intro h2 {

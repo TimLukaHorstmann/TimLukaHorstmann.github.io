@@ -59,6 +59,7 @@
 <main>
     <!-- Introduction Section -->
     <section class="travel-intro" data-aos="fade-right">
+        <img src="assets/images/travel.png" alt="Travel Background" class="travel-background-image">
         <h2>My Travel Adventures</h2>
         <p>Welcome to my travel page! Here, you can explore the various countries I've visited around the world. Click on the highlighted countries to see photos and stories from each trip. Traveling is a passion of mine, and I'm excited to share my experiences with you.</p>
     </section>
@@ -154,7 +155,8 @@ document.addEventListener('DOMContentLoaded', function() {
         'PRT',  // Portugal
         'MCO',  // Monaco
         'SMR',  // San Marino
-        'AUT'   // Austria
+        'AUT',   // Austria
+        'SVK'   // Slovakia
         // Add more ISO A3 codes as needed
     ];
 
@@ -168,7 +170,6 @@ document.addEventListener('DOMContentLoaded', function() {
             cities: [
                 { name: "Paris", lat: 48.8566, lng: 2.3522 },
                 { name: "Lyon", lat: 45.7640, lng: 4.8357 },
-                { name: "Marseille", lat: 43.2965, lng: 5.3698 },
                 { name: "Bordeaux", lat: 44.8378, lng: -0.5792 },
                 { name: "Carcassonne", lat: 43.2128, lng: 2.3530 },
                 { name: "Nice", lat: 43.7102, lng: 7.2620 },
@@ -253,11 +254,18 @@ document.addEventListener('DOMContentLoaded', function() {
             ],
             photos: ["assets/images/travel/usa/boston1.jpg", "assets/images/travel/usa/boston2.jpg"]
         },
-        { 
+        {
             id: "south_africa",
             iso_a3: "ZAF",
             title: "South Africa",
-            description: "Explored Cape Town.",
+            description: "Explored various cities in South Africa.",
+            cities: [
+                { name: "Cape Town", lat: -33.9249, lng: 18.4241 },
+                { name: "Stellenbosch", lat: -33.9321, lng: 18.8602 },
+                { name: "Port Elizabeth", lat: -33.7139, lng: 25.5207 },
+                { name: "Addo", lat: -33.5550, lng: 25.6928 },
+                { name: "Oudtshoorn", lat: -33.5906, lng: 22.2014 }
+            ],
             photos: ["assets/images/travel/south_africa/cape_town1.jpg", "assets/images/travel/south_africa/cape_town2.jpg"]
         },
         { 
@@ -302,11 +310,14 @@ document.addEventListener('DOMContentLoaded', function() {
             description: "Visited Budapest.",
             photos: ["assets/images/travel/hungary/budapest1.jpg", "assets/images/travel/hungary/budapest2.jpg"]
         },
-        { 
+        {
             id: "ireland",
             iso_a3: "IRL",
             title: "Ireland",
             description: "Explored the lush landscapes of Ireland.",
+            cities: [
+                { name: "Dublin", lat: 53.3498, lng: -6.2603 }
+            ],
             photos: ["assets/images/travel/ireland/ireland1.jpg", "assets/images/travel/ireland/ireland2.jpg"]
         },
         {
@@ -320,18 +331,24 @@ document.addEventListener('DOMContentLoaded', function() {
             ],
             photos: ["assets/images/travel/switzerland/switzerland1.jpg", "assets/images/travel/switzerland/switzerland2.jpg"]
         },
-        { 
+        {
             id: "poland",
             iso_a3: "POL",
             title: "Poland",
-            description: "Explored the historic sites in Warsaw and Krakow.",
+            description: "Explored the historic city of Danzig (Gdańsk).",
+            cities: [
+                { name: "Danzig (Gdańsk)", lat: 54.3520, lng: 18.6466 }
+            ],
             photos: ["assets/images/travel/poland/poland1.jpg", "assets/images/travel/poland/poland2.jpg"]
         },
-        { 
+        {
             id: "denmark",
             iso_a3: "DNK",
             title: "Denmark",
             description: "Visited Copenhagen and enjoyed Danish pastries.",
+            cities: [
+                { name: "Kopenhagen", lat: 55.6761, lng: 12.5683 }
+            ],
             photos: ["assets/images/travel/denmark/denmark1.jpg", "assets/images/travel/denmark/denmark2.jpg"]
         },
         { 
@@ -382,6 +399,16 @@ document.addEventListener('DOMContentLoaded', function() {
                 { name: "Salzburg", lat: 47.8095, lng: 13.0550 }
             ],
             photos: ["assets/images/travel/austria/austria1.jpg", "assets/images/travel/austria/austria2.jpg"]
+        },
+        {
+            id: "slovakia",
+            iso_a3: "SVK",
+            title: "Slovakia",
+            description: "Visited the capital city, Bratislava.",
+            cities: [
+                { name: "Bratislava", lat: 48.1486, lng: 17.1077 }
+            ],
+            photos: ["assets/images/travel/slovakia/slovakia1.jpg", "assets/images/travel/slovakia/slovakia2.jpg"]
         }
     ];
 
@@ -460,7 +487,7 @@ document.addEventListener('DOMContentLoaded', function() {
         countryInfoDiv.appendChild(countryDescription);
         
         var citiesHeader = document.createElement('h3');
-        citiesHeader.textContent = "Cities Visited:";
+        citiesHeader.textContent = "Selected cities I visited:";
 
         var citiesList = document.createElement('ul');
 
