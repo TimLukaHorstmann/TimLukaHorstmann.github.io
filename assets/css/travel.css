@@ -159,12 +159,11 @@
 }
 
 /* Add a grid-sizer for Masonry */
-.grid-sizer {
-    width: 10%; /* Base width for grid items (5 columns) */
+.grid-sizer, .grid-item  {
+    width: 15%; /* Base width for grid items (5 columns) */
 }
 
 .grid-item {
-    width: 10%;
     float: left;
     margin-bottom: 10px;
 }
