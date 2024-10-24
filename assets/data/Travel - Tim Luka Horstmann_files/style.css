@@ -1,0 +1,1059 @@
+/* Define CSS Variables for Easy Adjustments */
+:root {
+    --header-height: 60px;
+    --overlay-color: rgba(0, 0, 0, 0.5); /* Black overlay with 50% opacity */
+    --background-brightness: 0.9; /* 10% reduction in brightness */
+    --primary-color: #0a9396;
+    --secondary-color: #005f73;
+    --accent-color: #94d2bd;
+    --text-color: #333333;
+    --light-text: #f0f0f0;
+    --highlight-color: #94d2bd;
+}
+
+/* General Styling */
+*,
+*::before,
+*::after {
+    box-sizing: border-box; /* Include padding and borders within element dimensions */
+}
+
+/* Prevent horizontal overflow on html and body */
+html, body {
+    max-width: 100%;
+    overflow-x: hidden;
+}
+
+body {
+    margin: 0;
+    font-family: 'Roboto', sans-serif;
+    background-color: #f4f4f4;
+    color: var(--text-color);
+    overflow-x: hidden; /* Prevent horizontal overflow */
+    scroll-behavior: smooth;
+}
+
+h1,
+h2,
+h3 {
+    font-family: 'Poppins', sans-serif;
+    font-weight: 700;
+    color: var(--secondary-color);
+}
+
+p,
+li {
+    font-family: 'Roboto', sans-serif;
+    font-weight: 400;
+    line-height: 1.6;
+}
+
+a {
+    text-decoration: none;
+    color: inherit;
+}
+
+ul {
+    list-style: none;
+    padding-left: 0;
+}
+
+/* Navigation Bar */
+header {
+    background-color: rgba(0, 95, 115, 0.8); /* Semi-transparent background */
+    height: var(--header-height);
+    padding: 0;
+    position: fixed;
+    width: 100%;
+    top: 0;
+    z-index: 10;
+}
+
+/* Container to align logo, navigation, and toggle button */
+.container {
+    display: flex;
+    justify-content: space-between; /* Space between logo and links */
+    align-items: center;
+    width: 100%;
+    padding: 0 20px;
+}
+
+nav {
+    height: var(--header-height);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+/* Centering the navigation links */
+.nav-links {
+    display: flex;
+    justify-content: center; /* Centers the nav links */
+    flex-grow: 1; /* Makes the nav-links take up remaining space equally */
+    list-style: none;
+    margin: 0;
+}
+
+/* Logo styling */
+.nav-logo-wrapper {
+    position: absolute;
+    left: 20px;
+}
+
+.nav-logo {
+    height: 45px; /* Adjust size */
+    width: auto;
+    margin-right: 15px;
+    padding: 4px;
+}
+
+.nav-logo-mobile {
+    display: none; /* Hidden by default */
+    height: 45px; /* Adjust size for mobile */
+    width: auto;
+    margin-bottom: 20px; /* Spacing for mobile logo */
+}
+
+/* Adjusting navigation links */
+.nav-links a {
+    padding: 10px 20px;
+    font-weight: 500;
+    color: #ffffff;
+    transition: color 0.3s;
+    cursor: pointer;
+}
+
+.nav-links a:hover {
+    color: var(--primary-color);
+}
+
+/* Toggle button (hamburger menu) */
+.toggle-btn {
+    display: none;
+    position: absolute;
+    top: 50%;
+    right: 20px;
+    transform: translateY(-50%);
+    cursor: pointer;
+    color: #ffffff;
+    font-size: 1.5rem;
+    z-index: 11;
+    background-color: rgba(0, 0, 0, 0.3);
+    padding: 10px;
+    border-radius: 5px;
+}
+
+/* Hero Section */
+.hero-section {
+    position: relative;
+    min-height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    padding: 0px;
+    z-index: 1; /* Content sits above the particles */
+}
+
+.hero-section::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(var(--overlay-color), var(--overlay-color)),
+        url('/assets/images/paris4.jpg') no-repeat center center/cover;
+    filter: brightness(var(--background-brightness));
+    z-index: -1; /* Background image behind the content */
+}
+
+#particles-js {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 0; /* Positioned between the background and the content */
+    opacity: 0.3; /* Adjust for desired subtlety */
+
+}
+
+/* Elegant Ripple Effect */
+.ripple {
+    position: absolute;
+    border-radius: 50%;
+    background-color: rgba(255, 255, 255, 0.15); /* Lighter color for elegance */
+    transform: scale(0);
+    animation: ripple-animation 2s ease-out; /* Slower and smoother animation */
+    pointer-events: none;
+    z-index: 10; /* Ensure it's above the canvas */
+}
+
+@keyframes ripple-animation {
+    to {
+        transform: scale(4); /* Smaller scale for more subtle effect */
+        opacity: 0; /* Fade out the ripple */
+    }
+}
+
+.content {
+    position: relative;
+    z-index: 1;
+}
+
+.hero-section h1 {
+    font-size: 4rem;
+    color: #ffffff; /* White text */
+}
+
+.hero-section p {
+    font-size: 1.5rem;
+    color: var(--light-text); /* Light grey text */
+}
+
+.buttons {
+    margin-top: 30px;
+}
+
+.buttons .btn {
+    background-color: var(--primary-color);
+    color: white;
+    padding: 12px 30px;
+    border-radius: 30px;
+    font-size: 1rem;
+    transition: background-color 0.3s, transform 0.3s;
+    display: inline-block;
+    text-decoration: none;
+    margin: 5px;
+}
+
+.buttons .btn:hover {
+    background-color: var(--accent-color);
+    transform: scale(1.05);
+}
+
+.buttons .btn i {
+    margin-right: 8px;
+}
+
+/* Photo Placeholder Styling */
+.photo-placeholder {
+    margin-top: var(--header-height);
+    margin-bottom: 20px;
+}
+
+.photo-placeholder img {
+    width: auto;
+    height: auto;
+    max-width: 250px;
+    max-height: 250px;
+    border-radius: 50%;
+    object-fit: cover;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.photo-placeholder img:hover {
+    transform: scale(1.1);
+    box-shadow: 0 6px 16px rgba(0, 0, 0, 0.2);
+}
+
+/* CV Section */
+.cv-section {
+    background-color: #f4f4f4;
+    padding: 100px 20px;
+}
+
+.cv-section h2 {
+    font-size: 2.5rem;
+    margin-bottom: 20px;
+    color: var(--secondary-color);
+}
+
+
+/* CV Content Layout */
+.cv-content {
+    display: flex;
+    align-items: stretch;
+    justify-content: space-between;
+    padding: 0px 0 50px;
+}
+
+.cv-timeline {
+    width: 45%;
+}
+
+.timeline {
+    margin: 30px 0 0 20px;
+    border-left: 4px solid var(--primary-color);
+    position: relative;
+    max-width: 100%;
+    padding-left: 20px;
+    max-height: 900px;
+    overflow-y: auto;
+}
+
+.timeline-item {
+    padding: 5px 0px;
+    position: relative;
+    background-color: inherit;
+    width: 100%;
+    margin-bottom: 10px;
+    transition: background-color 0.3s ease, transform 0.3s ease;
+    cursor: pointer;
+}
+
+.timeline-item:hover {
+    /* Highlight the timeline item on hover by adding a nice border */
+    border-left: 4px solid var(--accent-color);
+}
+
+
+.timeline-item.highlight .timeline-content {
+    background-image: none !important;
+    background-color: var(--accent-color);
+    transition: background-color 0.3s, color 0.3s;
+}
+
+/* Base styling for timeline content with background */
+.timeline-content {
+    background-size: auto 70%; /* Adjusts the image to cover the entire container */
+    background-position: center; /* Centers the image */
+    background-repeat: no-repeat; /* Prevents the image from repeating */
+    padding: 20px; /* Adjust padding as needed */
+    border-radius: 8px; /* Optional: for rounded corners */
+    position: relative;
+    background-blend-mode: overlay; /* Optional: blend background color with image */
+    background-color: rgba(256, 256, 256, 0.9);
+}
+
+/* Applying background images for each timeline item */
+#ip-paris .timeline-content {
+    background-image: url("../images/ipparis.png");
+}
+
+#cambridge .timeline-content {
+    background-image: url("../images/cambridge.jpg");
+}
+
+#hsrm .timeline-content {
+    background-image: url("../images/hsrm.png");
+    background-size: auto 50%;
+}
+
+#sge .timeline-content {
+    background-image: url("../images/sge.jpg");
+}
+
+#mck .timeline-content {
+    background-image: url("../images/mckinsey_logo.webp");
+    background-size: auto 60%;
+}
+
+#amazon .timeline-content {
+    background-image: url("../images/amazon.svg");
+    background-size: auto 50%;
+}
+
+#continental .timeline-content {
+    background-image: url("../images/continental.png");
+    background-size: auto 50%;
+}
+
+.timeline-content h3 {
+    margin: 0 0 5px;
+    font-size: 1.1rem;
+    color: var(--secondary-color);
+}
+
+.timeline-content p {
+    margin: 0;
+    font-size: 0.95rem;
+    color: var(--text-color);
+}
+
+/* Map Section */
+.cv-map {
+    margin-top: 100px;
+    width: 45%;
+    max-height: 100%;
+    position: relative;
+}
+
+#map {
+    width: 100%;
+    height: 100%;
+    border-radius: 8px;
+}
+
+/* Style the zoom control container */
+.leaflet-control-zoom {
+    background-color: rgba(255, 255, 255, 0.5); /* Semi-transparent background */
+    border-radius: 10px; /* Rounded corners */
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2); /* Subtle shadow for depth */
+    width: auto; /* Adjust the width */
+    height: auto; /* Adjust the height */
+}
+
+/* Style the zoom-in and zoom-out buttons */
+.leaflet-control-zoom-in,
+.leaflet-control-zoom-out {
+    background-color: transparent !important; /* Make the buttons transparent */
+    border: none; /* Remove border */
+    font-size: 18px; /* Adjust the font size */
+    color: #333 !important; /* Dark color for the icons */
+    transition: background-color 0.3s, color 0.3s; /* Smooth transitions */
+}
+
+/* Hover effect for zoom buttons */
+.leaflet-control-zoom-in:hover,
+.leaflet-control-zoom-out:hover {
+    background-color: rgba(0, 0, 0, 0.1); /* Slight background on hover */
+    color: #000; /* Darker text on hover */
+}
+
+/* Customize the size and shape of zoom control buttons */
+.leaflet-control-zoom-in {
+    border-bottom: 1px solid rgba(0, 0, 0, 0.1); /* Line separating the buttons */
+}
+
+/* Leaflet Marker Icon Adjustments */
+.leaflet-marker-icon.emoji-icon {
+    font-size: 24px;
+    line-height: 1;
+    text-align: center;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.leaflet-marker-icon.emoji-icon:hover {
+    font-size: 30px;
+}
+
+/* Projects Section */
+.projects-section {
+    background-color: #ffffff;
+    padding: 100px 20px;
+    text-align: center;
+}
+
+.projects-section h2 {
+    margin-bottom: 50px;
+    color: var(--secondary-color);
+}
+
+.projects-grid {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    align-items: flex-start;
+    gap: 30px;
+}
+
+.project-card {
+    flex: 1 1 calc(33.333% - 40px);
+    background-color: #fff;
+    border: 1px solid #ddd;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    transition: box-shadow 0.3s ease, transform 0.3s ease;
+    margin: 0 10px;
+}
+
+.project-card:hover {
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+    transform: scale(1.05);
+}
+
+.project-images {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 10px;
+    padding: 10px;
+}
+
+.project-images img {
+    width: auto;
+    height: 90px;
+    max-width: 120px;
+    object-fit: contain;
+    background-color: #ffffff;
+    border-radius: 5px;
+    padding: 5px;
+}
+
+.project-card h3 {
+    font-size: 1.1rem;
+    margin: 10px 15px;
+    color: var(--secondary-color);
+}
+
+.project-toggle {
+    text-align: center;
+    cursor: pointer;
+    padding: 10px;
+    border-top: 1px solid #ccc;
+}
+
+.project-toggle i {
+    font-size: 1.2rem;
+    color: var(--secondary-color);
+    transition: transform 0.3s ease;
+}
+
+.project-description {
+    display: none;
+    padding: 10px;
+    font-size: 0.9rem;
+    color: var(--text-color);
+    animation: fadeIn 0.3s ease-in-out;
+}
+
+.project-description.show {
+    display: block;
+}
+
+.project-description .fab.fa-github {
+    font-size: 20px;
+    transition: transform 0.3s ease;
+}
+
+.project-description .fab.fa-github:hover {
+    transform: scale(1.2);
+    color: #4078c0;
+}
+
+/* Upcoming Projects Section */
+
+/* Style for Upcoming Project Cards */
+.project-card.upcoming {
+    position: relative;
+    overflow: hidden;
+    filter: grayscale(100%); /* Grey out the card */
+    pointer-events: none; /* Disable interaction */
+    transition: none; /* Disable hover transitions */
+    border: 1px solid #ccc; /* Optional: Add a subtle border */
+    background-color: #f9f9f9; /* Optional: Light background */
+    cursor: default; /* Indicate non-interactive element */
+}
+
+/* Apply grayscale and opacity to images inside upcoming project cards */
+.project-card.upcoming img {
+    filter: grayscale(100%);
+    opacity: 0.6;
+    transition: none; /* Disable image hover transitions */
+}
+
+/* Add a diagonal "Coming Soon" ribbon */
+.project-card.upcoming::before {
+    content: "Coming soon!";
+    position: absolute;
+    top: 10px;
+    right: -40px;
+    width: 160px;
+    background: var(--primary-color);
+    color: #fff;
+    text-align: center;
+    transform: rotate(45deg);
+    font-size: 0.8rem;
+    font-weight: bold;
+    padding: 15px 0;
+    z-index: 2;
+    box-shadow: 0 2px 6px rgba(0,0,0,0.2);
+}
+
+/* Disable hover effects on upcoming projects */
+.project-card.upcoming:hover {
+    transform: none;
+    box-shadow: none;
+}
+
+
+/* Carousel Styling */
+.carousel .slick-slide {
+    padding: 0 15px;
+    margin-bottom: 30px;
+}
+
+.carousel .slick-list {
+    margin: 0 -15px;
+}
+
+.slick-prev,
+.slick-next {
+    background-color: var(--primary-color) !important;
+    border-radius: 50%;
+    color: white;
+    width: 50px;
+    height: 50px;
+    z-index: 1;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    transition: background-color 0.3s ease, transform 0.3s ease;
+    margin: 0 10px;
+}
+
+.slick-prev:hover,
+.slick-next:hover {
+    background-color: var(--primary-color);
+    transform: scale(1.1);
+}
+
+.slick-prev::before,
+.slick-next::before {
+    font-size: 20px;
+    color: white;
+}
+
+.slick-dots li button:before {
+    color: var(--secondary-color);
+}
+
+.slick-dots li.slick-active button:before {
+    color: var(--secondary-color);
+    transform: scale(1.2);
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+    }
+    to {
+        opacity: 1;
+    }
+}
+
+/* Skills Section */
+.skills-section {
+    background-color: #e0fbfc;
+    padding: 100px 20px;
+    text-align: center;
+}
+
+.skills-section h2 {
+    margin-bottom: 50px;
+    color: var(--secondary-color);
+}
+
+.skills-content h3 {
+    font-size: 1.8rem;
+    margin-top: 30px;
+    color: var(--primary-color);
+}
+
+.programming-languages,
+.libraries,
+.os {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 10px;
+}
+
+.skill-card {
+    width: 150px;
+    text-align: center;
+}
+
+.skill-card i,
+.skill-card img {
+    font-size: 4rem;
+    margin-bottom: 10px;
+    max-width: 100px;
+    max-height: 100px;
+}
+
+.skill-card img {
+    width: 100px;
+    height: 100px;
+    object-fit: contain;
+    background-color: #ffffff;
+    border-radius: 5px;
+    padding: 5px;
+}
+
+.skill-card .custom-icon {
+    width: auto;
+    height: 4rem;
+    display: block;
+    margin: 0 auto 10px;
+    background-color: transparent;
+    filter: grayscale(1);
+}
+
+.skill-card p {
+    font-size: 1rem;
+    color: var(--text-color);
+}
+
+.soon,
+.soon p {
+    color: rgba(0, 0, 0, 0.2);
+}
+
+/* Scholarships Section */
+.awards-section {
+    background-color: #f4f4f4;
+    padding: 100px 20px;
+}
+
+.awards-section h2 {
+    font-size: 2.5rem;
+    margin-bottom: 20px;
+    color: var(--secondary-color);
+    text-align: center;
+}
+
+.awards-section h3 {
+    font-size: 1.8rem;
+    margin-top: 30px;
+    color: var(--primary-color);
+}
+
+.scholarships,
+.programs {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 30px;
+    margin-top: 20px;
+}
+
+.scholarship-item,
+.program-item {
+    width: 300px;
+    text-align: center;
+}
+
+.scholarship-item img,
+.program-item img {
+    width: 170px;
+    height: 120px;
+    object-fit: contain;
+    background-color: #ffffff;
+    border-radius: 10px;
+    padding: 10px;
+    margin-bottom: 10px;
+}
+
+.scholarship-item p,
+.program-item p {
+    font-size: 1rem;
+    color: var(--text-color);
+}
+
+.awards-section ul {
+    list-style: none;
+    padding-left: 0;
+    font-size: 1rem;
+    line-height: 1.8;
+    max-width: 800px;
+    margin: 0 auto;
+}
+
+.awards-section ul li {
+    margin-bottom: 10px;
+}
+
+.awards-section ul li strong {
+    color: var(--text-color);
+}
+
+/* Contact Section */
+.contact-section {
+    background-color: #e0fbfc;
+    padding: 100px 20px;
+    text-align: center;
+}
+
+.contact-section h2 {
+    margin-bottom: 50px;
+    color: var(--secondary-color);
+}
+
+.contact-section form {
+    max-width: 600px;
+    margin: 0 auto;
+}
+
+.contact-section input,
+.contact-section textarea {
+    width: 100%;
+    padding: 12px;
+    margin: 10px 0;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    font-size: 1rem;
+}
+
+.contact-section button {
+    background-color: var(--primary-color);
+    color: white;
+    padding: 12px 30px;
+    border-radius: 30px;
+    font-size: 1rem;
+    transition: background-color 0.3s, transform 0.3s;
+    border: none;
+    cursor: pointer;
+}
+
+.contact-section button:hover {
+    background-color: var(--accent-color);
+    transform: scale(1.05);
+}
+
+/* Footer */
+footer {
+    background-color: var(--secondary-color);
+    color: white;
+    text-align: center;
+    padding: 20px;
+    width: 100%;
+}
+
+.footer-content {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.social-icons {
+    margin-top: 10px;
+}
+
+.social-icons a {
+    color: white;
+    margin: 0 10px;
+    font-size: 1.5rem;
+}
+
+/* AOS Animations */
+[data-aos] {
+    opacity: 0;
+    transform: translateY(20px);
+    transition: opacity 1s cubic-bezier(0.25, 0.1, 0.25, 1),
+                transform 1s cubic-bezier(0.25, 0.1, 0.25, 1);
+}
+
+[data-aos].aos-animate {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+[data-aos][data-aos-duration="400"] {
+    transition-duration: 400ms;
+}
+
+/* Responsive Adjustments */
+
+@media only screen and (max-width: 768px) {
+    /* Show the toggle button */
+    .toggle-btn {
+        display: block;
+    }
+
+    header {
+        background-color: transparent;
+    }
+
+    /* Hide the logo outside the menu */
+    .nav-logo-wrapper {
+        display: none;
+    }
+    
+    /* Show the mobile logo inside the navigation menu */
+    .nav-logo-mobile {
+        display: block;
+        text-align: center;
+        margin: 0 auto;
+    }
+
+    .nav-links {
+        position: fixed;
+        top: 0;
+        right: 0;
+        background-color: rgba(0, 95, 115, 0.9);
+        height: 100vh;
+        width: 250px;
+        flex-direction: column;
+        justify-content: flex-start;
+        align-items: center;
+        transform: translateX(100%);
+        transition: transform 0.3s ease;
+        padding-top: 60px;
+        z-index: 10;
+    }
+
+    /* Ensure proper display of nav links */
+    .nav-links a {
+        display: block;
+        padding: 20px;
+        font-size: 1.2rem;
+        color: #ffffff;
+        text-align: center;
+    }
+
+    .nav-links.show {
+        transform: translateX(0);
+    }
+    
+    /* Add styles for the toggle button */
+    .toggle-btn {
+        display: none;
+    }
+    
+    @media (max-width: 768px) {
+        .toggle-btn {
+            display: block;
+        }
+    }
+    /* Hero Section */
+    .hero-section h1 {
+        font-size: 2.5rem;
+    }
+
+    .hero-section p {
+        font-size: 1rem;
+    }
+
+    .buttons .btn {
+        font-size: 0.95rem;
+        padding: 10px 25px;
+    }
+
+    .photo-placeholder img {
+        width: 200px;
+        height: 200px;
+    }
+
+    /* CV Content Layout */
+    .cv-content {
+        flex-direction: column;
+        align-items: center;
+        width: 100%;
+    }
+    .cv-timeline {
+        width: 100%;
+    }
+
+    .cv-map {
+        width: 100%;
+        height: 300px;
+        margin-top: 30px;
+    }
+
+    .timeline-content {
+        background-size: auto 50%; 
+    }
+    /* Styling for the Download CV Button */
+    .btn {
+        background-color: var(--primary-color);
+        color: white;
+        padding: 12px 30px;
+        border-radius: 30px;
+        font-size: 1rem;
+        transition: background-color 0.3s, transform 0.3s;
+        display: inline-block;
+        text-decoration: none;
+        margin: 20px 0;
+    }
+
+    .btn:hover {
+        background-color: var(--accent-color);
+        transform: scale(1.05);
+    }
+
+    .btn i {
+        margin-right: 8px;
+    }
+
+    /* Skill Cards */
+    .skill-card {
+        width: 25%;
+        text-align: center;
+        box-sizing: border-box;
+        margin: 5px 0;
+    }
+
+    .skill-card i,
+    .skill-card img,
+    .skill-card .custom-icon {
+        font-size: 2rem;
+        max-width: 60px;
+        max-height: 60px;
+        margin-bottom: 5px;
+    }
+
+    .skill-card .custom-icon {
+        width: auto;
+        max-height: 2rem;
+        text-align: center;
+        padding: 0;
+        margin-bottom: 2px;
+        display: block;
+        background-color: transparent;
+        filter: grayscale(1);
+    }
+
+    .skill-card p {
+        font-size: 0.8rem;
+        margin: 0;
+    }
+
+    /* Adjust project cards and similar items */
+    .project-card,
+    .scholarship-item,
+    .program-item {
+        width: calc(50% - 20px);
+        margin: 10px;
+    }
+
+    /* Ensure main containers fit within viewport */
+    .content,
+    .cv-content,
+    .skills-content,
+    .awards-content {
+        max-width: 100%;
+        padding: 0 15px;
+        margin: 0 auto;
+    }
+
+    .timeline-content h3 {
+        font-size: 1rem;
+    }
+
+    .timeline-content p {
+        font-size: 0.85rem;
+    }
+}
+
+@media only screen and (max-width: 480px) {
+    .skill-card {
+        width: calc(33.33% - 20px);
+    }
+
+    .project-card,
+    .scholarship-item,
+    .program-item {
+        width: calc(100% - 20px);
+    }
+
+    /* Adjust CV Content Layout */
+    .cv-content {
+        padding: 50px 10px;
+    }
+
+    /* Map Section */
+    .cv-map {
+        height: 250px;
+    }
+}
+
+/* Responsive Images */
+img {
+    max-width: 100%;
+    height: auto;
+}

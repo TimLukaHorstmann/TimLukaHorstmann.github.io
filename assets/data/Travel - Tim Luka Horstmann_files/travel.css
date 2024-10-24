@@ -1,0 +1,229 @@
+/* Travel-specific styles */
+
+/* Introduction Section */
+.travel-intro {
+    margin-top: calc(var(--header-height) + 20px); /* Push content below the fixed header */
+    padding: 50px 20px;
+    text-align: center;
+}
+
+.travel-intro h2 {
+    font-size: 2.5rem;
+    margin-bottom: 20px;
+    color: var(--secondary-color);
+}
+
+.travel-intro p {
+    font-size: 1.2rem;
+    line-height: 1.6;
+    color: var(--text-color);
+    max-width: 800px;
+    margin: 0 auto;
+}
+
+/* Map and Country Info Section */
+.travel-section {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    padding: 20px;
+    gap: 20px;
+    align-items: flex-start;
+}
+
+.country-info {
+    flex: 1 1 40%;
+    max-width: 40%;
+}
+
+.country-info h2 {
+    font-size: 2rem;
+    margin-bottom: 10px;
+    color: var(--primary-color);
+}
+
+.country-info p {
+    font-size: 1rem;
+    margin-bottom: 15px;
+    color: var(--text-color);
+}
+
+.country-info h3 {
+    font-size: 1.5rem;
+    margin-bottom: 10px;
+    color: var(--secondary-color);
+}
+
+.country-info ul {
+    list-style-type: disc;
+    padding-left: 20px;
+}
+
+.country-info ul li {
+    font-size: 1rem;
+    margin-bottom: 5px;
+    color: var(--text-color);
+}
+
+.travel-map {
+    flex: 1 1 55%;
+    max-width: 55%;
+    position: relative;
+}
+
+#map {
+    width: 100%;
+    height: 500px;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.leaflet-container {
+    border-radius: 10px;
+}
+
+.leaflet-popup-content-wrapper {
+    border-radius: 10px;
+}
+
+.leaflet-popup-tip {
+    background: var(--primary-color);
+}
+
+.leaflet-popup-content {
+    font-family: 'Roboto', sans-serif;
+    color: var(--text-color);
+}
+
+.leaflet-interactive {
+    cursor: pointer;
+}
+
+.leaflet-clickable {
+    cursor: pointer;
+}
+
+/* Gallery Section */
+#gallery-section {
+    background-color: #f9f9f9;
+    padding: 50px 20px;
+    text-align: center;
+    transition: opacity 0.5s ease-in-out;
+    border: 5px solid #e0e0e0;
+}
+
+.gallery-item {
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+.gallery-item h2 {
+    font-size: 2rem;
+    margin-bottom: 5px;
+    color: var(--primary-color);
+}
+
+.gallery-item h4 {
+    font-size: 1.2rem;
+    margin-bottom: 20px;
+    color: var(--secondary-color);
+}
+
+
+.gallery-item p {
+    font-size: 1rem;
+    margin-bottom: 20px;
+    color: var(--text-color);
+}
+
+/* Masonry Photo Grid */
+.photo-grid {
+    margin: 0 auto;
+}
+
+/* Add a grid-sizer for Masonry */
+.grid-sizer {
+    width: 10%; /* Base width for grid items (5 columns) */
+}
+
+.grid-item {
+    width: 10%;
+    float: left;
+    margin-bottom: 10px;
+}
+
+.grid-item img {
+    width: 100%;
+    height: auto;
+    display: block;
+    transition: transform 0.3s ease;
+    border-radius: 5px;
+}
+
+.grid-item:hover img {
+    transform: scale(1.05);
+}
+
+/* Clearfix for Masonry */
+.photo-grid::after {
+    content: '';
+    display: block;
+    clear: both;
+}
+
+/* Lightbox overlay adjustments */
+.lightboxOverlay {
+    z-index: 9999 !important;
+}
+
+.lightbox {
+    z-index: 10000 !important;
+}
+
+/* Responsive Styles */
+@media only screen and (max-width: 1200px) {
+    .grid-item, .grid-sizer {
+        width: 25%; /* 4 columns */
+    }
+}
+
+@media only screen and (max-width: 992px) {
+    .grid-item, .grid-sizer {
+        width: 33.333%; /* 3 columns */
+    }
+}
+
+@media only screen and (max-width: 768px) {
+    .travel-section {
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .country-info, .travel-map {
+        flex: 1 1 100%;
+        max-width: 100%;
+    }
+
+    .country-info {
+        text-align: center;
+    }
+
+    #map {
+        height: 300px;
+    }
+
+    .gallery-item h3 {
+        font-size: 1.5rem;
+    }
+
+    /* Adjust grid items for smaller screens */
+    .grid-item, .grid-sizer {
+        width: 50%; /* 2 columns */
+    }
+}
+
+@media only screen and (max-width: 576px) {
+    .grid-item, .grid-sizer {
+        width: 100%; /* 1 column */
+    }
+}
