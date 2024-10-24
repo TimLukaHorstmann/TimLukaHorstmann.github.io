@@ -5,14 +5,12 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Travel - Tim Luka Horstmann</title>
-    <meta name="description" content="Explore the places I've traveled to and the memories I've captured. Click on the map markers to see more details and photos.">
+    <meta name="description" content="Explore the places I've traveled to and the memories I've captured. Click on the highlighted countries to see more details and photos.">
 
     <!-- Stylesheets -->
     <link rel="stylesheet" href="assets/css/style.css">
     <!-- Include Leaflet CSS -->
     <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
-    <!-- Include MapTiler SDK CSS -->
-    <link href="https://cdn.maptiler.com/maptiler-sdk-js/v2.2.2/maptiler-sdk.css" rel="stylesheet" />
     <!-- Include AOS CSS -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/aos/2.3.4/aos.css">
     <!-- Include Lightbox2 CSS -->
@@ -63,7 +61,7 @@
     <section class="travel-section">
         <div class="travel-intro" data-aos="fade-right">
             <h2>My Travel Adventures</h2>
-            <p>Welcome to my travel page! Here, you can explore the various places I've visited around the world. Click on the map markers to see photos and stories from each trip. Traveling is a passion of mine, and I'm excited to share my experiences with you.</p>
+            <p>Welcome to my travel page! Here, you can explore the various countries I've visited around the world. Click on the highlighted countries to see photos and stories from each trip. Traveling is a passion of mine, and I'm excited to share my experiences with you.</p>
         </div>
         <div class="travel-map" data-aos="fade-left">
             <div id="map"></div>
@@ -88,10 +86,6 @@
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 <!-- Leaflet JS -->
 <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
-<!-- MapTiler SDK JS -->
-<script src="https://cdn.maptiler.com/maptiler-sdk-js/v2.2.2/maptiler-sdk.umd.js"></script>
-<!-- Leaflet MapTiler SDK Integration -->
-<script src="https://cdn.maptiler.com/leaflet-maptilersdk/v2.0.0/leaflet-maptilersdk.js"></script>
 <!-- Masonry JS -->
 <script src="https://unpkg.com/masonry-layout@4/dist/masonry.pkgd.min.js"></script>
 <!-- ImagesLoaded JS -->
@@ -128,211 +122,210 @@ document.addEventListener('DOMContentLoaded', function() {
     // Initialize the Map
     var map = L.map('map').setView([20, 0], 2); // Center of the world
 
-    // Use MapTiler SDK to add your custom vector tile layer
-    const key = 'moHcWGL55oQVePpoGrB5'; 
-
-    const mtLayer = L.maptilerLayer({
-        apiKey: key,
-        style: 'c9280907-adb2-45e8-8a4c-8054cc121082',
+    // Add tile layer (you can customize the tile provider)
+    L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+        attribution: '&copy; OpenStreetMap contributors'
     }).addTo(map);
+
+    // Define the list of countries you've visited using their ISO A3 codes
+    var visitedCountries = [
+        'FRA', // France
+        'GBR', // United Kingdom
+        'CZE', // Czech Republic
+        'DEU', // Germany
+        'NLD', // Netherlands
+        'BEL', // Belgium
+        'USA', // United States
+        'ZAF', // South Africa
+        'CPV', // Cabo Verde
+        'ESP', // Spain
+        'ITA', // Italy
+        'HUN', // Hungary
+        'IRL', // Ireland
+        'CHE', // Switzerland
+        'POL', // Poland
+        'DNK', // Denmark
+        'TUR'  // Turkey
+        // Add more ISO A3 codes as needed
+    ];
 
     // Define travel locations with photos and descriptions
     var locations = [
         { 
-            id: "paris",
-            lat: 48.8566,
-            lng: 2.3522,
-            title: "Paris, France",
+            id: "france",
+            iso_a3: "FRA",
+            title: "France",
             description: "Currently living here. Rich in history and charm.",
-            photos: ["assets/images/paris.jpg", "assets/images/paris2.jpg", "assets/images/paris3.jpg"]
+            photos: ["assets/images/travel/france/france1.jpg", "assets/images/travel/france/france2.jpg"]
         },
         { 
-            id: "cambridge",
-            lat: 52.2056,
-            lng: 0.1218,
-            title: "Cambridge, UK",
-            description: "Completed my MPhil. City of academic beauty.",
-            photos: [
-                "assets/images/travel/cambridge/cambridge1.jpeg",
-                "assets/images/travel/cambridge/cambridge2.jpeg",
-                "assets/images/travel/cambridge/cambridge3.jpg",
-                "assets/images/travel/cambridge/cambridge4.jpg",
-                "assets/images/travel/cambridge/cambridge5.jpg",
-                "assets/images/travel/cambridge/cambridge6.jpeg",
-                "assets/images/travel/cambridge/cambridge7.jpeg",
-                "assets/images/travel/cambridge/cambridge8.jpeg"
-            ]
-        },
-        // Additional Locations
-        { 
-            id: "prague",
-            lat: 50.0755,
-            lng: 14.4378,
-            title: "Prague, Czech Republic",
-            description: "The city of a hundred spires.",
-            photos: [
-                "assets/images/travel/prague/prague1.jpg",
-                "assets/images/travel/prague/prague2.jpg",
-                // Add more photo paths
-            ]
+            id: "united_kingdom",
+            iso_a3: "GBR",
+            title: "United Kingdom",
+            description: "Completed my MPhil in Cambridge.",
+            photos: ["assets/images/travel/uk/uk1.jpg", "assets/images/travel/uk/uk2.jpg"]
         },
         { 
-            id: "berlin",
-            lat: 52.5200,
-            lng: 13.4050,
-            title: "Berlin, Germany",
-            description: "A city steeped in history and culture.",
-            photos: [
-                "assets/images/travel/berlin/berlin1.jpg",
-                "assets/images/travel/berlin/berlin2.jpg",
-                // Add more photo paths
-            ]
+            id: "czech_republic",
+            iso_a3: "CZE",
+            title: "Czech Republic",
+            description: "Visited the beautiful city of Prague.",
+            photos: ["assets/images/travel/czech_republic/prague1.jpg", "assets/images/travel/czech_republic/prague2.jpg"]
         },
         { 
-            id: "munich",
-            lat: 48.1351,
-            lng: 11.5820,
-            title: "Munich, Germany",
-            description: "Home of Oktoberfest and rich Bavarian heritage.",
-            photos: [
-                "assets/images/travel/munich/munich1.jpg",
-                "assets/images/travel/munich/munich2.jpg",
-                // Add more photo paths
-            ]
+            id: "germany",
+            iso_a3: "DEU",
+            title: "Germany",
+            description: "Explored Berlin and Munich.",
+            photos: ["assets/images/travel/germany/germany1.jpg", "assets/images/travel/germany/germany2.jpg"]
         },
         { 
-            id: "london",
-            lat: 51.5074,
-            lng: -0.1278,
-            title: "London, UK",
-            description: "The bustling capital of England.",
-            photos: [
-                "assets/images/travel/london/london1.jpg",
-                "assets/images/travel/london/london2.jpg",
-                // Add more photo paths
-            ]
+            id: "netherlands",
+            iso_a3: "NLD",
+            title: "Netherlands",
+            description: "Visited The Hague.",
+            photos: ["assets/images/travel/netherlands/hague1.jpg", "assets/images/travel/netherlands/hague2.jpg"]
         },
         { 
-            id: "the_hague",
-            lat: 52.0705,
-            lng: 4.3007,
-            title: "The Hague, Netherlands",
-            description: "Seat of the Dutch government.",
-            photos: [
-                "assets/images/travel/the_hague/the_hague1.jpg",
-                "assets/images/travel/the_hague/the_hague2.jpg",
-                // Add more photo paths
-            ]
+            id: "belgium",
+            iso_a3: "BEL",
+            title: "Belgium",
+            description: "Enjoyed chocolates in Brussels.",
+            photos: ["assets/images/travel/belgium/brussels1.jpg", "assets/images/travel/belgium/brussels2.jpg"]
         },
         { 
-            id: "brussels",
-            lat: 50.8503,
-            lng: 4.3517,
-            title: "Brussels, Belgium",
-            description: "Known for its chocolates and waffles.",
-            photos: [
-                "assets/images/travel/brussels/brussels1.jpg",
-                "assets/images/travel/brussels/brussels2.jpg",
-                // Add more photo paths
-            ]
+            id: "united_states",
+            iso_a3: "USA",
+            title: "United States",
+            description: "Visited Boston, MA.",
+            photos: ["assets/images/travel/usa/boston1.jpg", "assets/images/travel/usa/boston2.jpg"]
         },
         { 
-            id: "boston",
-            lat: 42.3601,
-            lng: -71.0589,
-            title: "Boston, USA",
-            description: "A city rich in American history.",
-            photos: [
-                "assets/images/travel/boston/boston1.jpg",
-                "assets/images/travel/boston/boston2.jpg",
-                // Add more photo paths
-            ]
+            id: "south_africa",
+            iso_a3: "ZAF",
+            title: "South Africa",
+            description: "Explored Cape Town.",
+            photos: ["assets/images/travel/south_africa/cape_town1.jpg", "assets/images/travel/south_africa/cape_town2.jpg"]
         },
         { 
-            id: "cape_town",
-            lat: -33.9249,
-            lng: 18.4241,
-            title: "Cape Town, South Africa",
-            description: "Known for Table Mountain and stunning landscapes.",
-            photos: [
-                "assets/images/travel/cape_town/cape_town1.jpg",
-                "assets/images/travel/cape_town/cape_town2.jpg",
-                // Add more photo paths
-            ]
-        },
-        { 
-            id: "cabo_verde",
-            lat: 16.5388,
-            lng: -23.0418,
+            id: "cape_verde",
+            iso_a3: "CPV",
             title: "Cabo Verde",
-            description: "An archipelago off the northwest coast of Africa.",
-            photos: [
-                "assets/images/travel/cabo_verde/cabo_verde1.jpg",
-                "assets/images/travel/cabo_verde/cabo_verde2.jpg",
-                // Add more photo paths
-            ]
+            description: "Relaxed on the beaches of Cabo Verde.",
+            photos: ["assets/images/travel/cape_verde/cape_verde1.jpg", "assets/images/travel/cape_verde/cape_verde2.jpg"]
         },
         { 
-            id: "mallorca",
-            lat: 39.6953,
-            lng: 3.0176,
-            title: "Mallorca, Spain",
-            description: "A Mediterranean paradise.",
-            photos: [
-                "assets/images/travel/mallorca/mallorca1.jpg",
-                "assets/images/travel/mallorca/mallorca2.jpg",
-                // Add more photo paths
-            ]
+            id: "spain",
+            iso_a3: "ESP",
+            title: "Spain",
+            description: "Visited Mallorca and Barcelona.",
+            photos: ["assets/images/travel/spain/spain1.jpg", "assets/images/travel/spain/spain2.jpg"]
         },
         { 
-            id: "barcelona",
-            lat: 41.3851,
-            lng: 2.1734,
-            title: "Barcelona, Spain",
-            description: "Famous for Gaudí's architecture.",
-            photos: [
-                "assets/images/travel/barcelona/barcelona1.jpg",
-                "assets/images/travel/barcelona/barcelona2.jpg",
-                // Add more photo paths
-            ]
+            id: "italy",
+            iso_a3: "ITA",
+            title: "Italy",
+            description: "Explored Rome.",
+            photos: ["assets/images/travel/italy/rome1.jpg", "assets/images/travel/italy/rome2.jpg"]
         },
         { 
-            id: "rome",
-            lat: 41.9028,
-            lng: 12.4964,
-            title: "Rome, Italy",
-            description: "The Eternal City.",
-            photos: [
-                "assets/images/travel/rome/rome1.jpg",
-                "assets/images/travel/rome/rome2.jpg",
-                // Add more photo paths
-            ]
+            id: "hungary",
+            iso_a3: "HUN",
+            title: "Hungary",
+            description: "Visited Budapest.",
+            photos: ["assets/images/travel/hungary/budapest1.jpg", "assets/images/travel/hungary/budapest2.jpg"]
         },
         { 
-            id: "budapest",
-            lat: 47.4979,
-            lng: 19.0402,
-            title: "Budapest, Hungary",
-            description: "The Pearl of the Danube.",
-            photos: [
-                "assets/images/travel/budapest/budapest1.jpg",
-                "assets/images/travel/budapest/budapest2.jpg",
-                // Add more photo paths
-            ]
+            id: "ireland",
+            iso_a3: "IRL",
+            title: "Ireland",
+            description: "Explored the lush landscapes of Ireland.",
+            photos: ["assets/images/travel/ireland/ireland1.jpg", "assets/images/travel/ireland/ireland2.jpg"]
+        },
+        { 
+            id: "switzerland",
+            iso_a3: "CHE",
+            title: "Switzerland",
+            description: "Visited the Swiss Alps and enjoyed the chocolate.",
+            photos: ["assets/images/travel/switzerland/switzerland1.jpg", "assets/images/travel/switzerland/switzerland2.jpg"]
+        },
+        { 
+            id: "poland",
+            iso_a3: "POL",
+            title: "Poland",
+            description: "Explored the historic sites in Warsaw and Krakow.",
+            photos: ["assets/images/travel/poland/poland1.jpg", "assets/images/travel/poland/poland2.jpg"]
+        },
+        { 
+            id: "denmark",
+            iso_a3: "DNK",
+            title: "Denmark",
+            description: "Visited Copenhagen and enjoyed Danish pastries.",
+            photos: ["assets/images/travel/denmark/denmark1.jpg", "assets/images/travel/denmark/denmark2.jpg"]
+        },
+        { 
+            id: "turkey",
+            iso_a3: "TUR",
+            title: "Turkey",
+            description: "Explored Istanbul and its rich history.",
+            photos: ["assets/images/travel/turkey/turkey1.jpg", "assets/images/travel/turkey/turkey2.jpg"]
         }
     ];
 
-    // Function to create markers
-    function createMarkers() {
-        locations.forEach(function(location) {
-            // Create markers
-            var marker = L.marker([location.lat, location.lng]).addTo(map)
-                .bindPopup(`<b>${location.title}</b><br>${location.description}`);
-
-            // When marker is clicked, show the gallery for that location
-            marker.on('click', function() {
-                displayGallery(location);
-            });
+    // Function to load and style countries
+    function loadCountries() {
+        // Load GeoJSON data
+        fetch('assets/data/countries.geojson')
+        .then(function(response) {
+            return response.json();
+        })
+        .then(function(geojsonData) {
+            // Add GeoJSON layer to the map
+            L.geoJSON(geojsonData, {
+                style: function(feature) {
+                    var isoCode = feature.properties.ADM0_A3;
+                    if (visitedCountries.includes(isoCode)) {
+                        return {
+                            color: '#2b7a78',
+                            weight: 1,
+                            fillColor: '#3aafa9',
+                            fillOpacity: 0.7
+                        };
+                    } else {
+                        return {
+                            color: '#dddddd',
+                            weight: 1,
+                            fillColor: '#f1f1f1',
+                            fillOpacity: 0.5
+                        };
+                    }
+                },
+                onEachFeature: function(feature, layer) {
+                    var isoCode = feature.properties.ISO_A3;
+                    if (visitedCountries.includes(isoCode)) {
+                        // Find the corresponding location
+                        var location = locations.find(function(loc) {
+                            return loc.iso_a3 === isoCode;
+                        });
+                        if (location) {
+                            layer.on('click', function() {
+                                displayGallery(location);
+                            });
+                            layer.bindPopup(`<b>${location.title}</b><br>${location.description}`);
+                            layer.on('mouseover', function() {
+                                this.setStyle({
+                                    fillOpacity: 0.9
+                                });
+                            });
+                            layer.on('mouseout', function() {
+                                this.setStyle({
+                                    fillOpacity: 0.7
+                                });
+                            });
+                        }
+                    }
+                }
+            }).addTo(map);
         });
     }
 
@@ -394,7 +387,8 @@ document.addEventListener('DOMContentLoaded', function() {
         gallerySection.scrollIntoView({ behavior: 'smooth' });
     }
 
-    createMarkers();
+    // Load countries onto the map
+    loadCountries();
 
     // Display the gallery for the first location initially
     if (locations.length > 0) {
