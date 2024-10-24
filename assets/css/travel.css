@@ -1,31 +1,67 @@
 /* Travel-specific styles */
 
-/* Main travel section with introduction and map */
-.travel-section {
-    margin-top: calc(var(--header-height) + 20px); /* Push content below the fixed header */
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: space-between;
-    padding: 50px 20px;
-    gap: 20px;
-    align-items: center;
-}
-
+/* Introduction Section */
 .travel-intro {
-    flex: 1 1 40%;
-    max-width: 40%;
-    text-align: left;
+    margin-top: calc(var(--header-height) + 20px); /* Push content below the fixed header */
+    padding: 50px 20px;
+    text-align: center;
 }
 
 .travel-intro h2 {
-    font-size: 2rem;
+    font-size: 2.5rem;
     margin-bottom: 20px;
     color: var(--secondary-color);
 }
 
 .travel-intro p {
-    font-size: 1rem;
+    font-size: 1.2rem;
     line-height: 1.6;
+    color: var(--text-color);
+    max-width: 800px;
+    margin: 0 auto;
+}
+
+/* Map and Country Info Section */
+.travel-section {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    padding: 20px;
+    gap: 20px;
+    align-items: flex-start;
+}
+
+.country-info {
+    flex: 1 1 40%;
+    max-width: 40%;
+}
+
+.country-info h2 {
+    font-size: 2rem;
+    margin-bottom: 10px;
+    color: var(--primary-color);
+}
+
+.country-info p {
+    font-size: 1rem;
+    margin-bottom: 15px;
+    color: var(--text-color);
+}
+
+.country-info h3 {
+    font-size: 1.5rem;
+    margin-bottom: 10px;
+    color: var(--secondary-color);
+}
+
+.country-info ul {
+    list-style-type: disc;
+    padding-left: 20px;
+}
+
+.country-info ul li {
+    font-size: 1rem;
+    margin-bottom: 5px;
     color: var(--text-color);
 }
 
@@ -80,11 +116,18 @@
     margin: 0 auto;
 }
 
-.gallery-item h3 {
+.gallery-item h2 {
     font-size: 2rem;
-    margin-bottom: 10px;
+    margin-bottom: 5px;
     color: var(--primary-color);
 }
+
+.gallery-item h4 {
+    font-size: 1.2rem;
+    margin-bottom: 20px;
+    color: var(--secondary-color);
+}
+
 
 .gallery-item p {
     font-size: 1rem;
@@ -155,12 +198,12 @@
         align-items: center;
     }
 
-    .travel-intro, .travel-map {
+    .country-info, .travel-map {
         flex: 1 1 100%;
         max-width: 100%;
     }
 
-    .travel-intro {
+    .country-info {
         text-align: center;
     }
 

@@ -57,11 +57,16 @@
 
 <!-- Main Travel Section -->
 <main>
-    <!-- Introduction and Map Section -->
+    <!-- Introduction Section -->
+    <section class="travel-intro" data-aos="fade-right">
+        <h2>My Travel Adventures</h2>
+        <p>Welcome to my travel page! Here, you can explore the various countries I've visited around the world. Click on the highlighted countries to see photos and stories from each trip. Traveling is a passion of mine, and I'm excited to share my experiences with you.</p>
+    </section>
+
+    <!-- Map and Country Info Section -->
     <section class="travel-section">
-        <div class="travel-intro" data-aos="fade-right">
-            <h2>My Travel Adventures</h2>
-            <p>Welcome to my travel page! Here, you can explore the various countries I've visited around the world. Click on the highlighted countries to see photos and stories from each trip. Traveling is a passion of mine, and I'm excited to share my experiences with you.</p>
+        <div class="country-info" data-aos="fade-right">
+            <!-- Country info will be dynamically inserted here -->
         </div>
         <div class="travel-map" data-aos="fade-left">
             <div id="map"></div>
@@ -145,17 +150,23 @@ document.addEventListener('DOMContentLoaded', function() {
         'CHE', // Switzerland
         'POL', // Poland
         'DNK', // Denmark
-        'TUR'  // Turkey
+        'TUR',  // Turkey
+        'PRT'  // Portugal
         // Add more ISO A3 codes as needed
     ];
 
     // Define travel locations with photos and descriptions
     var locations = [
-        { 
+        {
             id: "france",
             iso_a3: "FRA",
             title: "France",
             description: "Currently living here. Rich in history and charm.",
+            cities: [
+                { name: "Paris", lat: 48.8566, lng: 2.3522 },
+                { name: "Lyon", lat: 45.7640, lng: 4.8357 },
+                { name: "Marseille", lat: 43.2965, lng: 5.3698 }
+            ],
             photos: ["assets/images/travel/france/france1.jpg", "assets/images/travel/france/france2.jpg"]
         },
         { 
@@ -163,7 +174,12 @@ document.addEventListener('DOMContentLoaded', function() {
             iso_a3: "GBR",
             title: "United Kingdom",
             description: "Completed my MPhil in Cambridge.",
-            photos: ["assets/images/travel/uk/uk1.jpg", "assets/images/travel/uk/uk2.jpg"]
+            cities: [
+                { name: "London", lat: 48.8566, lng: 2.3522 },
+                { name: "Cambridge", lat: 45.7640, lng: 4.8357 },
+                { name: "Canterbury", lat: 43.2965, lng: 5.3698 }
+            ],
+            photos: ["assets/images/travel/uk/cambridge1.jpeg", "assets/images/travel/uk/uk2.jpg"]
         },
         { 
             id: "czech_republic",
@@ -269,8 +285,18 @@ document.addEventListener('DOMContentLoaded', function() {
             title: "Turkey",
             description: "Explored Istanbul and its rich history.",
             photos: ["assets/images/travel/turkey/turkey1.jpg", "assets/images/travel/turkey/turkey2.jpg"]
+        },
+        { 
+            id: "portugal",
+            iso_a3: "PRT",
+            title: "Portugal",
+            description: "Explored Lisbon.",
+            photos: ["assets/images/travel/portugal/portugal1.jpg", "assets/images/travel/portugal/portugal2.jpg"]
         }
     ];
+
+    // Create a Layer Group for city markers
+    var cityMarkersGroup = L.layerGroup().addTo(map);
 
     // Function to load and style countries
     function loadCountries() {
@@ -283,7 +309,7 @@ document.addEventListener('DOMContentLoaded', function() {
             // Add GeoJSON layer to the map
             L.geoJSON(geojsonData, {
                 style: function(feature) {
-                    var isoCode = feature.properties.ADM0_A3;
+                    var isoCode = feature.properties.ADM0_A3; // Ensure this matches your GeoJSON property
                     if (visitedCountries.includes(isoCode)) {
                         return {
                             color: '#2b7a78',
@@ -301,7 +327,7 @@ document.addEventListener('DOMContentLoaded', function() {
                     }
                 },
                 onEachFeature: function(feature, layer) {
-                    var isoCode = feature.properties.ISO_A3;
+                    var isoCode = feature.properties.ADM0_A3;
                     if (visitedCountries.includes(isoCode)) {
                         // Find the corresponding location
                         var location = locations.find(function(loc) {
@@ -309,6 +335,7 @@ document.addEventListener('DOMContentLoaded', function() {
                         });
                         if (location) {
                             layer.on('click', function() {
+                                displayCountryInfo(location);
                                 displayGallery(location);
                             });
                             layer.bindPopup(`<b>${location.title}</b><br>${location.description}`);
@@ -329,6 +356,57 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     }
 
+    // Function to display the country info
+    function displayCountryInfo(location) {
+        var countryInfoDiv = document.querySelector('.country-info');
+        countryInfoDiv.innerHTML = ''; // Clear previous content
+
+        var countryTitle = document.createElement('h2');
+        countryTitle.textContent = location.title;
+
+        var countryDescription = document.createElement('p');
+        countryDescription.textContent = location.description;
+        countryInfoDiv.appendChild(countryTitle);
+        countryInfoDiv.appendChild(countryDescription);
+        
+        var citiesHeader = document.createElement('h3');
+        citiesHeader.textContent = "Cities Visited:";
+
+        var citiesList = document.createElement('ul');
+
+        location.cities.forEach(function(city) {
+            var cityItem = document.createElement('li');
+            cityItem.textContent = city.name;
+            citiesList.appendChild(cityItem);
+        });
+
+        
+        countryInfoDiv.appendChild(citiesHeader);
+        countryInfoDiv.appendChild(citiesList);
+
+        // Add city markers to the map
+        addCityMarkers(location.cities);
+    }
+
+    // Function to add city markers to the map
+    function addCityMarkers(cities) {
+        // Clear previous markers
+        cityMarkersGroup.clearLayers();
+
+        cities.forEach(function(city) {
+            var marker = L.circleMarker([city.lat, city.lng], {
+                radius: 5,
+                fillColor: '#ff7e5f',
+                color: '#ff7e5f',
+                weight: 1,
+                opacity: 1,
+                fillOpacity: 0.8
+            }).bindTooltip(city.name, {permanent: false, direction: 'top'});
+
+            cityMarkersGroup.addLayer(marker);
+        });
+    }
+
     // Function to display the gallery for a specific location
     function displayGallery(location) {
         var gallerySection = document.getElementById('gallery-section');
@@ -340,11 +418,11 @@ document.addEventListener('DOMContentLoaded', function() {
         galleryItem.setAttribute('id', location.id);
         galleryItem.setAttribute('data-aos', 'fade-up');
 
-        var galleryTitle = document.createElement('h3');
+        var galleryTitle = document.createElement('h2');
         galleryTitle.textContent = location.title;
 
-        var galleryDescription = document.createElement('p');
-        galleryDescription.textContent = location.description;
+        var selectedPhotosText = document.createElement('h4');
+        selectedPhotosText.textContent = 'Selected Photos';
 
         var photoGrid = document.createElement('div');
         photoGrid.classList.add('photo-grid');
@@ -369,7 +447,7 @@ document.addEventListener('DOMContentLoaded', function() {
         });
 
         galleryItem.appendChild(galleryTitle);
-        galleryItem.appendChild(galleryDescription);
+        galleryItem.appendChild(selectedPhotosText);
         galleryItem.appendChild(photoGrid);
         gallerySection.appendChild(galleryItem);
 
@@ -390,8 +468,9 @@ document.addEventListener('DOMContentLoaded', function() {
     // Load countries onto the map
     loadCountries();
 
-    // Display the gallery for the first location initially
+    // Display the country info and gallery for the first location initially
     if (locations.length > 0) {
+        displayCountryInfo(locations[0]);
         displayGallery(locations[0]);
     }
 });
