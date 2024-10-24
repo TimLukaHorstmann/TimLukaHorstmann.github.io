@@ -1,0 +1,173 @@
+/* Travel-specific styles */
+
+/* Main travel section with introduction and map */
+.travel-section {
+    margin-top: calc(var(--header-height) + 20px); /* Push content below the fixed header */
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    padding: 50px 20px;
+    gap: 20px;
+    align-items: center;
+}
+
+.travel-intro {
+    flex: 1 1 40%;
+    max-width: 40%;
+    text-align: left;
+}
+
+.travel-intro h2 {
+    font-size: 2rem;
+    margin-bottom: 20px;
+    color: var(--secondary-color);
+}
+
+.travel-intro p {
+    font-size: 1rem;
+    line-height: 1.6;
+    color: var(--text-color);
+}
+
+.travel-map {
+    flex: 1 1 55%;
+    max-width: 55%;
+    position: relative;
+}
+
+#map {
+    width: 100%;
+    height: 400px;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.leaflet-container {
+    border-radius: 10px;
+}
+
+.leaflet-popup-content-wrapper {
+    border-radius: 10px;
+}
+
+.leaflet-popup-tip {
+    background: var(--primary-color);
+}
+
+.leaflet-popup-content {
+    font-family: 'Roboto', sans-serif;
+    color: var(--text-color);
+}
+
+.leaflet-marker-icon {
+    transition: transform 0.3s ease;
+}
+
+.leaflet-marker-icon:hover {
+    transform: scale(1.2);
+}
+
+/* Gallery Section */
+#gallery-section {
+    background-color: #f9f9f9;
+    padding: 50px 20px;
+    text-align: center;
+    transition: opacity 0.5s ease-in-out;
+}
+
+.gallery-item {
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+.gallery-item h3 {
+    font-size: 2rem;
+    margin-bottom: 10px;
+    color: var(--primary-color);
+}
+
+.gallery-item p {
+    font-size: 1rem;
+    margin-bottom: 20px;
+    color: var(--text-color);
+}
+
+/* Masonry Photo Grid */
+.photo-grid {
+    margin: 0 auto;
+}
+
+/* Add a grid-sizer for Masonry */
+.grid-sizer, .grid-item  {
+    width: 16.66%; /* Base width for grid items */
+}
+
+/* Grid Item Styles */
+.grid-item {
+    float: left;
+    margin-bottom: 10px;
+}
+
+.grid-item img {
+    width: 100%;
+    height: auto;
+    display: block;
+    transition: transform 0.3s ease;
+    border-radius: 5px;
+}
+
+.grid-item:hover img {
+    transform: scale(1.05);
+}
+
+/* Clearfix for Masonry */
+.photo-grid::after {
+    content: '';
+    display: block;
+    clear: both;
+}
+
+/* Lightbox overlay adjustments */
+.lightboxOverlay {
+    z-index: 9999 !important;
+}
+
+.lightbox {
+    z-index: 10000 !important;
+}
+
+/* Responsive Styles */
+@media only screen and (max-width: 1024px) {
+    .grid-item, .grid-sizer {
+        width: 25%;
+    }
+}
+
+@media only screen and (max-width: 768px) {
+    .travel-section {
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .travel-intro, .travel-map {
+        flex: 1 1 100%;
+        max-width: 100%;
+    }
+
+    .travel-intro {
+        text-align: center;
+    }
+
+    #map {
+        height: 300px;
+    }
+
+    .gallery-item h3 {
+        font-size: 1.5rem;
+    }
+
+    /* Adjust grid items for smaller screens */
+    .grid-item, .grid-sizer {
+        width: 50%;
+    }
+}
