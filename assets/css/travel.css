@@ -1,15 +1,13 @@
 /* Travel-specific styles */
 
 /* Introduction Section */
-/* Travel Introduction Section */
 .travel-intro {
     position: relative;
     text-align: center;
-    color: #fff;
+    color: var(--text-color);
     padding: 150px 20px;
     margin-top: calc(var(--header-height) + 20px);
     overflow: hidden;
-    /* text-shadow: 0 0 5px rgba(0,0,0,0.5); */
 }
 
 .travel-intro .travel-background-image {
@@ -33,7 +31,6 @@
 .travel-intro p {
     font-size: 1.2rem;
     line-height: 1.6;
-    color: var(--text-color);
     max-width: 800px;
     margin: 0 auto;
 }
@@ -62,7 +59,6 @@
 .country-info p {
     font-size: 1rem;
     margin-bottom: 15px;
-    color: var(--text-color);
 }
 
 .country-info h3 {
@@ -79,7 +75,6 @@
 .country-info ul li {
     font-size: 1rem;
     margin-bottom: 5px;
-    color: var(--text-color);
 }
 
 .travel-map {
@@ -91,6 +86,7 @@
 #map {
     width: 100%;
     height: 500px;
+    min-height: 300px;
     border-radius: 10px;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
 }
@@ -112,10 +108,7 @@
     color: var(--text-color);
 }
 
-.leaflet-interactive {
-    cursor: pointer;
-}
-
+.leaflet-interactive,
 .leaflet-clickable {
     cursor: pointer;
 }
@@ -146,7 +139,6 @@
     color: var(--secondary-color);
 }
 
-
 .gallery-item p {
     font-size: 1rem;
     margin-bottom: 20px;
@@ -159,8 +151,9 @@
 }
 
 /* Add a grid-sizer for Masonry */
-.grid-sizer, .grid-item  {
-    width: 15%; /* Base width for grid items (5 columns) */
+.grid-sizer,
+.grid-item {
+    width: 15%; /* Base width for grid items (6-7 columns) */
 }
 
 .grid-item {
@@ -196,26 +189,62 @@
     z-index: 10000 !important;
 }
 
+/* Navigation Bar Adjustments */
+/* Ensure base styles for .toggle-btn are included */
+.toggle-btn {
+    display: none;
+    position: absolute;
+    top: 50%;
+    right: 20px;
+    transform: translateY(-50%);
+    cursor: pointer;
+    color: #ffffff;
+    font-size: 1.5rem;
+    z-index: 11;
+    background-color: rgba(0, 0, 0, 0.3);
+    padding: 10px;
+    border-radius: 5px;
+}
+
 /* Responsive Styles */
 @media only screen and (max-width: 1200px) {
-    .grid-item, .grid-sizer {
+    .grid-item,
+    .grid-sizer {
         width: 25%; /* 4 columns */
     }
 }
 
 @media only screen and (max-width: 992px) {
-    .grid-item, .grid-sizer {
+    .grid-item,
+    .grid-sizer {
         width: 33.333%; /* 3 columns */
     }
 }
 
 @media only screen and (max-width: 768px) {
+    .travel-intro {
+        padding: 80px 10px;
+    }
+
+    .travel-intro h2 {
+        font-size: 2rem;
+    }
+
+    .travel-intro p {
+        font-size: 1rem;
+    }
+
+    .travel-intro .travel-background-image {
+        width: 50%;
+    }
+
     .travel-section {
         flex-direction: column;
         align-items: center;
     }
 
-    .country-info, .travel-map {
+    .country-info,
+    .travel-map {
         flex: 1 1 100%;
         max-width: 100%;
     }
@@ -228,18 +257,69 @@
         height: 300px;
     }
 
-    .gallery-item h3 {
+    .gallery-item h2 {
         font-size: 1.5rem;
     }
 
     /* Adjust grid items for smaller screens */
-    .grid-item, .grid-sizer {
+    .grid-item,
+    .grid-sizer {
         width: 50%; /* 2 columns */
+    }
+
+    /* Show the toggle button on small screens */
+    .toggle-btn {
+        display: block;
+    }
+
+
+
+    /* Hide the main logo */
+    .nav-logo-wrapper {
+        display: none;
+    }
+
+    /* Show the mobile logo inside the navigation menu */
+    .nav-logo-mobile {
+        display: block;
+        text-align: center;
+        margin: 0 auto 20px;
     }
 }
 
 @media only screen and (max-width: 576px) {
-    .grid-item, .grid-sizer {
+    .travel-intro {
+        padding: 60px 10px;
+    }
+
+    .travel-intro h2 {
+        font-size: 1.8rem;
+    }
+
+    .travel-intro p {
+        font-size: 0.9rem;
+    }
+
+    .travel-intro .travel-background-image {
+        width: 70%;
+    }
+
+    .grid-item,
+    .grid-sizer {
         width: 100%; /* 1 column */
+    }
+
+    .gallery-item h2 {
+        font-size: 1.3rem;
+    }
+
+    .gallery-item h4 {
+        font-size: 1rem;
+    }
+
+    /* Ensure the map is visible on small screens */
+    #map {
+        height: 200px;
+        min-height: 200px;
     }
 }

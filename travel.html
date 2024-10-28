@@ -530,7 +530,7 @@ document.addEventListener('DOMContentLoaded', function() {
     }
 
     // Function to display the gallery for a specific location
-    function displayGallery(location) {
+    function displayGallery(location, shouldScroll = true) {
         var gallerySection = document.getElementById('gallery-section');
         gallerySection.innerHTML = ''; // Clear previous content
 
@@ -583,17 +583,19 @@ document.addEventListener('DOMContentLoaded', function() {
             });
         });
 
-        // Smooth scroll to the gallery section
-        gallerySection.scrollIntoView({ behavior: 'smooth' });
+        if (shouldScroll) {
+            // Smooth scroll to the gallery section
+            gallerySection.scrollIntoView({ behavior: 'smooth' });
+        }
     }
 
     // Load countries onto the map
     loadCountries();
 
-    // Display the country info and gallery for the first location initially
+    // Display the country info and gallery for the first location initially without scrolling
     if (locations.length > 0) {
         displayCountryInfo(locations[0]);
-        displayGallery(locations[0]);
+        displayGallery(locations[0], false);
     }
 });
 </script>
