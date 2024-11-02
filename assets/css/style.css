@@ -318,14 +318,14 @@ nav {
 
 /* Base styling for timeline content with background */
 .timeline-content {
-    background-size: auto 70%; /* Adjusts the image to cover the entire container */
+    background-size: auto 40%; /* Adjusts the image to cover the entire container */
     background-position: center; /* Centers the image */
     background-repeat: no-repeat; /* Prevents the image from repeating */
     padding: 20px; /* Adjust padding as needed */
     border-radius: 8px; /* Optional: for rounded corners */
     position: relative;
     background-blend-mode: overlay; /* Optional: blend background color with image */
-    background-color: rgba(256, 256, 256, 0.9);
+    background-color: rgba(256, 256, 256, 0.85);
 }
 
 /* Applying background images for each timeline item */
@@ -339,7 +339,6 @@ nav {
 
 #hsrm .timeline-content {
     background-image: url("../images/hsrm.png");
-    background-size: auto 50%;
 }
 
 #sge .timeline-content {
@@ -347,18 +346,15 @@ nav {
 }
 
 #mck .timeline-content {
-    background-image: url("../images/mckinsey_logo.webp");
-    background-size: auto 60%;
+    background-image: url("../images/mckinsey_logo_crop.png");
 }
 
 #amazon .timeline-content {
     background-image: url("../images/amazon.svg");
-    background-size: auto 50%;
 }
 
 #continental .timeline-content {
     background-image: url("../images/continental.png");
-    background-size: auto 50%;
 }
 
 .timeline-content h3 {
@@ -907,7 +903,7 @@ footer {
     
     /* Hero Section */
     .hero-section h1 {
-        font-size: 2.5rem;
+        font-size: 2rem;
     }
 
     .hero-section p {
@@ -915,8 +911,8 @@ footer {
     }
 
     .buttons .btn {
-        font-size: 0.95rem;
-        padding: 10px 25px;
+        font-size: 0.85rem;
+        padding: 8px 20px;
     }
 
     .photo-placeholder img {
@@ -941,7 +937,7 @@ footer {
     }
 
     .timeline-content {
-        background-size: auto 50%; 
+        background-size: auto 40%; 
     }
     /* Styling for the Download CV Button */
     .btn {
