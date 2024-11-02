@@ -425,6 +425,10 @@ nav {
 .leaflet-marker-icon.emoji-icon:hover {
     font-size: 30px;
 }
+/* Hide the MapTiler logo in the bottom left corner */
+#map img{
+    display: none;
+}
 
 /* Projects Section */
 .projects-section {
