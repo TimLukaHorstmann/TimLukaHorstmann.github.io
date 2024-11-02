@@ -11,6 +11,33 @@
     --highlight-color: #94d2bd;
 }
 
+/* Dark Mode Variables */
+body.dark-mode {
+    --background-color: #121212;
+    --text-color: #e0e0e0;
+    --header-bg-color: rgba(20, 20, 20, 0.8);
+    --card-bg-color: #1e1e1e;
+    --primary-color: #bb86fc;
+    --secondary-color: #03dac6;
+}
+
+/* Apply Dark Mode to Body and Background */
+body.dark-mode {
+    background-color: var(--background-color);
+    color: var(--text-color);
+}
+
+body.dark-mode header {
+    background-color: var(--header-bg-color);
+}
+
+body.dark-mode .project-card,
+body.dark-mode .skill-card,
+body.dark-mode .timeline-content {
+    background-color: var(--card-bg-color);
+    color: var(--text-color);
+}
+
 /* General Styling */
 *,
 *::before,
@@ -142,6 +169,55 @@ nav {
     padding: 10px;
     border-radius: 5px;
 }
+
+
+/* Dark Mode Toggle Switch */
+.switch {
+    position: relative;
+    display: inline-block;
+    width: 50px;
+    height: 25px;
+}
+
+.switch input {
+    opacity: 0;
+    width: 0;
+    height: 0;
+}
+
+.slider {
+    position: absolute;
+    cursor: pointer;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: #ccc;
+    transition: 0.4s;
+    border-radius: 25px;
+}
+
+.slider:before {
+    position: absolute;
+    content: "";
+    height: 19px;
+    width: 19px;
+    left: 3px;
+    bottom: 3px;
+    background-color: white;
+    transition: 0.4s;
+    border-radius: 50%;
+}
+
+input:checked + .slider {
+    background-color: var(--primary-color);
+}
+
+input:checked + .slider:before {
+    transform: translateX(24px);
+}
+
+
 
 /* Hero Section */
 .hero-section {

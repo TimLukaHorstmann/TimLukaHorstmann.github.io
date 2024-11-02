@@ -142,6 +142,13 @@
                 <div class="toggle-btn">
                     <i class="fas fa-bars"></i>
                 </div>
+                <!-- Dark Mode Toggle Button in Navigation -->
+                <div class="dark-mode-toggle">
+                    <label class="switch">
+                        <input type="checkbox" id="dark-mode-toggle">
+                        <span class="slider round"></span>
+                    </label>
+                </div>
             </div>
         </nav>
     </header>
@@ -1026,6 +1033,33 @@
         // Add ripple effect when clicking inside the hero section
         document.querySelector('.hero-section').addEventListener('click', function(event) {
             createRipple(event);
+        });
+    </script>
+
+
+    <!-- Toggle Dark Mode -->
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const toggleSwitch = document.getElementById('dark-mode-toggle');
+            const body = document.body;
+    
+            // Load the user's preferred theme
+            const savedTheme = localStorage.getItem('theme');
+            if (savedTheme === 'dark') {
+                body.classList.add('dark-mode');
+                toggleSwitch.checked = true;
+            }
+    
+            // Toggle dark mode on switch click
+            toggleSwitch.addEventListener('change', function() {
+                if (toggleSwitch.checked) {
+                    body.classList.add('dark-mode');
+                    localStorage.setItem('theme', 'dark');
+                } else {
+                    body.classList.remove('dark-mode');
+                    localStorage.setItem('theme', 'light');
+                }
+            });
         });
     </script>
 
