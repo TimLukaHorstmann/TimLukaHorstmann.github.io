@@ -135,7 +135,7 @@
                     <li><a href="#skills">Skills</a></li>
                     <li><a href="#awards">Scholarships</a></li>
                     <li><a href="#contact">Contact</a></li>
-                    <li><a href="construction/index.html">Travel</a></li>
+                    <li><a href="construction/">Travel</a></li>
                 </ul>
                 
                 <!-- Toggle Button for Mobile -->
@@ -750,6 +750,8 @@
             const mtLayer = L.maptilerLayer({
                 apiKey: key,
                 style: 'c9280907-adb2-45e8-8a4c-8054cc121082',
+                noWrap: true, // Allows removing wrap at boundaries
+                attribution: false // Removes the MapTiler attribution
             }).addTo(map);
 
             // Define a custom DivIcon

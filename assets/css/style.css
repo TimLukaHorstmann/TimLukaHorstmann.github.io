@@ -902,14 +902,9 @@ footer {
     
     /* Add styles for the toggle button */
     .toggle-btn {
-        display: none;
+        display: block;
     }
     
-    @media (max-width: 768px) {
-        .toggle-btn {
-            display: block;
-        }
-    }
     /* Hero Section */
     .hero-section h1 {
         font-size: 2.5rem;
