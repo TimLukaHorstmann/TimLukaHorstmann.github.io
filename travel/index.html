@@ -566,7 +566,8 @@ document.addEventListener('DOMContentLoaded', function() {
                 weight: 1,
                 opacity: 1,
                 fillOpacity: 0.8
-            }).bindTooltip(city.name, {permanent: false, direction: 'top'});
+            })
+            .bindTooltip(city.name, {permanent: false, direction: 'top'});
 
             cityMarkersGroup.addLayer(marker);
         });
@@ -642,11 +643,14 @@ document.addEventListener('DOMContentLoaded', function() {
 
     // Load countries onto the map
     loadCountries();
+    
 
     // Display the country info and gallery for the first location initially without scrolling
     if (locations.length > 0) {
-        displayCountryInfo(locations[0]);
-        displayGallery(locations[0], false);
+        setTimeout(() => {
+            displayCountryInfo(locations[0]);
+            displayGallery(locations[0], false);
+        }, 500); // Adjust delay as needed
     }
 });
 </script>
