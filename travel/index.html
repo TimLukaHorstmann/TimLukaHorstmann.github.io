@@ -39,13 +39,13 @@
                         <img src="../assets/images/logo_white.png" alt="Logo" class="nav-logo-mobile">
                     </a>
                 </li>
-                <li><a href="../index.html#home">Home</a></li>
-                <li><a href="../index.html#cv">Resume/CV</a></li>
-                <li><a href="../index.html#projects">Projects</a></li>
-                <li><a href="../index.html#skills">Skills</a></li>
-                <li><a href="../index.html#awards">Scholarships</a></li>
-                <li><a href="../index.html#contact">Contact</a></li>
-                <li><a href="../travel.html" class="active">Travel</a></li>
+                <li><a href="../.">Home</a></li>
+                <li><a href="../#cv">Resume/CV</a></li>
+                <li><a href="../#projects">Projects</a></li>
+                <li><a href="../#skills">Skills</a></li>
+                <li><a href="../#awards">Scholarships</a></li>
+                <li><a href="../#contact">Contact</a></li>
+                <li><a href="." class="active">Travel</a></li>
             </ul>
             <!-- Toggle Button for Mobile -->
             <div class="toggle-btn">
@@ -61,7 +61,12 @@
     <section class="travel-intro" data-aos="fade-right">
         <img src="../assets/images/travel.png" alt="Travel Background" class="travel-background-image">
         <h2>My Travel Adventures</h2>
-        <p>Welcome to my travel page! Here, you can explore the various countries I've visited around the world. Click on the highlighted countries to see photos and stories from each trip. Traveling is a passion of mine, and I'm excited to share my experiences with you.</p>
+        <p>Welcome to my travel page! Here, you can explore the various countries I've visited around the world.
+            Click on the highlighted countries to see photos and stories from each trip.
+            Traveling is a passion of mine, and I hope I will be able to visit many more countries soon. <br>
+            On this page, I'm excited to share my experiences with you.</p>
+        <br>
+        <p style="font-size: medium;"> I am actively working on setting up this page. Please check back soon for more updates! 😃</p>
     </section>
 
     <!-- Map and Country Info Section -->
@@ -166,7 +171,7 @@ document.addEventListener('DOMContentLoaded', function() {
             id: "france",
             iso_a3: "FRA",
             title: "France",
-            description: "Currently living here. Rich in history and charm.",
+            description: "Currently living here. I have already explored various cities in France - also as part of several holiday trips and a school exchange program.",
             cities: [
                 { name: "Paris", lat: 48.8566, lng: 2.3522 },
                 { name: "Lyon", lat: 45.7640, lng: 4.8357 },
@@ -187,7 +192,7 @@ document.addEventListener('DOMContentLoaded', function() {
             id: "united_kingdom",
             iso_a3: "GBR",
             title: "United Kingdom",
-            description: "Completed my MPhil in Cambridge.",
+            description: "Visited the UK several times and explored various cities and regions. I also lived in London for half a year and completed my Master's degree at the University of Cambridge.",
             cities: [
                 { name: "London", lat: 51.50416999653585, lng: -0.13593725355972025},
                 { name: "Cambridge", lat: 52.19420518551005, lng: 0.13268969393713992 },
@@ -218,7 +223,7 @@ document.addEventListener('DOMContentLoaded', function() {
             cities: [
                 { name: "Prague", lat: 50.0755, lng: 14.4378 }
             ],
-            photos: ["../assets/images/travel/czech_republic/prague1.jpg", "../assets/images/travel/czech_republic/prague2.jpg"]
+            photos: []
         },
         {
             id: "germany",
@@ -233,21 +238,21 @@ document.addEventListener('DOMContentLoaded', function() {
                 { name: "Cologne", lat: 50.9375, lng: 6.9603 },
                 { name: "Düsseldorf", lat: 51.2277, lng: 6.7735 }
             ],
-            photos: ["../assets/images/travel/germany/germany1.jpg", "../assets/images/travel/germany/germany2.jpg"]
+            photos: []
         },
         { 
             id: "netherlands",
             iso_a3: "NLD",
             title: "Netherlands",
-            description: "Visited The Hague.",
-            photos: ["../assets/images/travel/netherlands/hague1.jpg", "../assets/images/travel/netherlands/hague2.jpg"]
+            description: "Visited various cities and enjoyed the beaches.",
+            photos: []
         },
         { 
             id: "belgium",
             iso_a3: "BEL",
             title: "Belgium",
             description: "Enjoyed chocolates in Brussels.",
-            photos: ["../assets/images/travel/belgium/brussels1.jpg", "../assets/images/travel/belgium/brussels2.jpg"]
+            photos: []
         },
         {
             id: "united_states",
@@ -257,7 +262,7 @@ document.addEventListener('DOMContentLoaded', function() {
             cities: [
                 { name: "Boston", lat: 42.3601, lng: -71.0589 }
             ],
-            photos: ["../assets/images/travel/usa/boston1.jpg", "../assets/images/travel/usa/boston2.jpg"]
+            photos: []
         },
         {
             id: "south_africa",
@@ -271,31 +276,51 @@ document.addEventListener('DOMContentLoaded', function() {
                 { name: "Addo", lat: -33.5550, lng: 25.6928 },
                 { name: "Oudtshoorn", lat: -33.5906, lng: 22.2014 }
             ],
-            photos: ["../assets/images/travel/south_africa/cape_town1.jpg", "../assets/images/travel/south_africa/cape_town2.jpg"]
+            photos: ["../assets/images/travel/south_africa/south_africa1.jpeg"
+                , "../assets/images/travel/south_africa/south_africa2.jpg"
+                , "../assets/images/travel/south_africa/south_africa3.jpg"
+                , "../assets/images/travel/south_africa/south_africa4.jpg"
+                , "../assets/images/travel/south_africa/south_africa5.jpg"
+                , "../assets/images/travel/south_africa/south_africa6.jpg"
+                , "../assets/images/travel/south_africa/south_africa7.jpg"
+                , "../assets/images/travel/south_africa/south_africa8.jpg"
+                , "../assets/images/travel/south_africa/south_africa9.jpg"
+                , "../assets/images/travel/south_africa/south_africa10.jpg"
+                , "../assets/images/travel/south_africa/south_africa11.jpg"
+                , "../assets/images/travel/south_africa/south_africa12.jpg"
+                , "../assets/images/travel/south_africa/south_africa13.jpg"
+            ]
         },
         { 
             id: "cape_verde",
             iso_a3: "CPV",
             title: "Cabo Verde",
             description: "Relaxed on the beaches of Cabo Verde.",
-            photos: ["../assets/images/travel/cape_verde/cape_verde1.jpg", "../assets/images/travel/cape_verde/cape_verde2.jpg"]
+            photos: []
         },
         {
             id: "spain",
             iso_a3: "ESP",
             title: "Spain",
-            description: "Visited Barcelona and Palma de Mallorca.",
+            description: "Visited Calella, Barcelona, and Mallorca.",
             cities: [
                 { name: "Barcelona", lat: 41.3851, lng: 2.1734 },
                 { name: "Palma de Mallorca", lat: 39.5696, lng: 2.6502 }
             ],
-            photos: ["../assets/images/travel/spain/spain1.jpg", "../assets/images/travel/spain/spain2.jpg"]
+            photos: ["../assets/images/travel/spain/spain1.jpg"
+            , "../assets/images/travel/spain/spain2.jpg"
+            , "../assets/images/travel/spain/spain3.jpg"
+            , "../assets/images/travel/spain/spain4.jpg"
+            , "../assets/images/travel/spain/spain5.jpg"
+            , "../assets/images/travel/spain/spain6.jpg"
+            , "../assets/images/travel/spain/spain7.jpg"
+        ]
         },
         {
             id: "italy",
             iso_a3: "ITA",
             title: "Italy",
-            description: "Explored various historic cities in Italy.",
+            description: "Italy has always been one of my favorite countries to visit. I have explored various cities and regions.",
             cities: [
                 { name: "Rome", lat: 41.9028, lng: 12.4964 },
                 { name: "Verona", lat: 45.4384, lng: 10.9916 },
@@ -306,73 +331,73 @@ document.addEventListener('DOMContentLoaded', function() {
                 { name: "Siena", lat: 43.3188, lng: 11.3308 },
                 { name: "Milano", lat: 45.4642, lng: 9.1900 }
             ],
-            photos: ["../assets/images/travel/italy/rome1.jpg", "../assets/images/travel/italy/rome2.jpg"]
+            photos: []
         },
         { 
             id: "hungary",
             iso_a3: "HUN",
             title: "Hungary",
             description: "Visited Budapest.",
-            photos: ["../assets/images/travel/hungary/budapest1.jpg", "../assets/images/travel/hungary/budapest2.jpg"]
+            photos: []
         },
         {
             id: "ireland",
             iso_a3: "IRL",
             title: "Ireland",
-            description: "Explored the lush landscapes of Ireland.",
+            description: "Did a weekend trip to Dublin.",
             cities: [
                 { name: "Dublin", lat: 53.3498, lng: -6.2603 }
             ],
-            photos: ["../assets/images/travel/ireland/ireland1.jpg", "../assets/images/travel/ireland/ireland2.jpg"]
+            photos: []
         },
         {
             id: "switzerland",
             iso_a3: "CHE",
             title: "Switzerland",
-            description: "Visited Geneva and Lausanne.",
+            description: "Visited Switzerland as part of a summer academy of the Studienstiftung des deutschen Volkes.",
             cities: [
                 { name: "Geneva", lat: 46.2044, lng: 6.1432 },
                 { name: "Lausanne", lat: 46.5197, lng: 6.6323 }
             ],
-            photos: ["../assets/images/travel/switzerland/switzerland1.jpg", "../assets/images/travel/switzerland/switzerland2.jpg"]
+            photos: []
         },
         {
             id: "poland",
             iso_a3: "POL",
             title: "Poland",
-            description: "Explored the historic city of Danzig (Gdańsk).",
+            description: "Spent two weeks in Poland as part of a school exchange. Explored the historic city of Danzig (Gdańsk).",
             cities: [
                 { name: "Danzig (Gdańsk)", lat: 54.3520, lng: 18.6466 }
             ],
-            photos: ["../assets/images/travel/poland/poland1.jpg", "../assets/images/travel/poland/poland2.jpg"]
+            photos: []
         },
         {
             id: "denmark",
             iso_a3: "DNK",
             title: "Denmark",
-            description: "Visited Copenhagen and enjoyed Danish pastries.",
+            description: "Visited Copenhagen.",
             cities: [
-                { name: "Kopenhagen", lat: 55.6761, lng: 12.5683 }
+                { name: "Copenhagen", lat: 55.6761, lng: 12.5683 }
             ],
-            photos: ["../assets/images/travel/denmark/denmark1.jpg", "../assets/images/travel/denmark/denmark2.jpg"]
+            photos: []
         },
         { 
             id: "turkey",
             iso_a3: "TUR",
             title: "Turkey",
-            description: "Explored Istanbul and its rich history.",
-            photos: ["../assets/images/travel/turkey/turkey1.jpg", "../assets/images/travel/turkey/turkey2.jpg"]
+            description: "",
+            photos: []
         },
         {
             id: "portugal",
             iso_a3: "PRT",
             title: "Portugal",
-            description: "Explored Lisbon and Porto.",
+            description: "Did a road trip through Portugal.",
             cities: [
                 { name: "Lisbon", lat: 38.7223, lng: -9.1393 },
                 { name: "Porto", lat: 41.1579, lng: -8.6291 }
             ],
-            photos: ["../assets/images/travel/portugal/portugal1.jpg", "../assets/images/travel/portugal/portugal2.jpg"]
+            photos: []
         },
             {
             id: "monaco",
@@ -382,7 +407,7 @@ document.addEventListener('DOMContentLoaded', function() {
             cities: [
                 { name: "Monaco", lat: 43.7384, lng: 7.4246 }
             ],
-            photos: ["../assets/images/travel/monaco/monaco1.jpg", "../assets/images/travel/monaco/monaco2.jpg"]
+            photos: []
         },
         {
             id: "san_marino",
@@ -392,28 +417,28 @@ document.addEventListener('DOMContentLoaded', function() {
             cities: [
                 { name: "San Marino", lat: 43.9424, lng: 12.4578 }
             ],
-            photos: ["../assets/images/travel/san_marino/sanmarino1.jpg", "../assets/images/travel/san_marino/sanmarino2.jpg"]
+            photos: []
         },
         {
             id: "austria",
             iso_a3: "AUT",
             title: "Austria",
-            description: "Visited Vienna and Salzburg.",
+            description: "Austria is a country I have visited several times - especially for skiing and hiking.",
             cities: [
                 { name: "Vienna", lat: 48.2082, lng: 16.3738 },
                 { name: "Salzburg", lat: 47.8095, lng: 13.0550 }
             ],
-            photos: ["../assets/images/travel/austria/austria1.jpg", "../assets/images/travel/austria/austria2.jpg"]
+            photos: []
         },
         {
             id: "slovakia",
             iso_a3: "SVK",
             title: "Slovakia",
-            description: "Visited the capital city, Bratislava.",
+            description: "Visited a friend and explored the capital city, Bratislava.",
             cities: [
                 { name: "Bratislava", lat: 48.1486, lng: 17.1077 }
             ],
-            photos: ["../assets/images/travel/slovakia/slovakia1.jpg", "../assets/images/travel/slovakia/slovakia2.jpg"]
+            photos: []
         }
     ];
 
@@ -540,48 +565,56 @@ document.addEventListener('DOMContentLoaded', function() {
         galleryItem.setAttribute('id', location.id);
         galleryItem.setAttribute('data-aos', 'fade-up');
 
-        var galleryTitle = document.createElement('h2');
-        galleryTitle.textContent = location.title;
 
-        var selectedPhotosText = document.createElement('h4');
-        selectedPhotosText.textContent = 'Selected Photos';
+        // Only add selected photos text and photo grid if photos are available
+        if (location.photos && location.photos.length > 0) {
 
-        var photoGrid = document.createElement('div');
-        photoGrid.classList.add('photo-grid');
+            var galleryTitle = document.createElement('h2');
+            galleryTitle.textContent = location.title;
 
-        // Create grid-sizer div
-        var gridSizer = document.createElement('div');
-        gridSizer.classList.add('grid-sizer');
-        photoGrid.appendChild(gridSizer);
+            galleryItem.appendChild(galleryTitle);
 
-        location.photos.forEach(function(photo) {
-            var anchor = document.createElement('a');
-            anchor.href = photo;
-            anchor.setAttribute('data-lightbox', location.id);
-            anchor.setAttribute('data-title', location.title);
-            anchor.classList.add('grid-item');
+            var selectedPhotosText = document.createElement('h4');
+            selectedPhotosText.textContent = 'Selected Photos';
+            galleryItem.appendChild(selectedPhotosText);
 
-            var img = document.createElement('img');
-            img.setAttribute('src', photo);
-            img.setAttribute('alt', `Photo of ${location.title}`);
-            anchor.appendChild(img);
-            photoGrid.appendChild(anchor);
-        });
+            var photoGrid = document.createElement('div');
+            photoGrid.classList.add('photo-grid');
 
-        galleryItem.appendChild(galleryTitle);
-        galleryItem.appendChild(selectedPhotosText);
-        galleryItem.appendChild(photoGrid);
-        gallerySection.appendChild(galleryItem);
+            // Create grid-sizer div
+            var gridSizer = document.createElement('div');
+            gridSizer.classList.add('grid-sizer');
+            photoGrid.appendChild(gridSizer);
 
-        // Initialize Masonry after images have loaded
-        imagesLoaded(photoGrid, function() {
-            new Masonry(photoGrid, {
-                itemSelector: '.grid-item',
-                columnWidth: '.grid-sizer',
-                percentPosition: true,
-                gutter: 10
+            location.photos.forEach(function(photo) {
+                var anchor = document.createElement('a');
+                anchor.href = photo;
+                anchor.setAttribute('data-lightbox', location.id);
+                anchor.setAttribute('data-title', location.title);
+                anchor.classList.add('grid-item');
+
+                var img = document.createElement('img');
+                img.setAttribute('src', photo);
+                img.setAttribute('loading', 'lazy');
+                img.setAttribute('alt', `Photo of ${location.title}`);
+                anchor.appendChild(img);
+                photoGrid.appendChild(anchor);
             });
-        });
+
+            galleryItem.appendChild(photoGrid);
+
+            // Initialize Masonry after images have loaded
+            imagesLoaded(photoGrid, function() {
+                new Masonry(photoGrid, {
+                    itemSelector: '.grid-item',
+                    columnWidth: '.grid-sizer',
+                    percentPosition: true,
+                    gutter: 10
+                });
+            });
+        }
+
+        gallerySection.appendChild(galleryItem);
 
         if (shouldScroll) {
             // Smooth scroll to the gallery section
