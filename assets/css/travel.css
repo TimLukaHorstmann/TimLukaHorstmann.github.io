@@ -147,7 +147,12 @@
 
 /* Masonry Photo Grid */
 .photo-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(120px, 1fr)); /* Responsive columns */
+    gap: 10px;
+    max-width: 1200px;
     margin: 0 auto;
+    padding: 10px;
 }
 
 /* Add a grid-sizer for Masonry */
@@ -157,20 +162,19 @@
 }
 
 .grid-item {
-    float: left;
-    margin-bottom: 10px;
+    overflow: hidden;
+    border-radius: 5px;
 }
 
 .grid-item img {
     width: 100%;
     height: auto;
-    display: block;
+    object-fit: cover; /* Ensures images maintain their aspect ratio */
     transition: transform 0.3s ease;
-    border-radius: 5px;
 }
 
 .grid-item:hover img {
-    transform: scale(1.05);
+    transform: scale(1.05); /* Slight zoom on hover */
 }
 
 /* Clearfix for Masonry */
@@ -204,6 +208,10 @@
     background-color: rgba(0, 0, 0, 0.3);
     padding: 10px;
     border-radius: 5px;
+}
+
+.toggle-btn i {
+    color: #ffffff !important; /* White color for visibility */
 }
 
 /* Responsive Styles */
@@ -257,6 +265,10 @@
         height: 300px;
     }
 
+    .photo-grid {
+        grid-template-columns: repeat(2, 1fr); /* 2 columns on medium screens */
+    }
+
     .gallery-item h2 {
         font-size: 1.5rem;
     }
@@ -271,6 +283,7 @@
     .toggle-btn {
         display: block;
     }
+    
 
 
 
@@ -316,10 +329,23 @@
     .gallery-item h4 {
         font-size: 1rem;
     }
+    
 
-    /* Ensure the map is visible on small screens */
     #map {
-        height: 200px;
-        min-height: 200px;
+        height: 300px !important;
+        min-height: 250px;
+        max-height: 400px;
+        width: 100% !important;
+    }
+    .travel-map {
+        width: 100% !important;
+    }
+
+    .photo-grid {
+        grid-template-columns: repeat(2, 1fr); /* 2 columns on small screens */
+    }
+
+    .photo-grid .grid-item img {
+        max-height: 100px; /* Reduce height on small screens */
     }
 }
