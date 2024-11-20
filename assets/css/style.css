@@ -694,7 +694,7 @@ nav {
     color: rgba(0, 0, 0, 0.2);
 }
 
-/* Scholarships Section */
+/* Awards Section */
 .awards-section {
     background-color: #f4f4f4;
     padding: 100px 20px;
@@ -709,12 +709,15 @@ nav {
 
 .awards-section h3 {
     font-size: 1.8rem;
-    margin-top: 30px;
+    margin-top: 50px;
     color: var(--primary-color);
+    text-align: center;
 }
 
+/* Common styles for scholarships, programs, and awards */
 .scholarships,
-.programs {
+.programs,
+.awards {
     display: flex;
     flex-wrap: wrap;
     justify-content: center;
@@ -723,9 +726,23 @@ nav {
 }
 
 .scholarship-item,
-.program-item {
+.program-item,
+.award-item {
     width: 300px;
     text-align: center;
+    background-color: #ffffff;
+    border: 1px solid #ddd;
+    border-radius: 10px;
+    padding: 20px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.scholarship-item:hover,
+.program-item:hover,
+.award-item:hover {
+    transform: scale(1.05);
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
 }
 
 .scholarship-item img,
@@ -740,26 +757,17 @@ nav {
 }
 
 .scholarship-item p,
-.program-item p {
+.program-item p,
+.award-item p {
     font-size: 1rem;
     color: var(--text-color);
+    margin-top: 10px;
 }
 
-.awards-section ul {
-    list-style: none;
-    padding-left: 0;
-    font-size: 1rem;
-    line-height: 1.8;
-    max-width: 800px;
-    margin: 0 auto;
-}
-
-.awards-section ul li {
+.award-item i {
+    font-size: 3rem;
+    color: var(--primary-color);
     margin-bottom: 10px;
-}
-
-.awards-section ul li strong {
-    color: var(--text-color);
 }
 
 /* Contact Section */
@@ -1001,7 +1009,8 @@ footer {
     /* Adjust project cards and similar items */
     .project-card,
     .scholarship-item,
-    .program-item {
+    .program-item,
+    .award-item {
         width: calc(50% - 20px);
         margin: 10px;
     }
@@ -1032,7 +1041,8 @@ footer {
 
     .project-card,
     .scholarship-item,
-    .program-item {
+    .program-item,
+    .award-item {
         width: calc(100% - 20px);
     }
 
