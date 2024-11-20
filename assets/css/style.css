@@ -176,7 +176,6 @@ nav {
     height: 100%;
     z-index: 0; /* Positioned between the background and the content */
     opacity: 0.3; /* Adjust for desired subtlety */
-
 }
 
 /* Elegant Ripple Effect */
@@ -271,7 +270,6 @@ nav {
     color: var(--secondary-color);
 }
 
-
 /* CV Content Layout */
 .cv-content {
     display: flex;
@@ -308,7 +306,6 @@ nav {
     /* Highlight the timeline item on hover by adding a nice border */
     border-left: 4px solid var(--accent-color);
 }
-
 
 .timeline-item.highlight .timeline-content {
     background-image: none !important;
@@ -425,8 +422,9 @@ nav {
 .leaflet-marker-icon.emoji-icon:hover {
     font-size: 30px;
 }
+
 /* Hide the MapTiler logo in the bottom left corner */
-#map img{
+#map img {
     display: none;
 }
 
@@ -560,7 +558,7 @@ nav {
     font-weight: bold;
     padding: 15px 0;
     z-index: 2;
-    box-shadow: 0 2px 6px rgba(0,0,0,0.2);
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.2);
 }
 
 /* Disable hover effects on upcoming projects */
@@ -568,7 +566,6 @@ nav {
     transform: none;
     box-shadow: none;
 }
-
 
 /* Carousel Styling */
 .carousel .slick-slide {
@@ -721,23 +718,29 @@ nav {
     display: flex;
     flex-wrap: wrap;
     justify-content: center;
-    gap: 30px;
+    gap: 20px;
     margin-top: 20px;
 }
 
 .scholarship-item,
 .program-item,
 .award-item {
-    width: 300px;
+    flex: 1 1 300px; /* Flex-grow, flex-shrink, flex-basis */
+    max-width: 300px;
     text-align: center;
     background-color: #ffffff;
     border: 1px solid #ddd;
     border-radius: 10px;
     padding: 20px;
+    box-sizing: border-box;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
     transition: transform 0.3s ease, box-shadow 0.3s ease;
+    display: flex; /* Use Flexbox */
+    flex-direction: column; /* Stack children vertically */
+    align-items: center; /* Center items horizontally */
 }
 
+/* Hover effect */
 .scholarship-item:hover,
 .program-item:hover,
 .award-item:hover {
@@ -745,29 +748,44 @@ nav {
     box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
 }
 
+/* Image or Icon Container */
+.scholarship-item .image-container,
+.program-item .image-container,
+.award-item .image-container {
+    width: 100%;
+    height: 120px; /* Set a fixed height */
+    display: flex;
+    align-items: center; /* Center vertically */
+    justify-content: center; /* Center horizontally */
+    margin-bottom: 10px;
+}
+
+/* Images */
 .scholarship-item img,
 .program-item img {
-    width: 170px;
-    height: 120px;
+    max-width: 70%;
+    max-height: 100%;
     object-fit: contain;
     background-color: #ffffff;
     border-radius: 10px;
     padding: 10px;
+}
+
+/* Icons */
+.award-item i {
+    font-size: 3rem;
+    color: var(--primary-color);
     margin-bottom: 10px;
 }
 
+/* Text Content */
 .scholarship-item p,
 .program-item p,
 .award-item p {
     font-size: 1rem;
     color: var(--text-color);
-    margin-top: 10px;
-}
-
-.award-item i {
-    font-size: 3rem;
-    color: var(--primary-color);
-    margin-bottom: 10px;
+    margin-top: 0px;
+    word-wrap: break-word; /* Allow long words to break */
 }
 
 /* Contact Section */
@@ -856,6 +874,17 @@ footer {
 }
 
 /* Responsive Adjustments */
+
+@media only screen and (max-width: 1024px) {
+    /* Adjust scholarships, programs, and awards items to two columns */
+    .scholarship-item,
+    .program-item,
+    .award-item {
+        flex: 1 1 calc(50% - 40px); /* Two columns */
+        max-width: none;
+        margin: 10px 20px;
+    }
+}
 
 @media only screen and (max-width: 768px) {
     /* Show the toggle button */
@@ -1007,12 +1036,8 @@ footer {
     }
 
     /* Adjust project cards and similar items */
-    .project-card,
-    .scholarship-item,
-    .program-item,
-    .award-item {
-        width: calc(50% - 20px);
-        margin: 10px;
+    .project-card {
+        flex: 1 1 calc(50% - 40px);
     }
 
     /* Ensure main containers fit within viewport */
@@ -1039,11 +1064,8 @@ footer {
         width: calc(33.33% - 20px);
     }
 
-    .project-card,
-    .scholarship-item,
-    .program-item,
-    .award-item {
-        width: calc(100% - 20px);
+    .project-card {
+        flex: 1 1 calc(100% - 40px);
     }
 
     /* Adjust CV Content Layout */
