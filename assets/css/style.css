@@ -506,7 +506,9 @@ nav {
     font-size: 0.9rem;
     color: var(--text-color);
     animation: fadeIn 0.3s ease-in-out;
+    text-align: center;
 }
+
 
 .project-description.show {
     display: block;
@@ -521,6 +523,13 @@ nav {
     transform: scale(1.2);
     color: #4078c0;
 }
+
+.project-description ul {
+    list-style: disc; /* Enables bullet points */
+    margin-left: 20px; /* Adds indentation */
+    text-align: left;
+}
+
 
 /* Upcoming Projects Section */
 
