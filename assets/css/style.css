@@ -530,6 +530,33 @@ nav {
     text-align: left;
 }
 
+/* General Button Styling for GitHub and PDF Links */
+.project-description .btn {
+    display: inline-block;
+    background-color: var(--primary-color);
+    color: white;
+    padding: 12px 20px;
+    border-radius: 30px;
+    font-size: 1rem;
+    text-align: center;
+    text-decoration: none;
+    margin: 5px;
+    transition: background-color 0.3s, transform 0.3s;
+    cursor: pointer;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* Adds a subtle shadow */
+}
+
+.project-description .btn:hover {
+    background-color: var(--accent-color); /* Lighter shade for hover */
+    transform: scale(1.05); /* Slightly enlarges on hover */
+    box-shadow: 0 6px 10px rgba(0, 0, 0, 0.2); /* Enhances hover shadow */
+}
+
+.project-description .btn i {
+    margin-right: 8px; /* Adds space between icon and text */
+}
+
+
 
 /* Upcoming Projects Section */
 
@@ -1056,6 +1083,20 @@ footer {
     /* Adjust project cards and similar items */
     .project-card {
         flex: 1 1 calc(50% - 40px);
+    }
+
+    .project-images {
+        display: flex;
+        flex-wrap: wrap; /* Allows images to wrap to the next line */
+        justify-content: center; /* Centers images horizontally */
+        gap: 10px; /* Adds spacing between images */
+    }
+
+    .project-images img {
+        flex: 1 1 45%; /* Makes images take 45% of the width (two images per row) */
+        max-width: 45%; /* Ensures images don’t grow too large */
+        height: auto; /* Maintains aspect ratio */
+        object-fit: contain; /* Ensures images fit within their box */
     }
 
     /* Ensure main containers fit within viewport */
