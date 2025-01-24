@@ -342,6 +342,10 @@ nav {
     background-image: url("../images/sge.jpg");
 }
 
+#hi_paris .timeline-content {
+    background-image: url("../images/logo-hi-paris-retina.png");
+}
+
 #mck .timeline-content {
     background-image: url("../images/mckinsey_logo_crop.png");
 }
