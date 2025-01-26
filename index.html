@@ -1019,7 +1019,10 @@
                     const markerId = item.getAttribute('data-marker-id');
                     const marker = markers[markerId];
                     if(marker){
-                        map.setView(marker.getLatLng(), 7, { animate: true });
+                        map.flyTo(marker.getLatLng(), 8, {
+                            animate: true,
+                            duration: 1.5 // Adjust duration for a smoother effect
+                        });
                         marker.openPopup();
                         highlightTimelineItem(item); // Highlight the timeline item as before
                     }
