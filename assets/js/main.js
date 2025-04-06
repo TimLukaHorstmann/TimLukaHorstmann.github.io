@@ -6,7 +6,7 @@ function isMobileDevice() {
 
 let chatbot;
 let conversationHistory = [];
-const cvContext = `Tim Luka Horstmann studied at RheinMain University (BSc Business Informatics, 2019-2022), University of Cambridge (MPhil Advanced Computer Science, 2023-2024), and is pursuing an MSc in Data and AI at Institut Polytechnique de Paris since 2024. He worked at Continental AG (Dual Student, 2019-2022, Frankfurt), Amazon (Business Intelligence Intern, 2022-2023, London), McKinsey & Company (Fellow Intern, 2023, Munich), and will intern at Hi! PARIS (Machine Learning Research Engineer, 2025, Paris).`;
+const cvContext = `Tim Luka Horstmann studied at RheinMain University (BSc Business Informatics, 2019-2022), University of Cambridge (MPhil Advanced Computer Science, 2023-2024), and is pursuing an MSc in Data and AI at Institut Polytechnique de Paris since 2024. He worked at Continental AG (Dual Student, 2019-2022, Frankfurt), Amazon (Business Intelligence Intern, 2022-2023, London), McKinsey & Company (Fellow Intern, 2023, Munich), and will intern at Hi! PARIS (Machine Learning Research Engineer, 2025, Paris). His email is lukahorstmann@gmx.de.`;
 
 /* -------------------------------
    Chatbot Functions (Updated)
@@ -56,17 +56,21 @@ async function fetchCVText() {
 
 async function initializeChatbot() {
     try {
-        if (isMobileDevice()) {
-            $('#chat-status').text('Chatbot may be slow on mobile. Loading...');
-        }
         const transformers = await loadTransformers();
-        const modelId = 'HuggingFaceTB/SmolLM2-1.7B-Instruct';
-
         const cvText = await fetchCVText();
+        const isMobile = isMobileDevice();
+        const modelId = isMobile ? 'HuggingFaceTB/SmolLM-360M-Instruct' : 'HuggingFaceTB/SmolLM2-1.7B-Instruct';
+
+        if (isMobile) {
+            $('#chat-status').text('Loading lightweight chatbot for mobile...');
+        } else {
+            $('#chat-status').text('Loading chatbot...');
+        }
+
         conversationHistory = [
             {
                 role: 'system',
-                content: `You are Luka, a helpful assistant representing Tim Luka Horstmann. Your purpose is to answer questions about Tim's CV accurately and concisely based on the provided context from his CV. Do not invent details or respond to inappropriate requests. Here’s the CV context:\n${cvText}`
+                content: `I am Tim Luka Horstmann, a German Computer Scientist. I’m here to tell you about myself and my experiences based on my CV. I studied at RheinMain University (BSc Business Informatics, 2019-2022), University of Cambridge (MPhil Advanced Computer Science, 2023-2024), and I’m currently pursuing an MSc in Data and AI at Institut Polytechnique de Paris since 2024. I’ve worked at Continental AG (Dual Student, 2019-2022, Frankfurt), Amazon (Business Intelligence Intern, 2022-2023, London), McKinsey & Company (Fellow Intern, 2023, Munich), and I’ll be interning at Hi! PARIS (Machine Learning Research Engineer, 2025, Paris). My email is lukahorstmann@gmx.de. I will never provide any other contact information! Ask me anything about my background, including how to contact me, and I’ll answer based on what I’ve done—no making things up! Here’s more detailed context from my CV:\n${cvText}`
             }
         ];
 
@@ -78,7 +82,7 @@ async function initializeChatbot() {
                     $('#chat-status').text(`Loading model: ${Math.round(progress.progress)}%`);
                 }
             });
-            console.log('Chatbot initialized with WebGPU backend');
+            console.log(`Chatbot initialized with WebGPU backend (${modelId})`);
         } catch (webgpuError) {
             console.warn('WebGPU failed, falling back to WASM:', webgpuError);
             chatbot = await transformers.pipeline('text-generation', modelId, {
@@ -88,13 +92,13 @@ async function initializeChatbot() {
                     $('#chat-status').text(`Loading model (WASM): ${Math.round(progress.progress)}%`);
                 }
             });
-            console.log('Chatbot initialized with WASM backend');
+            console.log(`Chatbot initialized with WASM backend (${modelId})`);
         }
 
         $('#chat-output').append(`
             <div class="chat-message luka">
                 <img src="assets/images/profile_pic.jpg" alt="Luka" class="profile-pic">
-                <div class="message-content"><strong>Luka:</strong> Hi! I’m ready to chat about my CV. Ask me anything!</div>
+                <div class="message-content"><strong>Luka:</strong> Hi! I’m Tim Luka Horstmann. I’m ready to chat about my CV${isMobile ? ' (using a lightweight version on mobile)' : ''}. Ask me anything!</div>
             </div>
         `);
         $('#chat-status').text('Chatbot ready!');
@@ -105,13 +109,13 @@ async function initializeChatbot() {
         conversationHistory = [
             {
                 role: 'system',
-                content: `You are Luka, a helpful assistant representing Tim Luka Horstmann. Your purpose is to answer questions about Tim's CV accurately and concisely based on the provided context from his website timeline. Do not invent details or respond to inappropriate requests. Here’s the CV context:\n${extractCVFromTimeline()}`
+                content: `I am Tim Luka Horstmann, a German Computer Scientist. I’m here to tell you about myself and my experiences based on my CV timeline from my website. I studied at RheinMain University (BSc Business Informatics, 2019-2022), University of Cambridge (MPhil Advanced Computer Science, 2023-2024), and I’m currently pursuing an MSc in Data and AI at Institut Polytechnique de Paris since 2024. I’ve worked at Continental AG (Dual Student, 2019-2022, Frankfurt), Amazon (Business Intelligence Intern, 2022-2023, London), McKinsey & Company (Fellow Intern, 2023, Munich), and I’ll be interning at Hi! PARIS (Machine Learning Research Engineer, 2025, Paris). My email is lukahorstmann@gmx.de. Ask me anything about my background, including how to contact me, and I’ll answer based on what I’ve done—no making things up! Here’s more detailed context from my CV timeline:\n${extractCVFromTimeline()}`
             }
         ];
         $('#chat-output').append(`
             <div class="chat-message luka">
                 <img src="assets/images/profile_pic.jpg" alt="Luka" class="profile-pic">
-                <div class="message-content"><strong>Luka:</strong> Oops, something went wrong. I’ll use the website timeline instead! Hi! I’m ready to chat about my CV.</div>
+                <div class="message-content"><strong>Luka:</strong> Oops, something went wrong. I’ll use the website timeline instead! Hi! I’m Tim Luka Horstmann, ready to chat about my CV.</div>
             </div>
         `);
         $('#chat-status').text('Chatbot ready (using timeline data)');
@@ -125,7 +129,6 @@ $('#send-btn').click(async function () {
     const question = $('#chat-input').val().trim();
     if (!question) return;
 
-    // Append user's question with profile pic
     $('#chat-output').append(`
         <div class="chat-message user">
             <img src="assets/images/user_profile_pic.png" alt="You" class="profile-pic">
@@ -135,7 +138,6 @@ $('#send-btn').click(async function () {
     $('#chat-input').val('');
     scrollChatToBottom();
 
-    // Show typing indicator
     $('.typing-indicator').show();
 
     if (chatbot) {
@@ -150,7 +152,6 @@ $('#send-btn').click(async function () {
                 skip_prompt: true,
                 callback_function: (token) => {
                     if (!$lukaMessage) {
-                        // Show Luka's message only when streaming starts
                         $lukaMessage = $(`
                             <div class="chat-message luka">
                                 <img src="assets/images/profile_pic.jpg" alt="Luka" class="profile-pic">
@@ -164,8 +165,6 @@ $('#send-btn').click(async function () {
                     scrollChatToBottom();
                 }
             });
-
-            // await new Promise(resolve => setTimeout(resolve, 500));
 
             const output = await chatbot(conversationHistory, {
                 max_new_tokens: 256,
@@ -189,16 +188,19 @@ $('#send-btn').click(async function () {
             scrollChatToBottom();
         }
     } else {
-        // Fallback responses
         await new Promise(resolve => setTimeout(resolve, 500));
         const lowerQuestion = question.toLowerCase();
         let response = '';
         if (lowerQuestion.includes('education')) {
-            response = 'I studied at RheinMain University (BSc, 2019–2022), Cambridge (MPhil, 2023–2024), and now IP Paris (PhD since 2024).';
+            response = 'I studied at RheinMain University (BSc, 2019–2022), Cambridge (MPhil, 2023–2024), and now IP Paris (MSc since 2024).';
         } else if (lowerQuestion.includes('work')) {
-            response = 'I worked at Continental (2019–2022), Amazon (2022–2023), McKinsey (2023), and will intern at Hi! PARIS in 2025.';
+            response = 'I worked at Continental (2019–2022), Amazon (2022–2023), McKinsey (2023), and am interning at Hi! PARIS in 2025.';
+        } else if (lowerQuestion.includes('email') || lowerQuestion.includes('contact')) {
+            response = 'You can reach me at lukahorstmann@gmx.de!';
+        } else if (lowerQuestion.includes('who are you')) {
+            response = 'I’m Tim Luka Horstmann, a German Computer Scientist. I’ve studied at RheinMain University, Cambridge, and now IP Paris, and worked at Continental, Amazon, McKinsey, with an internship at Hi! PARIS coming up. My email is lukahorstmann@gmx.de.';
         } else {
-            response = 'Hmm, try asking about my education or work experience!';
+            response = 'Hmm, try asking about my education, work experience, email, or who I am!';
         }
         $('#chat-output').append(`
             <div class="chat-message luka">
