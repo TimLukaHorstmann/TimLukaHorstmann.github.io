@@ -278,6 +278,26 @@ ul {
     margin-right: 12px;
 }
 
+#load-chatbot-btn {
+    background-color: var(--accent-color);
+    color: white;
+    border: none;
+    padding: 5px 10px;
+    border-radius: 15px;
+    cursor: pointer;
+    font-size: 0.9rem;
+    margin-left: 5px;
+}
+
+#load-chatbot-btn:hover {
+    background-color: var(--primary-color);
+}
+
+#load-chatbot-btn:disabled {
+    background-color: #888;
+    cursor: not-allowed;
+}
+
 #chat-modal .close {
     font-size: 2rem;
     cursor: pointer;
