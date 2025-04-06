@@ -1,7 +1,12 @@
 // main.js
 
+function isMobileDevice() {
+    return /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent);
+}
+
 let chatbot;
-const cvContext = `Tim Luka Horstmann studied at RheinMain University (BSc Business Informatics, 2019-2022), University of Cambridge (MPhil Advanced Computer Science, 2023-2024), and is pursuing a PhD Track in Computer Science at Institut Polytechnique de Paris since 2024. He worked at Continental AG (Dual Student, 2019-2022, Frankfurt), Amazon (Business Intelligence Intern, 2022-2023, London), McKinsey & Company (Fellow Intern, 2023, Munich), and will intern at Hi! PARIS (Machine Learning Research Engineer, 2025, Paris).`;
+let conversationHistory = [];
+const cvContext = `Tim Luka Horstmann studied at RheinMain University (BSc Business Informatics, 2019-2022), University of Cambridge (MPhil Advanced Computer Science, 2023-2024), and is pursuing an MSc in Data and AI at Institut Polytechnique de Paris since 2024. He worked at Continental AG (Dual Student, 2019-2022, Frankfurt), Amazon (Business Intelligence Intern, 2022-2023, London), McKinsey & Company (Fellow Intern, 2023, Munich), and will intern at Hi! PARIS (Machine Learning Research Engineer, 2025, Paris).`;
 
 /* -------------------------------
    Chatbot Functions (Updated)
@@ -12,6 +17,13 @@ async function loadTransformers() {
         window._transformers = module;
     }
     return window._transformers;
+}
+
+function scrollChatToBottom() {
+    const $chatOutput = $('#chat-output');
+    $chatOutput.animate({
+        scrollTop: $chatOutput[0].scrollHeight
+    }, 300); // Smooth scroll with 300ms duration
 }
 
 function extractCVFromTimeline() {
@@ -38,14 +50,17 @@ async function fetchCVText() {
         return await response.text();
     } catch (error) {
         console.error('Error fetching CV text:', error);
-        return extractCVFromTimeline(); // Fallback to timeline
+        return extractCVFromTimeline();
     }
 }
 
 async function initializeChatbot() {
     try {
+        if (isMobileDevice()) {
+            $('#chat-status').text('Chatbot may be slow on mobile. Loading...');
+        }
         const transformers = await loadTransformers();
-        const modelId = 'onnx-community/Phi-3.5-mini-instruct-onnx-web';
+        const modelId = 'HuggingFaceTB/SmolLM2-1.7B-Instruct';
 
         const cvText = await fetchCVText();
         conversationHistory = [
@@ -54,7 +69,7 @@ async function initializeChatbot() {
                 content: `You are Luka, a helpful assistant representing Tim Luka Horstmann. Your purpose is to answer questions about Tim's CV accurately and concisely based on the provided context from his CV. Do not invent details or respond to inappropriate requests. Here’s the CV context:\n${cvText}`
             }
         ];
-        // Attempt WebGPU first
+
         try {
             chatbot = await transformers.pipeline('text-generation', modelId, {
                 device: 'webgpu',
@@ -76,21 +91,29 @@ async function initializeChatbot() {
             console.log('Chatbot initialized with WASM backend');
         }
 
-        // Update UI when model is ready
-        $('#chat-output').append('<p><strong>Luka:</strong> Hi! I’m ready to chat about my CV. Ask me anything!</p>');
+        $('#chat-output').append(`
+            <div class="chat-message luka">
+                <img src="assets/images/profile_pic.jpg" alt="Luka" class="profile-pic">
+                <div class="message-content"><strong>Luka:</strong> Hi! I’m ready to chat about my CV. Ask me anything!</div>
+            </div>
+        `);
         $('#chat-status').text('Chatbot ready!');
         $('#chat-input').prop('disabled', false);
         $('#send-btn').prop('disabled', false);
     } catch (error) {
         console.error('Chatbot initialization failed:', error);
-        $('#chat-output').append('<p><strong>Luka:</strong> Oops, something went wrong. I’ll use the website timeline instead!</p>');
         conversationHistory = [
             {
                 role: 'system',
                 content: `You are Luka, a helpful assistant representing Tim Luka Horstmann. Your purpose is to answer questions about Tim's CV accurately and concisely based on the provided context from his website timeline. Do not invent details or respond to inappropriate requests. Here’s the CV context:\n${extractCVFromTimeline()}`
             }
         ];
-        $('#chat-output').append('<p><strong>Luka:</strong> Hi! I’m ready to chat about my CV. Ask me anything!</p>');
+        $('#chat-output').append(`
+            <div class="chat-message luka">
+                <img src="assets/images/profile_pic.jpg" alt="Luka" class="profile-pic">
+                <div class="message-content"><strong>Luka:</strong> Oops, something went wrong. I’ll use the website timeline instead! Hi! I’m ready to chat about my CV.</div>
+            </div>
+        `);
         $('#chat-status').text('Chatbot ready (using timeline data)');
         $('#chat-input').prop('disabled', false);
         $('#send-btn').prop('disabled', false);
@@ -98,79 +121,97 @@ async function initializeChatbot() {
     }
 }
 
-
 $('#send-btn').click(async function () {
     const question = $('#chat-input').val().trim();
     if (!question) return;
 
-    // Append user's question to chat output
-    $('#chat-output').append(`<p><strong>You:</strong> ${question}</p>`);
+    // Append user's question with profile pic
+    $('#chat-output').append(`
+        <div class="chat-message user">
+            <img src="assets/images/user_profile_pic.png" alt="You" class="profile-pic">
+            <div class="message-content"><strong>You:</strong> ${question}</div>
+        </div>
+    `);
     $('#chat-input').val('');
+    scrollChatToBottom();
 
-    // Prepare Luka's response container
-    const $lukaParagraph = $('<p><strong>Luka:</strong> </p>');
-    $('#chat-output').append($lukaParagraph);
-    $('#chat-output').scrollTop($('#chat-output')[0].scrollHeight);
+    // Show typing indicator
+    $('.typing-indicator').show();
 
     if (chatbot) {
-        // Add user question to conversation history
         conversationHistory.push({ role: 'user', content: question });
 
         try {
             const { TextStreamer } = window._transformers;
             let finalText = '';
+            let $lukaMessage = null;
 
-            // Custom streaming callback
             const streamer = new TextStreamer(chatbot.tokenizer, {
                 skip_prompt: true,
                 callback_function: (token) => {
+                    if (!$lukaMessage) {
+                        // Show Luka's message only when streaming starts
+                        $lukaMessage = $(`
+                            <div class="chat-message luka">
+                                <img src="assets/images/profile_pic.jpg" alt="Luka" class="profile-pic">
+                                <div class="message-content"><strong>Luka:</strong> <span class="response-text"></span></div>
+                            </div>
+                        `);
+                        $('#chat-output').append($lukaMessage);
+                    }
                     finalText += token;
-                    $lukaParagraph.text(`Luka: ${finalText}`);
-                    $('#chat-output').scrollTop($('#chat-output')[0].scrollHeight);
+                    $lukaMessage.find('.response-text').text(finalText);
+                    scrollChatToBottom();
                 }
             });
 
-            // Generate response using the full conversation history
+            // await new Promise(resolve => setTimeout(resolve, 500));
+
             const output = await chatbot(conversationHistory, {
                 max_new_tokens: 256,
-                do_sample: false, // Deterministic output
+                do_sample: false,
                 streamer
             });
 
-            // Add the model's response to the conversation history
             conversationHistory.push({ role: 'assistant', content: finalText });
-
-            // Optional: Limit history to prevent excessive memory usage
             if (conversationHistory.length > 10) {
-                conversationHistory = [conversationHistory[0], ...conversationHistory.slice(-9)]; // Keep system prompt + last 9 messages
+                conversationHistory = [conversationHistory[0], ...conversationHistory.slice(-9)];
             }
-
+            scrollChatToBottom();
         } catch (error) {
             console.error('Error during generation:', error);
-            $lukaParagraph.text(`Luka: Sorry, I encountered an error: ${error.message}`);
+            $('#chat-output').append(`
+                <div class="chat-message luka">
+                    <img src="assets/images/profile_pic.jpg" alt="Luka" class="profile-pic">
+                    <div class="message-content"><strong>Luka:</strong> Sorry, I encountered an error: ${error.message}</div>
+                </div>
+            `);
+            scrollChatToBottom();
         }
     } else {
-        // Fallback basic responses
+        // Fallback responses
+        await new Promise(resolve => setTimeout(resolve, 500));
         const lowerQuestion = question.toLowerCase();
+        let response = '';
         if (lowerQuestion.includes('education')) {
-            $lukaParagraph.text('Luka: I studied at RheinMain University (BSc, 2019–2022), Cambridge (MPhil, 2023–2024), and now IP Paris (PhD since 2024).');
+            response = 'I studied at RheinMain University (BSc, 2019–2022), Cambridge (MPhil, 2023–2024), and now IP Paris (PhD since 2024).';
         } else if (lowerQuestion.includes('work')) {
-            $lukaParagraph.text('Luka: I worked at Continental (2019–2022), Amazon (2022–2023), McKinsey (2023), and will intern at Hi! PARIS in 2025.');
+            response = 'I worked at Continental (2019–2022), Amazon (2022–2023), McKinsey (2023), and will intern at Hi! PARIS in 2025.';
         } else {
-            $lukaParagraph.text('Luka: Hmm, try asking about my education or work experience!');
+            response = 'Hmm, try asking about my education or work experience!';
         }
+        $('#chat-output').append(`
+            <div class="chat-message luka">
+                <img src="assets/images/profile_pic.jpg" alt="Luka" class="profile-pic">
+                <div class="message-content"><strong>Luka:</strong> ${response}</div>
+            </div>
+        `);
+        scrollChatToBottom();
     }
-    $('#chat-output').scrollTop($('#chat-output')[0].scrollHeight);
+
+    $('.typing-indicator').hide();
+    scrollChatToBottom();
 });
-/* -------------------------------
-   End of Chatbot Functions
-------------------------------- */
-
-
-/* -------------------------------
-   Other existing functionality:
-   Particles, Map, Carousel, etc.
-------------------------------- */
 
 // Navigation Bar, Particle.js Initialization, Map Initialization, Carousel, etc.
 $(document).ready(function() {
@@ -427,4 +468,12 @@ $(document).ready(function() {
     $('#close-modal').click(function() {
         $('#chat-modal').hide();
     });
+
+    $('#chat-input').on('keypress', function(e) {
+        if (e.which === 13) { // Enter key
+            e.preventDefault(); // Prevent default form submission behavior
+            $('#send-btn').click(); // Trigger the send button click
+        }
+    });
+    
 });
