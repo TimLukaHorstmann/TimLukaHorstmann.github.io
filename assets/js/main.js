@@ -59,7 +59,7 @@ async function initializeChatbot() {
         const transformers = await loadTransformers();
         const cvText = await fetchCVText();
         const isMobile = isMobileDevice();
-        const modelId = isMobile ? 'HuggingFaceTB/SmolLM-360M-Instruct' : 'HuggingFaceTB/SmolLM2-1.7B-Instruct';
+        const modelId = isMobile ? 'onnx-community/SmolLM2-135M-Instruct-ONNX-GQA' : 'onnx-community/Qwen2.5-1.5B-Instruct';
 
         if (isMobile) {
             $('#chat-status').text('Loading lightweight chatbot for mobile...');
