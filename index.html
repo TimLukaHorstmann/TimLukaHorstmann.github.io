@@ -16,24 +16,16 @@
 
     <!-- Favicon -->
     <link rel="icon" href="assets/images/favicon_black/favicon.ico" type="image/x-icon">
-
-    <!-- Apple Touch Icon -->
     <link rel="apple-touch-icon" href="assets/images/favicon_black/apple-touch-icon.png">
-
-    <!-- Android Chrome Icons -->
     <link rel="icon" type="image/png" sizes="192x192" href="assets/images/favicon_black/android-chrome-192x192.png">
     <link rel="icon" type="image/png" sizes="512x512" href="assets/images/favicon_black/android-chrome-512x512.png">
-
-    <!-- Favicon for other platforms -->
     <link rel="icon" type="image/png" sizes="16x16" href="assets/images/favicon_black/favicon-16x16.png">
     <link rel="icon" type="image/png" sizes="32x32" href="assets/images/favicon_black/favicon-32x32.png">
-
-    <!-- Manifest for Progressive Web Apps -->
     <link rel="manifest" href="assets/images/favicon_black/site.webmanifest">
 
     <!-- Stylesheets -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css">
     <link rel="stylesheet" href="assets/css/style.css">
-
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.css">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick-theme.css">
 
@@ -48,7 +40,7 @@
     <!-- Devicon CSS -->
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/devicon.min.css" />
 
-    <!-- AOS (Animate On Scroll) Library for Animations -->
+    <!-- AOS Library -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/aos/2.3.4/aos.css">
 
     <!-- Leaflet CSS -->
@@ -57,218 +49,188 @@
     <!-- MapTiler SDK CSS -->
     <link href="https://cdn.maptiler.com/maptiler-sdk-js/v2.2.2/maptiler-sdk.css" rel="stylesheet" />
 
-    <!-- Particle.js for Background Animation -->
-    <script src="https://cdn.jsdelivr.net/particles.js/2.0.0/particles.min.js"></script>
-
-    <!-- jQuery -->
-    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-
-    <!-- Slick Carousel JS -->
-    <script src="https://cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.min.js"></script>
-
     <!-- Tarteaucitron CSS -->
     <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/tarteaucitronjs@1.9.3/tarteaucitron.css" />
 
-    <!-- Tarteaucitron JS -->
+    <!-- Scripts in Head -->
+    <script src="https://cdn.jsdelivr.net/particles.js/2.0.0/particles.min.js"></script>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.min.js"></script>
     <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/tarteaucitronjs@1.9.3/tarteaucitron.min.js"></script>
-
-    <!-- Initialize Tarteaucitron -->
     <script type="text/javascript">
         tarteaucitron.init({
-            "privacyUrl": "/privacy-policy.html", /* Privacy policy URL */
-            "hashtag": "#tarteaucitron", /* Open the panel with this hashtag */
-            "cookieName": "tarteaucitron", /* Cookie name */
-
-            "orientation": "bottom", /* Banner position (top - bottom) */
-            "showAlertSmall": false, /* Show the small banner on bottom right */
-            "cookieslist": true, /* Show the cookie list */
-
-            "closePopup": false, /* Show a close X on the banner */
-            "showIcon": true, /* Show cookie icon to manage cookies */
-            "iconPosition": "BottomRight", /* Position of the cookie icon */
-            "adblocker": false, /* Show a Warning if an adblocker is detected */
-            "AcceptAllCta": true, /* Show the accept all button */
-            "highPrivacy": false, /* Disable auto consent */
-            "handleBrowserDNTRequest": false, /* Respect Do Not Track */
-            "removeCredit": false, /* Remove credit link */
-            "moreInfoLink": true, /* Show more info link */
-            "useExternalCss": false, /* Use external CSS */
-            "useExternalJs": false, /* Use external JS */
-
-            "readmoreLink": "/privacy-policy.html", /* Read more link */
-            "mandatory": true /* Show a message about mandatory cookies */
+            "privacyUrl": "/privacy-policy.html",
+            "hashtag": "#tarteaucitron",
+            "cookieName": "tarteaucitron",
+            "orientation": "bottom",
+            "showAlertSmall": false,
+            "cookieslist": true,
+            "closePopup": false,
+            "showIcon": true,
+            "iconPosition": "BottomRight",
+            "adblocker": false,
+            "AcceptAllCta": true,
+            "highPrivacy": false,
+            "handleBrowserDNTRequest": false,
+            "removeCredit": false,
+            "moreInfoLink": true,
+            "useExternalCss": false,
+            "useExternalJs": false,
+            "readmoreLink": "/privacy-policy.html",
+            "mandatory": true
         });
     </script>
-
-    <!-- Google tag (gtag.js) -->
     <script async src="https://www.googletagmanager.com/gtag/js?id=G-6L4JDDYWZP"></script>
     <script>
-    window.dataLayer = window.dataLayer || [];
-    function gtag(){dataLayer.push(arguments);}
-    gtag('js', new Date());
-
-    gtag('config', 'G-6L4JDDYWZP');
+        window.dataLayer = window.dataLayer || [];
+        function gtag(){dataLayer.push(arguments);}
+        gtag('js', new Date());
+        gtag('config', 'G-6L4JDDYWZP');
     </script>
-
 </head>
 <body>
     <!-- Navigation Bar -->
-    <header>
-        <nav>
-            <div class="container">
-                <!-- Logo for larger screens -->
-                <a href="#home" class="nav-logo-wrapper">
-                    <img src="assets/images/logo_white.png" alt="Logo" class="nav-logo">
-                </a>
-                
-                <!-- Navigation links -->
-                <ul class="nav-links">
-                    <!-- Logo for small screens -->
-                    <li class="mobile-logo">
-                        <a href="#home">
-                            <img src="assets/images/logo_white.png" alt="Logo" class="nav-logo-mobile">
+    <nav class="navbar navbar-expand-lg fixed-top" style="background-color: rgba(0, 95, 115, 0.8);">
+        <div class="container">
+            <a class="navbar-brand nav-logo-wrapper" href="#home">
+                <img src="assets/images/logo_white.png" alt="Logo" class="nav-logo" height="45">
+            </a>
+            <button class="navbar-toggler toggle-btn" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                <i class="fas fa-bars"></i>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ms-auto nav-links">
+                    <li class="nav-item mobile-logo">
+                        <a class="nav-link" href="#home">
+                            <img src="assets/images/logo_white.png" alt="Logo" class="nav-logo-mobile" height="45">
                         </a>
                     </li>
-                    <li><a href="#home">Home</a></li>
-                    <li><a href="#cv">Resume/CV</a></li>
-                    <li><a href="#projects">Projects</a></li>
-                    <li><a href="#skills">Skills</a></li>
-                    <li><a href="#awards">Honors</a></li>
-                    <li><a href="#contact">Contact</a></li>
-                    <li><a href="travel/">Travel</a></li>
+                    <li class="nav-item"><a class="nav-link" href="#home">Home</a></li>
+                    <li class="nav-item"><a class="nav-link" href="#cv">Resume/CV</a></li>
+                    <li class="nav-item"><a class="nav-link" href="#projects">Projects</a></li>
+                    <li class="nav-item"><a class="nav-link" href="#skills">Skills</a></li>
+                    <li class="nav-item"><a class="nav-link" href="#awards">Honors</a></li>
+                    <li class="nav-item"><a class="nav-link" href="#contact">Contact</a></li>
+                    <li class="nav-item"><a class="nav-link" href="travel/">Travel</a></li>
                 </ul>
-                
-                <!-- Toggle Button for Mobile -->
-                <div class="toggle-btn">
-                    <i class="fas fa-bars"></i>
-                </div>
             </div>
-        </nav>
-    </header>
+        </div>
+    </nav>
 
     <!-- Landing Section -->
     <section id="home" class="hero-section">
-        <!-- Particle Animation Background -->
         <div id="particles-js"></div>
-
-        <div class="content">
-            <div class="photo-placeholder" data-aos="fade-down">
-                <img src="assets/images/profile_pic.jpg" alt="Photo of Tim Luka Horstmann" loading="lazy">
-            </div>
-            <h1 data-aos="fade-up">Tim Luka Horstmann</h1>
-            <p>Computer Scientist | AI Enthusiast | Entrepreneurial Thinker
-                <br>Passionate about impact and innovation</p>
-            <p>📍 Paris, France </p>
-            <div class="buttons">
-                <a href="https://www.linkedin.com/in/luka512" class="btn" target="_blank"><i class="fab fa-linkedin"></i> LinkedIn</a>
-                <a href="mailto:lukahorstmann@gmx.de" class="btn"><i class="fas fa-envelope"></i> Mail</a>
-                <a href="https://github.com/TimLukaHorstmann" class="btn" target="_blank"><i class="fab fa-github"></i> GitHub</a>
+        <div class="container content">
+            <div class="row justify-content-center">
+                <div class="col-12 text-center">
+                    <div class="photo-placeholder" data-aos="fade-down">
+                        <img src="assets/images/profile_pic.jpg" alt="Photo of Tim Luka Horstmann" loading="lazy">
+                    </div>
+                    <h1 data-aos="fade-up">Tim Luka Horstmann</h1>
+                    <p>Computer Scientist | AI Enthusiast | Entrepreneurial Thinker<br>Passionate about impact and innovation</p>
+                    <p>📍 Paris, France</p>
+                    <div class="buttons">
+                        <a href="https://www.linkedin.com/in/luka512" class="btn" target="_blank"><i class="fab fa-linkedin"></i> LinkedIn</a>
+                        <a href="mailto:lukahorstmann@gmx.de" class="btn"><i class="fas fa-envelope"></i> Mail</a>
+                        <a href="https://github.com/TimLukaHorstmann" class="btn" target="_blank"><i class="fab fa-github"></i> GitHub</a>
+                    </div>
+                </div>
             </div>
         </div>
     </section>
 
     <!-- CV Section -->
-<section id="cv" class="cv-section">
-    <h2>My Resume/CV</h2>
-
-    <p>A brief overview of my career, education, and experience.</p>
-
-    <!-- View CV Button (opens in a new tab) -->
-    <a href="assets/documents/Resume_TimLukaHorstmann_redacted.pdf" class="btn" target="_blank" rel="noopener noreferrer">
-        <i class="fas fa-file-pdf"></i> View Resume
-    </a>
-    <div class="cv-content">
-        <div class="cv-timeline" data-aos="fade-right">
-            
-            <!-- Education Timeline -->
-            <div class="timeline">
-                <h3>Education</h3>
-                <div class="timeline-item" id="ip-paris" data-marker-id="ip-paris">
-                    <div class="timeline-content">
-                        <h3>Institut Polytechnique de Paris</h3>
-                        <span class="timeline-date">Since 2024</span>
-                        <p>• PhD Track in Computer Science </p>
-                        <p>• MSc in Data and Artificial Intelligence (M2)</p>
-                        <p style="font-size: small;padding-top: 1%;">Courses at École Polytechnique and Télécom Paris</p>
+    <section id="cv" class="cv-section">
+        <div class="container">
+            <h2>My Resume/CV</h2>
+            <p>A brief overview of my career, education, and experience.</p>
+            <a href="assets/documents/Resume_TimLukaHorstmann_redacted.pdf" class="btn" target="_blank" rel="noopener noreferrer">
+                <i class="fas fa-file-pdf"></i> View Resume
+            </a>
+            <div class="row cv-content">
+                <div class="col-md-6 cv-timeline" data-aos="fade-right">
+                    <div class="timeline">
+                        <h3>Education</h3>
+                        <div class="timeline-item" id="ip-paris" data-marker-id="ip-paris">
+                            <div class="timeline-content">
+                                <h3>Institut Polytechnique de Paris</h3>
+                                <span class="timeline-date">Since 2024</span>
+                                <p>• PhD Track in Computer Science</p>
+                                <p>• MSc in Data and Artificial Intelligence (M2)</p>
+                                <p style="font-size: small;padding-top: 1%;">Courses at École Polytechnique and Télécom Paris</p>
+                            </div>
+                        </div>
+                        <div class="timeline-item" id="cambridge" data-marker-id="cambridge">
+                            <div class="timeline-content">
+                                <h3>University of Cambridge</h3>
+                                <span class="timeline-date">2023-2024</span>
+                                <p>MPhil in Advanced Computer Science</p>
+                            </div>
+                        </div>
+                        <div class="timeline-item" id="hsrm" data-marker-id="hsrm">
+                            <div class="timeline-content">
+                                <h3>RheinMain University of Applied Sciences</h3>
+                                <span class="timeline-date">2019-2022</span>
+                                <p>BSc in Business Informatics</p>
+                            </div>
+                        </div>
+                        <div class="timeline-item" id="sge" data-marker-id="sge">
+                            <div class="timeline-content">
+                                <h3>Städtisches Gymnasium Erwitte</h3>
+                                <span class="timeline-date">2011-2019</span>
+                                <p>Abitur (University Entrance Qualification)</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="timeline">
+                        <h3>Professional Experience</h3>
+                        <div class="timeline-item" id="hi_paris" data-marker-id="hi_paris">
+                            <div class="timeline-content">
+                                <h3>Hi! PARIS</h3>
+                                <span class="timeline-date">2025</span>
+                                <p>Machine Learning Research Engineer Intern</p>
+                                <p>Paris, France</p>
+                                <p style="font-size: small;padding-top: 1%;">ML Research at HEC and École Polytechnique</p>
+                            </div>
+                        </div>
+                        <div class="timeline-item" id="mck" data-marker-id="mck">
+                            <div class="timeline-content">
+                                <h3>McKinsey & Company</h3>
+                                <span class="timeline-date">2023</span>
+                                <p>Fellow Intern</p>
+                                <p>Munich, Germany</p>
+                            </div>
+                        </div>
+                        <div class="timeline-item" id="amazon" data-marker-id="amazon">
+                            <div class="timeline-content">
+                                <h3>Amazon</h3>
+                                <span class="timeline-date">2022-2023</span>
+                                <p>Business Intelligence Intern</p>
+                                <p>London, United Kingdom</p>
+                            </div>
+                        </div>
+                        <div class="timeline-item" id="continental" data-marker-id="continental">
+                            <div class="timeline-content">
+                                <h3>Continental AG</h3>
+                                <span class="timeline-date">2019-2022</span>
+                                <p>Dual Student</p>
+                                <p>Frankfurt, Germany</p>
+                            </div>
+                        </div>
                     </div>
                 </div>
-                <div class="timeline-item" id="cambridge" data-marker-id="cambridge">
-                    <div class="timeline-content">
-                        <h3>University of Cambridge</h3>
-                        <span class="timeline-date">2023-2024</span>
-                        <p>MPhil in Advanced Computer Science</p>
-                    </div>
-                </div>
-                <div class="timeline-item" id="hsrm" data-marker-id="hsrm">
-                    <div class="timeline-content">
-                        <h3>RheinMain University of Applied Sciences</h3>
-                        <span class="timeline-date">2019-2022</span>
-                        <p>BSc in Business Informatics</p>
-                    </div>
-                </div>
-                <div class="timeline-item" id="sge" data-marker-id="sge">
-                    <div class="timeline-content">
-                        <h3>Städtisches Gymnasium Erwitte</h3>
-                        <span class="timeline-date">2011-2019</span>
-                        <p>Abitur (University Entrance Qualification)</p>
-                    </div>
-                </div>
-            </div>
-
-            <!-- Professional Experience Timeline -->
-            <div class="timeline">
-                <h3>Professional Experience</h3>
-                
-                <div class="timeline-item" id="hi_paris" data-marker-id="hi_paris">
-                    <div class="timeline-content">
-                        <h3>Hi! PARIS</h3>
-                        <span class="timeline-date">2025</span>
-                        <p>Machine Learning Research Engineer Intern</p>
-                        <p>Paris, France</p>
-                        <p style="font-size: small;padding-top: 1%;">ML Research at HEC and École Polytechnique</p>
-                    </div>
-                </div>
-
-                <div class="timeline-item" id="mck" data-marker-id="mck">
-                    <div class="timeline-content">
-                        <h3>McKinsey & Company</h3>
-                        <span class="timeline-date">2023</span>
-                        <p>Fellow Intern</p>
-                        <p>Munich, Germany</p>
-                    </div>
-                </div>
-                <!-- Add more professional experience timeline items as needed -->
-                <div class="timeline-item" id="amazon" data-marker-id="amazon">
-                    <div class="timeline-content">
-                        <h3>Amazon</h3>
-                        <span class="timeline-date">2022-2023</span>
-                        <p>Business Intelligence Intern</p>
-                        <p>London, United Kingdom</p>
-                    </div>
-                </div>
-                <div class="timeline-item" id="continental" data-marker-id="continental">
-                    <div class="timeline-content">
-                        <h3>Continental AG</h3>
-                        <span class="timeline-date">2019-2022</span>
-                        <p>Dual Student</p>
-                        <p>Frankfurt, Germany</p>
-                    </div>
+                <div class="col-md-6 cv-map" data-aos="fade-left">
+                    <div id="map"></div>
                 </div>
             </div>
         </div>
-        <!-- Map Section -->
-        <div class="cv-map" data-aos="fade-left">
-            <div id="map"></div>
-        </div>
-        
     </section>
 
     <!-- Projects Section -->
     <section id="projects" class="projects-section">
-        <div class="content">
+        <div class="container content">
             <h2 data-aos="fade-up">Selected Projects</h2>
             <div class="projects-grid carousel">
-                <!-- Project 1 -->
                 <div class="project-card" data-aos="fade-up" data-aos-delay="100">
                     <div class="project-images">
                         <img src="assets/images/ipparis.png" alt="Coming Soon" loading="lazy">
@@ -282,7 +244,6 @@
                         <p>More details coming soon...</p>
                     </div>
                 </div>
-                <!-- Project 1 -->
                 <div class="project-card" data-aos="fade-up" data-aos-delay="200">
                     <div class="project-images">
                         <img src="assets/images/cambridge.jpg" alt="University of Cambridge" loading="lazy">
@@ -295,20 +256,8 @@
                     </div>
                     <div class="project-description">
                         <p>AI research project in regulatory technology (RegTech), utilizing advanced machine learning and natural language processing techniques. The project focused on improving regulatory compliance in financial institutions through innovative automated analysis of thousands of legal documents containing financial regulatory information.</p>
-                        <!--
-                        <p>
-                            <a href="assets/documents/tlh45-project.pdf" target="_blank" class="btn">
-                                <i class="fas fa-file-pdf"></i> View PDF
-                            </a>
-                            <br>
-                            <a href="https://github.com/TimLukaHorstmann/mphil-project-cleaned" target="_blank" class="btn">
-                                <i class="fab fa-github"></i> View Code
-                            </a>
-                        </p>
-                        -->
                     </div>
                 </div>
-                <!-- Project 2 -->
                 <div class="project-card" data-aos="fade-up" data-aos-delay="300">
                     <div class="project-images">
                         <img src="assets/images/cambridge.jpg" alt="University of Cambridge" loading="lazy">
@@ -320,17 +269,11 @@
                     <div class="project-description">
                         <p>Conducted a comparative analysis of two state-of-the-art constituency parsers, the Charniak-Johnson parser and the Berkeley Neural Parser, as part of Cambridge’s L95, "Introduction to Natural Language Syntax and Parsing" course. The project focused on evaluating performance and identifying error patterns, highlighting the advantages of modern neural parsing techniques. Implemented in Python using bllipparser and benepar libraries.</p>
                         <p>
-                            <a href="assets/documents/l95_report.pdf" target="_blank" class="btn">
-                                <i class="fas fa-file-pdf"></i> View PDF
-                            </a>
-                            <br>
-                            <a href="https://github.com/TimLukaHorstmann/L95-Project" target="_blank" class="btn">
-                                <i class="fab fa-github"></i> View Code
-                            </a>
+                            <a href="assets/documents/l95_report.pdf" target="_blank" class="btn"><i class="fas fa-file-pdf"></i> View PDF</a><br>
+                            <a href="https://github.com/TimLukaHorstmann/L95-Project" target="_blank" class="btn"><i class="fab fa-github"></i> View Code</a>
                         </p>
                     </div>
                 </div>
-                <!-- Project 3 -->
                 <div class="project-card" data-aos="fade-up" data-aos-delay="400">
                     <div class="project-images">
                         <img src="assets/images/polytechnique_horizontal.jpg" alt="Coming Soon" loading="lazy">
@@ -343,7 +286,6 @@
                         <p>Details coming soon...</p>
                     </div>
                 </div>
-                <!-- Project 4 -->
                 <div class="project-card" data-aos="fade-up" data-aos-delay="500">
                     <div class="project-images">
                         <img src="assets/images/cambridge.jpg" alt="University of Cambridge" loading="lazy">
@@ -353,28 +295,18 @@
                         <i class="fas fa-chevron-down"></i>
                     </div>
                     <div class="project-description">
-                        <p>
-                            A machine learning pipeline designed to analyze cardiac audio signals and classify heart murmurs. 
-                            The project leverages advanced audio processing techniques such as MFCCs and spectral contrast,
-                            coupled with sensitivity-focused models, to enhance clinical decision-making in mobile health applications.
-                        </p>
+                        <p>A machine learning pipeline designed to analyze cardiac audio signals and classify heart murmurs. The project leverages advanced audio processing techniques such as MFCCs and spectral contrast, coupled with sensitivity-focused models, to enhance clinical decision-making in mobile health applications.</p>
                         <ul>
                             <li>Implemented audio preprocessing with bandpass filtering and resampling.</li>
                             <li>Extracted key features (MFCC, spectral contrast, RMS energy) for classification.</li>
                             <li>Trained multiple ML models emphasizing sensitivity for medical contexts.</li>
                         </ul>
                         <p>
-                            <a href="assets/documents/MobileHealth_Assessment1.pdf" target="_blank" class="btn">
-                                <i class="fas fa-file-pdf"></i> View PDF
-                            </a>
-                            <br>
-                            <a href="https://github.com/TimLukaHorstmann/L349-Assessment-1" target="_blank" class="btn">
-                                <i class="fab fa-github"></i> View Code
-                            </a>
+                            <a href="assets/documents/MobileHealth_Assessment1.pdf" target="_blank" class="btn"><i class="fas fa-file-pdf"></i> View PDF</a><br>
+                            <a href="https://github.com/TimLukaHorstmann/L349-Assessment-1" target="_blank" class="btn"><i class="fab fa-github"></i> View Code</a>
                         </p>
                     </div>
                 </div>
-                <!-- Project 5 -->
                 <div class="project-card" data-aos="fade-up" data-aos-delay="600">
                     <div class="project-images">
                         <img src="assets/images/cambridge.jpg" alt="University of Cambridge" loading="lazy">
@@ -385,19 +317,12 @@
                     </div>
                     <div class="project-description">
                         <p>Development of a transformer-based machine learning model capable of providing abstractive summarizations to news articles as part of Cambridge's L90, "Overview of Natural Language Processing", course. Implemented in PyTorch.</p>
-                        
                         <p>
-                            <a href="assets/documents/l90_report.pdf" target="_blank" class="btn">
-                                <i class="fas fa-file-pdf"></i> View PDF
-                            </a>
-                            <br>
-                            <a href="https://github.com/TimLukaHorstmann/L90_tlh45_exercise3" target="_blank" class="btn">
-                                <i class="fab fa-github"></i> View Code
-                            </a>
+                            <a href="assets/documents/l90_report.pdf" target="_blank" class="btn"><i class="fas fa-file-pdf"></i> View PDF</a><br>
+                            <a href="https://github.com/TimLukaHorstmann/L90_tlh45_exercise3" target="_blank" class="btn"><i class="fab fa-github"></i> View Code</a>
                         </p>
                     </div>
                 </div>
-                <!-- Project 6 -->
                 <div class="project-card" data-aos="fade-up" data-aos-delay="700">
                     <div class="project-images">
                         <img src="assets/images/amazon.svg" alt="Amazon Logo" loading="lazy">
@@ -410,7 +335,6 @@
                         <p>Worked with stakeholders across different organizations and drove resolution of the defect by setting up a QuickSight dashboard on top of Redshift ETL pipelines and using machine learning.</p>
                     </div>
                 </div>
-                <!-- Project 7 -->
                 <div class="project-card" data-aos="fade-up" data-aos-delay="800">
                     <div class="project-images">
                         <img src="assets/images/hsrm.png" alt="HSRM Logo" loading="lazy">
@@ -424,8 +348,6 @@
                         <p>Development of a novel time series forecasting algorithm based on XGBoost regression models for accurately disaggregating customer demand data for use in Continental AG's customer demand planning processes.</p>
                     </div>
                 </div>
-
-                <!-- Project 8 -->
                 <div class="project-card" data-aos="fade-up" data-aos-delay="900">
                     <div class="project-images">
                         <img src="assets/images/fire_detection_sample.png" alt="Wildfire Detection Project" loading="lazy">
@@ -437,25 +359,14 @@
                     <div class="project-description">
                         <p>Development of a computer vision model using YOLO for detecting fire-related objects in images. This project was part of a technical test for the Machine Learning Research Intern position at Hi! PARIS.</p>
                         <p>
-                            <a href="assets/documents/approach_TimLukaHorstmann.pdf" target="_blank" class="btn">
-                                <i class="fas fa-file-pdf"></i> View PDF
-                            </a>
-                            <br>
-                            <a href="https://github.com/TimLukaHorstmann/fire-detection-model" target="_blank" class="btn">
-                                <i class="fab fa-github"></i> View Code
-                            </a>
-                            <br>
-                            <a href="https://wandb.ai/tlh45/HIParis" target="_blank" class="btn">
-                                <i class="fas fa-external-link-alt"></i> View Experiments on wandb
-                            </a>
+                            <a href="assets/documents/approach_TimLukaHorstmann.pdf" target="_blank" class="btn"><i class="fas fa-file-pdf"></i> View PDF</a><br>
+                            <a href="https://github.com/TimLukaHorstmann/fire-detection-model" target="_blank" class="btn"><i class="fab fa-github"></i> View Code</a><br>
+                            <a href="https://wandb.ai/tlh45/HIParis" target="_blank" class="btn"><i class="fas fa-external-link-alt"></i> View Experiments on wandb</a>
                         </p>
                     </div>
                 </div>
-
-                <!-- Upcoming Project 1 -->
                 <div class="project-card upcoming" data-aos="fade-up" data-aos-delay="1000">
                     <div class="project-images">
-                        <!-- Placeholder Image or Icon -->
                         <img src="assets/images/logo-hi-paris-retina.png" alt="Coming Soon" loading="lazy">
                     </div>
                     <h3>Research Internship Project</h3>
@@ -466,35 +377,19 @@
                         <p>Details coming soon...</p>
                     </div>
                 </div>
-                
-                <!-- Upcoming Project 2 -->
-                <!-- <div class="project-card upcoming" data-aos="fade-up" data-aos-delay="700">
-                    <div class="project-images">
-                        <img src="assets/images/coding.png" alt="Coming Soon" loading="lazy">
-                    </div>
-                    <h3>Transformer from scratch</h3>
-                    <div class="project-toggle">
-                        <i class="fas fa-chevron-down"></i>
-                    </div>
-                    <div class="project-description">
-                        <p>Details coming soon...</p>
-                    </div>
-                </div> -->
             </div>
         </div>
     </section>
 
     <!-- Skills Section -->
     <section id="skills" class="skills-section">
-        <div class="content">
+        <div class="container content">
             <h2 data-aos="fade-up">Skills & Tools</h2>
             <div class="skills-content" data-aos="fade-up" data-aos-delay="100">
                 <h3>Languages</h3>
                 <p>German (native) | English (fluent, TOEFL C1/C2) | French (fluent, DELF A1, A2 & B1, DFP affaires B2)</p>
-
                 <h3>Software Development Stack</h3>
                 <div class="programming-languages">
-                    <!-- Skill Cards -->
                     <div class="skill-card" data-aos="fade-up" data-aos-delay="100">
                         <i class="devicon-python-plain"></i>
                         <p>Python</p>
@@ -512,11 +407,10 @@
                         <p>Cypher</p>
                     </div>
                     <div class="skill-card" data-aos="fade-up" data-aos-delay="300">
-                        <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/7/77/Wikimedia_Commons_Query_Service_Logo.svg/1024px-Wikimedia_Commons_Query_Service_Logo.svg.png" 
-                             alt="SPARQL Logo" class="custom-icon" width="40" height="40">
+                        <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/7/77/Wikimedia_Commons_Query_Service_Logo.svg/1024px-Wikimedia_Commons_Query_Service_Logo.svg.png" alt="SPARQL Logo" class="custom-icon" width="40" height="40">
                         <p>SPARQL</p>
                     </div>
-                    <div class="skill-card" data-aos="fade-up" data-aos-delay="350">       
+                    <div class="skill-card" data-aos="fade-up" data-aos-delay="350">
                         <i class="devicon-visualbasic-plain"></i>
                         <p>VBA</p>
                     </div>
@@ -534,30 +428,16 @@
                         <p>Ruby</p>
                     </div>
                 </div>
-
                 <h3>Selected Tools and Libraries</h3>
                 <div class="libraries">
-                    <!-- Skill Cards -->
                     <div class="skill-card" data-aos="fade-up" data-aos-delay="100">
                         <i class="devicon-pytorch-plain"></i>
                         <p>PyTorch</p>
                     </div>
-                    <!--
-                    <div class="skill-card" data-aos="fade-up" data-aos-delay="150">
-                        <i class="devicon-tensorflow-original"></i>
-                        <p>TensorFlow</p>
-                    </div>
-                    -->
                     <div class="skill-card" data-aos="fade-up" data-aos-delay="150">
                         <img src="assets/images/hf-logo-pirate.svg" alt="Hugging Face" class="custom-icon">
                         <p>Hugging Face</p>
                     </div>
-                    <!--
-                    <div class="skill-card" data-aos="fade-up" data-aos-delay="150">
-                        <img src="assets/images/hf-logo-pirate.svg" alt="Hugging Face" class="custom-icon">
-                        <p>LangChain</p>
-                    </div>
-                    -->
                     <div class="skill-card" data-aos="fade-up" data-aos-delay="200">
                         <i class="devicon-scikitlearn-plain"></i>
                         <p>Scikit-Learn</p>
@@ -602,20 +482,9 @@
                         <i class="devicon-wordpress-plain"></i>
                         <p>Wordpress</p>
                     </div>
-                    <!--
-                    <div class="skill-card soon" data-aos="fade-up" data-aos-delay="750">
-                        <i class="devicon-apachespark-original"></i>
-                        <p>Apache Spark</p>
-                    </div>
-                    <div class="skill-card soon" data-aos="fade-up" data-aos-delay="800">
-                        <i class="devicon-hadoop-plain"></i>
-                        <p>Apache Hadoop</p>
-                    </div>
-                    -->
                 </div>
                 <h3>Operating Systems</h3>
                 <div class="os">
-                    <!-- Skill Cards -->
                     <div class="skill-card" data-aos="fade-up" data-aos-delay="100">
                         <i class="devicon-apple-plain"></i>
                         <p>macOS</p>
@@ -633,153 +502,172 @@
         </div>
     </section>
 
-    <!-- Scholarships, Programs, and Awards Section -->
-    <section id="awards" class="awards-section">
-        <div class="content">
-            <h2 data-aos="fade-up">Scholarships, Programs, and Awards</h2>
-            <div class="awards-content" data-aos="fade-up" data-aos-delay="100">
-                <!-- Scholarships -->
-                <h3>Scholarships</h3>
-                <div class="scholarships">
-                    <!-- Scholarship Items with Fade-Up Animation -->
-                    <div class="scholarship-item" data-aos="fade-up" data-aos-delay="100">
+<!-- Scholarships, Programs, and Awards Section -->
+<section id="awards" class="awards-section">
+    <div class="container content">
+        <h2 data-aos="fade-up">Scholarships, Programs, and Awards</h2>
+        <div class="awards-content" data-aos="fade-up" data-aos-delay="100">
+            <!-- Scholarships -->
+            <h3>Scholarships</h3>
+            <div class="row g-5 scholarships">
+                <div class="col-md-4">
+                    <div class="scholarship-item h-100" data-aos="fade-up" data-aos-delay="100">
                         <div class="image-container">
                             <img src="assets/images/fee.jpg" alt="France Excellence Europa Scholarship Logo" loading="lazy">
                         </div>
-                        <p><strong>France Excellence Europa Scholarship:</strong> <br>
-                            Awarded by the French government to a select group of top-performing European students for outstanding academic achievement. Pre-selected as one of only 5 students from Germany, and subsequently chosen among all candidates across 26 EU countries.
-                        </p>
+                        <h4>France Excellence Europa Scholarship</h4>
+                        <p>Awarded by the French government to a select group of top-performing European students for outstanding academic achievement. Pre-selected as one of only 5 students from Germany, and subsequently chosen among all candidates across 26 EU countries.</p>
                     </div>
-                    <div class="scholarship-item" data-aos="fade-up" data-aos-delay="200">
+                </div>
+                <div class="col-md-4">
+                    <div class="scholarship-item h-100" data-aos="fade-up" data-aos-delay="200">
                         <div class="image-container">
                             <img src="assets/images/ipparis.png" alt="Institut Polytechnique de Paris Excellence Scholarship Logo" loading="lazy">
                         </div>
-                        <p><strong>IP Paris Excellence Scholarship:</strong><br>
-                            Awarded for academic excellence. Exemption from tuition fees, annual five-figure allowance during master‘s program, and fully funded PhD program.
-                        </p>
+                        <h4>IP Paris Excellence Scholarship</h4>
+                        <p>Awarded for academic excellence. Exemption from tuition fees, annual five-figure allowance during master’s program, and fully funded PhD program.</p>
                     </div>
-                    <div class="scholarship-item" data-aos="fade-up" data-aos-delay="300">
+                </div>
+                <div class="col-md-4">
+                    <div class="scholarship-item h-100" data-aos="fade-up" data-aos-delay="300">
                         <div class="image-container">
                             <img src="assets/images/studienstiftung.png" alt="Studienstiftung des deutschen Volkes Logo" loading="lazy">
                         </div>
-                        <p><strong>Studienstiftung des deutschen Volkes:</strong><br>
-                            Awarded for outstanding academic potential by Germany's largest, oldest, and most prestigious scholarship foundation. Scholarships are awarded to fewer than 0.3% of German students.
-                        </p>
+                        <h4>Studienstiftung des deutschen Volkes</h4>
+                        <p>Awarded for outstanding academic potential by Germany's largest, oldest, and most prestigious scholarship foundation. Scholarships are awarded to fewer than 0.3% of German students.</p>
                     </div>
-                    <div class="scholarship-item" data-aos="fade-up" data-aos-delay="400">
+                </div>
+                <div class="col-md-4">
+                    <div class="scholarship-item h-100" data-aos="fade-up" data-aos-delay="400">
                         <div class="image-container">
                             <img src="assets/images/deutschlandstipendium.jpg" alt="Deutschlandstipendium Logo" loading="lazy">
                         </div>
-                        <p><strong>Deutschlandstipendium:</strong><br>
-                            Awarded for excellent academic results, civic engagement, and special personal achievements.
-                        </p>
+                        <h4>Deutschlandstipendium</h4>
+                        <p>Awarded for excellent academic results, civic engagement, and special personal achievements.</p>
                     </div>
-                    <div class="scholarship-item" data-aos="fade-up" data-aos-delay="500">
+                </div>
+                <div class="col-md-4">
+                    <div class="scholarship-item h-100" data-aos="fade-up" data-aos-delay="500">
                         <div class="image-container">
                             <img src="assets/images/e-fellows.jpg" alt="e-fellows.net" loading="lazy">
                         </div>
-                        <p><strong>e-fellows.net:</strong><br>
-                            Awarded for outstanding academic results and high potential.
-                        </p>
+                        <h4>e-fellows.net</h4>
+                        <p>Awarded for outstanding academic results and high potential.</p>
                     </div>
-                    <div class="scholarship-item" data-aos="fade-up" data-aos-delay="600">
+                </div>
+                <div class="col-md-4">
+                    <div class="scholarship-item h-100" data-aos="fade-up" data-aos-delay="600">
                         <div class="image-container">
                             <img src="assets/images/quantco.png" alt="QuantCo Scholar Logo" loading="lazy">
                         </div>
-                        <p><strong>QuantCo Scholar:</strong><br>
-                            Full conference and travel scholarship to attend the German American Conference 2024 at Harvard University in Boston, USA.
-                        </p>
+                        <h4>QuantCo Scholar</h4>
+                        <p>Full conference and travel scholarship to attend the German American Conference 2024 at Harvard University in Boston, USA.</p>
                     </div>
                 </div>
+            </div>
 
-                <!-- Career Development & Mentorship Programs -->
-                <h3>Career Development & Mentorship Programs</h3>
-                <div class="programs">
-                    <!-- Program Items -->
-                    <div class="program-item" data-aos="fade-up" data-aos-delay="300">
+            <!-- Career Development & Mentorship Programs -->
+            <h3>Career Development & Mentorship Programs</h3>
+            <div class="row g-5 programs">
+                <div class="col-md-4">
+                    <div class="program-item h-100" data-aos="fade-up" data-aos-delay="300">
                         <div class="image-container">
                             <img src="assets/images/mckinsey_logo.webp" alt="McKinsey Programs" loading="lazy">
                         </div>
-                        <p>McKinsey College (since 2023) <br> McKinsey Firsthand (since 2021)</p>
+                        <h4>McKinsey Programs</h4>
+                        <p>McKinsey College (since 2023)<br>McKinsey Firsthand (since 2021)</p>
                     </div>
-                    <div class="program-item" data-aos="fade-up" data-aos-delay="400">
+                </div>
+                <div class="col-md-4">
+                    <div class="program-item h-100" data-aos="fade-up" data-aos-delay="400">
                         <div class="image-container">
                             <img src="assets/images/bcg.jpg" alt="BCG Programs" loading="lazy">
                         </div>
-                        <p>BCG LINK (since 2023)<br> BCG Emerald (since 2022)</p>
+                        <h4>BCG Programs</h4>
+                        <p>BCG LINK (since 2023)<br>BCG Emeralds (since 2022)</p>
                     </div>
-                    <div class="program-item" data-aos="fade-up" data-aos-delay="500">
+                </div>
+                <div class="col-md-4">
+                    <div class="program-item h-100" data-aos="fade-up" data-aos-delay="500">
                         <div class="image-container">
                             <img src="assets/images/bain.png" alt="Bain Spark" loading="lazy">
                         </div>
+                        <h4>Bain Spark</h4>
                         <p>Bain Spark (since 2023)</p>
                     </div>
                 </div>
+            </div>
 
-                <!-- Awards -->
-                <h3>Awards <i class="fas fa-trophy"></i> </h3>
-                <div class="awards">
-                    <div class="award-item" data-aos="fade-up" data-aos-delay="200">
+            <!-- Awards -->
+            <h3>Awards <i class="fas fa-trophy"></i></h3>
+            <div class="row g-5 awards">
+                <div class="col-md-4">
+                    <div class="award-item h-100" data-aos="fade-up" data-aos-delay="200">
                         <div class="image-container">
                             <img src="assets/images/cambridge.jpg" alt="Alumni Association Prize" loading="lazy">
                         </div>
-                        <p><strong>Alumni Association Prize for Graduate Excellence:</strong><br>
-                        Awarded by Lucy Cavendish College, University of Cambridge, for outstanding academic performance in a scientific MPhil with Distinction, including a monetary prize.
-                        </p>
+                        <h4>Alumni Association Prize for Graduate Excellence</h4>
+                        <p>Awarded by Lucy Cavendish College, University of Cambridge, for outstanding academic performance in a scientific MPhil with Distinction, including a monetary prize.</p>
                     </div>
-                    <div class="award-item" data-aos="fade-up" data-aos-delay="300">
+                </div>
+                <div class="col-md-4">
+                    <div class="award-item h-100" data-aos="fade-up" data-aos-delay="300">
                         <div class="image-container">
                             <img src="assets/images/continental.png" alt="Continental Best Graduate Award" loading="lazy">
                         </div>
-                        <p><strong>ContiBester:</strong><br>
-                        Honored as one of the best graduates from Continental AG´s corporate dual study program.
-                        </p>
+                        <h4>ContiBester</h4>
+                        <p>Honored as one of the best graduates from Continental AG’s corporate dual study program.</p>
                     </div>
-                    <div class="award-item" data-aos="fade-up" data-aos-delay="400">
+                </div>
+                <div class="col-md-4">
+                    <div class="award-item h-100" data-aos="fade-up" data-aos-delay="400">
                         <div class="image-container">
                             <img src="assets/images/DMV.png" alt="Outstanding Achievements in Mathematics" loading="lazy">
                         </div>
-                        <p><strong>DMV Prize:</strong><br>
-                        Honored by the German Mathematical Society for outstanding achievements in Mathematics.
-                        </p>
+                        <h4>DMV Prize</h4>
+                        <p>Honored by the German Mathematical Society for outstanding achievements in Mathematics.</p>
                     </div>
-                    <div class="award-item" data-aos="fade-up" data-aos-delay="500">
+                </div>
+                <div class="col-md-4">
+                    <div class="award-item h-100" data-aos="fade-up" data-aos-delay="500">
                         <div class="image-container">
                             <img src="assets/images/landesregierung_nrw.png" alt="Best Graduate in NRW" loading="lazy">
                         </div>
-                        <p><strong>One of the Best Graduates in NRW:</strong><br>
-                        Honored as one of the best graduates of North Rhine-Westphalia, Germany’s largest federal state, by Minister-President (ret.) Armin Laschet.
-                        </p>
+                        <h4>One of the Best Graduates in NRW</h4>
+                        <p>Honored as one of the best graduates of North Rhine-Westphalia, Germany’s largest federal state, by Minister-President (ret.) Armin Laschet.</p>
                     </div>
                 </div>
             </div>
         </div>
-    </section>
+    </div>
+</section>
 
     <!-- Contact Section -->
     <section id="contact" class="contact-section">
-        <div class="content">
+        <div class="container content">
             <h2 data-aos="fade-up">Contact Me</h2>
-            <!-- Form -->
-            <form action="https://formspree.io/f/mnnarzrl" method="POST" data-aos="fade-up" data-aos-delay="100" onsubmit="return validateForm()">
-                <label for="name">Name:</label>
-                <input type="text" id="name" name="name" required>
-
-                <label for="email">Email:</label>
-                <input type="email" id="email" name="email" required>
-
-                <label for="message">Message:</label>
-                <textarea id="message" name="message" rows="4" required></textarea>
-
+            <form action="https://formspree.io/f/mnnarzrl" method="POST" data-aos="fade-up" data-aos-delay="100" class="needs-validation" novalidate>
+                <div class="mb-3">
+                    <label for="name" class="form-label">Name:</label>
+                    <input type="text" class="form-control" id="name" name="name" required>
+                </div>
+                <div class="mb-3">
+                    <label for="email" class="form-label">Email:</label>
+                    <input type="email" class="form-control" id="email" name="email" required>
+                </div>
+                <div class="mb-3">
+                    <label for="message" class="form-label">Message:</label>
+                    <textarea class="form-control" id="message" name="message" rows="4" required></textarea>
+                </div>
                 <button type="submit" class="btn">Send Message</button>
             </form>
         </div>
     </section>
 
     <!-- Footer -->
-    <footer>
-        <div class="footer-content">
-            <p>&copy; 2024 Tim Luka Horstmann - All Rights Reserved</p>
+    <footer class="footer-section text-white text-center py-3">
+        <div class="container footer-content">
+            <p>© 2024 Tim Luka Horstmann - All Rights Reserved</p>
             <div class="social-icons">
                 <a href="https://www.linkedin.com/in/luka512" target="_blank"><i class="fab fa-linkedin"></i></a>
                 <a href="https://github.com/TimLukaHorstmann" target="_blank"><i class="fab fa-github"></i></a>
@@ -790,413 +678,12 @@
         </div>
     </footer>
 
-    <!-- Initialize Particle.js -->
-    <script>
-        particlesJS("particles-js", {
-            "particles": {
-                "number": {
-                    "value": 80,
-                    "density": {
-                        "enable": true,
-                        "value_area": 800
-                    }
-                },
-                "color": {
-                    "value": "#ffffff"
-                },
-                "shape": {
-                    "type": "circle",
-                    "stroke": {
-                        "width": 0,
-                        "color": "#000000"
-                    }
-                },
-                "opacity": {
-                    "value": 0.5,
-                    "random": false,
-                    "anim": {
-                        "enable": false
-                    }
-                },
-                "size": {
-                    "value": 3,
-                    "random": true,
-                    "anim": {
-                        "enable": false
-                    }
-                },
-                "line_linked": {
-                    "enable": true,
-                    "distance": 150,
-                    "color": "#ffffff",
-                    "opacity": 0.4,
-                    "width": 1
-                },
-                "move": {
-                    "enable": true,
-                    "speed": 2,
-                    "direction": "none",
-                    "random": false,
-                    "straight": false,
-                    "out_mode": "out",
-                    "bounce": false
-                }
-            },
-            "interactivity": {
-                "detect_on": "canvas",
-                "events": {
-                    "onhover": {
-                        "enable": true,
-                        "mode": "grab"
-                    },
-                    "onclick": {
-                        "enable": true,
-                        "mode": "push",
-                        "callback": function(event) {
-                            createRipple(event);
-                        }
-                    },
-                    "resize": true
-                },
-                "modes": {
-                    "grab": {
-                        "distance": 200,
-                        "line_linked": {
-                            "opacity": 1
-                        }
-                    },
-                    "push": {
-                        "particles_nb": 4
-                    }
-                }
-            },
-            "retina_detect": true
-        });
-    </script>
-
-    <!-- Leaflet JS -->
+    <!-- Scripts -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
     <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
-
-    <!-- MapTiler SDK JS -->
     <script src="https://cdn.maptiler.com/maptiler-sdk-js/v2.2.2/maptiler-sdk.umd.js"></script>
-
-    <!-- Leaflet MapTiler SDK Integration -->
     <script src="https://cdn.maptiler.com/leaflet-maptilersdk/v2.0.0/leaflet-maptilersdk.js"></script>
-
-    <!-- Initialize the Map with Enhanced Interactivity -->
-    <script>
-        document.addEventListener('DOMContentLoaded', function() {
-            // Center the map on Paris
-            var map = L.map('map', {
-                zoomControl: true,
-                scrollWheelZoom: false,
-                dragging: true,
-                tap: false
-            }).setView([48.8566, 2.3522], 4); // Paris coordinates with appropriate zoom
-
-            // Set map bounds to cover Europe excluding countries east of Poland
-            var southWest = L.latLng(35, -10); // Southwest corner (Latitude, Longitude)
-            var northEast = L.latLng(60, 24);  // Northeast corner (Latitude, Longitude)
-            var bounds = L.latLngBounds(southWest, northEast);
-            map.setMaxBounds(bounds);
-            map.on('drag', function() {
-                map.panInsideBounds(bounds, { animate: false });
-            });
-
-            // Use MapTiler SDK to add your custom vector tile layer
-            const key = 'moHcWGL55oQVePpoGrB5'; 
-
-            const mtLayer = L.maptilerLayer({
-                apiKey: key,
-                style: 'c9280907-adb2-45e8-8a4c-8054cc121082',
-                noWrap: true, // Allows removing wrap at boundaries
-                attribution: false // Removes the MapTiler attribution
-            }).addTo(map);
-
-            // Define a custom DivIcon
-            var emojiIcon = L.divIcon({
-                className: 'emoji-icon',
-                html: '📍',
-                iconSize: [24, 24],
-                iconAnchor: [12, 24],
-                popupAnchor: [0, -24]
-            });
-
-            // Updated Locations Array with Unique IDs
-            var locations = [
-                { 
-                    id: "ip-paris",
-                    lat: 48.7134020130425,
-                    lng: 2.200214340663505, 
-                    title: '<a href="https://www.ip-paris.fr/" target="_blank">Institut Polytechnique de Paris</a>', 
-                    description: "Palaiseau, France <br> PhD Track in Computer Science <br> MSc in Data and Artificial Intelligence (2024-2025)" 
-                },
-                { 
-                    id: "cambridge",
-                    lat: 52.20560907290666,
-                    lng: 0.11312239071815315, 
-                    title: '<a href="https://www.cam.ac.uk/" target="_blank">University of Cambridge</a>', 
-                    description: "Cambridge, UK <br> MPhil in Advanced Computer Science (2023-2024)" 
-                },
-                { 
-                    id: "hsrm",
-                    lat: 50.09835443081745, 
-                    lng: 8.215862348868724, 
-                    title: '<a href="https://www.hs-rm.de/" target="_blank">RheinMain University of Applied Sciences</a>', 
-                    description: "Wiesbaden, Germany <br> BSc in Business Informatics (2019-2022)" 
-                },
-                { 
-                    id: "hi_paris",
-                    lat: 48.75743723363367,
-                    lng: 2.1691683781847924,
-                    title: '<a href="https://www.hi-paris.fr/" target="_blank">Hi! PARIS</a>', 
-                    description: "Paris, France <br> Machine Learning Research Engineer Intern (2025)"
-                },
-                { 
-                    id: "mck",
-                    lat: 48.14334819083518,
-                    lng: 11.562918373179789, 
-                    title: '<a href="https://www.mckinsey.com/" target="_blank">McKinsey & Company</a>', 
-                    description: "Munich, Germany <br> Fellow Intern (2023)" 
-                },
-                { 
-                    id: "amazon",
-                    lat: 51.52191542111632, 
-                    lng: -0.07924095706239208,
-                    title: '<a href="https://www.amazon.com/" target="_blank">Amazon</a>', 
-                    description: "London, UK <br> Business Intelligence Intern (2022-2023)" 
-                },
-                { 
-                    id: "sge",
-                    lat: 51.6127099067384,
-                    lng: 8.332399269599152, 
-                    title: '<a href="https://www.sge-erwitte.de/" target="_blank">Städtisches Gymnasium Erwitte</a>', 
-                    description: "Erwitte, Germany <br> Abitur (2019)" 
-                },
-                { 
-                    id: "continental",
-                    lat: 50.135490818761454,
-                    lng: 8.594796479427476, 
-                    title: '<a href="https://www.continental.com/" target="_blank">Continental AG</a>', 
-                    description: "Frankfurt am Main, Germany <br> Dual Student (2019-2022)" 
-                }
-            ];
-
-            // Store markers with their unique IDs
-            var markers = {};
-
-            // Add markers to the map and store them
-            locations.forEach(function(location) {
-                var marker = L.marker([location.lat, location.lng], { icon: emojiIcon }).addTo(map)
-                    .bindPopup('<b>' + location.title + '</b><br>' + location.description);
-                markers[location.id] = marker;
-            });
-
-            // Add click event to markers to highlight corresponding timeline item
-            locations.forEach(function(location) {
-                var marker = markers[location.id];
-                marker.on('click', function() {
-                    const timelineItem = document.querySelector('.timeline-item[data-marker-id="' + location.id + '"]');
-                    if(timelineItem){
-                        timelineItem.scrollIntoView({ behavior: 'smooth', block: 'center', inline: 'center' });
-                        highlightTimelineItem(timelineItem);
-                    }
-                });
-            });
-
-            // Function to highlight timeline item
-            function highlightTimelineItem(item) {
-                // Remove highlight from all items
-                document.querySelectorAll('.timeline-item').forEach(it => {
-                    it.classList.remove('highlight');
-                });
-                // Add highlight to the selected item
-                item.classList.add('highlight');
-                // Optionally, remove highlight after a few seconds
-                setTimeout(() => {
-                    item.classList.remove('highlight');
-                }, 3000);
-            }
-
-            // Add click event to timeline items to highlight corresponding marker
-            document.querySelectorAll('.timeline-item').forEach(item => {
-                item.addEventListener('click', () => {
-                    const markerId = item.getAttribute('data-marker-id');
-                    const marker = markers[markerId];
-                    if(marker){
-                        marker.openPopup();
-                        highlightTimelineItem(item);
-                    }
-                });
-            });
-
-            // Add click event to CV items to center/focus on the marker
-            document.querySelectorAll('.timeline-item').forEach(item => {
-                item.addEventListener('click', () => {
-                    const markerId = item.getAttribute('data-marker-id');
-                    const marker = markers[markerId];
-                    if(marker){
-                        map.flyTo(marker.getLatLng(), 8, {
-                            animate: true,
-                            duration: 1.5 // Adjust duration for a smoother effect
-                        });
-                        marker.openPopup();
-                        highlightTimelineItem(item); // Highlight the timeline item as before
-                    }
-                });
-            });
-
-        });
-    </script>
-
-    <!-- Google Analytics Managed by Tarteaucitron.js -->
-    <script type="text/javascript">
-        tarteaucitron.user.gajsUa = 'G-6L4JDDYWZP'; // Your GA Measurement ID
-        tarteaucitron.user.gajsMore = function () {
-            // Any additional GA configurations can go here
-        };
-        tarteaucitron.job = tarteaucitron.job || {};
-        tarteaucitron.job.googleAnalytics = {
-            "key": "googleAnalytics",
-            "type": "analytic",
-            "name": "Google Analytics",
-            "uri": "https://policies.google.com/privacy",
-            "needConsent": true,
-            "cookies": ['_ga', '_gat', '_gid'],
-            "js": function () {
-                /* Google Analytics script */
-                window.dataLayer = window.dataLayer || [];
-                function gtag(){dataLayer.push(arguments);}
-                gtag('js', new Date());
-
-                gtag('config', tarteaucitron.user.gajsUa, {
-                    'anonymize_ip': true
-                });
-            }
-        };
-    </script>
-
-    <!-- Include AOS Library -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/aos/2.3.4/aos.js"></script>
-    <script>
-        AOS.init({
-            duration: 800,
-            easing: 'slide',
-            once: true,
-        });
-    </script>
-
-    <!-- Toggle Navigation Menu -->
-    <script>
-        const toggleBtn = document.querySelector('.toggle-btn');
-        const navLinks = document.querySelector('.nav-links');
-
-        toggleBtn.addEventListener('click', () => {
-            navLinks.classList.toggle('show');
-        });
-    </script>
-
-    <!-- Expandable Project Cards -->
-    <script>
-        document.querySelectorAll('.project-card').forEach(card => {
-            const toggle = card.querySelector('.project-toggle');
-            const description = card.querySelector('.project-description');
-
-            toggle.addEventListener('click', () => {
-                description.classList.toggle('show');
-                toggle.querySelector('i').classList.toggle('fa-chevron-down');
-                toggle.querySelector('i').classList.toggle('fa-chevron-up');
-            });
-        });
-    </script>
-
-    <!-- Form Validation -->
-    <script>
-        function validateForm() {
-            const name = document.getElementById('name').value.trim();
-            const email = document.getElementById('email').value.trim();
-            const message = document.getElementById('message').value.trim();
-            const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-
-            if (name === '' || email === '' || message === '') {
-                alert('Please fill in all fields.');
-                return false;
-            }
-
-            if (!emailPattern.test(email)) {
-                alert('Please enter a valid email address.');
-                return false;
-            }
-
-            // Add more validation as needed
-            return true;
-        }
-    </script>
-
-    <script>
-        $(document).ready(function(){
-            $('.carousel').slick({
-                infinite: true,
-                slidesToShow: 3, /* Number of project cards visible */
-                slidesToScroll: 1,
-                arrows: true, /* Enable next/prev arrows */
-                dots: true, /* Enable dots navigation */
-                autoplay: true, /* Optional: auto-slide */
-                autoplaySpeed: 3000, /* Optional: auto-slide speed */
-                lazyLoad: 'ondemand', /* Optional: lazy load images */
-                vertical: false, /* Optional: vertical carousel */
-                responsive: [
-                    {
-                        breakpoint: 1024,
-                        settings: {
-                            slidesToShow: 2,
-                            slidesToScroll: 1,
-                            infinite: true,
-                            dots: true
-                        }
-                    },
-                    {
-                        breakpoint: 600,
-                        settings: {
-                            slidesToShow: 1,
-                            slidesToScroll: 1
-                                    }
-                    }
-                ]
-            });
-        });
-    </script>
-
-
-    <script>
-        // Function to create a ripple effect at the exact click location
-        function createRipple(event) {
-            const ripple = document.createElement('span');
-            ripple.classList.add('ripple');
-            
-            // Set the size of the ripple
-            const size = 50; // Smaller size for elegance
-            ripple.style.width = ripple.style.height = `${size}px`;
-
-            // Position ripple precisely based on the mouse click location
-            const rect = event.target.getBoundingClientRect();
-            ripple.style.left = `${event.clientX - rect.left - size / 2}px`;
-            ripple.style.top = `${event.clientY - rect.top - size / 2}px`;
-
-            // Add the ripple to the hero section
-            document.querySelector('.hero-section').appendChild(ripple);
-
-            // Remove the ripple after animation ends
-            ripple.addEventListener('animationend', () => {
-                ripple.remove();
-            });
-        }
-
-        // Add ripple effect when clicking inside the hero section
-        document.querySelector('.hero-section').addEventListener('click', function(event) {
-            createRipple(event);
-        });
-    </script>
-
+    <script src="assets/js/main.js"></script>
 </body>
 </html>

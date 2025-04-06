@@ -1,8 +1,8 @@
-/* Define CSS Variables for Easy Adjustments */
+/* Define CSS Variables for Consistency */
 :root {
     --header-height: 60px;
-    --overlay-color: rgba(0, 0, 0, 0.5); /* Black overlay with 50% opacity */
-    --background-brightness: 0.9; /* 10% reduction in brightness */
+    --overlay-color: rgba(0, 0, 0, 0.5);
+    --background-brightness: 0.9;
     --primary-color: #0a9396;
     --secondary-color: #005f73;
     --accent-color: #94d2bd;
@@ -15,10 +15,9 @@
 *,
 *::before,
 *::after {
-    box-sizing: border-box; /* Include padding and borders within element dimensions */
+    box-sizing: border-box;
 }
 
-/* Prevent horizontal overflow on html and body */
 html, body {
     max-width: 100%;
     overflow-x: hidden;
@@ -29,20 +28,16 @@ body {
     font-family: 'Roboto', sans-serif;
     background-color: #f4f4f4;
     color: var(--text-color);
-    overflow-x: hidden; /* Prevent horizontal overflow */
     scroll-behavior: smooth;
 }
 
-h1,
-h2,
-h3 {
+h1, h2, h3 {
     font-family: 'Poppins', sans-serif;
     font-weight: 700;
     color: var(--secondary-color);
 }
 
-p,
-li {
+p, li {
     font-family: 'Roboto', sans-serif;
     font-weight: 400;
     line-height: 1.6;
@@ -59,88 +54,49 @@ ul {
 }
 
 /* Navigation Bar */
-header {
-    background-color: rgba(0, 95, 115, 0.8); /* Semi-transparent background */
+.navbar {
     height: var(--header-height);
     padding: 0;
-    position: fixed;
-    width: 100%;
-    top: 0;
     z-index: 10;
 }
 
-/* Container to align logo, navigation, and toggle button */
-.container {
-    display: flex;
-    justify-content: space-between; /* Space between logo and links */
-    align-items: center;
-    width: 100%;
-    padding: 0 20px;
-}
-
-nav {
-    height: var(--header-height);
-    display: flex;
-    justify-content: center;
-    align-items: center;
-}
-
-/* Centering the navigation links */
-.nav-links {
-    display: flex;
-    justify-content: center; /* Centers the nav links */
-    flex-grow: 1; /* Makes the nav-links take up remaining space equally */
-    list-style: none;
-    margin: 0;
-}
-
-/* Logo styling */
 .nav-logo-wrapper {
-    position: absolute;
-    left: 20px;
-}
-
-.nav-logo {
-    height: 45px; /* Adjust size */
-    width: auto;
-    margin-right: 15px;
     padding: 4px;
 }
 
-.nav-logo-mobile {
-    display: none; /* Hidden by default */
-    height: 45px; /* Adjust size for mobile */
+.nav-logo {
+    height: 45px;
     width: auto;
-    margin-bottom: 20px; /* Spacing for mobile logo */
 }
 
-/* Adjusting navigation links */
-.nav-links a {
+.nav-logo-mobile {
+    display: none;
+    height: 45px;
+    width: auto;
+    margin-bottom: 20px;
+}
+
+.navbar-nav .nav-link {
     padding: 10px 20px;
     font-weight: 500;
     color: #ffffff;
     transition: color 0.3s;
-    cursor: pointer;
 }
 
-.nav-links a:hover {
+.navbar-nav .nav-link:hover {
     color: var(--primary-color);
 }
 
-/* Toggle button (hamburger menu) */
-.toggle-btn {
-    display: none;
-    position: absolute;
-    top: 50%;
-    right: 20px;
-    transform: translateY(-50%);
-    cursor: pointer;
-    color: #ffffff;
-    font-size: 1.5rem;
-    z-index: 11;
+.navbar-toggler.toggle-btn {
     background-color: rgba(0, 0, 0, 0.3);
     padding: 10px;
     border-radius: 5px;
+    border: none;
+}
+
+.navbar-toggler i {
+    color: #ffffff;
+    font-size: 1.5rem;
 }
 
 /* Hero Section */
@@ -151,8 +107,8 @@ nav {
     justify-content: center;
     align-items: center;
     text-align: center;
-    padding: 0px;
-    z-index: 1; /* Content sits above the particles */
+    padding: 0;
+    z-index: 1;
 }
 
 .hero-section::before {
@@ -163,9 +119,9 @@ nav {
     width: 100%;
     height: 100%;
     background: linear-gradient(var(--overlay-color), var(--overlay-color)),
-        url('/assets/images/paris4.jpg') no-repeat center center/cover;
+                url('/assets/images/paris4.jpg') no-repeat center center/cover;
     filter: brightness(var(--background-brightness));
-    z-index: -1; /* Background image behind the content */
+    z-index: -1;
 }
 
 #particles-js {
@@ -174,45 +130,41 @@ nav {
     left: 0;
     width: 100%;
     height: 100%;
-    z-index: 0; /* Positioned between the background and the content */
-    opacity: 0.3; /* Adjust for desired subtlety */
+    z-index: 0;
+    opacity: 0.3;
 }
 
-/* Elegant Ripple Effect */
 .ripple {
     position: absolute;
     border-radius: 50%;
-    background-color: rgba(255, 255, 255, 0.15); /* Lighter color for elegance */
+    background-color: rgba(255, 255, 255, 0.15);
     transform: scale(0);
-    animation: ripple-animation 2s ease-out; /* Slower and smoother animation */
-    pointer-events: none;
-    z-index: 10; /* Ensure it's above the canvas */
+    animation: ripple-animation 2s ease-out;
+    pointer-events: none; /* Ensure ripple doesn’t block clicks */
+    z-index: 10;
 }
 
 @keyframes ripple-animation {
     to {
-        transform: scale(4); /* Smaller scale for more subtle effect */
-        opacity: 0; /* Fade out the ripple */
+        transform: scale(4);
+        opacity: 0;
     }
-}
-
-.content {
-    position: relative;
-    z-index: 1;
 }
 
 .hero-section h1 {
     font-size: 4rem;
-    color: #ffffff; /* White text */
+    color: #ffffff;
 }
 
 .hero-section p {
     font-size: 1.5rem;
-    color: var(--light-text); /* Light grey text */
+    color: var(--light-text);
 }
 
 .buttons {
     margin-top: 30px;
+    position: relative;
+    z-index: 15; /* Above ripple effect */
 }
 
 .buttons .btn {
@@ -222,9 +174,8 @@ nav {
     border-radius: 30px;
     font-size: 1rem;
     transition: background-color 0.3s, transform 0.3s;
-    display: inline-block;
-    text-decoration: none;
     margin: 5px;
+    display: inline-block;
 }
 
 .buttons .btn:hover {
@@ -236,15 +187,12 @@ nav {
     margin-right: 8px;
 }
 
-/* Photo Placeholder Styling */
 .photo-placeholder {
     margin-top: var(--header-height);
     margin-bottom: 20px;
 }
 
 .photo-placeholder img {
-    width: auto;
-    height: auto;
     max-width: 250px;
     max-height: 250px;
     border-radius: 50%;
@@ -267,115 +215,71 @@ nav {
 .cv-section h2 {
     font-size: 2.5rem;
     margin-bottom: 20px;
-    color: var(--secondary-color);
+    text-align: center;
 }
 
-/* CV Content Layout */
 .cv-content {
-    display: flex;
-    align-items: stretch;
-    justify-content: space-between;
-    padding: 0px 0 50px;
+    padding: 0 0 50px;
 }
 
 .cv-timeline {
-    width: 45%;
+    border-left: 4px solid var(--primary-color);
+    padding-left: 20px;
+    /* Removed max-height and overflow-y to show all items */
 }
 
 .timeline {
-    margin: 30px 0 0 20px;
-    border-left: 4px solid var(--primary-color);
-    position: relative;
-    max-width: 100%;
-    padding-left: 20px;
-    max-height: 900px;
-    overflow-y: auto;
+    margin: 30px 0 0 0;
 }
 
 .timeline-item {
-    padding: 5px 0px;
-    position: relative;
-    background-color: inherit;
-    width: 100%;
+    padding: 5px 0;
     margin-bottom: 10px;
     transition: background-color 0.3s ease, transform 0.3s ease;
     cursor: pointer;
 }
 
 .timeline-item:hover {
-    /* Highlight the timeline item on hover by adding a nice border */
     border-left: 4px solid var(--accent-color);
 }
 
 .timeline-item.highlight .timeline-content {
     background-image: none !important;
     background-color: var(--accent-color);
-    transition: background-color 0.3s, color 0.3s;
 }
 
-/* Base styling for timeline content with background */
 .timeline-content {
-    background-size: auto 40%; /* Adjusts the image to cover the entire container */
-    background-position: center; /* Centers the image */
-    background-repeat: no-repeat; /* Prevents the image from repeating */
-    padding: 20px; /* Adjust padding as needed */
-    border-radius: 8px; /* Optional: for rounded corners */
-    position: relative;
-    background-blend-mode: overlay; /* Optional: blend background color with image */
-    background-color: rgba(256, 256, 256, 0.9);
+    background-size: auto 40%;
+    background-position: center;
+    background-repeat: no-repeat;
+    padding: 20px;
+    border-radius: 8px;
+    background-blend-mode: overlay;
+    background-color: rgba(255, 255, 255, 0.9);
 }
 
-/* Applying background images for each timeline item */
-#ip-paris .timeline-content {
-    background-image: url("../images/ipparis.png");
-}
-
-#cambridge .timeline-content {
-    background-image: url("../images/cambridge.jpg");
-}
-
-#hsrm .timeline-content {
-    background-image: url("../images/hsrm.png");
-}
-
-#sge .timeline-content {
-    background-image: url("../images/sge.jpg");
-}
-
-#hi_paris .timeline-content {
-    background-image: url("../images/logo-hi-paris-retina.png");
-}
-
-#mck .timeline-content {
-    background-image: url("../images/mckinsey_logo_crop.png");
-}
-
-#amazon .timeline-content {
-    background-image: url("../images/amazon.svg");
-}
-
-#continental .timeline-content {
-    background-image: url("../images/continental.png");
-}
+#ip-paris .timeline-content { background-image: url("../images/ipparis.png"); }
+#cambridge .timeline-content { background-image: url("../images/cambridge.jpg"); }
+#hsrm .timeline-content { background-image: url("../images/hsrm.png"); }
+#sge .timeline-content { background-image: url("../images/sge.jpg"); }
+#hi_paris .timeline-content { background-image: url("../images/logo-hi-paris-retina.png"); }
+#mck .timeline-content { background-image: url("../images/mckinsey_logo_crop.png"); }
+#amazon .timeline-content { background-image: url("../images/amazon.svg"); }
+#continental .timeline-content { background-image: url("../images/continental.png"); }
 
 .timeline-content h3 {
     margin: 0 0 5px;
     font-size: 1.1rem;
-    color: var(--secondary-color);
 }
 
 .timeline-content p {
     margin: 0;
     font-size: 0.95rem;
-    color: var(--text-color);
 }
 
-/* Map Section */
 .cv-map {
-    margin-top: 100px;
-    width: 45%;
-    max-height: 100%;
-    position: relative;
+    margin-top: 30px; /* Adjusted from 100px to integrate better */
+    min-height: 400px; /* Minimum height for responsiveness */
 }
 
 #map {
@@ -384,38 +288,30 @@ nav {
     border-radius: 8px;
 }
 
-/* Style the zoom control container */
 .leaflet-control-zoom {
-    background-color: rgba(255, 255, 255, 0.5); /* Semi-transparent background */
-    border-radius: 10px; /* Rounded corners */
-    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2); /* Subtle shadow for depth */
-    width: auto; /* Adjust the width */
-    height: auto; /* Adjust the height */
+    background-color: rgba(255, 255, 255, 0.5);
+    border-radius: 10px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
 }
 
-/* Style the zoom-in and zoom-out buttons */
 .leaflet-control-zoom-in,
 .leaflet-control-zoom-out {
-    background-color: transparent !important; /* Make the buttons transparent */
-    border: none; /* Remove border */
-    font-size: 18px; /* Adjust the font size */
-    color: #333 !important; /* Dark color for the icons */
-    transition: background-color 0.3s, color 0.3s; /* Smooth transitions */
+    background-color: transparent !important;
+    border: none;
+    font-size: 18px;
+    color: #333 !important;
 }
 
-/* Hover effect for zoom buttons */
 .leaflet-control-zoom-in:hover,
 .leaflet-control-zoom-out:hover {
-    background-color: rgba(0, 0, 0, 0.1); /* Slight background on hover */
-    color: #000; /* Darker text on hover */
+    background-color: rgba(0, 0, 0, 0.1);
+    color: #000;
 }
 
-/* Customize the size and shape of zoom control buttons */
 .leaflet-control-zoom-in {
-    border-bottom: 1px solid rgba(0, 0, 0, 0.1); /* Line separating the buttons */
+    border-bottom: 1px solid rgba(0, 0, 0, 0.1);
 }
 
-/* Leaflet Marker Icon Adjustments */
 .leaflet-marker-icon.emoji-icon {
     font-size: 24px;
     line-height: 1;
@@ -427,7 +323,6 @@ nav {
     font-size: 30px;
 }
 
-/* Hide the MapTiler logo in the bottom left corner */
 #map img {
     display: none;
 }
@@ -441,7 +336,6 @@ nav {
 
 .projects-section h2 {
     margin-bottom: 50px;
-    color: var(--secondary-color);
 }
 
 .projects-grid {
@@ -460,6 +354,7 @@ nav {
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
     transition: box-shadow 0.3s ease, transform 0.3s ease;
     margin: 0 10px;
+    position: relative; /* For upcoming ribbon */
 }
 
 .project-card:hover {
@@ -488,7 +383,6 @@ nav {
 .project-card h3 {
     font-size: 1.1rem;
     margin: 10px 15px;
-    color: var(--secondary-color);
 }
 
 .project-toggle {
@@ -513,28 +407,10 @@ nav {
     text-align: center;
 }
 
-
 .project-description.show {
     display: block;
 }
 
-.project-description .fab.fa-github {
-    font-size: 20px;
-    transition: transform 0.3s ease;
-}
-
-.project-description .fab.fa-github:hover {
-    transform: scale(1.2);
-    color: #4078c0;
-}
-
-.project-description ul {
-    list-style: disc; /* Enables bullet points */
-    margin-left: 20px; /* Adds indentation */
-    text-align: left;
-}
-
-/* General Button Styling for GitHub and PDF Links */
 .project-description .btn {
     display: inline-block;
     background-color: var(--primary-color);
@@ -547,43 +423,43 @@ nav {
     margin: 5px;
     transition: background-color 0.3s, transform 0.3s;
     cursor: pointer;
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* Adds a subtle shadow */
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
 }
 
 .project-description .btn:hover {
-    background-color: var(--accent-color); /* Lighter shade for hover */
-    transform: scale(1.05); /* Slightly enlarges on hover */
-    box-shadow: 0 6px 10px rgba(0, 0, 0, 0.2); /* Enhances hover shadow */
+    background-color: var(--accent-color);
+    transform: scale(1.05);
+    box-shadow: 0 6px 10px rgba(0, 0, 0, 0.2);
 }
 
 .project-description .btn i {
-    margin-right: 8px; /* Adds space between icon and text */
+    margin-right: 8px;
 }
 
+.project-description .fab.fa-github:hover {
+    transform: scale(1.2);
+    color: #4078c0;
+}
 
+.project-description ul {
+    list-style: disc;
+    margin-left: 20px;
+    text-align: left;
+}
 
-/* Upcoming Projects Section */
-
-/* Style for Upcoming Project Cards */
 .project-card.upcoming {
-    position: relative;
-    overflow: hidden;
-    filter: grayscale(100%); /* Grey out the card */
-    pointer-events: none; /* Disable interaction */
-    transition: none; /* Disable hover transitions */
-    border: 1px solid #ccc; /* Optional: Add a subtle border */
-    background-color: #f9f9f9; /* Optional: Light background */
-    cursor: default; /* Indicate non-interactive element */
+    filter: grayscale(100%);
+    pointer-events: none;
+    transition: none;
+    border: 1px solid #ccc;
+    background-color: #f9f9f9;
 }
 
-/* Apply grayscale and opacity to images inside upcoming project cards */
 .project-card.upcoming img {
     filter: grayscale(100%);
     opacity: 0.6;
-    transition: none; /* Disable image hover transitions */
 }
 
-/* Add a diagonal "Coming Soon" ribbon */
 .project-card.upcoming::before {
     content: "Coming soon!";
     position: absolute;
@@ -601,13 +477,6 @@ nav {
     box-shadow: 0 2px 6px rgba(0, 0, 0, 0.2);
 }
 
-/* Disable hover effects on upcoming projects */
-.project-card.upcoming:hover {
-    transform: none;
-    box-shadow: none;
-}
-
-/* Carousel Styling */
 .carousel .slick-slide {
     padding: 0 15px;
     margin-bottom: 30px;
@@ -621,13 +490,9 @@ nav {
 .slick-next {
     background-color: var(--primary-color) !important;
     border-radius: 50%;
-    color: white;
     width: 50px;
     height: 50px;
     z-index: 1;
-    display: flex;
-    justify-content: center;
-    align-items: center;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
     transition: background-color 0.3s ease, transform 0.3s ease;
     margin: 0 10px;
@@ -655,12 +520,8 @@ nav {
 }
 
 @keyframes fadeIn {
-    from {
-        opacity: 0;
-    }
-    to {
-        opacity: 1;
-    }
+    from { opacity: 0; }
+    to { opacity: 1; }
 }
 
 /* Skills Section */
@@ -672,7 +533,6 @@ nav {
 
 .skills-section h2 {
     margin-bottom: 50px;
-    color: var(--secondary-color);
 }
 
 .skills-content h3 {
@@ -687,36 +547,31 @@ nav {
     display: flex;
     flex-wrap: wrap;
     justify-content: center;
-    gap: 10px;
+    gap: 20px;
 }
 
 .skill-card {
-    width: 150px;
     text-align: center;
+    padding: 10px; /* No padding to mimic old tight layout */
+    margin: 5px; /* Minimal margin */
+    flex: 0 0 auto; /* Prevent growing, maintain natural size */
 }
 
 .skill-card i,
 .skill-card img {
-    font-size: 4rem;
+    font-size: 3rem;
+    height: 3rem;
+    width: auto;
     margin-bottom: 10px;
-    max-width: 100px;
-    max-height: 100px;
-}
-
-.skill-card img {
-    width: 100px;
-    height: 100px;
     object-fit: contain;
-    background-color: #ffffff;
-    border-radius: 5px;
-    padding: 5px;
 }
 
 .skill-card .custom-icon {
+    height: 3rem;
     width: auto;
-    height: 4rem;
     display: block;
-    margin: 0 auto 10px;
+    margin: 0 auto 0px;
+    margin-bottom: 4px;
     background-color: transparent;
     filter: grayscale(1);
 }
@@ -724,6 +579,7 @@ nav {
 .skill-card p {
     font-size: 1rem;
     color: var(--text-color);
+    margin: 0;
 }
 
 .soon,
@@ -740,7 +596,6 @@ nav {
 .awards-section h2 {
     font-size: 2.5rem;
     margin-bottom: 20px;
-    color: var(--secondary-color);
     text-align: center;
 }
 
@@ -751,36 +606,18 @@ nav {
     text-align: center;
 }
 
-/* Common styles for scholarships, programs, and awards */
-.scholarships,
-.programs,
-.awards {
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: center;
-    gap: 20px;
-    margin-top: 20px;
-}
-
 .scholarship-item,
 .program-item,
 .award-item {
-    flex: 1 1 300px; /* Flex-grow, flex-shrink, flex-basis */
-    max-width: 300px;
     text-align: center;
     background-color: #ffffff;
     border: 1px solid #ddd;
     border-radius: 10px;
     padding: 20px;
-    box-sizing: border-box;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
     transition: transform 0.3s ease, box-shadow 0.3s ease;
-    display: flex; /* Use Flexbox */
-    flex-direction: column; /* Stack children vertically */
-    align-items: center; /* Center items horizontally */
 }
 
-/* Hover effect */
 .scholarship-item:hover,
 .program-item:hover,
 .award-item:hover {
@@ -788,53 +625,42 @@ nav {
     box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
 }
 
-/* Image or Icon Container */
 .scholarship-item .image-container,
 .program-item .image-container,
 .award-item .image-container {
-    width: 100%;
-    height: 120px; /* Set a fixed height */
+    width: 200px;
+    height: 100px;
+    margin: 0 auto;
     display: flex;
-    align-items: center; /* Center vertically */
-    justify-content: center; /* Center horizontally */
+    align-items: center;
+    justify-content: center;
     margin-bottom: 10px;
 }
 
-/* Images */
 .scholarship-item img,
-.program-item img{
-    max-width: 70%;
-    max-height: 100%;
-    object-fit: contain;
-    background-color: #ffffff;
-    border-radius: 10px;
-    padding: 10px;
-}
-
+.program-item img,
 .award-item img {
     max-width: 80%;
-    max-height: 100%;
+    max-height: 80%;
     object-fit: contain;
     background-color: #ffffff;
     border-radius: 10px;
-    padding: 10px;
 }
 
-/* Icons */
+
 .award-item i {
     font-size: 3rem;
     color: var(--primary-color);
     margin-bottom: 10px;
 }
 
-/* Text Content */
 .scholarship-item p,
 .program-item p,
 .award-item p {
     font-size: 1rem;
     color: var(--text-color);
-    margin-top: 0px;
-    word-wrap: break-word; /* Allow long words to break */
+    margin-top: 0;
+    word-wrap: break-word;
 }
 
 /* Contact Section */
@@ -846,7 +672,6 @@ nav {
 
 .contact-section h2 {
     margin-bottom: 50px;
-    color: var(--secondary-color);
 }
 
 .contact-section form {
@@ -854,9 +679,7 @@ nav {
     margin: 0 auto;
 }
 
-.contact-section input,
-.contact-section textarea {
-    width: 100%;
+.contact-section .form-control {
     padding: 12px;
     margin: 10px 0;
     border: 1px solid #ccc;
@@ -864,7 +687,7 @@ nav {
     font-size: 1rem;
 }
 
-.contact-section button {
+.contact-section .btn {
     background-color: var(--primary-color);
     color: white;
     padding: 12px 30px;
@@ -872,20 +695,16 @@ nav {
     font-size: 1rem;
     transition: background-color 0.3s, transform 0.3s;
     border: none;
-    cursor: pointer;
 }
 
-.contact-section button:hover {
+.contact-section .btn:hover {
     background-color: var(--accent-color);
     transform: scale(1.05);
 }
 
 /* Footer */
-footer {
+.footer-section {
     background-color: var(--secondary-color);
-    color: white;
-    text-align: center;
-    padding: 20px;
     width: 100%;
 }
 
@@ -918,80 +737,26 @@ footer {
     transform: translateY(0);
 }
 
-[data-aos][data-aos-duration="400"] {
-    transition-duration: 400ms;
-}
-
 /* Responsive Adjustments */
-
-@media only screen and (max-width: 1024px) {
-    /* Adjust scholarships, programs, and awards items to two columns */
-    .scholarship-item,
-    .program-item,
-    .award-item {
-        flex: 1 1 calc(50% - 40px); /* Two columns */
-        max-width: none;
-        margin: 10px 20px;
-    }
-}
-
-@media only screen and (max-width: 768px) {
-    /* Show the toggle button */
-    .toggle-btn {
-        display: block;
-    }
-
-    header {
-        background-color: transparent;
-    }
-
-    /* Hide the logo outside the menu */
+@media (max-width: 991px) {
     .nav-logo-wrapper {
         display: none;
     }
-    
-    /* Show the mobile logo inside the navigation menu */
+
     .nav-logo-mobile {
         display: block;
         text-align: center;
         margin: 0 auto;
     }
 
-    .nav-links {
-        position: fixed;
-        top: 0;
-        right: 0;
+    .navbar-nav {
         background-color: rgba(0, 95, 115, 0.9);
-        height: 100vh;
-        width: 250px;
-        flex-direction: column;
-        justify-content: flex-start;
-        align-items: center;
-        transform: translateX(100%);
-        transition: transform 0.3s ease;
         padding-top: 60px;
-        z-index: 10;
-    }
-
-    /* Ensure proper display of nav links */
-    .nav-links a {
-        display: block;
-        padding: 20px;
-        font-size: 1.2rem;
-        color: #ffffff;
         text-align: center;
     }
+}
 
-    .nav-links.show {
-        transform: translateX(0);
-    }
-    
-    /* Add styles for the toggle button */
-    .toggle-btn {
-        display: block;
-    }
-    
-    /* Hero Section */
+@media (max-width: 767px) {
     .hero-section h1 {
         font-size: 2rem;
     }
@@ -1010,53 +775,13 @@ footer {
         height: 200px;
     }
 
-    /* CV Content Layout */
-    .cv-content {
-        flex-direction: column;
-        align-items: center;
-        width: 100%;
-    }
-    .cv-timeline {
-        width: 100%;
-    }
-
     .cv-map {
-        width: 100%;
-        height: 300px;
+        min-height: 300px;
         margin-top: 30px;
     }
 
-    .timeline-content {
-        background-size: auto 40%; 
-    }
-    /* Styling for the Download CV Button */
-    .btn {
-        background-color: var(--primary-color);
-        color: white;
-        padding: 12px 30px;
-        border-radius: 30px;
-        font-size: 1rem;
-        transition: background-color 0.3s, transform 0.3s;
-        display: inline-block;
-        text-decoration: none;
-        margin: 20px 0;
-    }
-
-    .btn:hover {
-        background-color: var(--accent-color);
-        transform: scale(1.05);
-    }
-
-    .btn i {
-        margin-right: 8px;
-    }
-
-    /* Skill Cards */
     .skill-card {
         width: 25%;
-        text-align: center;
-        box-sizing: border-box;
-        margin: 5px 0;
     }
 
     .skill-card i,
@@ -1065,52 +790,24 @@ footer {
         font-size: 2rem;
         max-width: 60px;
         max-height: 60px;
-        margin-bottom: 5px;
     }
 
     .skill-card .custom-icon {
-        width: auto;
-        max-height: 2rem;
-        text-align: center;
-        padding: 0;
-        margin-bottom: 2px;
-        display: block;
-        background-color: transparent;
-        filter: grayscale(1);
+        height: 2rem;
     }
 
     .skill-card p {
         font-size: 0.8rem;
-        margin: 0;
-    }
-
-    /* Adjust project cards and similar items */
-    .project-card {
-        flex: 1 1 calc(50% - 40px);
     }
 
     .project-images {
-        display: flex;
-        flex-wrap: wrap; /* Allows images to wrap to the next line */
-        justify-content: center; /* Centers images horizontally */
-        gap: 10px; /* Adds spacing between images */
+        flex-wrap: wrap;
     }
 
     .project-images img {
-        flex: 1 1 45%; /* Makes images take 45% of the width (two images per row) */
-        max-width: 45%; /* Ensures images don’t grow too large */
-        height: auto; /* Maintains aspect ratio */
-        object-fit: contain; /* Ensures images fit within their box */
-    }
-
-    /* Ensure main containers fit within viewport */
-    .content,
-    .cv-content,
-    .skills-content,
-    .awards-content {
-        max-width: 100%;
-        padding: 0 15px;
-        margin: 0 auto;
+        flex: 1 1 45%;
+        max-width: 45%;
+        height: auto;
     }
 
     .timeline-content h3 {
@@ -1122,27 +819,16 @@ footer {
     }
 }
 
-@media only screen and (max-width: 480px) {
-    .skill-card {
-        width: calc(33.33% - 20px);
-    }
-
-    .project-card {
-        flex: 1 1 calc(100% - 40px);
-    }
-
-    /* Adjust CV Content Layout */
-    .cv-content {
-        padding: 50px 10px;
-    }
-
-    /* Map Section */
+@media (max-width: 480px) {
     .cv-map {
-        height: 250px;
+        min-height: 250px;
+    }
+
+    .skill-card {
+        width: calc(33.33% - 10px);
     }
 }
 
-/* Responsive Images */
 img {
     max-width: 100%;
     height: auto;
