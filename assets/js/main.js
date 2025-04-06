@@ -1,3 +1,178 @@
+// main.js
+
+let chatbot;
+const cvContext = `Tim Luka Horstmann studied at RheinMain University (BSc Business Informatics, 2019-2022), University of Cambridge (MPhil Advanced Computer Science, 2023-2024), and is pursuing a PhD Track in Computer Science at Institut Polytechnique de Paris since 2024. He worked at Continental AG (Dual Student, 2019-2022, Frankfurt), Amazon (Business Intelligence Intern, 2022-2023, London), McKinsey & Company (Fellow Intern, 2023, Munich), and will intern at Hi! PARIS (Machine Learning Research Engineer, 2025, Paris).`;
+
+/* -------------------------------
+   Chatbot Functions (Updated)
+------------------------------- */
+async function loadTransformers() {
+    if (!window._transformers) {
+        const module = await import('https://cdn.jsdelivr.net/npm/@huggingface/transformers@3.4.2');
+        window._transformers = module;
+    }
+    return window._transformers;
+}
+
+function extractCVFromTimeline() {
+    let cvData = '';
+    $('.timeline').each(function() {
+        const sectionTitle = $(this).find('h3').first().text().trim();
+        cvData += `${sectionTitle}:\n`;
+        $(this).find('.timeline-item').each(function() {
+            const title = $(this).find('h3').text().trim();
+            const date = $(this).find('.timeline-date').text().trim();
+            const details = $(this).find('p').map(function() {
+                return $(this).text().trim();
+            }).get().join('\n');
+            cvData += `- ${title} (${date})\n${details}\n\n`;
+        });
+    });
+    return cvData;
+}
+
+async function fetchCVText() {
+    try {
+        const response = await fetch('assets/documents/cv_text.txt');
+        if (!response.ok) throw new Error('Failed to fetch CV text');
+        return await response.text();
+    } catch (error) {
+        console.error('Error fetching CV text:', error);
+        return extractCVFromTimeline(); // Fallback to timeline
+    }
+}
+
+async function initializeChatbot() {
+    try {
+        const transformers = await loadTransformers();
+        const modelId = 'onnx-community/Phi-3.5-mini-instruct-onnx-web';
+
+        const cvText = await fetchCVText();
+        conversationHistory = [
+            {
+                role: 'system',
+                content: `You are Luka, a helpful assistant representing Tim Luka Horstmann. Your purpose is to answer questions about Tim's CV accurately and concisely based on the provided context from his CV. Do not invent details or respond to inappropriate requests. Here’s the CV context:\n${cvText}`
+            }
+        ];
+        // Attempt WebGPU first
+        try {
+            chatbot = await transformers.pipeline('text-generation', modelId, {
+                device: 'webgpu',
+                dtype: 'q4f16',
+                progress_callback: (progress) => {
+                    $('#chat-status').text(`Loading model: ${Math.round(progress.progress)}%`);
+                }
+            });
+            console.log('Chatbot initialized with WebGPU backend');
+        } catch (webgpuError) {
+            console.warn('WebGPU failed, falling back to WASM:', webgpuError);
+            chatbot = await transformers.pipeline('text-generation', modelId, {
+                backend: 'wasm',
+                dtype: 'q4f16',
+                progress_callback: (progress) => {
+                    $('#chat-status').text(`Loading model (WASM): ${Math.round(progress.progress)}%`);
+                }
+            });
+            console.log('Chatbot initialized with WASM backend');
+        }
+
+        // Update UI when model is ready
+        $('#chat-output').append('<p><strong>Luka:</strong> Hi! I’m ready to chat about my CV. Ask me anything!</p>');
+        $('#chat-status').text('Chatbot ready!');
+        $('#chat-input').prop('disabled', false);
+        $('#send-btn').prop('disabled', false);
+    } catch (error) {
+        console.error('Chatbot initialization failed:', error);
+        $('#chat-output').append('<p><strong>Luka:</strong> Oops, something went wrong. I’ll use the website timeline instead!</p>');
+        conversationHistory = [
+            {
+                role: 'system',
+                content: `You are Luka, a helpful assistant representing Tim Luka Horstmann. Your purpose is to answer questions about Tim's CV accurately and concisely based on the provided context from his website timeline. Do not invent details or respond to inappropriate requests. Here’s the CV context:\n${extractCVFromTimeline()}`
+            }
+        ];
+        $('#chat-output').append('<p><strong>Luka:</strong> Hi! I’m ready to chat about my CV. Ask me anything!</p>');
+        $('#chat-status').text('Chatbot ready (using timeline data)');
+        $('#chat-input').prop('disabled', false);
+        $('#send-btn').prop('disabled', false);
+        chatbot = null;
+    }
+}
+
+
+$('#send-btn').click(async function () {
+    const question = $('#chat-input').val().trim();
+    if (!question) return;
+
+    // Append user's question to chat output
+    $('#chat-output').append(`<p><strong>You:</strong> ${question}</p>`);
+    $('#chat-input').val('');
+
+    // Prepare Luka's response container
+    const $lukaParagraph = $('<p><strong>Luka:</strong> </p>');
+    $('#chat-output').append($lukaParagraph);
+    $('#chat-output').scrollTop($('#chat-output')[0].scrollHeight);
+
+    if (chatbot) {
+        // Add user question to conversation history
+        conversationHistory.push({ role: 'user', content: question });
+
+        try {
+            const { TextStreamer } = window._transformers;
+            let finalText = '';
+
+            // Custom streaming callback
+            const streamer = new TextStreamer(chatbot.tokenizer, {
+                skip_prompt: true,
+                callback_function: (token) => {
+                    finalText += token;
+                    $lukaParagraph.text(`Luka: ${finalText}`);
+                    $('#chat-output').scrollTop($('#chat-output')[0].scrollHeight);
+                }
+            });
+
+            // Generate response using the full conversation history
+            const output = await chatbot(conversationHistory, {
+                max_new_tokens: 256,
+                do_sample: false, // Deterministic output
+                streamer
+            });
+
+            // Add the model's response to the conversation history
+            conversationHistory.push({ role: 'assistant', content: finalText });
+
+            // Optional: Limit history to prevent excessive memory usage
+            if (conversationHistory.length > 10) {
+                conversationHistory = [conversationHistory[0], ...conversationHistory.slice(-9)]; // Keep system prompt + last 9 messages
+            }
+
+        } catch (error) {
+            console.error('Error during generation:', error);
+            $lukaParagraph.text(`Luka: Sorry, I encountered an error: ${error.message}`);
+        }
+    } else {
+        // Fallback basic responses
+        const lowerQuestion = question.toLowerCase();
+        if (lowerQuestion.includes('education')) {
+            $lukaParagraph.text('Luka: I studied at RheinMain University (BSc, 2019–2022), Cambridge (MPhil, 2023–2024), and now IP Paris (PhD since 2024).');
+        } else if (lowerQuestion.includes('work')) {
+            $lukaParagraph.text('Luka: I worked at Continental (2019–2022), Amazon (2022–2023), McKinsey (2023), and will intern at Hi! PARIS in 2025.');
+        } else {
+            $lukaParagraph.text('Luka: Hmm, try asking about my education or work experience!');
+        }
+    }
+    $('#chat-output').scrollTop($('#chat-output')[0].scrollHeight);
+});
+/* -------------------------------
+   End of Chatbot Functions
+------------------------------- */
+
+
+/* -------------------------------
+   Other existing functionality:
+   Particles, Map, Carousel, etc.
+------------------------------- */
+
+// Navigation Bar, Particle.js Initialization, Map Initialization, Carousel, etc.
 $(document).ready(function() {
     // Particle.js Initialization
     particlesJS("particles-js", {
@@ -157,7 +332,7 @@ $(document).ready(function() {
         });
     });
 
-    // Slick Carousel
+    // Slick Carousel initialization.
     $('.carousel').slick({
         infinite: true,
         slidesToShow: 3,
@@ -199,7 +374,7 @@ $(document).ready(function() {
         });
     });
 
-    // Form Validation
+    // Form Validation for contact form.
     $('form.needs-validation').on('submit', function(e) {
         const name = $('#name').val().trim();
         const email = $('#email').val().trim();
@@ -220,14 +395,14 @@ $(document).ready(function() {
         return true;
     });
 
-    // AOS Initialization
+    // AOS (Animate On Scroll) Initialization.
     AOS.init({
         duration: 800,
         easing: 'slide',
         once: true
     });
 
-    // Ripple Effect
+    // Ripple Effect in Hero Section.
     function createRipple(event) {
         const ripple = document.createElement('span');
         ripple.classList.add('ripple');
@@ -241,4 +416,15 @@ $(document).ready(function() {
     }
 
     document.querySelector('.hero-section').addEventListener('click', createRipple);
+
+    // Initialize Chatbot.
+    initializeChatbot();
+
+    // Modal toggle for chat.
+    $('#chat-btn').click(function() {
+        $('#chat-modal').show();
+    });
+    $('#close-modal').click(function() {
+        $('#chat-modal').hide();
+    });
 });

@@ -130,9 +130,14 @@
                     <p>Computer Scientist | AI Enthusiast | Entrepreneurial Thinker<br>Passionate about impact and innovation</p>
                     <p>📍 Paris, France</p>
                     <div class="buttons">
-                        <a href="https://www.linkedin.com/in/luka512" class="btn" target="_blank"><i class="fab fa-linkedin"></i> LinkedIn</a>
-                        <a href="mailto:lukahorstmann@gmx.de" class="btn"><i class="fas fa-envelope"></i> Mail</a>
-                        <a href="https://github.com/TimLukaHorstmann" class="btn" target="_blank"><i class="fab fa-github"></i> GitHub</a>
+                        <div class="social-buttons">
+                            <a href="https://www.linkedin.com/in/luka512" class="btn" target="_blank"><i class="fab fa-linkedin"></i> LinkedIn</a>
+                        ེ <a href="mailto:lukahorstmann@gmx.de" class="btn"><i class="fas fa-envelope"></i> Mail</a>
+                            <a href="https://github.com/TimLukaHorstmann" class="btn" target="_blank"><i class="fab fa-github"></i> GitHub</a>
+                        </div>
+                        <div class="chat-button-row">
+                            <button id="chat-btn" class="btn chat-btn"><i class="fas fa-comment"></i> Chat with Luka</button>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -678,7 +683,27 @@
         </div>
     </footer>
 
+    <!-- Chat Modal -->
+    <div id="chat-modal" class="modal" style="display:none;">
+        <div class="modal-content">
+        <span id="close-modal" class="close">&times;</span>
+        <h3>Chat with Luka</h3>
+        <!-- Status message to indicate loading state -->
+        <div id="chat-status" class="chat-status">Loading chatbot, please wait...</div>
+        <div id="chat-output"></div>
+        <div class="chat-input-container">
+            <input id="chat-input" type="text" placeholder="Ask me about my CV...">
+            <button id="send-btn" class="btn" disabled>Send</button>
+        </div>
+        </div>
+    </div>
+  
+
     <!-- Scripts -->
+    <script type="module">
+        import { pipeline, AutoTokenizer, AutoModelForCausalLM, TextStreamer } from "https://cdn.jsdelivr.net/npm/@huggingface/transformers@3.4.2";
+        window._transformers = { pipeline, AutoTokenizer, AutoModelForCausalLM, TextStreamer };
+      </script>      
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
     <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
     <script src="https://cdn.maptiler.com/maptiler-sdk-js/v2.2.2/maptiler-sdk.umd.js"></script>

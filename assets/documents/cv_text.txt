@@ -1,0 +1,97 @@
+Tim Luka Horstmann
+<redacted>
+
+EDUCATION
+Sep. 2024– Institut Polytechnique de Paris, France | PhD Track in Computer Science & MSc in Data and AI
+Oct. 2025
+∙ Current GPA: 4.0 (scale 0–4, 4 being best)
+∙ Directly admitted to the second year of the Data and Artificial Intelligence master’s program
+∙ Courses on Deep & Reinforcement Learning, NLP, Logic & Symbolic AI, Data Mining, and AI Ethics
+Oct. 2023– University of Cambridge, United Kingdom | MPhil in Advanced Computer Science
+June 2024
+∙ Grade: Distinction (86%), graduated 3rd out of 61 students, awarded college prize
+∙ Thesis: legal NLP system to automate discovery and ontology matching of financial regulations
+∙ Courses on NLP, Multicore Semantics & Programming, Cybercrime, and Mobile Health
+∙ Senior rower at college boat club (stroke and 6 seat, awarded super blades during May Bumps)
+Oct. 2019– RheinMain University of Applied Sciences, Germany | BSc in Business Informatics
+Sep. 2022
+∙ Grade: 1.0, top of the year, graduated with distinction (scale 1–5, 1 being best)
+∙ First and only student in this degree program ever to achieve the highest possible GPA of 1.0
+∙ Thesis: XGBoost-based time series forecasting algorithm for customer demand planning
+Aug. 2011– Städtisches Gymnasium Erwitte, Germany | Allgemeine Hochschulreife (university entrance qual.)
+Aug. 2019
+∙ Grade: 0.9, top of the year (scale 1–5, 1 being best)
+∙ Chosen to participate in federal state’s 18. Academy for Mathematics and Computer Science
+
+WORK EXPERIENCE
+Apr. 2025– Hi! PARIS, Machine Learning Research Engineer Intern | Paris, France
+Aug. 2025
+∙ Conducting and publishing ML research at HEC Paris and Eb cole Polytechnique
+(Received full-time return offer)
+May 2023– McKinsey & Company, Fellow Intern | Munich, Germany
+July 2023
+∙ Advised leading European automotive supplier on a multiyear sustainable transformation
+program to increase profitability and adapt to disruptive industry trends like electrification
+∙ Developed financial analyses and risk assessments presented to CEO, CFO, and supervisory board
+(Received full-time return offer)
+Oct. 2022– Amazon, Business Intelligence Intern | London, United Kingdom
+Apr. 2023
+∙ Led inbound logistics project for Amazon's PanEu surface network, achieving $38M/year impact
+∙ Worked with stakeholders across different organizations and drove resolution of the defect by
+setting up a QuickSight dashboard on top of Redshift ETL pipelines and implementing ML models
+(Received multiple full-time return offers)
+Sep. 2019– Continental AG, Dual Student | Frankfurt, Germany
+Sep. 2022
+∙ Three years of employment as Software Engineer and Data Scientist alongside full-time studies
+∙ Automated configuration of IoT-Devices in 55 plants creating savings of 450,000€/year
+∙ Integrated low-code platform Mendix into existing IT infrastructure, incl. SSO and REST services
+∙ Developed novel AI model for demand forecasting, with 37% higher R2 than prior approaches
+
+EXTRACURRICULAR ACTIVITIES
+Volunteer
+Activities
+
+∙ First Saxophone in the symphonic wind orchestra Hellwegmusikanten Erwitte e.V.
+∙ Founding board member of political youth organization Junge Union Erwitte, member of CDU
+
+Societies
+
+∙ Cambridge Union (since 2023)
+∙ Cambridge University German Society (since 2023)
+∙ German Informatics Society (since 2021) ∙ Association of German Engineers (2021–2022)
+
+SKILLS & INTERESTS
+Languages
+
+German (native) | English (fluent, TOEFL: 109) | French (fluent, DELF A1, A2 & B1, DFP affaires B2)
+
+IT-Skills
+
+Python (adv.) | Java (adv.) | SQL (adv.) | Cypher | SPARQL| VBA | JavaScript | Ruby | HTML/CSS
+Machine Learning (PyTorch, transformers, scikit-learn, Pandas, NumPy, Matplotlib) | HPC | IoT
+
+Scholarships ∙
+& Career
+∙
+Programs
+∙
+∙
+∙
+
+France Excellence Europa: awarded to a select group of top-performing EU students (since 2024)
+IP Paris Excellence: awarded for academic excellence; full funding of MSc & PhD (since 2024)
+Studienstiftung: awarded for outstanding academic performance and potential (since 2021)
+Deutschlandstipendium: awarded for excellent academic and social achievements (2019–2020)
+McKinsey College | McKinsey Firsthand | BCG LINK | BCG Emerald | Bain Spark | e-fellows.net
+
+Awards
+
+∙ Alumni Association Prize for Graduate Excellence, University of Cambridge
+∙ Honored for outstanding achievements in Mathematics by the German Mathematical Society
+∙ Honored as one of the best Abitur graduates of NRW, Germany’s largest federal state
+
+Interests
+
+Artificial Intelligence | Space Travel | Stock Trading | Piano | Rowing | Tennis | Hiking | Travelling
+
+
