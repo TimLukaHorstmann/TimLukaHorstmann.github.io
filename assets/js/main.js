@@ -57,7 +57,7 @@ async function fetchCVText() {
 async function loadChatbotModel(cvText) {
     try {
         const transformers = await loadTransformers();
-        const modelId = 'HuggingFaceTB/SmolLM2-1.7B-Instruct'; //'onnx-community/DeepSeek-R1-Distill-Qwen-1.5B-ONNX'; //'onnx-community/Llama-3.2-1B-Instruct-q4f16'; //'onnx-community/Phi-3.5-mini-instruct-onnx-web';
+        const modelId = 'onnx-community/Phi-3.5-mini-instruct-onnx-web'; //'onnx-community/Phi-3.5-mini-instruct-onnx-web'; //HuggingFaceTB/SmolLM2-1.7B-Instruct'; //'onnx-community/DeepSeek-R1-Distill-Qwen-1.5B-ONNX'; //'onnx-community/Llama-3.2-1B-Instruct-q4f16'; //'onnx-community/Phi-3.5-mini-instruct-onnx-web';
 
 
         $('#chat-status').text('Loading chatbot...');
@@ -65,7 +65,7 @@ async function loadChatbotModel(cvText) {
         conversationHistory = [
             {
                 role: 'system',
-                content: `I am Tim Luka Horstmann, a German Computer Scientist. I’m here to tell you about myself and my experiences based on my CV. I studied at RheinMain University (BSc Business Informatics, 2019-2022), University of Cambridge (MPhil Advanced Computer Science, 2023-2024), and I’m currently pursuing an MSc in Data and AI at Institut Polytechnique de Paris since 2024. I’ve worked at Continental AG (Dual Student, 2019-2022, Frankfurt), Amazon (Business Intelligence Intern, 2022-2023, London), McKinsey & Company (Fellow Intern, 2023, Munich), and I am currently interning at Hi! PARIS (Machine Learning Research Engineer, 2025, Paris). My email is lukahorstmann@gmx.de. I will never provide any other contact information! Ask me anything about my background, including how to contact me, and I’ll answer based on what I’ve done—no making things up! Here’s more detailed context from my CV:\n${cvText}`
+                content: `I am Tim Luka Horstmann, a German Computer Scientist. I’m here to tell you about myself and my experiences based on my CV. I studied at RheinMain University (BSc Business Informatics, 2019-2022), University of Cambridge (MPhil Advanced Computer Science, 2023-2024), and I’m currently pursuing an MSc in Data and AI at Institut Polytechnique de Paris since 2024. I’ve worked at Continental AG (Dual Student, 2019-2022, Frankfurt), Amazon (Business Intelligence Intern, 2022-2023, London), McKinsey & Company (Fellow Intern, 2023, Munich), and I am currently interning at Hi! PARIS (Machine Learning Research Engineer, 2025, Paris). My email is lukahorstmann@gmx.de. I will never provide any other contact information! Ask me anything about my background, including how to contact me, and I’ll answer based on what I’ve done! I will NEVER make things up apart from what is in my CV. Here’s my CV:\n${cvText}`
             }
         ];
 
@@ -91,7 +91,7 @@ async function loadChatbotModel(cvText) {
         }
 
         const $existingMessage = $('#chat-output').find('.chat-message.luka:last .message-content');
-        $existingMessage.html('<strong>Luka:</strong> Hi! I’m Tim Luka Horstmann, ready to chat about my CV. Ask me anything!');
+        $existingMessage.html('<strong>Luka:</strong> Hi! I’m Tim Luka Horstmann. Ask me anything!');
         $('#chat-status').text('Chatbot ready!');
         $('#chat-input').prop('disabled', false);
         $('#send-btn').prop('disabled', false);
@@ -104,7 +104,7 @@ async function loadChatbotModel(cvText) {
             }
         ];
         const $existingMessage = $('#chat-output').find('.chat-message.luka:last .message-content');
-        $existingMessage.html('<strong>Luka:</strong> Oops, something went wrong loading the chatbot. I’ll use the website timeline instead! Hi! I’m Tim Luka Horstmann, ready to chat about my CV.');
+        $existingMessage.html('<strong>Luka:</strong> Oops, something went wrong loading the chatbot. I’ll use the website timeline instead! Hi! I’m Tim Luka Horstmann, ask me anything.');
         $('#chat-status').text('Chatbot ready (using timeline data)');
         $('#chat-input').prop('disabled', false);
         $('#send-btn').prop('disabled', false);
@@ -132,7 +132,7 @@ async function initializeChatbot() {
         $('#chat-output').append(`
             <div class="chat-message luka">
                 <img src="assets/images/profile_pic.jpg" alt="Luka" class="profile-pic">
-                <div class="message-content"><strong>Luka:</strong> Hi! I’m Tim Luka Horstmann. Would you like to chat about my CV? <button id="load-chatbot-btn">Load Chatbot</button></div>
+                <div class="message-content"><strong>Luka:</strong> Hi! I’m Tim Luka Horstmann. Would you like to learn more about me? <button id="load-chatbot-btn">Load Chatbot</button></div>
             </div>
         `);
         $('#chat-status').text('Chatbot not loaded yet');
@@ -192,7 +192,7 @@ $('#send-btn').click(async function () {
             });
 
             const output = await chatbot(conversationHistory, {
-                max_new_tokens: 256,
+                max_new_tokens: 512,
                 do_sample: false,
                 streamer
             });
