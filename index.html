@@ -28,36 +28,20 @@
     <link rel="stylesheet" href="assets/css/style.css">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.css">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick-theme.css">
-
-    <!-- Google Fonts -->
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;500;700&family=Roboto:wght@400;500&display=swap" rel="stylesheet">
-
-    <!-- Font Awesome for Icons -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
-
-    <!-- Devicon CSS -->
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/devicon.min.css" />
-
-    <!-- AOS Library -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/aos/2.3.4/aos.css">
-
-    <!-- Leaflet CSS -->
     <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
-
-    <!-- MapTiler SDK CSS -->
     <link href="https://cdn.maptiler.com/maptiler-sdk-js/v2.2.2/maptiler-sdk.css" rel="stylesheet" />
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/tarteaucitronjs@1.9.3/tarteaucitron.css" />
 
-    <!-- Tarteaucitron CSS -->
-    <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/tarteaucitronjs@1.9.3/tarteaucitron.css" />
-
-    <!-- Scripts in Head -->
-    <script src="https://cdn.jsdelivr.net/particles.js/2.0.0/particles.min.js"></script>
+    <!-- Scripts -->
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/particles.js/2.0.0/particles.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.min.js"></script>
-    <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/tarteaucitronjs@1.9.3/tarteaucitron.min.js"></script>
-    <script type="text/javascript">
+    <script src="https://cdn.jsdelivr.net/npm/tarteaucitronjs@1.9.3/tarteaucitron.min.js"></script>
+    <script>
         tarteaucitron.init({
             "privacyUrl": "/privacy-policy.html",
             "hashtag": "#tarteaucitron",
@@ -89,6 +73,7 @@
     </script>
 </head>
 <body>
+    <!-- Same body content as before -->
     <!-- Navigation Bar -->
     <nav class="navbar navbar-expand-lg fixed-top" style="background-color: rgba(0, 95, 115, 0.8);">
         <div class="container">
@@ -124,7 +109,7 @@
             <div class="row justify-content-center">
                 <div class="col-12 text-center">
                     <div class="photo-placeholder" data-aos="fade-down">
-                        <img src="assets/images/profile_pic.jpg" alt="Photo of Tim Luka Horstmann" loading="lazy">
+                        <img src="assets/images/profile_pic.jpg" alt="Photo of Tim Luka Horstmann" loading="eager">
                     </div>
                     <h1 data-aos="fade-up">Tim Luka Horstmann</h1>
                     <p>Computer Scientist | AI Enthusiast | Entrepreneurial Thinker<br>Passionate about impact and innovation</p>
@@ -134,13 +119,14 @@
                             <a href="https://www.linkedin.com/in/luka512" class="btn" target="_blank"><i class="fab fa-linkedin"></i> LinkedIn</a>
                             <a href="mailto:lukahorstmann@gmx.de" class="btn"><i class="fas fa-envelope"></i> Mail</a>
                             <a href="https://github.com/TimLukaHorstmann" class="btn" target="_blank"><i class="fab fa-github"></i> GitHub</a>
-                            <button id="chat-btn" class="btn chat-btn"><i class="fas fa-comment"></i> Chat with "Luka"</button>
+                            <!-- <button id="chat-btn" class="btn chat-btn"><i class="fas fa-comment"></i> Chat with "Luka"</button> -->
                         </div>
                     </div>
                 </div>
             </div>
         </div>
     </section>
+
     <!-- CV Section -->
     <section id="cv" class="cv-section">
         <div class="container">
@@ -504,145 +490,145 @@
         </div>
     </section>
 
-<!-- Scholarships, Programs, and Awards Section -->
-<section id="awards" class="awards-section">
-    <div class="container content">
-        <h2 data-aos="fade-up">Scholarships, Programs, and Awards</h2>
-        <div class="awards-content" data-aos="fade-up" data-aos-delay="100">
-            <!-- Scholarships -->
-            <h3>Scholarships</h3>
-            <div class="row g-5 scholarships">
-                <div class="col-md-4">
-                    <div class="scholarship-item h-100" data-aos="fade-up" data-aos-delay="100">
-                        <div class="image-container">
-                            <img src="assets/images/fee.jpg" alt="France Excellence Europa Scholarship Logo" loading="lazy">
+    <!-- Scholarships, Programs, and Awards Section -->
+    <section id="awards" class="awards-section">
+        <div class="container content">
+            <h2 data-aos="fade-up">Scholarships, Programs, and Awards</h2>
+            <div class="awards-content" data-aos="fade-up" data-aos-delay="100">
+                <!-- Scholarships -->
+                <h3>Scholarships</h3>
+                <div class="row g-5 scholarships">
+                    <div class="col-md-4">
+                        <div class="scholarship-item h-100" data-aos="fade-up" data-aos-delay="100">
+                            <div class="image-container">
+                                <img src="assets/images/fee.jpg" alt="France Excellence Europa Scholarship Logo" loading="lazy">
+                            </div>
+                            <h4>France Excellence Europa Scholarship</h4>
+                            <p>Awarded by the French government to a select group of top-performing European students for outstanding academic achievement. Pre-selected as one of only 5 students from Germany, and subsequently chosen among all candidates across 26 EU countries.</p>
                         </div>
-                        <h4>France Excellence Europa Scholarship</h4>
-                        <p>Awarded by the French government to a select group of top-performing European students for outstanding academic achievement. Pre-selected as one of only 5 students from Germany, and subsequently chosen among all candidates across 26 EU countries.</p>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="scholarship-item h-100" data-aos="fade-up" data-aos-delay="200">
+                            <div class="image-container">
+                                <img src="assets/images/ipparis.png" alt="Institut Polytechnique de Paris Excellence Scholarship Logo" loading="lazy">
+                            </div>
+                            <h4>IP Paris Excellence Scholarship</h4>
+                            <p>Awarded for academic excellence. Exemption from tuition fees, annual five-figure allowance during master’s program, and fully funded PhD program.</p>
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="scholarship-item h-100" data-aos="fade-up" data-aos-delay="300">
+                            <div class="image-container">
+                                <img src="assets/images/studienstiftung.png" alt="Studienstiftung des deutschen Volkes Logo" loading="lazy">
+                            </div>
+                            <h4>Studienstiftung des deutschen Volkes</h4>
+                            <p>Awarded for outstanding academic potential by Germany's largest, oldest, and most prestigious scholarship foundation. Scholarships are awarded to fewer than 0.3% of German students.</p>
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="scholarship-item h-100" data-aos="fade-up" data-aos-delay="400">
+                            <div class="image-container">
+                                <img src="assets/images/deutschlandstipendium.jpg" alt="Deutschlandstipendium Logo" loading="lazy">
+                            </div>
+                            <h4>Deutschlandstipendium</h4>
+                            <p>Awarded for excellent academic results, civic engagement, and special personal achievements.</p>
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="scholarship-item h-100" data-aos="fade-up" data-aos-delay="500">
+                            <div class="image-container">
+                                <img src="assets/images/e-fellows.jpg" alt="e-fellows.net" loading="lazy">
+                            </div>
+                            <h4>e-fellows.net</h4>
+                            <p>Awarded for outstanding academic results and high potential.</p>
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="scholarship-item h-100" data-aos="fade-up" data-aos-delay="600">
+                            <div class="image-container">
+                                <img src="assets/images/quantco.png" alt="QuantCo Scholar Logo" loading="lazy">
+                            </div>
+                            <h4>QuantCo Scholar</h4>
+                            <p>Full conference and travel scholarship to attend the German American Conference 2024 at Harvard University in Boston, USA.</p>
+                        </div>
                     </div>
                 </div>
-                <div class="col-md-4">
-                    <div class="scholarship-item h-100" data-aos="fade-up" data-aos-delay="200">
-                        <div class="image-container">
-                            <img src="assets/images/ipparis.png" alt="Institut Polytechnique de Paris Excellence Scholarship Logo" loading="lazy">
-                        </div>
-                        <h4>IP Paris Excellence Scholarship</h4>
-                        <p>Awarded for academic excellence. Exemption from tuition fees, annual five-figure allowance during master’s program, and fully funded PhD program.</p>
-                    </div>
-                </div>
-                <div class="col-md-4">
-                    <div class="scholarship-item h-100" data-aos="fade-up" data-aos-delay="300">
-                        <div class="image-container">
-                            <img src="assets/images/studienstiftung.png" alt="Studienstiftung des deutschen Volkes Logo" loading="lazy">
-                        </div>
-                        <h4>Studienstiftung des deutschen Volkes</h4>
-                        <p>Awarded for outstanding academic potential by Germany's largest, oldest, and most prestigious scholarship foundation. Scholarships are awarded to fewer than 0.3% of German students.</p>
-                    </div>
-                </div>
-                <div class="col-md-4">
-                    <div class="scholarship-item h-100" data-aos="fade-up" data-aos-delay="400">
-                        <div class="image-container">
-                            <img src="assets/images/deutschlandstipendium.jpg" alt="Deutschlandstipendium Logo" loading="lazy">
-                        </div>
-                        <h4>Deutschlandstipendium</h4>
-                        <p>Awarded for excellent academic results, civic engagement, and special personal achievements.</p>
-                    </div>
-                </div>
-                <div class="col-md-4">
-                    <div class="scholarship-item h-100" data-aos="fade-up" data-aos-delay="500">
-                        <div class="image-container">
-                            <img src="assets/images/e-fellows.jpg" alt="e-fellows.net" loading="lazy">
-                        </div>
-                        <h4>e-fellows.net</h4>
-                        <p>Awarded for outstanding academic results and high potential.</p>
-                    </div>
-                </div>
-                <div class="col-md-4">
-                    <div class="scholarship-item h-100" data-aos="fade-up" data-aos-delay="600">
-                        <div class="image-container">
-                            <img src="assets/images/quantco.png" alt="QuantCo Scholar Logo" loading="lazy">
-                        </div>
-                        <h4>QuantCo Scholar</h4>
-                        <p>Full conference and travel scholarship to attend the German American Conference 2024 at Harvard University in Boston, USA.</p>
-                    </div>
-                </div>
-            </div>
 
-            <!-- Career Development & Mentorship Programs -->
-            <h3>Career Development & Mentorship Programs</h3>
-            <div class="row g-5 programs">
-                <div class="col-md-4">
-                    <div class="program-item h-100" data-aos="fade-up" data-aos-delay="300">
-                        <div class="image-container">
-                            <img src="assets/images/mckinsey_logo.webp" alt="McKinsey Programs" loading="lazy">
+                <!-- Career Development & Mentorship Programs -->
+                <h3>Career Development & Mentorship Programs</h3>
+                <div class="row g-5 programs">
+                    <div class="col-md-4">
+                        <div class="program-item h-100" data-aos="fade-up" data-aos-delay="300">
+                            <div class="image-container">
+                                <img src="assets/images/mckinsey_logo.webp" alt="McKinsey Programs" loading="lazy">
+                            </div>
+                            <h4>McKinsey Programs</h4>
+                            <p>McKinsey College (since 2023)<br>McKinsey Firsthand (since 2021)</p>
                         </div>
-                        <h4>McKinsey Programs</h4>
-                        <p>McKinsey College (since 2023)<br>McKinsey Firsthand (since 2021)</p>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="program-item h-100" data-aos="fade-up" data-aos-delay="400">
+                            <div class="image-container">
+                                <img src="assets/images/bcg.jpg" alt="BCG Programs" loading="lazy">
+                            </div>
+                            <h4>BCG Programs</h4>
+                            <p>BCG LINK (since 2023)<br>BCG Emeralds (since 2022)</p>
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="program-item h-100" data-aos="fade-up" data-aos-delay="500">
+                            <div class="image-container">
+                                <img src="assets/images/bain.png" alt="Bain Spark" loading="lazy">
+                            </div>
+                            <h4>Bain Spark</h4>
+                            <p>Bain Spark (since 2023)</p>
+                        </div>
                     </div>
                 </div>
-                <div class="col-md-4">
-                    <div class="program-item h-100" data-aos="fade-up" data-aos-delay="400">
-                        <div class="image-container">
-                            <img src="assets/images/bcg.jpg" alt="BCG Programs" loading="lazy">
-                        </div>
-                        <h4>BCG Programs</h4>
-                        <p>BCG LINK (since 2023)<br>BCG Emeralds (since 2022)</p>
-                    </div>
-                </div>
-                <div class="col-md-4">
-                    <div class="program-item h-100" data-aos="fade-up" data-aos-delay="500">
-                        <div class="image-container">
-                            <img src="assets/images/bain.png" alt="Bain Spark" loading="lazy">
-                        </div>
-                        <h4>Bain Spark</h4>
-                        <p>Bain Spark (since 2023)</p>
-                    </div>
-                </div>
-            </div>
 
-            <!-- Awards -->
-            <h3>Awards <i class="fas fa-trophy"></i></h3>
-            <div class="row g-5 awards">
-                <div class="col-md-4">
-                    <div class="award-item h-100" data-aos="fade-up" data-aos-delay="200">
-                        <div class="image-container">
-                            <img src="assets/images/cambridge.jpg" alt="Alumni Association Prize" loading="lazy">
+                <!-- Awards -->
+                <h3>Awards <i class="fas fa-trophy"></i></h3>
+                <div class="row g-5 awards">
+                    <div class="col-md-4">
+                        <div class="award-item h-100" data-aos="fade-up" data-aos-delay="200">
+                            <div class="image-container">
+                                <img src="assets/images/cambridge.jpg" alt="Alumni Association Prize" loading="lazy">
+                            </div>
+                            <h4>Alumni Association Prize for Graduate Excellence</h4>
+                            <p>Awarded by Lucy Cavendish College, University of Cambridge, for outstanding academic performance in a scientific MPhil with Distinction, including a monetary prize.</p>
                         </div>
-                        <h4>Alumni Association Prize for Graduate Excellence</h4>
-                        <p>Awarded by Lucy Cavendish College, University of Cambridge, for outstanding academic performance in a scientific MPhil with Distinction, including a monetary prize.</p>
                     </div>
-                </div>
-                <div class="col-md-4">
-                    <div class="award-item h-100" data-aos="fade-up" data-aos-delay="300">
-                        <div class="image-container">
-                            <img src="assets/images/continental.png" alt="Continental Best Graduate Award" loading="lazy">
+                    <div class="col-md-4">
+                        <div class="award-item h-100" data-aos="fade-up" data-aos-delay="300">
+                            <div class="image-container">
+                                <img src="assets/images/continental.png" alt="Continental Best Graduate Award" loading="lazy">
+                            </div>
+                            <h4>ContiBester</h4>
+                            <p>Honored as one of the best graduates from Continental AG’s corporate dual study program.</p>
                         </div>
-                        <h4>ContiBester</h4>
-                        <p>Honored as one of the best graduates from Continental AG’s corporate dual study program.</p>
                     </div>
-                </div>
-                <div class="col-md-4">
-                    <div class="award-item h-100" data-aos="fade-up" data-aos-delay="400">
-                        <div class="image-container">
-                            <img src="assets/images/DMV.png" alt="Outstanding Achievements in Mathematics" loading="lazy">
+                    <div class="col-md-4">
+                        <div class="award-item h-100" data-aos="fade-up" data-aos-delay="400">
+                            <div class="image-container">
+                                <img src="assets/images/DMV.png" alt="Outstanding Achievements in Mathematics" loading="lazy">
+                            </div>
+                            <h4>DMV Prize</h4>
+                            <p>Honored by the German Mathematical Society for outstanding achievements in Mathematics.</p>
                         </div>
-                        <h4>DMV Prize</h4>
-                        <p>Honored by the German Mathematical Society for outstanding achievements in Mathematics.</p>
                     </div>
-                </div>
-                <div class="col-md-4">
-                    <div class="award-item h-100" data-aos="fade-up" data-aos-delay="500">
-                        <div class="image-container">
-                            <img src="assets/images/landesregierung_nrw.png" alt="Best Graduate in NRW" loading="lazy">
+                    <div class="col-md-4">
+                        <div class="award-item h-100" data-aos="fade-up" data-aos-delay="500">
+                            <div class="image-container">
+                                <img src="assets/images/landesregierung_nrw.png" alt="Best Graduate in NRW" loading="lazy">
+                            </div>
+                            <h4>One of the Best Graduates in NRW</h4>
+                            <p>Honored as one of the best graduates of North Rhine-Westphalia, Germany’s largest federal state, by Minister-President (ret.) Armin Laschet.</p>
                         </div>
-                        <h4>One of the Best Graduates in NRW</h4>
-                        <p>Honored as one of the best graduates of North Rhine-Westphalia, Germany’s largest federal state, by Minister-President (ret.) Armin Laschet.</p>
                     </div>
                 </div>
             </div>
         </div>
-    </div>
-</section>
+    </section>
 
     <!-- Contact Section -->
     <section id="contact" class="contact-section">
@@ -706,13 +692,8 @@
             </div>
         </div>
     </div>
-    
 
-    <!-- Scripts -->
-    <script type="module">
-        import { pipeline, AutoTokenizer, AutoModelForCausalLM, TextStreamer } from "https://cdn.jsdelivr.net/npm/@huggingface/transformers@3.4.2";
-        window._transformers = { pipeline, AutoTokenizer, AutoModelForCausalLM, TextStreamer };
-      </script>      
+    <!-- Scripts at Bottom -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
     <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
     <script src="https://cdn.maptiler.com/maptiler-sdk-js/v2.2.2/maptiler-sdk.umd.js"></script>

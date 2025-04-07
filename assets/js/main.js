@@ -1,322 +1,115 @@
-// main.js
-
 function isMobileDevice() {
     return /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent);
 }
 
-let chatbot;
 let conversationHistory = [];
-const cvContext = `Tim Luka Horstmann studied at RheinMain University (BSc Business Informatics, 2019-2022), University of Cambridge (MPhil Advanced Computer Science, 2023-2024), and is pursuing an MSc in Data and AI at Institut Polytechnique de Paris since 2024. He worked at Continental AG (Dual Student, 2019-2022, Frankfurt), Amazon (Business Intelligence Intern, 2022-2023, London), McKinsey & Company (Fellow Intern, 2023, Munich), and will intern at Hi! PARIS (Machine Learning Research Engineer, 2025, Paris). His email is lukahorstmann@gmx.de.`;
-
-/* -------------------------------
-   Chatbot Functions (Updated)
-------------------------------- */
-async function loadTransformers() {
-    if (!window._transformers) {
-        const module = await import('https://cdn.jsdelivr.net/npm/@huggingface/transformers@3.4.2');
-        window._transformers = module;
-    }
-    return window._transformers;
-}
 
 function scrollChatToBottom() {
     const $chatOutput = $('#chat-output');
-    $chatOutput.animate({
-        scrollTop: $chatOutput[0].scrollHeight
-    }, 300); // Smooth scroll with 300ms duration
+    $chatOutput.animate({ scrollTop: $chatOutput[0].scrollHeight }, 300);
 }
 
-function extractCVFromTimeline() {
-    let cvData = '';
-    $('.timeline').each(function() {
-        const sectionTitle = $(this).find('h3').first().text().trim();
-        cvData += `${sectionTitle}:\n`;
-        $(this).find('.timeline-item').each(function() {
-            const title = $(this).find('h3').text().trim();
-            const date = $(this).find('.timeline-date').text().trim();
-            const details = $(this).find('p').map(function() {
-                return $(this).text().trim();
-            }).get().join('\n');
-            cvData += `- ${title} (${date})\n${details}\n\n`;
-        });
-    });
-    return cvData;
-}
-
-async function fetchCVText() {
-    try {
-        const response = await fetch('assets/documents/cv_text.txt');
-        if (!response.ok) throw new Error('Failed to fetch CV text');
-        return await response.text();
-    } catch (error) {
-        console.error('Error fetching CV text:', error);
-        return extractCVFromTimeline();
-    }
-}
-
-async function loadChatbotModel(cvText) {
-    try {
-        const transformers = await loadTransformers();
-        const modelId = 'onnx-community/Phi-3.5-mini-instruct-onnx-web'; //'onnx-community/Phi-3.5-mini-instruct-onnx-web'; //HuggingFaceTB/SmolLM2-1.7B-Instruct'; //'onnx-community/DeepSeek-R1-Distill-Qwen-1.5B-ONNX'; //'onnx-community/Llama-3.2-1B-Instruct-q4f16'; //'onnx-community/Phi-3.5-mini-instruct-onnx-web';
-
-
-        $('#chat-status').text('Loading chatbot...');
-
-        conversationHistory = [
-            {
-                role: 'system',
-                content: `I am Tim Luka Horstmann, a German Computer Scientist. I’m here to tell you about myself and my experiences based on my CV. I studied at RheinMain University (BSc Business Informatics, 2019-2022), University of Cambridge (MPhil Advanced Computer Science, 2023-2024), and I’m currently pursuing an MSc in Data and AI at Institut Polytechnique de Paris since 2024. I’ve worked at Continental AG (Dual Student, 2019-2022, Frankfurt), Amazon (Business Intelligence Intern, 2022-2023, London), McKinsey & Company (Fellow Intern, 2023, Munich), and I am currently interning at Hi! PARIS (Machine Learning Research Engineer, 2025, Paris). My email is lukahorstmann@gmx.de. I will never provide any other contact information! Ask me anything about my background, including how to contact me, and I’ll answer based on what I’ve done! I will NEVER make things up apart from what is in my CV. Here’s my CV:\n${cvText}`
-            }
-        ];
-
-        try {
-            chatbot = await transformers.pipeline('text-generation', modelId, {
-                device: 'webgpu',
-                dtype: 'q4f16',
-                progress_callback: (progress) => {
-                    $('#chat-status').text(`Loading model: ${Math.round(progress.progress)}%`);
-                }
-            });
-            console.log(`Chatbot initialized with WebGPU backend (${modelId})`);
-        } catch (webgpuError) {
-            console.warn('WebGPU failed, falling back to WASM:', webgpuError);
-            chatbot = await transformers.pipeline('text-generation', modelId, {
-                backend: 'wasm',
-                dtype: 'q4f16',
-                progress_callback: (progress) => {
-                    $('#chat-status').text(`Loading model (WASM): ${Math.round(progress.progress)}%`);
-                }
-            });
-            console.log(`Chatbot initialized with WASM backend (${modelId})`);
-        }
-
-        const $existingMessage = $('#chat-output').find('.chat-message.luka:last .message-content');
-        $existingMessage.html('<strong>Luka:</strong> Hi! I’m Tim Luka Horstmann. Ask me anything!');
-        $('#chat-status').text('Chatbot ready!');
-        $('#chat-input').prop('disabled', false);
-        $('#send-btn').prop('disabled', false);
-    } catch (error) {
-        console.error('Chatbot initialization failed:', error);
-        conversationHistory = [
-            {
-                role: 'system',
-                content: `I am Tim Luka Horstmann, a German Computer Scientist. I’m here to tell you about myself and my experiences based on my CV timeline from my website. I studied at RheinMain University (BSc Business Informatics, 2019-2022), University of Cambridge (MPhil Advanced Computer Science, 2023-2024), and I’m currently pursuing an MSc in Data and AI at Institut Polytechnique de Paris since 2024. I’ve worked at Continental AG (Dual Student, 2019-2022, Frankfurt), Amazon (Business Intelligence Intern, 2022-2023, London), McKinsey & Company (Fellow Intern, 2023, Munich), and I’ll be interning at Hi! PARIS (Machine Learning Research Engineer, 2025, Paris). My email is lukahorstmann@gmx.de. Ask me anything about my background, including how to contact me, and I’ll answer based on what I’ve done—no making things up! Here’s more detailed context from my CV timeline:\n${extractCVFromTimeline()}`
-            }
-        ];
-        const $existingMessage = $('#chat-output').find('.chat-message.luka:last .message-content');
-        $existingMessage.html('<strong>Luka:</strong> Oops, something went wrong loading the chatbot. I’ll use the website timeline instead! Hi! I’m Tim Luka Horstmann, ask me anything.');
-        $('#chat-status').text('Chatbot ready (using timeline data)');
-        $('#chat-input').prop('disabled', false);
-        $('#send-btn').prop('disabled', false);
-        chatbot = null;
-    }
-}
-
-async function initializeChatbot() {
+function initializeChatbot() {
     const isMobile = isMobileDevice();
-
     if (isMobile) {
-        // Disable chatbot on mobile
         $('#chat-output').append(`
             <div class="chat-message luka">
                 <img src="assets/images/profile_pic.jpg" alt="Luka" class="profile-pic">
-                <div class="message-content"><strong>Luka:</strong> Sorry, the chatbot is not available on mobile devices. Please use a desktop browser to chat with me!</div>
+                <div class="message-content"><strong>Luka:</strong> Sorry, the chatbot is not optimized for mobile devices yet. Please use a desktop browser!</div>
             </div>
         `);
         $('#chat-status').text('Chatbot unavailable on mobile');
         $('#chat-input').prop('disabled', true);
         $('#send-btn').prop('disabled', true);
-        $('.typing-indicator').hide();
     } else {
-        // Desktop: Show option to load chatbot
         $('#chat-output').append(`
             <div class="chat-message luka">
                 <img src="assets/images/profile_pic.jpg" alt="Luka" class="profile-pic">
-                <div class="message-content"><strong>Luka:</strong> Hi! I’m Tim Luka Horstmann. Would you like to learn more about me? <button id="load-chatbot-btn">Load Chatbot</button></div>
+                <div class="message-content"><strong>Luka:</strong> Hi! I’m Tim Luka Horstmann. Ask me anything about my CV!</div>
             </div>
         `);
-        $('#chat-status').text('Chatbot not loaded yet');
-        $('#chat-input').prop('disabled', true);
-        $('#send-btn').prop('disabled', true);
-        $('.typing-indicator').hide();
-
-        // Event listener for the "Load Chatbot" button
-        $('#load-chatbot-btn').on('click', async function() {
-            $(this).prop('disabled', true).text('Loading...'); // Disable button and update text
-            const cvText = await fetchCVText();
-            await loadChatbotModel(cvText);
-            $(this).remove(); // Remove the button after loading
-        });
+        $('#chat-status').text('Chatbot ready');
+        $('#chat-input').prop('disabled', false);
+        $('#send-btn').prop('disabled', false);
     }
 }
 
-$('#send-btn').click(async function () {
-    const question = $('#chat-input').val().trim();
-    if (!question) return;
+async function streamChatResponse(query) {
+    const hfSpaceUrl = "https://YOUR_USERNAME-website.hf.space"; // Replace with your HF Space URL
+    const apiUrl = `${hfSpaceUrl}/api/predict`;
 
     $('#chat-output').append(`
         <div class="chat-message user">
             <img src="assets/images/user_profile_pic.png" alt="You" class="profile-pic">
-            <div class="message-content"><strong>You:</strong> ${question}</div>
+            <div class="message-content"><strong>You:</strong> ${query}</div>
         </div>
     `);
-    $('#chat-input').val('');
     scrollChatToBottom();
-
     $('.typing-indicator').show();
 
-    if (chatbot) {
-        conversationHistory.push({ role: 'user', content: question });
+    const $lukaMessage = $(`
+        <div class="chat-message luka">
+            <img src="assets/images/profile_pic.jpg" alt="Luka" class="profile-pic">
+            <div class="message-content"><strong>Luka:</strong> <span class="response-text"></span></div>
+        </div>
+    `);
+    $('#chat-output').append($lukaMessage);
 
-        try {
-            const { TextStreamer } = window._transformers;
-            let finalText = '';
-            let $lukaMessage = null;
+    try {
+        const response = await fetch(apiUrl, {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({ data: [query] })
+        });
 
-            const streamer = new TextStreamer(chatbot.tokenizer, {
-                skip_prompt: true,
-                callback_function: (token) => {
-                    if (!$lukaMessage) {
-                        $lukaMessage = $(`
-                            <div class="chat-message luka">
-                                <img src="assets/images/profile_pic.jpg" alt="Luka" class="profile-pic">
-                                <div class="message-content"><strong>Luka:</strong> <span class="response-text"></span></div>
-                            </div>
-                        `);
-                        $('#chat-output').append($lukaMessage);
-                    }
+        if (!response.ok) throw new Error(`HTTP error! status: ${response.status}`);
+
+        const reader = response.body.getReader();
+        const decoder = new TextDecoder();
+        let finalText = "";
+
+        while (true) {
+            const { done, value } = await reader.read();
+            if (done) break;
+
+            const chunk = decoder.decode(value, { stream: true });
+            const lines = chunk.split("\n");
+            for (const line of lines) {
+                if (line.startsWith("data: ") && line !== "data: [DONE]") {
+                    const token = line.slice(6);
                     finalText += token;
-                    $lukaMessage.find('.response-text').text(finalText);
+                    $lukaMessage.find('.response-text').html(finalText);
                     scrollChatToBottom();
                 }
-            });
-
-            const output = await chatbot(conversationHistory, {
-                max_new_tokens: 512,
-                do_sample: false,
-                streamer
-            });
-
-            conversationHistory.push({ role: 'assistant', content: finalText });
-            if (conversationHistory.length > 10) {
-                conversationHistory = [conversationHistory[0], ...conversationHistory.slice(-9)];
             }
-            scrollChatToBottom();
-        } catch (error) {
-            console.error('Error during generation:', error);
-            $('#chat-output').append(`
-                <div class="chat-message luka">
-                    <img src="assets/images/profile_pic.jpg" alt="Luka" class="profile-pic">
-                    <div class="message-content"><strong>Luka:</strong> Sorry, I encountered an error: ${error.message}</div>
-                </div>
-            `);
-            scrollChatToBottom();
         }
-    } else {
-        await new Promise(resolve => setTimeout(resolve, 500));
-        const lowerQuestion = question.toLowerCase();
-        let response = '';
-        if (lowerQuestion.includes('education')) {
-            response = 'I studied at RheinMain University (BSc, 2019–2022), Cambridge (MPhil, 2023–2024), and now IP Paris (MSc since 2024).';
-        } else if (lowerQuestion.includes('work')) {
-            response = 'I worked at Continental (2019–2022), Amazon (2022–2023), McKinsey (2023), and am interning at Hi! PARIS in 2025.';
-        } else if (lowerQuestion.includes('email') || lowerQuestion.includes('contact')) {
-            response = 'You can reach me at lukahorstmann@gmx.de!';
-        } else if (lowerQuestion.includes('who are you')) {
-            response = 'I’m Tim Luka Horstmann, a German Computer Scientist. I’ve studied at RheinMain University, Cambridge, and now IP Paris, and worked at Continental, Amazon, McKinsey, with an internship at Hi! PARIS coming up. My email is lukahorstmann@gmx.de.';
-        } else {
-            response = 'Hmm, try asking about my education, work experience, email, or who I am!';
-        }
-        $('#chat-output').append(`
-            <div class="chat-message luka">
-                <img src="assets/images/profile_pic.jpg" alt="Luka" class="profile-pic">
-                <div class="message-content"><strong>Luka:</strong> ${response}</div>
-            </div>
-        `);
-        scrollChatToBottom();
+
+        conversationHistory.push({ role: "user", content: query });
+        conversationHistory.push({ role: "assistant", content: finalText });
+    } catch (error) {
+        console.error("Streaming error:", error);
+        $lukaMessage.find('.response-text').html(`Sorry, I encountered an error: ${error.message}`);
     }
 
     $('.typing-indicator').hide();
     scrollChatToBottom();
-});
+}
 
-// Navigation Bar, Particle.js Initialization, Map Initialization, Carousel, etc.
 $(document).ready(function() {
-    // Particle.js Initialization
     particlesJS("particles-js", {
         "particles": {
-            "number": {
-                "value": 80,
-                "density": {
-                    "enable": true,
-                    "value_area": 800
-                }
-            },
-            "color": {
-                "value": "#ffffff"
-            },
-            "shape": {
-                "type": "circle",
-                "stroke": {
-                    "width": 0,
-                    "color": "#000000"
-                }
-            },
-            "opacity": {
-                "value": 0.5,
-                "random": false,
-                "anim": {
-                    "enable": false
-                }
-            },
-            "size": {
-                "value": 3,
-                "random": true,
-                "anim": {
-                    "enable": false
-                }
-            },
-            "line_linked": {
-                "enable": true,
-                "distance": 150,
-                "color": "#ffffff",
-                "opacity": 0.4,
-                "width": 1
-            },
-            "move": {
-                "enable": true,
-                "speed": 2,
-                "direction": "none",
-                "random": false,
-                "straight": false,
-                "out_mode": "out",
-                "bounce": false
-            }
+            "number": { "value": 80, "density": { "enable": true, "value_area": 800 } },
+            "color": { "value": "#ffffff" },
+            "shape": { "type": "circle" },
+            "opacity": { "value": 0.5 },
+            "size": { "value": 3, "random": true },
+            "line_linked": { "enable": true, "distance": 150, "color": "#ffffff", "opacity": 0.4, "width": 1 },
+            "move": { "enable": true, "speed": 2, "direction": "none", "random": false, "straight": false, "out_mode": "out" }
         },
         "interactivity": {
             "detect_on": "canvas",
-            "events": {
-                "onhover": {
-                    "enable": true,
-                    "mode": "grab"
-                },
-                "onclick": {
-                    "enable": true,
-                    "mode": "push"
-                },
-                "resize": true
-            },
-            "modes": {
-                "grab": {
-                    "distance": 200,
-                    "line_linked": {
-                        "opacity": 1
-                    }
-                },
-                "push": {
-                    "particles_nb": 4
-                }
-            }
+            "events": { "onhover": { "enable": true, "mode": "grab" }, "onclick": { "enable": true, "mode": "push" }, "resize": true },
+            "modes": { "grab": { "distance": 200, "line_linked": { "opacity": 1 } }, "push": { "particles_nb": 4 } }
         },
         "retina_detect": true
     });
@@ -482,24 +275,24 @@ $(document).ready(function() {
         document.querySelector('.hero-section').appendChild(ripple);
         ripple.addEventListener('animationend', () => ripple.remove());
     }
-
     document.querySelector('.hero-section').addEventListener('click', createRipple);
 
-    // Initialize Chatbot.
     initializeChatbot();
 
-    // Modal toggle for chat.
-    $('#chat-btn').click(function() {
-        $('#chat-modal').show();
-    });
-    $('#close-modal').click(function() {
-        $('#chat-modal').hide();
+    $('#chat-btn').click(function() { $('#chat-modal').show(); });
+    $('#close-modal').click(function() { $('#chat-modal').hide(); });
+
+    $('#send-btn').click(async function() {
+        const question = $('#chat-input').val().trim();
+        if (!question) return;
+        $('#chat-input').val('');
+        await streamChatResponse(question);
     });
 
     $('#chat-input').on('keypress', function(e) {
-        if (e.which === 13) { // Enter key
-            e.preventDefault(); // Prevent default form submission behavior
-            $('#send-btn').click(); // Trigger the send button click
+        if (e.which === 13) {
+            e.preventDefault();
+            $('#send-btn').click();
         }
     });
 });
