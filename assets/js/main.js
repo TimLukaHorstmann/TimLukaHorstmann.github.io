@@ -1,3 +1,5 @@
+// assets/js/main.js
+
 function isMobileDevice() {
     return /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent);
 }
@@ -35,7 +37,7 @@ function initializeChatbot() {
 }
 
 async function streamChatResponse(query) {
-    const hfSpaceUrl = "https://YOUR_USERNAME-website.hf.space"; // Replace with your HF Space URL
+    const hfSpaceUrl = "https://Luka512-website.hf.space";
     const apiUrl = `${hfSpaceUrl}/api/predict`;
 
     $('#chat-output').append(`
