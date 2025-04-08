@@ -12,29 +12,17 @@ function scrollChatToBottom() {
 }
 
 function initializeChatbot() {
-    const isMobile = isMobileDevice();
-    if (isMobile) {
-        $('#chat-output').append(`
-            <div class="chat-message luka">
-                <img src="assets/images/profile_pic.jpg" alt="Luka" class="profile-pic">
-                <div class="message-content"><strong>Luka:</strong> Sorry, the chatbot is not optimized for mobile devices yet. Please use a desktop browser!</div>
-            </div>
-        `);
-        $('#chat-status').text('Chatbot unavailable on mobile');
-        $('#chat-input').prop('disabled', true);
-        $('#send-btn').prop('disabled', true);
-    } else {
-        $('#chat-output').append(`
-            <div class="chat-message luka">
-                <img src="assets/images/profile_pic.jpg" alt="Luka" class="profile-pic">
-                <div class="message-content"><strong>Luka:</strong> Hi! I’m Tim Luka Horstmann. Ask me anything about my CV!</div>
-            </div>
-        `);
-        $('#chat-status').text('Chatbot ready');
-        $('#chat-input').prop('disabled', false);
-        $('#send-btn').prop('disabled', false);
-    }
+    $('#chat-output').append(`
+        <div class="chat-message luka">
+            <img src="assets/images/profile_pic.jpg" alt="Luka" class="profile-pic">
+            <div class="message-content"><strong>Luka:</strong> Hi! I’m Tim Luka Horstmann. Ask me anything about my CV!</div>
+        </div>
+    `);
+    $('#chat-status').text('Chatbot ready');
+    $('#chat-input').prop('disabled', false);
+    $('#send-btn').prop('disabled', false);
 }
+
 
 async function streamChatResponse(query) {
     const hfSpaceUrl = "https://Luka512-website.hf.space";
