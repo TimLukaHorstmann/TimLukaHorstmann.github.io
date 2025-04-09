@@ -297,6 +297,33 @@ ul {
     margin-left: 8px;
 }
 
+.modal-header div {
+    display: flex;
+    align-items: center;
+}
+
+.clear-btn {
+    background: #d3d3d3; /* Light gray, subtle */
+    color: #666; /* Darker gray for icon */
+    padding: 8px;
+    border: none;
+    border-radius: 50%;
+    font-size: 0.9rem;
+    width: 30px;
+    height: 30px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-right: 10px; /* Space before close button */
+    transition: background 0.3s, color 0.3s, transform 0.3s;
+}
+
+.clear-btn:hover {
+    background: #ff6b6b; /* Soft red on hover */
+    color: #fff;
+    transform: scale(1.1);
+}
+
 #load-chatbot-btn {
     background-color: var(--accent-color);
     color: white;
@@ -355,6 +382,9 @@ ul {
     display: flex;
     align-items: flex-start;
     max-width: 85%;
+    opacity: 0;
+    transform: translateY(10px);
+    animation: messageFadeIn 0.3s ease forwards;
 }
 
 .chat-message.user {
@@ -421,6 +451,20 @@ ul {
 @keyframes typing {
     0%, 100% { transform: translateY(0); }
     50% { transform: translateY(-6px); }
+}
+
+.chat-message .timestamp {
+    font-size: 0.7rem;
+    color: #999;
+    margin-top: 4px;
+    text-align: right;
+}
+
+@keyframes messageFadeIn {
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
 }
 
 .modal-footer {

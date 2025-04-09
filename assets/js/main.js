@@ -23,6 +23,20 @@ function initializeChatbot() {
     $('#send-btn').prop('disabled', false);
 }
 
+function appendMessage(role, content, profilePic) {
+    const timestamp = new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
+    const $message = $(`
+        <div class="chat-message ${role}">
+            <img src="${profilePic}" alt="${role}" class="profile-pic">
+            <div class="message-content"><strong>${role.charAt(0).toUpperCase() + role.slice(1)}:</strong> <span class="response-text">${content}</span>
+                <div class="timestamp">${timestamp}</div>
+            </div>
+        </div>
+    `);
+    $('#chat-output').append($message);
+    scrollChatToBottom();
+}
+
 function cleanText(text) {
     // Only remove special tokens, let Markdown handle the rest
     return text.replace(/<\|im_start\|>|<\|im_end\|>|assistant/g, "").trim();
@@ -101,6 +115,7 @@ async function streamChatResponse(query) {
         $lukaMessage.find('.response-text').text(`Sorry, I encountered an error: ${error.message}`);
     }
 
+    $lukaMessage.find('.timestamp').text(new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' }));
     $('.typing-indicator').hide();
     scrollChatToBottom();
 }
@@ -305,4 +320,9 @@ $(document).ready(function() {
             $('#send-btn').click();
         }
     });
+    $('#clear-chat-btn').click(function() {
+    $('#chat-output').empty();
+    conversationHistory = [];
+    appendMessage('luka', 'Chat cleared! How can I assist you now?', 'assets/images/profile_pic.jpg');
+});
 });
