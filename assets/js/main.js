@@ -38,8 +38,7 @@ function appendMessage(role, content, profilePic) {
 }
 
 function cleanText(text) {
-    // Only remove special tokens, let Markdown handle the rest
-    return text.replace(/<\|im_start\|>|<\|im_end\|>|assistant/g, "").trim();
+    return text.replace(/<\|[a-z_]+\|>|\[.*?\]/g, "").trim();
 }
 
 async function streamChatResponse(query) {
@@ -50,19 +49,13 @@ async function streamChatResponse(query) {
     $('#chat-output').append(`
         <div class="chat-message user">
             <img src="assets/images/user_profile_pic.png" alt="You" class="profile-pic">
-            <div class="message-content"><strong>You:</strong> ${query}</div>
+            <div class="message-content"><strong>You:</strong> ${query}
+                <div class="timestamp">${new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })}</div>
+            </div>
         </div>
     `);
     scrollChatToBottom();
     $('.typing-indicator').show();
-
-    const $lukaMessage = $(`
-        <div class="chat-message luka">
-            <img src="assets/images/profile_pic.jpg" alt="Luka" class="profile-pic">
-            <div class="message-content"><strong>Luka:</strong> <span class="response-text"></span></div>
-        </div>
-    `);
-    $('#chat-output').append($lukaMessage);
 
     try {
         const response = await fetch(apiUrl, {
@@ -75,25 +68,32 @@ async function streamChatResponse(query) {
 
         const reader = response.body.getReader();
         const decoder = new TextDecoder();
-        let finalText = "";
 
+        // Luka’s message with timestamp placeholder
+        const $lukaMessage = $(`
+            <div class="chat-message luka">
+                <img src="assets/images/profile_pic.jpg" alt="Luka" class="profile-pic">
+                <div class="message-content"><strong>Luka:</strong> <span class="response-text"></span>
+                    <div class="timestamp"></div>
+                </div>
+            </div>
+        `);
+        $('#chat-output').append($lukaMessage);
+
+        let finalText = "";
         while (true) {
             const { done, value } = await reader.read();
             if (done) break;
-
             const chunk = decoder.decode(value, { stream: true });
             const lines = chunk.split("\n");
             for (const line of lines) {
                 if (line.startsWith("data: ") && line !== "data: [DONE]") {
                     let token = line.slice(6).trim();
                     if (token) {
-                        // Add a space before appending if finalText isn’t empty and doesn’t already end with a space
-                        if (finalText && !finalText.endsWith(" ") && !token.startsWith(" ")) {
+                        if (finalText && !/[ .,!?]/.test(finalText.slice(-1))) {
                             finalText += " ";
                         }
                         finalText += token;
-
-                        // Clean only tokens, then let marked handle formatting
                         const cleanedText = cleanText(finalText);
                         const htmlText = marked.parse(cleanedText, { breaks: true });
                         $lukaMessage.find('.response-text').html(htmlText);
@@ -103,19 +103,20 @@ async function streamChatResponse(query) {
             }
         }
 
-        // Final rendering
+        // Final rendering with timestamp
         const cleanedFinalText = cleanText(finalText);
         const finalHtmlText = marked.parse(cleanedFinalText, { breaks: true });
         $lukaMessage.find('.response-text').html(finalHtmlText);
+        $lukaMessage.find('.timestamp').text(new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' }));
 
         conversationHistory.push({ role: "user", content: query });
         conversationHistory.push({ role: "assistant", content: cleanedFinalText });
     } catch (error) {
         console.error("Streaming error:", error);
         $lukaMessage.find('.response-text').text(`Sorry, I encountered an error: ${error.message}`);
+        $lukaMessage.find('.timestamp').text(new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' }));
     }
 
-    $lukaMessage.find('.timestamp').text(new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' }));
     $('.typing-indicator').hide();
     scrollChatToBottom();
 }
