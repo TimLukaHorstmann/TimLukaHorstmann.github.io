@@ -41,6 +41,7 @@
     <script src="https://cdn.jsdelivr.net/particles.js/2.0.0/particles.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/tarteaucitronjs@1.9.3/tarteaucitron.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/marked/15.0.7/marked.min.js"></script>
     <script>
         tarteaucitron.init({
             "privacyUrl": "/privacy-policy.html",
@@ -119,7 +120,9 @@
                             <a href="https://www.linkedin.com/in/luka512" class="btn" target="_blank"><i class="fab fa-linkedin"></i> LinkedIn</a>
                             <a href="mailto:lukahorstmann@gmx.de" class="btn"><i class="fas fa-envelope"></i> Mail</a>
                             <a href="https://github.com/TimLukaHorstmann" class="btn" target="_blank"><i class="fab fa-github"></i> GitHub</a>
-                            <button id="chat-btn" class="btn chat-btn"><i class="fas fa-comment"></i> Chat with "Luka"</button>
+                            <button id="chat-btn" class="btn chat-btn">
+                                <i class="fas fa-comment"></i> Chat with "Luka" <span class="beta-label">Early Beta</span>
+                            </button>
                         </div>
                     </div>
                 </div>
@@ -673,7 +676,7 @@
                 <h3><i class="fas fa-robot"></i> Chat with Luka</h3>
                 <span id="close-modal" class="close">×</span>
             </div>
-            <span style="font-size: small; padding: 2px;"> (Early Alpha)</span>
+            <span class="beta-label">Early Beta</span>
             <div class="modal-body">
                 <div id="chat-status" class="chat-status">Loading chatbot, please wait...</div>
                 <div id="chat-output" class="chat-messages"></div>

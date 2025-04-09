@@ -23,11 +23,16 @@ function initializeChatbot() {
     $('#send-btn').prop('disabled', false);
 }
 
+function cleanText(text) {
+    // Only remove special tokens, let Markdown handle the rest
+    return text.replace(/<\|im_start\|>|<\|im_end\|>|assistant/g, "").trim();
+}
 
 async function streamChatResponse(query) {
     const hfSpaceUrl = "https://Luka512-website.hf.space";
     const apiUrl = `${hfSpaceUrl}/api/predict`;
 
+    // Append user's message to the chat
     $('#chat-output').append(`
         <div class="chat-message user">
             <img src="assets/images/user_profile_pic.png" alt="You" class="profile-pic">
@@ -66,19 +71,34 @@ async function streamChatResponse(query) {
             const lines = chunk.split("\n");
             for (const line of lines) {
                 if (line.startsWith("data: ") && line !== "data: [DONE]") {
-                    const token = line.slice(6);
-                    finalText += token;
-                    $lukaMessage.find('.response-text').html(finalText);
-                    scrollChatToBottom();
+                    let token = line.slice(6).trim();
+                    if (token) {
+                        // Add a space before appending if finalText isn’t empty and doesn’t already end with a space
+                        if (finalText && !finalText.endsWith(" ") && !token.startsWith(" ")) {
+                            finalText += " ";
+                        }
+                        finalText += token;
+
+                        // Clean only tokens, then let marked handle formatting
+                        const cleanedText = cleanText(finalText);
+                        const htmlText = marked.parse(cleanedText, { breaks: true });
+                        $lukaMessage.find('.response-text').html(htmlText);
+                        scrollChatToBottom();
+                    }
                 }
             }
         }
 
+        // Final rendering
+        const cleanedFinalText = cleanText(finalText);
+        const finalHtmlText = marked.parse(cleanedFinalText, { breaks: true });
+        $lukaMessage.find('.response-text').html(finalHtmlText);
+
         conversationHistory.push({ role: "user", content: query });
-        conversationHistory.push({ role: "assistant", content: finalText });
+        conversationHistory.push({ role: "assistant", content: cleanedFinalText });
     } catch (error) {
         console.error("Streaming error:", error);
-        $lukaMessage.find('.response-text').html(`Sorry, I encountered an error: ${error.message}`);
+        $lukaMessage.find('.response-text').text(`Sorry, I encountered an error: ${error.message}`);
     }
 
     $('.typing-indicator').hide();

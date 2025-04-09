@@ -197,6 +197,16 @@ ul {
     font-size: 1rem; /* Match other buttons */
 }
 
+.buttons .btn .beta-label {
+    font-size: 0.75rem;              /* Smaller text */
+    background-color: rgba(255, 255, 255, 0.2); /* Subtle white badge */
+    color: white;
+    padding: 2px 6px;                /* Badge padding */
+    border-radius: 10px;             /* Rounded badge */
+    margin-left: 8px;                /* Space from main text */
+    line-height: 1;                  /* Tighten line height */
+}
+
 .buttons .btn:hover {
     background-color: var(--accent-color);
     transform: scale(1.05);
@@ -276,6 +286,15 @@ ul {
 
 .modal-header h3 i {
     margin-right: 12px;
+}
+
+.modal-header .beta-label {
+    font-size: 0.75rem;
+    background-color: rgba(255, 255, 255, 0.2);
+    color: white;
+    padding: 2px 6px;
+    border-radius: 10px;
+    margin-left: 8px;
 }
 
 #load-chatbot-btn {
@@ -722,6 +741,8 @@ ul {
     transition: none;
     border: 1px solid #ccc;
     background-color: #f9f9f9;
+    position: relative; /* Ensure positioning context for the badge */
+    overflow: hidden;    /* Hide any overflow from the badge */
 }
 
 .project-card.upcoming img {
@@ -732,18 +753,19 @@ ul {
 .project-card.upcoming::before {
     content: "Coming soon!";
     position: absolute;
-    top: 10px;
-    right: -40px;
-    width: 160px;
-    background: var(--primary-color);
+    top: 20px;          /* Distance from the top */
+    right: -40px;       /* Pull it slightly off the right edge */
+    width: 140px;       /* Width of the ribbon */
+    background: var(--primary-color); /* #0a9396 */
     color: #fff;
     text-align: center;
-    transform: rotate(45deg);
     font-size: 0.8rem;
     font-weight: bold;
-    padding: 15px 0;
-    z-index: 2;
+    padding: 5px 10px;  /* Padding for the text */
+    transform: rotate(45deg); /* Diagonal orientation */
+    transform-origin: center;
     box-shadow: 0 2px 6px rgba(0, 0, 0, 0.2);
+    z-index: 2;
 }
 
 .carousel .slick-slide {
