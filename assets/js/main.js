@@ -37,8 +37,17 @@ function appendMessage(role, content, profilePic) {
     scrollChatToBottom();
 }
 
+// Add this improved cleanText function
+
 function cleanText(text) {
-    return text.replace(/<\|[a-z_]+\|>|\[.*?\]/g, "").trim();
+    // First remove any system tokens or brackets
+    text = text.replace(/<\|[a-z_]+\|>|\[.*?\]/g, "").trim();
+    
+    // Fix common spacing issues with punctuation
+    text = text.replace(/\s+([.,!?;:])/g, "$1"); // Remove space before punctuation
+    text = text.replace(/([.,!?;:])([a-zA-Z])/g, "$1 $2"); // Add space after punctuation if missing
+    
+    return text;
 }
 
 async function streamChatResponse(query) {
@@ -90,9 +99,7 @@ async function streamChatResponse(query) {
                 if (line.startsWith("data: ") && line !== "data: [DONE]") {
                     let token = line.slice(6).trim();
                     if (token) {
-                        if (finalText && !/[ .,!?]/.test(finalText.slice(-1))) {
-                            finalText += " ";
-                        }
+                        // Don't add spaces artificially - trust the server's chunking
                         finalText += token;
                         const cleanedText = cleanText(finalText);
                         const htmlText = marked.parse(cleanedText, { breaks: true });
