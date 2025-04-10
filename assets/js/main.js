@@ -1,5 +1,3 @@
-// assets/js/main.js
-
 function isMobileDevice() {
     return /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent);
 }
@@ -14,13 +12,14 @@ function scrollChatToBottom() {
 function initializeChatbot() {
     $('#chat-output').append(`
         <div class="chat-message luka">
-            <img src="assets/images/profile_pic.jpg" alt="Luka" class="profile-pic">
+            <img src="assets/images/luka_cartoon.svg" alt="Luka" class="profile-pic">
             <div class="message-content"><strong>Luka:</strong> Hi! I’m Tim Luka Horstmann. Ask me anything about my CV!</div>
         </div>
     `);
     $('#chat-status').text('Chatbot ready');
     $('#chat-input').prop('disabled', false);
     $('#send-btn').prop('disabled', false);
+    scrollChatToBottom();
 }
 
 function appendMessage(role, content, profilePic) {
@@ -37,16 +36,11 @@ function appendMessage(role, content, profilePic) {
     scrollChatToBottom();
 }
 
-// Add this improved cleanText function
-
 function cleanText(text) {
-    // First remove any system tokens or brackets
-    text = text.replace(/<\|[a-z_]+\|>|\[.*?\]/g, "").trim();
-    
-    // Fix common spacing issues with punctuation
+    text = text.replace(/<\|[a-z_]+\|>|\[.*?\]/g, "").trim(); // Remove system tokens
     text = text.replace(/\s+([.,!?;:])/g, "$1"); // Remove space before punctuation
-    text = text.replace(/([.,!?;:])([a-zA-Z])/g, "$1 $2"); // Add space after punctuation if missing
-    
+    text = text.replace(/([.,!?;:])([a-zA-Z])/g, "$1 $2"); // Add space after punctuation
+    text = text.replace(/\s+'/g, "'"); // Remove space before apostrophes
     return text;
 }
 
@@ -54,7 +48,7 @@ async function streamChatResponse(query) {
     const hfSpaceUrl = "https://Luka512-website.hf.space";
     const apiUrl = `${hfSpaceUrl}/api/predict`;
 
-    // Append user's message to the chat
+    // Append user's message
     $('#chat-output').append(`
         <div class="chat-message user">
             <img src="assets/images/user_profile_pic.png" alt="You" class="profile-pic">
@@ -78,10 +72,9 @@ async function streamChatResponse(query) {
         const reader = response.body.getReader();
         const decoder = new TextDecoder();
 
-        // Luka’s message with timestamp placeholder
         const $lukaMessage = $(`
             <div class="chat-message luka">
-                <img src="assets/images/profile_pic.jpg" alt="Luka" class="profile-pic">
+                <img src="assets/images/luka_cartoon.svg" alt="Luka" class="profile-pic">
                 <div class="message-content"><strong>Luka:</strong> <span class="response-text"></span>
                     <div class="timestamp"></div>
                 </div>
@@ -90,27 +83,31 @@ async function streamChatResponse(query) {
         $('#chat-output').append($lukaMessage);
 
         let finalText = "";
+        let buffer = "";
         while (true) {
             const { done, value } = await reader.read();
             if (done) break;
-            const chunk = decoder.decode(value, { stream: true });
-            const lines = chunk.split("\n");
-            for (const line of lines) {
-                if (line.startsWith("data: ") && line !== "data: [DONE]") {
-                    let token = line.slice(6).trim();
-                    if (token) {
-                        // Don't add spaces artificially - trust the server's chunking
-                        finalText += token;
-                        const cleanedText = cleanText(finalText);
-                        const htmlText = marked.parse(cleanedText, { breaks: true });
-                        $lukaMessage.find('.response-text').html(htmlText);
-                        scrollChatToBottom();
-                    }
+            buffer += decoder.decode(value, { stream: true });
+            while (true) {
+                const dataIndex = buffer.indexOf("data: ");
+                if (dataIndex === -1) break;
+                const endIndex = buffer.indexOf("\n\n", dataIndex);
+                if (endIndex === -1) break;
+                const event = buffer.slice(dataIndex + 6, endIndex);
+                buffer = buffer.slice(endIndex + 2);
+                if (event.trim() === "[DONE]") {
+                    break;
+                } else {
+                    finalText += event;
+                    const cleanedText = cleanText(finalText);
+                    const htmlText = marked.parse(cleanedText, { breaks: true });
+                    $lukaMessage.find('.response-text').html(htmlText);
+                    scrollChatToBottom();
                 }
             }
         }
 
-        // Final rendering with timestamp
+        // Final rendering
         const cleanedFinalText = cleanText(finalText);
         const finalHtmlText = marked.parse(cleanedFinalText, { breaks: true });
         $lukaMessage.find('.response-text').html(finalHtmlText);
@@ -120,8 +117,7 @@ async function streamChatResponse(query) {
         conversationHistory.push({ role: "assistant", content: cleanedFinalText });
     } catch (error) {
         console.error("Streaming error:", error);
-        $lukaMessage.find('.response-text').text(`Sorry, I encountered an error: ${error.message}`);
-        $lukaMessage.find('.timestamp').text(new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' }));
+        appendMessage('luka', `Sorry, I encountered an error: ${error.message}`, 'assets/images/luka_cartoon.svg');
     }
 
     $('.typing-indicator').hide();
@@ -147,7 +143,7 @@ $(document).ready(function() {
         "retina_detect": true
     });
 
-    // Map Initialization
+    // Map Initialization (unchanged)
     var map = L.map('map', {
         zoomControl: true,
         scrollWheelZoom: false,
@@ -159,9 +155,7 @@ $(document).ready(function() {
     var northEast = L.latLng(60, 24);
     var bounds = L.latLngBounds(southWest, northEast);
     map.setMaxBounds(bounds);
-    map.on('drag', function() {
-        map.panInsideBounds(bounds, { animate: false });
-    });
+    map.on('drag', function() { map.panInsideBounds(bounds, { animate: false }); });
 
     const key = 'moHcWGL55oQVePpoGrB5';
     L.maptilerLayer({
@@ -226,7 +220,7 @@ $(document).ready(function() {
         });
     });
 
-    // Slick Carousel initialization.
+    // Slick Carousel (unchanged)
     $('.carousel').slick({
         infinite: true,
         slidesToShow: 3,
@@ -238,26 +232,12 @@ $(document).ready(function() {
         lazyLoad: 'ondemand',
         vertical: false,
         responsive: [
-            {
-                breakpoint: 1024,
-                settings: {
-                    slidesToShow: 2,
-                    slidesToScroll: 1,
-                    infinite: true,
-                    dots: true
-                }
-            },
-            {
-                breakpoint: 600,
-                settings: {
-                    slidesToShow: 1,
-                    slidesToScroll: 1
-                }
-            }
+            { breakpoint: 1024, settings: { slidesToShow: 2, slidesToScroll: 1, infinite: true, dots: true } },
+            { breakpoint: 600, settings: { slidesToShow: 1, slidesToScroll: 1 } }
         ]
     });
 
-    // Project Card Toggle
+    // Project Card Toggle (unchanged)
     document.querySelectorAll('.project-card').forEach(card => {
         const toggle = card.querySelector('.project-toggle');
         const description = card.querySelector('.project-description');
@@ -268,19 +248,17 @@ $(document).ready(function() {
         });
     });
 
-    // Form Validation for contact form.
+    // Form Validation (unchanged)
     $('form.needs-validation').on('submit', function(e) {
         const name = $('#name').val().trim();
         const email = $('#email').val().trim();
         const message = $('#message').val().trim();
         const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-
         if (name === '' || email === '' || message === '') {
             alert('Please fill in all fields.');
             e.preventDefault();
             return false;
         }
-
         if (!emailPattern.test(email)) {
             alert('Please enter a valid email address.');
             e.preventDefault();
@@ -289,14 +267,10 @@ $(document).ready(function() {
         return true;
     });
 
-    // AOS (Animate On Scroll) Initialization.
-    AOS.init({
-        duration: 800,
-        easing: 'slide',
-        once: true
-    });
+    // AOS Initialization (unchanged)
+    AOS.init({ duration: 800, easing: 'slide', once: true });
 
-    // Ripple Effect in Hero Section.
+    // Ripple Effect (unchanged)
     function createRipple(event) {
         const ripple = document.createElement('span');
         ripple.classList.add('ripple');
@@ -328,9 +302,10 @@ $(document).ready(function() {
             $('#send-btn').click();
         }
     });
+
     $('#clear-chat-btn').click(function() {
-    $('#chat-output').empty();
-    conversationHistory = [];
-    appendMessage('luka', 'Chat cleared! How can I assist you now?', 'assets/images/profile_pic.jpg');
-});
+        $('#chat-output').empty();
+        conversationHistory = [];
+        appendMessage('luka', 'Chat cleared! How can I assist you now?', 'assets/images/luka_cartoon.svg');
+    });
 });
