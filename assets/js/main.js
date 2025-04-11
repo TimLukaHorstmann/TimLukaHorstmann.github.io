@@ -30,6 +30,8 @@ function scrollChatToBottom() {
     setTimeout(scrollToBottom, 300);
 }
 
+let chatbotInitialized = false;
+
 // Initialize chatbot
 async function initializeChatbot() {
     $('#chat-status').text('Checking service availability...');
@@ -54,27 +56,39 @@ async function initializeChatbot() {
             $('#chat-footer').html(`<small class="model-info">Powered by ${modelName}</small>`);
         }
 
-        $('#chat-output').append(`
-            <div class="chat-message luka">
-                <img src="assets/images/luka_cartoon.svg" alt="Luka" class="profile-pic">
-                <div class="message-content"><strong>Luka:</strong> Hi! I'm Tim Luka Horstmann. Ask me anything about my CV!</div>
-            </div>
-        `);
+        // Only add welcome message if not already initialized
+        if (!chatbotInitialized) {
+            $('#chat-output').append(`
+                <div class="chat-message luka">
+                    <img src="assets/images/luka_cartoon.svg" alt="Luka" class="profile-pic">
+                    <div class="message-content"><strong>Luka:</strong> Hi! I'm Tim Luka Horstmann. Ask me anything about my CV!</div>
+                </div>
+            `);
+            chatbotInitialized = true;
+        }
+
         $('#chat-status').text('Chatbot ready');
         $('#chat-input').prop('disabled', false);
         $('#send-btn').prop('disabled', false);
         scrollChatToBottom();
+        return true;
     } catch (error) {
         console.error("Chatbot initialization error:", error);
         $('#chat-status').text('Service unavailable. Please try again later.');
-        $('#chat-output').append(`
-            <div class="chat-message system">
-                <div class="message-content">
-                    <strong>System:</strong> The chatbot service is currently unavailable. Please try again later.
+
+        // Only add error message if it doesn't exist yet
+        if ($('#chat-output .system').length === 0) {
+            $('#chat-output').append(`
+                <div class="chat-message system">
+                    <div class="message-content">
+                        <strong>System:</strong> The chatbot service is currently unavailable. Please try again later.
+                    </div>
                 </div>
-            </div>
-        `);
+            `);
+        }
+
         scrollChatToBottom();
+        return false;
     }
 }
 
@@ -395,9 +409,10 @@ $(document).ready(function() {
 
     $('#chat-modal .modal-footer').append('<div id="chat-footer" class="chat-footer"></div>');
 
+    // Initialize on page load
     initializeChatbot();
 
-    $('#chat-btn').click(function() {
+    $('#chat-btn').click(async function() {
         $('body').addClass('modal-open');
         $('#chat-modal').show();
         $('body').css({
@@ -406,6 +421,10 @@ $(document).ready(function() {
             'width': '100%',
             'height': '100%'
         });
+
+        // Check chatbot status when opening modal
+        await initializeChatbot();
+
         scrollChatToBottom();
         setTimeout(scrollChatToBottom, 100);
         setTimeout(scrollChatToBottom, 300);
