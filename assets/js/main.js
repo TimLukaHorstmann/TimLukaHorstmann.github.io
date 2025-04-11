@@ -37,10 +37,44 @@ function appendMessage(role, content, profilePic) {
 }
 
 function cleanText(text) {
-    text = text.replace(/<\|[a-z_]+\|>|\[.*?\]/g, "").trim(); // Remove system tokens
-    text = text.replace(/\s+([.,!?;:])/g, "$1"); // Remove space before punctuation
-    text = text.replace(/([.,!?;:])([a-zA-Z])/g, "$1 $2"); // Add space after punctuation
-    text = text.replace(/\s+'/g, "'"); // Remove space before apostrophes
+    // Dictionary of common terms that should not be split
+    const preserveTerms = {
+        'MSc': true, 'BSc': true, 'PhD': true, 'MPhil': true, 
+        'Institut Polytechnique': true, 'de Paris': true,
+        'RheinMain': true, 'McKinsey': true, 'GitHub': true,
+        'JavaScript': true, 'TypeScript': true, 'PyTorch': true,
+        'NumPy': true, 'TensorFlow': true, 'LinkedIn': true,
+        'GGUF': true, 'TOEFL': true, 'DELF': true, 'DFP': true,
+        'IoT': true, 'HTML/CSS': true, 'DevOps': true,
+        // Add other terms specific to your content
+    };
+    
+    // First do basic cleanup
+    text = text.replace(/<\|[a-z_]+\|>|\[.*?\]/g, ""); // Remove system tokens
+    
+    // Fix specific spacing issues
+    Object.keys(preserveTerms).forEach(term => {
+        // Create regex that matches the term with spaces in the middle
+        const termPattern = term.split('').join('\\s*');
+        const termRegex = new RegExp(termPattern, 'gi');
+        text = text.replace(termRegex, term);
+    });
+    
+    // General space normalization - collapse multiple spaces
+    text = text.replace(/\s{2,}/g, ' ');
+    
+    // Fix spacing between words that were incorrectly concatenated
+    // But be careful not to add spaces in proper nouns or acronyms
+    text = text.replace(/([a-z])([A-Z][a-z]{2,})/g, '$1 $2'); // More conservative rule
+    
+    // Normalize spaces around punctuation
+    text = text.replace(/\s+([.,!?;:])/g, "$1");
+    text = text.replace(/([.,!?;:])([a-zA-Z])/g, "$1 $2");
+    text = text.replace(/\s+'/g, "'");
+    
+    // Preserve line breaks and normalize multiple newlines
+    text = text.replace(/\n+/g, "\n").trim();
+    
     return text;
 }
 
@@ -83,38 +117,81 @@ async function streamChatResponse(query) {
         $('#chat-output').append($lukaMessage);
 
         let finalText = "";
-        let buffer = "";
+        let currentWord = "";
+        let previousToken = "";
+        
         while (true) {
             const { done, value } = await reader.read();
             if (done) break;
-            buffer += decoder.decode(value, { stream: true });
-            while (true) {
-                const dataIndex = buffer.indexOf("data: ");
-                if (dataIndex === -1) break;
-                const endIndex = buffer.indexOf("\n\n", dataIndex);
-                if (endIndex === -1) break;
-                const event = buffer.slice(dataIndex + 6, endIndex);
-                buffer = buffer.slice(endIndex + 2);
-                if (event.trim() === "[DONE]") {
-                    break;
-                } else {
-                    finalText += event;
-                    const cleanedText = cleanText(finalText);
-                    const htmlText = marked.parse(cleanedText, { breaks: true });
-                    $lukaMessage.find('.response-text').html(htmlText);
-                    scrollChatToBottom();
+            const chunk = decoder.decode(value, { stream: true });
+            const events = chunk.split("\n\n");
+            
+            events.forEach(event => {
+                if (event.startsWith("data: ")) {
+                    const token = event.slice(6).trim();
+                    if (token === "[DONE]") return;
+                    
+                    // Handle spacing with awareness of context
+                    let spacedToken = token;
+                    
+                    // Add space between tokens if they form separate words
+                    // But avoid adding space within abbreviations or proper nouns
+                    if (finalText && 
+                        /[a-zA-Z0-9]$/.test(finalText) && 
+                        /^[a-zA-Z0-9]/.test(token) && 
+                        !finalText.endsWith(" ")) {
+                        
+                        // Don't add space if it's a capitalized letter followed by lowercase
+                        // (possible start of a proper noun)
+                        const lastChar = finalText.slice(-1);
+                        
+                        // More selective spacing rule
+                        if (!(
+                            // Avoid space between lowercase letter and capital (camelCase)
+                            (/[a-z]$/.test(lastChar) && /^[A-Z]$/.test(token)) ||
+                            // Avoid space between capital letters (acronyms)
+                            (/[A-Z]$/.test(lastChar) && /^[A-Z]$/.test(token) && token.length === 1) ||
+                            // Avoid space in specific cases like 'MSc'
+                            (/[A-Z]$/.test(lastChar) && /^[A-Za-z]$/.test(token) && 
+                             /[A-Z]/.test(previousToken) && previousToken.length === 1)
+                        )) {
+                            finalText += " ";
+                        }
+                    }
+                    
+                    finalText += spacedToken;
+                    previousToken = token;
+                    currentWord += token;
+                    
+                    // Process buffer when we have enough context
+                    if (currentWord.includes(" ") || /[.!?]$/.test(token)) {
+                        // Apply proper spacing and cleaning
+                        const cleanedText = cleanText(finalText);
+                        const htmlText = marked.parse(cleanedText, { breaks: true });
+                        const sanitizedHtml = DOMPurify.sanitize(htmlText, {
+                            ALLOWED_TAGS: ['p', 'br', 'strong', 'em', 'ul', 'ol', 'li', 'a', 'code', 'pre'],
+                            ALLOWED_ATTR: { 'a': ['href'] }
+                        });                    
+                        $lukaMessage.find('.response-text').html(sanitizedHtml);
+                        scrollChatToBottom();
+                        currentWord = "";
+                    }
                 }
-            }
+            });
         }
-
-        // Final rendering
+        
+        // Final formatting pass for the complete response
         const cleanedFinalText = cleanText(finalText);
-        const finalHtmlText = marked.parse(cleanedFinalText, { breaks: true });
-        $lukaMessage.find('.response-text').html(finalHtmlText);
+        const htmlText = marked.parse(cleanedFinalText, { breaks: true });
+        const sanitizedHtml = DOMPurify.sanitize(htmlText, {
+            ALLOWED_TAGS: ['p', 'br', 'strong', 'em', 'ul', 'ol', 'li', 'a', 'code', 'pre'],
+            ALLOWED_ATTR: { 'a': ['href'] }
+        });
+        $lukaMessage.find('.response-text').html(sanitizedHtml);
+        
         $lukaMessage.find('.timestamp').text(new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' }));
-
         conversationHistory.push({ role: "user", content: query });
-        conversationHistory.push({ role: "assistant", content: cleanedFinalText });
+        conversationHistory.push({ role: "assistant", content: cleanText(finalText) });
     } catch (error) {
         console.error("Streaming error:", error);
         appendMessage('luka', `Sorry, I encountered an error: ${error.message}`, 'assets/images/luka_cartoon.svg');
@@ -125,6 +202,9 @@ async function streamChatResponse(query) {
 }
 
 $(document).ready(function() {
+    // Update CSS for even better text rendering
+    $('<style>.response-text { white-space: pre-wrap; word-wrap: break-word; word-break: normal; hyphens: auto; line-height: 1.5; display: block; }</style>').appendTo('head');
+
     particlesJS("particles-js", {
         "particles": {
             "number": { "value": 80, "density": { "enable": true, "value_area": 800 } },
@@ -143,7 +223,7 @@ $(document).ready(function() {
         "retina_detect": true
     });
 
-    // Map Initialization (unchanged)
+    // Map Initialization
     var map = L.map('map', {
         zoomControl: true,
         scrollWheelZoom: false,
@@ -220,7 +300,7 @@ $(document).ready(function() {
         });
     });
 
-    // Slick Carousel (unchanged)
+    // Slick Carousel
     $('.carousel').slick({
         infinite: true,
         slidesToShow: 3,
@@ -237,7 +317,7 @@ $(document).ready(function() {
         ]
     });
 
-    // Project Card Toggle (unchanged)
+    // Project Card Toggle
     document.querySelectorAll('.project-card').forEach(card => {
         const toggle = card.querySelector('.project-toggle');
         const description = card.querySelector('.project-description');
@@ -248,7 +328,7 @@ $(document).ready(function() {
         });
     });
 
-    // Form Validation (unchanged)
+    // Form Validation
     $('form.needs-validation').on('submit', function(e) {
         const name = $('#name').val().trim();
         const email = $('#email').val().trim();
@@ -267,10 +347,10 @@ $(document).ready(function() {
         return true;
     });
 
-    // AOS Initialization (unchanged)
+    // AOS Initialization
     AOS.init({ duration: 800, easing: 'slide', once: true });
 
-    // Ripple Effect (unchanged)
+    // Ripple Effect
     function createRipple(event) {
         const ripple = document.createElement('span');
         ripple.classList.add('ripple');
