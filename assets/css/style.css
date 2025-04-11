@@ -31,6 +31,10 @@ body {
     scroll-behavior: smooth;
 }
 
+body.modal-open {
+    overflow: hidden;
+}
+
 h1, h2, h3 {
     font-family: 'Poppins', sans-serif;
     font-weight: 700;
@@ -268,19 +272,24 @@ ul {
 }
 
 .modal-header {
-    background: linear-gradient(90deg, var(--secondary-color), var(--primary-color));
-    color: #ffffff;
+    background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+    color: #fff;
     padding: 15px 25px;
     display: flex;
     justify-content: space-between;
     align-items: center;
-    border-bottom: 1px solid rgba(255, 255, 255, 0.2);
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
+    border-bottom: 2px solid rgba(255, 255, 255, 0.3);
+    /* Optional: add a slight border radius on the top only */
+    border-top-left-radius: 20px;
+    border-top-right-radius: 20px;
 }
 
 .modal-header h3 {
     margin: 0;
-    font-size: 1.6rem;
-    font-weight: 600;
+    font-size: 1.8rem;
+    font-weight: 700;
+    letter-spacing: 0.5px;
     color: white;
 }
 
@@ -345,15 +354,14 @@ ul {
 }
 
 #chat-modal .close {
-    font-size: 2rem;
+    font-size: 2.5rem;
     cursor: pointer;
-    color: #ffffff;
     transition: color 0.3s, transform 0.3s;
 }
 
 #chat-modal .close:hover {
     color: var(--accent-color);
-    transform: rotate(90deg);
+    transform: rotate(15deg);
 }
 
 .modal-body {
@@ -1276,4 +1284,23 @@ img {
 
 .message-content:hover .copy-btn {
     opacity: 0.8;
+}
+
+.model-info {
+    font-size: 0.7rem;
+    color: #888;
+    text-align: center;
+    opacity: 0.7;
+    padding: 3px;
+}
+.chat-footer {
+    padding: 4px;
+    border-top: 1px solid #eee;
+    text-align: center;
+    margin-top: 5px;
+}
+.chat-message.system {
+    text-align: center;
+    margin: 10px 0;
+    color: #d9534f;
 }

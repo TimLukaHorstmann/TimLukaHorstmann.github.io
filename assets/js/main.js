@@ -6,23 +6,62 @@ let conversationHistory = [];
 
 function scrollChatToBottom() {
     const $chatOutput = $('#chat-output');
-    // Using setTimeout to ensure this runs after DOM updates are complete
+    $chatOutput.scrollTop($chatOutput[0].scrollHeight);
+    // Optional: for a smoother effect you can also animate after a brief delay
     setTimeout(() => {
         $chatOutput.animate({ scrollTop: $chatOutput[0].scrollHeight }, 300);
-    }, 0);
+    }, 50);
 }
 
-function initializeChatbot() {
-    $('#chat-output').append(`
-        <div class="chat-message luka">
-            <img src="assets/images/luka_cartoon.svg" alt="Luka" class="profile-pic">
-            <div class="message-content"><strong>Luka:</strong> Hi! I’m Tim Luka Horstmann. Ask me anything about my CV!</div>
-        </div>
-    `);
-    $('#chat-status').text('Chatbot ready');
-    $('#chat-input').prop('disabled', false);
-    $('#send-btn').prop('disabled', false);
-    scrollChatToBottom();
+
+// Replace the initializeChatbot function with this enhanced version
+async function initializeChatbot() {
+    $('#chat-status').text('Checking service availability...');
+    $('#chat-input').prop('disabled', true);
+    $('#send-btn').prop('disabled', true);
+    
+    try {
+        // Check if the backend is healthy
+        const healthResponse = await fetch("https://Luka512-website.hf.space/health");
+        if (!healthResponse.ok) {
+            throw new Error(`Health check failed: ${healthResponse.status}`);
+        }
+        
+        const healthData = await healthResponse.json();
+        if (healthData.status !== "healthy") {
+            throw new Error("Service is not healthy");
+        }
+        
+        // Get model information
+        const modelInfoResponse = await fetch("https://Luka512-website.hf.space/model_info");
+        if (modelInfoResponse.ok) {
+            const modelInfo = await modelInfoResponse.json();
+            // Add model info to the chat interface (subtle)
+            $('#chat-footer').html(`<small class="model-info">Powered by ${modelInfo.model_name} (${modelInfo.model_size} ${modelInfo.quantization})</small>`);
+        }
+        
+        // Initialize chatbot UI
+        $('#chat-output').append(`
+            <div class="chat-message luka">
+                <img src="assets/images/luka_cartoon.svg" alt="Luka" class="profile-pic">
+                <div class="message-content"><strong>Luka:</strong> Hi! I'm Tim Luka Horstmann. Ask me anything about my CV!</div>
+            </div>
+        `);
+        $('#chat-status').text('Chatbot ready');
+        $('#chat-input').prop('disabled', false);
+        $('#send-btn').prop('disabled', false);
+        scrollChatToBottom();
+    } catch (error) {
+        console.error("Chatbot initialization error:", error);
+        $('#chat-status').text('Service unavailable. Please try again later.');
+        $('#chat-output').append(`
+            <div class="chat-message system">
+                <div class="message-content">
+                    <strong>System:</strong> The chatbot service is currently unavailable. Please try again later.
+                </div>
+            </div>
+        `);
+    }
 }
 
 function appendMessage(role, content, profilePic) {
@@ -123,6 +162,7 @@ async function streamChatResponse(query) {
             </div>
         `);
         $('#chat-output').append($lukaMessage);
+        scrollChatToBottom();
 
         let finalText = "";
         let currentWord = "";
@@ -139,40 +179,31 @@ async function streamChatResponse(query) {
                     const token = event.slice(6).trim();
                     if (token === "[DONE]") return;
                     
-                    let spacedToken = token;
-                    if (finalText && 
-                        /[a-zA-Z0-9]$/.test(finalText) && 
-                        /^[a-zA-Z0-9]/.test(token) && 
-                        !finalText.endsWith(" ")) {
-                        const lastChar = finalText.slice(-1);
-                        if (!(
-                            (/[a-z]$/.test(lastChar) && /^[A-Z]$/.test(token)) ||
-                            (/[A-Z]$/.test(lastChar) && /^[A-Z]$/.test(token) && token.length === 1) ||
-                            (/[A-Z]$/.test(lastChar) && /^[A-Za-z]$/.test(token) && 
-                             /[A-Z]/.test(previousToken) && previousToken.length === 1)
-                        )) {
+                    // Insert a space if:
+                    // (a) finalText is not empty, does not already end with whitespace,
+                    // (b) token does not start with punctuation,
+                    // (c) and – unless both the trailing word of finalText and token are entirely uppercase.
+                    if (finalText && !/\s$/.test(finalText) && !/^[,!.?;:]/.test(token)) {
+                        const lastWordMatch = finalText.match(/([A-Z]+)$/);
+                        const currentTokenMatch = token.match(/^([A-Z]+)$/);
+                        if (!(lastWordMatch && currentTokenMatch)) {
                             finalText += " ";
                         }
                     }
-                    
-                    finalText += spacedToken;
-                    previousToken = token;
-                    currentWord += token;
-                    
-                    if (currentWord.includes(" ") || /[.!?]$/.test(token)) {
-                        const cleanedText = cleanText(finalText);
-                        const htmlText = marked.parse(cleanedText, { breaks: true });
-                        const sanitizedHtml = DOMPurify.sanitize(htmlText, {
-                            ALLOWED_TAGS: ['p', 'br', 'strong', 'em', 'ul', 'ol', 'li', 'a', 'code', 'pre'],
-                            ALLOWED_ATTR: { 'a': ['href'] }
-                        });                    
-                        $lukaMessage.find('.response-text').html(sanitizedHtml);
-                        scrollChatToBottom();
-                        currentWord = "";
-                    }
+                    finalText += token;
+                    // Immediately update the token display in the chat message.
+                    const cleaned = cleanText(finalText);
+                    const htmlText = marked.parse(cleaned, { breaks: true });
+                    const sanitizedHtml = DOMPurify.sanitize(htmlText, {
+                        ALLOWED_TAGS: ['p', 'br', 'strong', 'em', 'ul', 'ol', 'li', 'a', 'code', 'pre'],
+                        ALLOWED_ATTR: { 'a': ['href'] }
+                    });
+                    $lukaMessage.find('.response-text').html(sanitizedHtml);
+                    scrollChatToBottom();
                 }
             });
         }
+        
         
         const cleanedFinalText = cleanText(finalText);
         const htmlText = marked.parse(cleanedFinalText, { breaks: true });
@@ -354,10 +385,20 @@ $(document).ready(function() {
     }
     document.querySelector('.hero-section').addEventListener('click', createRipple);
 
+    $('#chat-modal .modal-footer').append('<div id="chat-footer" class="chat-footer"></div>');
+    
+    // Initialize chatbot
     initializeChatbot();
 
-    $('#chat-btn').click(function() { $('#chat-modal').show(); });
-    $('#close-modal').click(function() { $('#chat-modal').hide(); });
+    $('#chat-btn').click(function() {
+        $('body').addClass('modal-open');  // Prevent background scroll
+        $('#chat-modal').show();
+    });
+    $('#close-modal').click(function() {
+        $('body').removeClass('modal-open');
+        $('#chat-modal').hide();
+    });
+    
 
     $('#send-btn').click(async function() {
         const question = $('#chat-input').val().trim();
