@@ -4,44 +4,56 @@ function isMobileDevice() {
 
 let conversationHistory = [];
 
+// Optimized scrollChatToBottom function
 function scrollChatToBottom() {
-    const $chatOutput = $('#chat-output');
-    $chatOutput.scrollTop($chatOutput[0].scrollHeight);
-    // Optional: for a smoother effect you can also animate after a brief delay
-    setTimeout(() => {
-        $chatOutput.animate({ scrollTop: $chatOutput[0].scrollHeight }, 300);
-    }, 50);
+    const $chatOutput = $('.modal-body');
+    if (!$chatOutput.length) return;
+
+    const scrollContainer = $chatOutput[0];
+    const scrollToBottom = () => {
+        scrollContainer.scrollTo({
+            top: scrollContainer.scrollHeight,
+            behavior: 'smooth'
+        });
+    };
+
+    // Immediate scroll
+    scrollToBottom();
+
+    // Schedule scroll with requestAnimationFrame for rendering sync
+    requestAnimationFrame(scrollToBottom);
+
+    // Retry scroll after a short delay to handle DOM updates
+    setTimeout(scrollToBottom, 100);
+
+    // Additional retry for slow rendering
+    setTimeout(scrollToBottom, 300);
 }
 
-
-// Replace the initializeChatbot function with this enhanced version
+// Initialize chatbot
 async function initializeChatbot() {
     $('#chat-status').text('Checking service availability...');
     $('#chat-input').prop('disabled', true);
     $('#send-btn').prop('disabled', true);
-    
+
     try {
-        // Check if the backend is healthy
         const healthResponse = await fetch("https://Luka512-website.hf.space/health");
         if (!healthResponse.ok) {
             throw new Error(`Health check failed: ${healthResponse.status}`);
         }
-        
+
         const healthData = await healthResponse.json();
         if (healthData.status !== "healthy") {
             throw new Error("Service is not healthy");
         }
-        
-        // Get model information
+
         const modelInfoResponse = await fetch("https://Luka512-website.hf.space/model_info");
         if (modelInfoResponse.ok) {
             const modelInfo = await modelInfoResponse.json();
-            // Format the model information to show a friendlier name
             const modelName = "Deep Cogito Cogito v1-preview";
             $('#chat-footer').html(`<small class="model-info">Powered by ${modelName}</small>`);
         }
-        
-        // Initialize chatbot UI
+
         $('#chat-output').append(`
             <div class="chat-message luka">
                 <img src="assets/images/luka_cartoon.svg" alt="Luka" class="profile-pic">
@@ -62,6 +74,7 @@ async function initializeChatbot() {
                 </div>
             </div>
         `);
+        scrollChatToBottom();
     }
 }
 
@@ -80,8 +93,7 @@ function appendMessage(role, content, profilePic) {
             </div>
         </div>
     `);
-    
-    // Add copy functionality
+
     if (role === 'luka') {
         $message.find('.copy-btn').on('click', function() {
             const textToCopy = $(this).closest('.message-content').find('.response-text').text();
@@ -93,14 +105,14 @@ function appendMessage(role, content, profilePic) {
             });
         });
     }
-    
+
     $('#chat-output').append($message);
     scrollChatToBottom();
 }
 
 function cleanText(text) {
     const preserveTerms = {
-        'MSc': true, 'BSc': true, 'PhD': true, 'MPhil': true, 
+        'MSc': true, 'BSc': true, 'PhD': true, 'MPhil': true,
         'Institut Polytechnique': true, 'de Paris': true,
         'RheinMain': true, 'McKinsey': true, 'GitHub': true,
         'JavaScript': true, 'TypeScript': true, 'PyTorch': true,
@@ -108,21 +120,21 @@ function cleanText(text) {
         'GGUF': true, 'TOEFL': true, 'DELF': true, 'DFP': true,
         'IoT': true, 'HTML/CSS': true, 'DevOps': true,
     };
-    
+
     text = text.replace(/<\|[a-z_]+\|>|\[.*?\]/g, "");
     Object.keys(preserveTerms).forEach(term => {
         const termPattern = term.split('').join('\\s*');
         const termRegex = new RegExp(termPattern, 'gi');
         text = text.replace(termRegex, term);
     });
-    
+
     text = text.replace(/\s{2,}/g, ' ');
     text = text.replace(/([a-z])([A-Z][a-z]{2,})/g, '$1 $2');
     text = text.replace(/\s+([.,!?;:])/g, "$1");
     text = text.replace(/([.,!?;:])([a-zA-Z])/g, "$1 $2");
     text = text.replace(/\s+'/g, "'");
     text = text.replace(/\n+/g, "\n").trim();
-    
+
     return text;
 }
 
@@ -130,7 +142,6 @@ async function streamChatResponse(query) {
     const hfSpaceUrl = "https://Luka512-website.hf.space";
     const apiUrl = `${hfSpaceUrl}/api/predict`;
 
-    // Append user's message
     $('#chat-output').append(`
         <div class="chat-message user">
             <img src="assets/images/user_profile_pic.png" alt="You" class="profile-pic">
@@ -158,31 +169,41 @@ async function streamChatResponse(query) {
             <div class="chat-message luka">
                 <img src="assets/images/luka_cartoon.svg" alt="Luka" class="profile-pic">
                 <div class="message-content"><strong>Luka:</strong> <span class="response-text"></span>
-                    <div class="timestamp"></div>
+                    <div class="message-footer">
+                        <div class="timestamp"></div>
+                        <button class="copy-btn" title="Copy to clipboard"><i class="fas fa-copy"></i></button>
+                    </div>
                 </div>
             </div>
         `);
         $('#chat-output').append($lukaMessage);
         scrollChatToBottom();
 
+        $lukaMessage.find('.copy-btn').on('click', function() {
+            const textToCopy = $(this).closest('.message-content').find('.response-text').text();
+            navigator.clipboard.writeText(textToCopy).then(() => {
+                $(this).html('<i class="fas fa-check"></i>');
+                setTimeout(() => {
+                    $(this).html('<i class="fas fa-copy"></i>');
+                }, 2000);
+            });
+        });
+
         let finalText = "";
-        let currentWord = "";
-        let previousToken = "";
-        
+
         while (true) {
             const { done, value } = await reader.read();
             if (done) break;
             const chunk = decoder.decode(value, { stream: true });
             const events = chunk.split("\n\n");
-            
+
             events.forEach(event => {
                 if (event.startsWith("data: ")) {
-                    const token = event.slice(6); //.trim();
+                    const token = event.slice(6);
                     if (token === "[DONE]") return;
-                    
-                    // Simply append the token as provided:
+
                     finalText += token;
-                    
+
                     const htmlText = marked.parse(finalText, { breaks: true });
                     const sanitizedHtml = DOMPurify.sanitize(htmlText, {
                         ALLOWED_TAGS: ['p', 'br', 'strong', 'em', 'ul', 'ol', 'li', 'a', 'code', 'pre'],
@@ -193,8 +214,7 @@ async function streamChatResponse(query) {
                 }
             });
         }
-        
-        
+
         const cleanedFinalText = cleanText(finalText);
         const htmlText = marked.parse(cleanedFinalText, { breaks: true });
         const sanitizedHtml = DOMPurify.sanitize(htmlText, {
@@ -202,10 +222,12 @@ async function streamChatResponse(query) {
             ALLOWED_ATTR: { 'a': ['href'] }
         });
         $lukaMessage.find('.response-text').html(sanitizedHtml);
-        
+
         $lukaMessage.find('.timestamp').text(new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' }));
         conversationHistory.push({ role: "user", content: query });
         conversationHistory.push({ role: "assistant", content: cleanText(finalText) });
+
+        scrollChatToBottom();
     } catch (error) {
         console.error("Streaming error:", error);
         appendMessage('luka', `Sorry, I encountered an error: ${error.message}`, 'assets/images/luka_cartoon.svg');
@@ -328,7 +350,6 @@ $(document).ready(function() {
         ]
     });
 
-    // Project Card Toggle
     document.querySelectorAll('.project-card').forEach(card => {
         const toggle = card.querySelector('.project-toggle');
         const description = card.querySelector('.project-description');
@@ -339,7 +360,6 @@ $(document).ready(function() {
         });
     });
 
-    // Form Validation
     $('form.needs-validation').on('submit', function(e) {
         const name = $('#name').val().trim();
         const email = $('#email').val().trim();
@@ -358,10 +378,8 @@ $(document).ready(function() {
         return true;
     });
 
-    // AOS Initialization
     AOS.init({ duration: 800, easing: 'slide', once: true });
 
-    // Ripple Effect
     function createRipple(event) {
         const ripple = document.createElement('span');
         ripple.classList.add('ripple');
@@ -376,25 +394,42 @@ $(document).ready(function() {
     document.querySelector('.hero-section').addEventListener('click', createRipple);
 
     $('#chat-modal .modal-footer').append('<div id="chat-footer" class="chat-footer"></div>');
-    
-    // Initialize chatbot
+
     initializeChatbot();
 
     $('#chat-btn').click(function() {
-        $('body').addClass('modal-open');  // Prevent background scroll
+        $('body').addClass('modal-open');
         $('#chat-modal').show();
+        $('body').css({
+            'overflow': 'hidden',
+            'position': 'fixed',
+            'width': '100%',
+            'height': '100%'
+        });
+        scrollChatToBottom();
+        setTimeout(scrollChatToBottom, 100);
+        setTimeout(scrollChatToBottom, 300);
     });
+
     $('#close-modal').click(function() {
         $('body').removeClass('modal-open');
+        $('body').css({
+            'overflow': '',
+            'position': '',
+            'width': '',
+            'height': ''
+        });
         $('#chat-modal').hide();
     });
-    
 
     $('#send-btn').click(async function() {
         const question = $('#chat-input').val().trim();
         if (!question) return;
         $('#chat-input').val('');
         await streamChatResponse(question);
+        scrollChatToBottom();
+        setTimeout(scrollChatToBottom, 100);
+        setTimeout(scrollChatToBottom, 300);
     });
 
     $('#chat-input').on('keypress', function(e) {
@@ -408,5 +443,19 @@ $(document).ready(function() {
         $('#chat-output').empty();
         conversationHistory = [];
         appendMessage('luka', 'Chat cleared! How can I assist you now?', 'assets/images/luka_cartoon.svg');
+        scrollChatToBottom();
     });
+
+    // MutationObserver for chat output changes
+    const chatOutput = document.getElementById('chat-output');
+    if (chatOutput) {
+        const observer = new MutationObserver(function() {
+            scrollChatToBottom();
+        });
+        observer.observe(chatOutput, {
+            childList: true,
+            subtree: true,
+            characterData: true
+        });
+    }
 });
