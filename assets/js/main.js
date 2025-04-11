@@ -36,8 +36,9 @@ async function initializeChatbot() {
         const modelInfoResponse = await fetch("https://Luka512-website.hf.space/model_info");
         if (modelInfoResponse.ok) {
             const modelInfo = await modelInfoResponse.json();
-            // Add model info to the chat interface (subtle)
-            $('#chat-footer').html(`<small class="model-info">Powered by ${modelInfo.model_name} (${modelInfo.model_size} ${modelInfo.quantization})</small>`);
+            // Format the model information to show a friendlier name
+            const modelName = "Deep Cogito Cogito v1-preview";
+            $('#chat-footer').html(`<small class="model-info">Powered by ${modelName}</small>`);
         }
         
         // Initialize chatbot UI
@@ -176,24 +177,13 @@ async function streamChatResponse(query) {
             
             events.forEach(event => {
                 if (event.startsWith("data: ")) {
-                    const token = event.slice(6).trim();
+                    const token = event.slice(6); //.trim();
                     if (token === "[DONE]") return;
                     
-                    // Insert a space if:
-                    // (a) finalText is not empty, does not already end with whitespace,
-                    // (b) token does not start with punctuation,
-                    // (c) and – unless both the trailing word of finalText and token are entirely uppercase.
-                    if (finalText && !/\s$/.test(finalText) && !/^[,!.?;:]/.test(token)) {
-                        const lastWordMatch = finalText.match(/([A-Z]+)$/);
-                        const currentTokenMatch = token.match(/^([A-Z]+)$/);
-                        if (!(lastWordMatch && currentTokenMatch)) {
-                            finalText += " ";
-                        }
-                    }
+                    // Simply append the token as provided:
                     finalText += token;
-                    // Immediately update the token display in the chat message.
-                    const cleaned = cleanText(finalText);
-                    const htmlText = marked.parse(cleaned, { breaks: true });
+                    
+                    const htmlText = marked.parse(finalText, { breaks: true });
                     const sanitizedHtml = DOMPurify.sanitize(htmlText, {
                         ALLOWED_TAGS: ['p', 'br', 'strong', 'em', 'ul', 'ol', 'li', 'a', 'code', 'pre'],
                         ALLOWED_ATTR: { 'a': ['href'] }
