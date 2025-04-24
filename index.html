@@ -29,7 +29,7 @@
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.css">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick-theme.css">
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;500;700&family=Roboto:wght@400;500&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/devicon.min.css" />
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/aos/2.3.4/aos.css">
     <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
@@ -235,10 +235,10 @@
                     <div class="project-description">
                         <p><strong>T-REX</strong> is a live, interactive tool for verifying whether a textual claim is supported or contradicted by tabular data using state-of-the-art language models. It highlights relevant cells and streams reasoning steps in real-time to ensure transparency and accessibility.</p>
                         <p>This project is an advanced continuation of a course project from <em>Language Models and Structured Data</em>, where we explored early-stage table fact-checking systems.</p>
-                        <ul>
-                            <li><a href="https://t-rex.r2.enst.fr" target="_blank" style="color: #005f73; text-decoration: underline;">Try the T-REX tool here</a></li>
-                            <li><a href="https://horstmann.tech/table-fact-checking-project/" target="_blank" style="color: #005f73; text-decoration: underline;">View the original course project version</a></li>
-                        </ul>
+                        <p>
+                            <a href="https://t-rex.r2.enst.fr" target="_blank" class="btn"><i style="color: transparent; text-shadow: 0 0 0 white;">🦖</i>Try the T-REX tool here</a><br>
+                            <a href="https://horstmann.tech/table-fact-checking-project/" target="_blank" class="btn"><i class="fa-solid fa-table"></i>View the original course project version</a>
+                        </p>
                     </div>
                 </div>                
                 <div class="project-card" data-aos="fade-up" data-aos-delay="200">
@@ -273,16 +273,32 @@
                         </p>
                     </div>
                 </div>
-                <div class="project-card" data-aos="fade-up" data-aos-delay="400">
+                <div class="project-card" data-aos="fade-up" data-aos-delay="450">
                     <div class="project-images">
-                        <img src="assets/images/polytechnique_horizontal.jpg" alt="Coming Soon" loading="lazy">
+                        <img src="assets/images/polytechnique_horizontal.jpg" alt="Twitter Sub-event Detection Project" loading="lazy">
                     </div>
                     <h3>Sub-event Detection in Twitter Streams</h3>
                     <div class="project-toggle">
                         <i class="fas fa-chevron-down"></i>
                     </div>
                     <div class="project-description">
-                        <p>Details coming soon...</p>
+                        <p>This project was developed as part of the <strong>Machine and Deep Learning Data Challenge</strong> (CSC_51054_EP) at IP Paris. Our goal was to detect sub-events (like goals or red cards) from tweet activity during FIFA World Cup matches.</p>
+                        <p><strong>Approach:</strong> We implemented and compared three different strategies: traditional ML models (e.g., LightGBM, SVM), graph-based methods analyzing adjacency matrices, and LLM-based approaches. Our final model, the <em>EnhancedPeriodClassifier</em>, enriched BERTweet embeddings with handcrafted features and reached an accuracy of <strong>77%</strong>.</p>
+                        <p><strong>Key Features:</strong></p>
+                        <ul>
+                            <li>Preprocessing pipeline adapted from SOTA research</li>
+                            <li>Graph construction and deviation analysis</li>
+                            <li>Custom neural architecture combining pre-computed embeddings and multi-head attention</li>
+                            <li>Extensive hyperparameter tuning with Optuna</li>
+                        </ul>
+                        <p>
+                            <a href="https://github.com/TimLukaHorstmann/ml-data-challenge-2024-submission/tree/main" target="_blank" class="btn">
+                                <i class="fab fa-github"></i> View Code
+                            </a><br>
+                            <a href="assets/documents/report_ml_data_challenge_2024.pdf" target="_blank" class="btn">
+                                <i class="fas fa-file-pdf"></i> Read Report
+                            </a>
+                        </p>
                     </div>
                 </div>
                 <div class="project-card" data-aos="fade-up" data-aos-delay="500">
