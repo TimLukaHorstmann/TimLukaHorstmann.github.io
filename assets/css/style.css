@@ -735,12 +735,8 @@ ul {
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
     transition: box-shadow 0.3s ease, transform 0.3s ease;
     margin: 0 10px;
-    position: relative; /* For upcoming ribbon */
-}
-
-.project-card:hover {
-    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
-    transform: scale(1.05);
+    position: relative; /* Ensure positioning context for badge */
+    overflow: hidden; /* Keep content within rounded corners */
 }
 
 .project-images {
@@ -764,6 +760,20 @@ ul {
 .project-card h3 {
     font-size: 1.1rem;
     margin: 10px 15px;
+}
+
+.project-field-badge {
+    position: absolute;
+    top: 5px;
+    right: 10px;
+    background-color: var(--secondary-color); /* Use secondary color for badge */
+    color: white;
+    padding: 2px 10px;
+    border-radius: 12px;
+    font-size: 0.7rem;
+    font-weight: 500;
+    z-index: 2;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.15);
 }
 
 .project-toggle {
