@@ -477,4 +477,20 @@ $(document).ready(function() {
             characterData: true
         });
     }
+    setupKeepAlive();
 });
+
+function setupKeepAlive() {
+    // Ping the server every 10 minutes to keep it alive
+    setInterval(async function() {
+        try {
+            await fetch("https://Luka512-website.hf.space/health", { 
+                method: "GET",
+                cache: "no-store"
+            });
+            console.log("Keepalive ping sent");
+        } catch (e) {
+            console.error("Keepalive error:", e);
+        }
+    }, 10 * 60 * 1000); // 10 minutes
+}
