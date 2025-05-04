@@ -492,16 +492,19 @@ $(document).ready(function() {
 });
 
 function setupKeepAlive() {
-    // Ping the server every 10 minutes to keep it alive
+    // Ping the prediction endpoint every 10 minutes to keep the model warm
     setInterval(async function() {
         try {
-            await fetch("https://Luka512-website.hf.space/health", { 
-                method: "GET",
-                cache: "no-store"
+            // Send a minimal prediction request
+            await fetch("https://Luka512-website.hf.space/api/predict", {
+                method: "POST",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify({ query: "Say only the word 'ok.'", history: [] }), // Send a dummy query
+                cache: "no-store" // Ensure it's not cached
             });
-            console.log("Keepalive ping sent");
+            console.log("Keepalive prediction request sent");
         } catch (e) {
-            console.error("Keepalive error:", e);
+            console.error("Keepalive prediction error:", e);
         }
-    }, 10 * 60 * 1000); // 10 minutes
+    }, 15 * 60 * 1000); // 15 minutes
 }
