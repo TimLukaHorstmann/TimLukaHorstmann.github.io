@@ -433,6 +433,22 @@ $(document).ready(function() {
         setTimeout(scrollChatToBottom, 300);
     });
 
+    // Event listener for the new floating chat button
+    $('#floating-chat-btn').click(async function() {
+        $('#chat-modal').show();
+        $('body').addClass('modal-open'); // Prevent background scroll
+        // Initialize chatbot if not already done
+        if (!chatbotInitialized) {
+            chatbotInitialized = await initializeChatbot();
+        } else {
+            // Ensure input is enabled if already initialized
+            $('#chat-input').prop('disabled', false);
+            $('#send-btn').prop('disabled', false);
+        }
+        scrollChatToBottom(); // Scroll after showing
+        $('#chat-input').focus(); // Focus input field
+    });
+    
     $('#close-modal').click(function() {
         $('body').removeClass('modal-open');
         $('body').css({

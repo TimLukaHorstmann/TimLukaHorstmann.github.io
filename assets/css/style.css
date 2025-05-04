@@ -1579,3 +1579,58 @@ img {
     font-size: 0.65rem;
   }
 }
+
+/* Floating Chat Button */
+.floating-chat-btn {
+    position: fixed;
+    bottom: 30px;
+    right: 30px;
+    background-color: var(--primary-color);
+    color: white;
+    width: 60px;
+    height: 60px;
+    border-radius: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 24px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+    cursor: pointer;
+    z-index: 999;
+    transition: transform 0.3s ease, background-color 0.3s ease;
+    animation: subtle-bounce 2.5s ease-in-out infinite 5s; /* Start animation after 5s delay */
+}
+
+.floating-chat-btn:hover {
+    background-color: var(--accent-color);
+    transform: scale(1.1);
+    animation-play-state: paused; /* Pause animation on hover */
+}
+
+@keyframes subtle-bounce {
+    0%, 20%, 50%, 80%, 100% {
+        transform: translateY(0);
+    }
+    40% {
+        transform: translateY(-10px); /* Increased bounce height slightly */
+    }
+    60% {
+        transform: translateY(-5px);
+    }
+}
+
+/* Ensure it's hidden when modal is open */
+body.modal-open .floating-chat-btn {
+    display: none;
+}
+
+/* Responsive adjustments for smaller screens */
+@media (max-width: 767px) {
+    .floating-chat-btn {
+        width: 50px;
+        height: 50px;
+        font-size: 20px;
+        bottom: 20px;
+        right: 20px;
+    }
+}
