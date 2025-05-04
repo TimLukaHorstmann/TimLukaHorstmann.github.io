@@ -125,29 +125,29 @@ function appendMessage(role, content, profilePic) {
 }
 
 function cleanText(text) {
-    const preserveTerms = {
-        'MSc': true, 'BSc': true, 'PhD': true, 'MPhil': true,
-        'Institut Polytechnique': true, 'de Paris': true,
-        'RheinMain': true, 'McKinsey': true, 'GitHub': true,
-        'JavaScript': true, 'TypeScript': true, 'PyTorch': true,
-        'NumPy': true, 'TensorFlow': true, 'LinkedIn': true,
-        'GGUF': true, 'TOEFL': true, 'DELF': true, 'DFP': true,
-        'IoT': true, 'HTML/CSS': true, 'DevOps': true,
-    };
+    // const preserveTerms = {
+    //     'MSc': true, 'BSc': true, 'PhD': true, 'MPhil': true,
+    //     'Institut Polytechnique': true, 'de Paris': true,
+    //     'RheinMain': true, 'McKinsey': true, 'GitHub': true,
+    //     'JavaScript': true, 'TypeScript': true, 'PyTorch': true,
+    //     'NumPy': true, 'TensorFlow': true, 'LinkedIn': true,
+    //     'GGUF': true, 'TOEFL': true, 'DELF': true, 'DFP': true,
+    //     'IoT': true, 'HTML/CSS': true, 'DevOps': true,
+    // };
 
-    text = text.replace(/<\|[a-z_]+\|>|\[.*?\]/g, "");
-    Object.keys(preserveTerms).forEach(term => {
-        const termPattern = term.split('').join('\\s*');
-        const termRegex = new RegExp(termPattern, 'gi');
-        text = text.replace(termRegex, term);
-    });
+    // text = text.replace(/<\|[a-z_]+\|>|\[.*?\]/g, "");
+    // Object.keys(preserveTerms).forEach(term => {
+    //     const termPattern = term.split('').join('\\s*');
+    //     const termRegex = new RegExp(termPattern, 'gi');
+    //     text = text.replace(termRegex, term);
+    // });
 
-    text = text.replace(/\s{2,}/g, ' ');
-    text = text.replace(/([a-z])([A-Z][a-z]{2,})/g, '$1 $2');
-    text = text.replace(/\s+([.,!?;:])/g, "$1");
-    text = text.replace(/([.,!?;:])([a-zA-Z])/g, "$1 $2");
-    text = text.replace(/\s+'/g, "'");
-    text = text.replace(/\n+/g, "\n").trim();
+    // text = text.replace(/\s{2,}/g, ' ');
+    // text = text.replace(/([a-z])([A-Z][a-z]{2,})/g, '$1 $2');
+    // text = text.replace(/\s+([.,!?;:])/g, "$1");
+    // text = text.replace(/([.,!?;:])([a-zA-Z])/g, "$1 $2");
+    // text = text.replace(/\s+'/g, "'");
+    // text = text.replace(/\n+/g, "\n").trim();
 
     return text;
 }
@@ -217,11 +217,14 @@ async function streamChatResponse(query) {
                     if (token === "[DONE]") return;
 
                     finalText += token;
+                    
+                    console.log("Token:", token);
+                    console.log("Final text:", finalText);
 
-                    const htmlText = marked.parse(finalText, { breaks: true });
+                    const htmlText = marked.parse(finalText);
                     const sanitizedHtml = DOMPurify.sanitize(htmlText, {
-                        ALLOWED_TAGS: ['p', 'br', 'strong', 'em', 'ul', 'ol', 'li', 'a', 'code', 'pre'],
-                        ALLOWED_ATTR: { 'a': ['href'] }
+                        ALLOWED_TAGS: ['p', 'br', 'strong', 'em', 'ul', 'ol', 'li', 'a', 'code', 'pre', 'blockquote', 'h1', 'h2', 'h3', 'h4'],
+                        ALLOWED_ATTR: { 'a': ['href', 'target', 'rel'] }
                     });
                     $lukaMessage.find('.response-text').html(sanitizedHtml);
                     scrollChatToBottom();
@@ -230,10 +233,12 @@ async function streamChatResponse(query) {
         }
 
         const cleanedFinalText = cleanText(finalText);
-        const htmlText = marked.parse(cleanedFinalText, { breaks: true });
+        
+        // Finally parse into HTML
+        const htmlText = marked.parse(cleanedFinalText);
         const sanitizedHtml = DOMPurify.sanitize(htmlText, {
-            ALLOWED_TAGS: ['p', 'br', 'strong', 'em', 'ul', 'ol', 'li', 'a', 'code', 'pre'],
-            ALLOWED_ATTR: { 'a': ['href'] }
+            ALLOWED_TAGS: ['p', 'br', 'strong', 'em', 'ul', 'ol', 'li', 'a', 'code', 'pre', 'blockquote', 'h1', 'h2', 'h3', 'h4'],
+            ALLOWED_ATTR: { 'a': ['href', 'target', 'rel'] }
         });
         $lukaMessage.find('.response-text').html(sanitizedHtml);
 
@@ -252,8 +257,6 @@ async function streamChatResponse(query) {
 }
 
 $(document).ready(function() {
-    $('<style>.response-text { white-space: pre-wrap; word-wrap: break-word; word-break: normal; hyphens: auto; line-height: 1.5; display: block; }</style>').appendTo('head');
-
     particlesJS("particles-js", {
         "particles": {
             "number": { "value": 80, "density": { "enable": true, "value_area": 800 } },
@@ -478,6 +481,14 @@ $(document).ready(function() {
         });
     }
     setupKeepAlive();
+    marked.setOptions({
+        gfm: true,
+        breaks: true,      // don’t convert every single newline to <br>
+        headerIds: false,
+        mangle: false,
+        smartLists: true    // enable smarter list parsing
+      });
+      
 });
 
 function setupKeepAlive() {

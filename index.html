@@ -149,8 +149,7 @@
                             <div class="timeline-content">
                                 <h3>Institut Polytechnique de Paris</h3>
                                 <span class="timeline-date">Since 2024</span>
-                                <p>• PhD Track in Computer Science</p>
-                                <p>• MSc in Data and Artificial Intelligence (M2)</p>
+                                <p>MSc in Data and Artificial Intelligence (M2)</p>
                                 <p style="font-size: small;padding-top: 1%;">Courses at École Polytechnique and Télécom Paris</p>
                             </div>
                         </div>
@@ -251,9 +250,16 @@
                     <div class="project-description">
                         <p><strong>T-REX</strong> is a live, interactive tool for verifying whether a textual claim is supported or contradicted by tabular data using state-of-the-art language models. It highlights relevant cells and streams reasoning steps in real-time to ensure transparency and accessibility.</p>
                         <p>This project is an advanced continuation of a course project from <em>Language Models and Structured Data</em>, where we explored early-stage table fact-checking systems.</p>
-                        <p>
-                            <a href="https://t-rex.r2.enst.fr" target="_blank" class="btn"><i style="color: transparent; text-shadow: 0 0 0 white;">🦖</i>Try the T-REX tool here</a><br>
-                            <a href="https://horstmann.tech/table-fact-checking-project/" target="_blank" class="btn"><i class="fa-solid fa-table"></i>View the original course project version</a>
+                        <p class="d-flex flex-column gap-2">
+                          <a href="https://t-rex.r2.enst.fr" target="_blank" class="btn">
+                              <i class="fas fa-globe"></i> Try the live T-REX demo
+                          </a>
+                          <a href="https://youtu.be/HHIxVCOT8X0" target="_blank" class="btn">
+                              <i class="fas fa-video"></i> Watch the video demo
+                          </a>
+                          <a href="https://github.com/TimLukaHorstmann/T-REX" target="_blank" class="btn">
+                              <i class="fab fa-github"></i> View the source on GitHub
+                          </a>
                         </p>
                     </div>
                 </div>
@@ -276,7 +282,7 @@
                 </div>
                 <div class="project-card" data-aos="fade-up" data-aos-delay="300">
                     <div class="project-images">
-                        <img src="assets/images/cambridge.jpg" alt="Twitter Sub-event Detection Project" loading="lazy">
+                        <img src="assets/images/polytechnique_horizontal.jpg" alt="Twitter Sub-event Detection Project" loading="lazy">
                     </div>
                     <span class="project-field-badge">NLP / ML</span>
                     <h3>Sub-event Detection in Twitter Streams</h3>
@@ -303,6 +309,39 @@
                         </p>
                     </div>
                 </div>
+                <div class="project-card" data-aos="fade-up" data-aos-delay="400">
+                    <div class="project-images">
+                    <img src="assets/images/jarvis_logo_2.png" 
+                        alt="Jarvis AI Assistant Logo" loading="lazy">
+                    </div>
+                    <span class="project-field-badge">NLP/TTS</span>
+                    <span class="project-field-badge" style="top: 30px; background-color: #ffc1075b; color: #333;">Early Alpha</span> <!-- Added Badge -->
+                    
+                    <h3>Jarvis AI Assistant</h3>
+                    <div class="project-toggle">
+                    <i class="fas fa-chevron-down"></i>
+                    </div>
+                    <div class="project-description">
+                    <p>
+                        A voice-enabled advanced AI assistant combining local LLMs,
+                        ASR (Whisper), TTS engines and external tool integration
+                        (MCP) for a seamless conversational experience.
+                    </p>
+                    <ul>
+                        <li>Wake-word detection & streaming text + audio</li>
+                        <li>Local inference via <code>llama-cpp-python</code></li>
+                        <li>Multiple TTS engines (Kokoro, Coqui, FastTTS)</li>
+                        <li>Tool integration: Maps, Search, Weather, Custom functions</li>
+                    </ul>
+                    <p class="d-flex flex-column gap-2">
+                        <a href="https://github.com/TimLukaHorstmann/Jarvis" 
+                        class="btn" target="_blank">
+                        <i class="fab fa-github"></i> View on GitHub
+                        </a>
+                    </p>
+                    </div>
+                </div>
+  
                 <div class="project-card" data-aos="fade-up" data-aos-delay="500">
                     <div class="project-images">
                         <img src="assets/images/cambridge.jpg" alt="University of Cambridge" loading="lazy">
@@ -409,7 +448,17 @@
                     <p class="pub-desc">
                         A live, interactive tool for verifying whether a textual claim is supported or contradicted by tabular data using state-of-the-art LLMs.
                     </p>
-                    <a href="https://github.com/TimLukaHorstmann/T-REX" class="btn"><i class="fab fa-github"></i>View Code</a>
+                    <div class="d-flex align-items-center gap-2">
+                      <a href="https://t-rex.r2.enst.fr" target="_blank" class="btn">
+                        <i class="fas fa-globe"></i> Live Demo
+                      </a>
+                      <a href="https://youtu.be/HHIxVCOT8X0" target="_blank" class="btn">
+                        <i class="fas fa-video"></i> Video Demo
+                      </a>
+                      <a href="https://github.com/TimLukaHorstmann/T-REX" target="_blank" class="btn">
+                        <i class="fab fa-github"></i> View Code
+                      </a>
+                    </div>
                 </div>
                 
                 <!-- Work in Progress -->
@@ -483,10 +532,10 @@
                         <i class="devicon-css3-plain"></i>
                         <p>HTML/CSS</p>
                     </div>
-                    <div class="skill-card" data-aos="fade-up" data-aos-delay="500">
+                    <!-- <div class="skill-card" data-aos="fade-up" data-aos-delay="500">
                         <i class="devicon-ruby-plain"></i>
                         <p>Ruby</p>
-                    </div>
+                    </div> -->
                 </div>
                 <h3>Selected Tools and Libraries</h3>
                 <div class="libraries">
@@ -611,6 +660,7 @@
                             </div>
                             <h4>Studienstiftung des deutschen Volkes</h4>
                             <p>Awarded for outstanding academic potential by Germany's largest, oldest, and most prestigious scholarship foundation. Scholarships are awarded to fewer than 0.3% of German students.</p>
+                            <p style="font-size: small;font-style: italic;">Received funding for my Bachelor’s degree at RheinMain University of Applied Sciences, Master’s degree at the University of Cambridge, and Master’s degree at Institut Polytechnique de Paris.</p>
                         </div>
                     </div>
                     <div class="col-md-4">
@@ -691,12 +741,21 @@
                             <div class="image-container">
                                 <img src="assets/images/continental.png" alt="Continental Best Graduate Award" loading="lazy">
                             </div>
-                            <h4>ContiBester</h4>
-                            <p>Honored as one of the best graduates from Continental AG’s corporate dual study program.</p>
+                            <h4>ContiBestenEhrung</h4>
+                            <p>Honored as one of the best performing students in Continental's cooperative study programme in 2022. As part of the ContiBestenEhrung, the best 25 of currently 1500 dual students/trainees were invited to Continental AG's headquarters in Hanover to take part in a special two-day programme including an honor ceremony.</p>
                         </div>
                     </div>
                     <div class="col-md-4">
                         <div class="award-item h-100" data-aos="fade-up" data-aos-delay="400">
+                            <div class="image-container">
+                                <img src="assets/images/continental.png" alt="Continental Excellence Award" loading="lazy">
+                            </div>
+                            <h4>Academic Excellence Bonus</h4>
+                            <p>Received a financial bonus from Continental AG for outstanding academic performance upon completing my Bachelor’s degree.</p>
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="award-item h-100" data-aos="fade-up" data-aos-delay="500">
                             <div class="image-container">
                                 <img src="assets/images/DMV.png" alt="Outstanding Achievements in Mathematics" loading="lazy">
                             </div>
@@ -705,7 +764,7 @@
                         </div>
                     </div>
                     <div class="col-md-4">
-                        <div class="award-item h-100" data-aos="fade-up" data-aos-delay="500">
+                        <div class="award-item h-100" data-aos="fade-up" data-aos-delay="600">
                             <div class="image-container">
                                 <img src="assets/images/landesregierung_nrw.png" alt="Best Graduate in NRW" loading="lazy">
                             </div>
