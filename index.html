@@ -224,20 +224,6 @@
         <div class="container content">
             <h2 data-aos="fade-up">Selected Projects</h2>
             <div class="projects-grid carousel">
-                <div class="project-card" data-aos="fade-up" data-aos-delay="50"> <!-- Moved and updated Hi! Paris project -->
-                    <div class="project-images">
-                        <img src="assets/images/logo-hi-paris-retina.png" alt="Hi! PARIS Logo" loading="lazy">
-                    </div>
-                    <span class="project-field-badge">NLP / TTS</span>
-                    <h3>Natural French Speech Synthesis</h3>
-                    <div class="project-toggle">
-                        <i class="fas fa-chevron-down"></i>
-                    </div>
-                    <div class="project-description">
-                        <p>Research project focusing on generating natural-sounding French speech using advanced deep learning techniques during my internship at Hi! PARIS.</p>
-                        <!-- Add links or more details when available -->
-                    </div>
-                </div>
                 <div class="project-card" data-aos="fade-up" data-aos-delay="100">
                     <div class="project-images">
                         <img src="assets/images/t-rex_logo.png" alt="T-REX Table Fact Checking Tool" loading="lazy">
@@ -282,6 +268,34 @@
                 </div>
                 <div class="project-card" data-aos="fade-up" data-aos-delay="300">
                     <div class="project-images">
+                        <img src="assets/images/luka_cartoon.svg" alt="Chatbot Logo" loading="lazy">
+                    </div>
+                    <span class="project-field-badge">AI / NLP / WebDev</span>
+                    <span class="project-field-badge" style="top: 30px; background-color: #ffc1075b; color: #333;">Beta</span>
+                    <h3>Personal Website Chatbot ("Luka")</h3>
+                    <div class="project-toggle">
+                        <i class="fas fa-chevron-down"></i>
+                    </div>
+                    <div class="project-description">
+                        <p>An interactive chatbot integrated into this website, allowing users to ask questions about my CV and experience. Fully hosted on HF spaces.</p>
+                        <ul>
+                            <li>Powered by a quantized Llama model (via llama-cpp-python) served via a FastAPI backend.</li>
+                            <li>Features streaming responses and conversation history management.</li>
+                            <li>Includes infrastructure for Retrieval-Augmented Generation (RAG) using FAISS/Sentence Transformers (experimented, but currently using full CV context for faster performance and full context).</li>
+                            <li>Optimized for CPU-only inference within Hugging Face free tier hardware constraints.</li>
+                        </ul>
+                        <p class="d-flex flex-column gap-2">
+                            <button onclick="document.getElementById('chat-btn').click();" class="btn">
+                                <i class="fas fa-comment"></i> Try the Chatbot
+                            </button>
+                            <a href="https://huggingface.co/spaces/Luka512/website" target="_blank" class="btn">
+                                <i class="fas fa-rocket"></i> View Backend Space (HF)
+                            </a>
+                        </p>
+                    </div>
+                </div>
+                <div class="project-card" data-aos="fade-up" data-aos-delay="400">
+                    <div class="project-images">
                         <img src="assets/images/polytechnique_horizontal.jpg" alt="Twitter Sub-event Detection Project" loading="lazy">
                     </div>
                     <span class="project-field-badge">NLP / ML</span>
@@ -309,13 +323,13 @@
                         </p>
                     </div>
                 </div>
-                <div class="project-card" data-aos="fade-up" data-aos-delay="400">
+                <div class="project-card" data-aos="fade-up" data-aos-delay="500">
                     <div class="project-images">
                     <img src="assets/images/jarvis_logo_2.png" 
                         alt="Jarvis AI Assistant Logo" loading="lazy">
                     </div>
                     <span class="project-field-badge">NLP/TTS</span>
-                    <span class="project-field-badge" style="top: 30px; background-color: #ffc1075b; color: #333;">Early Alpha</span> <!-- Added Badge -->
+                    <span class="project-field-badge" style="top: 30px; background-color: #ffc1075b; color: #333;">Early Alpha</span>
                     
                     <h3>Jarvis AI Assistant</h3>
                     <div class="project-toggle">
@@ -341,8 +355,21 @@
                     </p>
                     </div>
                 </div>
-  
-                <div class="project-card" data-aos="fade-up" data-aos-delay="500">
+                <div class="project-card" data-aos="fade-up" data-aos-delay="600">
+                    <div class="project-images">
+                        <img src="assets/images/logo-hi-paris-retina.png" alt="Hi! PARIS Logo" loading="lazy">
+                    </div>
+                    <span class="project-field-badge">NLP / TTS</span>
+                    <h3>Natural French Speech Synthesis</h3>
+                    <div class="project-toggle">
+                        <i class="fas fa-chevron-down"></i>
+                    </div>
+                    <div class="project-description">
+                        <p>Research project focusing on generating natural-sounding French speech using advanced deep learning techniques during my internship at Hi! PARIS.</p>
+                        <!-- Add links or more details when available -->
+                    </div>
+                </div>
+                <div class="project-card" data-aos="fade-up" data-aos-delay="700">
                     <div class="project-images">
                         <img src="assets/images/cambridge.jpg" alt="University of Cambridge" loading="lazy">
                     </div>
@@ -364,7 +391,7 @@
                         </p>
                     </div>
                 </div>
-                <div class="project-card" data-aos="fade-up" data-aos-delay="600">
+                <div class="project-card" data-aos="fade-up" data-aos-delay="800">
                     <div class="project-images">
                         <img src="assets/images/cambridge.jpg" alt="University of Cambridge" loading="lazy">
                     </div>
@@ -381,7 +408,7 @@
                         </p>
                     </div>
                 </div>
-                <div class="project-card" data-aos="fade-up" data-aos-delay="700">
+                <div class="project-card" data-aos="fade-up" data-aos-delay="900">
                     <div class="project-images">
                         <img src="assets/images/amazon.svg" alt="Amazon Logo" loading="lazy">
                     </div>
@@ -394,7 +421,7 @@
                         <p>Worked with stakeholders across different organizations and drove resolution of the defect by setting up a QuickSight dashboard on top of Redshift ETL pipelines and using machine learning.</p>
                     </div>
                 </div>
-                <div class="project-card" data-aos="fade-up" data-aos-delay="800">
+                <div class="project-card" data-aos="fade-up" data-aos-delay="1000">
                     <div class="project-images">
                         <img src="assets/images/hsrm.png" alt="HSRM Logo" loading="lazy">
                         <img src="assets/images/continental.png" alt="Continental AG Logo" loading="lazy">
@@ -408,7 +435,7 @@
                         <p>Development of a novel time series forecasting algorithm based on XGBoost regression models for accurately disaggregating customer demand data for use in Continental AG's customer demand planning processes.</p>
                     </div>
                 </div>
-                <div class="project-card" data-aos="fade-up" data-aos-delay="900">
+                <div class="project-card" data-aos="fade-up" data-aos-delay="1100">
                     <div class="project-images">
                         <img src="assets/images/fire_detection_sample.png" alt="Wildfire Detection Project" loading="lazy">
                     </div>
