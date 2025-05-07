@@ -311,7 +311,7 @@ $(document).ready(function() {
         { id: "hi_paris", lat: 48.75743723363367, lng: 2.1691683781847924, title: '<a href="https://www.hi-paris.fr/" target="_blank">Hi! PARIS</a>', description: "Paris, France <br> Machine Learning Research Engineer Intern (2025)" },
         { id: "mck", lat: 48.14334819083518, lng: 11.562918373179789, title: '<a href="https://www.mckinsey.com/" target="_blank">McKinsey & Company</a>', description: "Munich, Germany <br> Fellow Intern (2023)" },
         { id: "amazon", lat: 51.52191542111632, lng: -0.07924095706239208, title: '<a href="https://www.amazon.com/" target="_blank">Amazon</a>', description: "London, UK <br> Business Intelligence Intern (2022-2023)" },
-        { id: "sge", lat: 51.6127099067384, lng: 8.332399269599152, title: '<a href="https://www.sge-erwitte.de/" target="_blank">Städtisches Gymnasium Erwitte</a>', description: "Erwitte, Germany <br> Abitur (2019)" },
+        { id: "sge", lat: 51.6127099067384, lng: 8.332399269599152, title: '<a href="https://www.gymnasium-erwitte.de/" target="_blank">Städtisches Gymnasium Erwitte</a>', description: "Erwitte, Germany <br> Abitur (2019)" },
         { id: "continental", lat: 50.135490818761454, lng: 8.594796479427476, title: '<a href="https://www.continental.com/" target="_blank">Continental AG</a>', description: "Frankfurt am Main, Germany <br> Dual Student (2019-2022)" }
     ];
 
@@ -448,7 +448,7 @@ $(document).ready(function() {
         scrollChatToBottom(); // Scroll after showing
         $('#chat-input').focus(); // Focus input field
     });
-    
+
     $('#close-modal').click(function() {
         $('body').removeClass('modal-open');
         $('body').css({
@@ -496,7 +496,6 @@ $(document).ready(function() {
             characterData: true
         });
     }
-    setupKeepAlive();
     marked.setOptions({
         gfm: true,
         breaks: true,      // don’t convert every single newline to <br>
@@ -506,21 +505,3 @@ $(document).ready(function() {
       });
       
 });
-
-function setupKeepAlive() {
-    // Ping the prediction endpoint every 10 minutes to keep the model warm
-    setInterval(async function() {
-        try {
-            // Send a minimal prediction request
-            await fetch("https://Luka512-website.hf.space/api/predict", {
-                method: "POST",
-                headers: { "Content-Type": "application/json" },
-                body: JSON.stringify({ query: "Say only the word 'ok.'", history: [] }), // Send a dummy query
-                cache: "no-store" // Ensure it's not cached
-            });
-            console.log("Keepalive prediction request sent");
-        } catch (e) {
-            console.error("Keepalive prediction error:", e);
-        }
-    }, 15 * 60 * 1000); // 15 minutes
-}
