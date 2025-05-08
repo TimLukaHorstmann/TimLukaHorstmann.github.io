@@ -498,15 +498,20 @@ $(document).ready(function() {
     }
     marked.setOptions({
         gfm: true,
-        breaks: true,      // don’t convert every single newline to <br>
+        breaks: true,      // don't convert every single newline to <br>
         headerIds: false,
         mangle: false,
         smartLists: true    // enable smarter list parsing
       });
       
     if ($('.subtle-timeline').length) {
+        // Find which item is active in the HTML
+        const activePointIndex = parseInt($('.timeline-point.active').data('index'));
+        const activeNewsIndex = parseInt($('.news-item.active').data('index'));
+        // Use the active news index for initialization (this will be 7 based on your HTML)
+        let currentIndex = activePointIndex !== undefined ? activePointIndex : 0;
+        
         const totalPoints = $('.timeline-point').length;
-        let currentIndex = 0;
         
         // Handle timeline point clicks
         $('.timeline-point').on('click', function() {
@@ -544,6 +549,9 @@ $(document).ready(function() {
             
             // Update navigation state
             updateNewsNavigation();
+            
+            // Update timeline position (for wheel effect)
+            updateTimelinePosition();
         }
         
         function updateNewsNavigation() {
@@ -577,4 +585,74 @@ $(document).ready(function() {
             }
         });
     }
+
+    // Add the wheel effect function
+    function updateTimelinePosition() {
+        const timelinePoints = $('.timeline-points');
+        const timelineWidth = timelinePoints.width();
+        const activePoint = $('.timeline-point.active');
+        const pointWidth = activePoint.outerWidth();
+        
+        if (activePoint.length) {
+            // Get the active point's position relative to the timeline
+            const activeIndex = parseInt(activePoint.data('index'));
+            const totalPoints = $('.timeline-point').length;
+            
+            // Calculate the target position to center the active point
+            const pointPosition = activePoint.position().left;
+            const centerPosition = (timelineWidth / 2) - (pointWidth / 2);
+            const translateX = centerPosition - pointPosition;
+            
+            // Apply 3D rotation effect (subtle wheel-like rotation)
+            // Scale the rotation based on the position in the timeline
+            $('.timeline-point').each(function(idx) {
+                const point = $(this);
+                const distanceFromActive = Math.abs(activeIndex - idx);
+                const maxDistance = Math.max(activeIndex, totalPoints - activeIndex - 1);
+                const rotationX = distanceFromActive > 0 ? (distanceFromActive / maxDistance) * 15 : 0; // Max 15 degrees rotation
+                
+                // Apply more rotation to points further from the active one
+                if (idx < activeIndex) {
+                    // Points to the left (past) rotate down
+                    point.css('transform', `rotateX(${rotationX}deg) scale(${idx === activeIndex ? 1.2 : 1})`);
+                    point.css('opacity', 1 - (distanceFromActive * 0.15)); // Fade out distant points
+                } else if (idx > activeIndex) {
+                    // Points to the right (future) rotate up
+                    point.css('transform', `rotateX(-${rotationX}deg) scale(${idx === activeIndex ? 1.2 : 1})`);
+                    point.css('opacity', 1 - (distanceFromActive * 0.15)); // Fade out distant points
+                } else {
+                    // Active point is flat and fully opaque
+                    point.css('transform', 'rotateX(0deg) scale(1.2)');
+                    point.css('opacity', 1);
+                }
+            });
+            
+            // For small screens, add subtle horizontal translation to emphasize the active point
+            if (window.innerWidth < 768) {
+                timelinePoints.css('transform', `translateX(${translateX * 0.15}px)`); // Less movement on mobile
+            } else {
+                timelinePoints.css('transform', `translateX(${translateX * 0.08}px)`); // Subtle movement
+            }
+        }
+    }
+    
+    // Initialize the timeline position
+    updateTimelinePosition();
+    
+    // Make sure the timeline position updates on window resize
+    $(window).on('resize', function() {
+        updateTimelinePosition();
+    });
+
+    $(document).on('keydown', function(e) {
+        if ($('.subtle-timeline').is(':visible')) {
+            if (e.key === 'ArrowLeft' && currentIndex > 0) {
+                // Left arrow goes to older news
+                navigateToNewsItem(currentIndex - 1);
+            } else if (e.key === 'ArrowRight' && currentIndex < totalPoints - 1) {
+                // Right arrow goes to newer news
+                navigateToNewsItem(currentIndex + 1);
+            }
+        }
+    });
 });

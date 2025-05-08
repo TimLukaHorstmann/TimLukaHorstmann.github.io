@@ -1638,7 +1638,7 @@ body.modal-open .floating-chat-btn {
 /* Subtle News Section */
 .news-section {
     background-color: rgba(248, 250, 252, 0.5);
-    padding: 40px 0;
+    padding-top: 40px;
     border-top: 1px solid rgba(0, 95, 115, 0.05);
     border-bottom: 1px solid rgba(0, 95, 115, 0.05);
     margin-top: -20px;
@@ -1682,13 +1682,14 @@ body.modal-open .floating-chat-btn {
 }
 
 .subtle-timeline {
-    position: relative;
+    position: relative; /* Set as positioning context for absolute elements */
     max-width: 900px;
     margin: 0 auto;
     display: flex;
     flex-direction: column;
     align-items: center;
     z-index: 2;
+    padding: 0 50px; /* Add padding to make space for the arrows */
 }
 
 .timeline-indicator {
@@ -1697,6 +1698,7 @@ body.modal-open .floating-chat-btn {
     max-width: 600px;
     margin-bottom: 8px;
     padding: 8px 0;
+    perspective: 800px; /* Add perspective for 3D effect */
 }
 
 .indicator-line {
@@ -1717,23 +1719,29 @@ body.modal-open .floating-chat-btn {
     display: flex;
     justify-content: space-between;
     position: relative;
+    transition: transform 0.5s ease-in-out; /* Add smooth transition for wheel effect */
 }
 
 .timeline-point {
     position: relative;
-    width: 12px;
-    height: 12px;
+    width: 24px; /* Increased size to fit icons */
+    height: 24px; /* Increased size to fit icons */
     background-color: #fff;
     border: 1.5px solid rgba(10, 147, 150, 0.2);
     border-radius: 50%;
     cursor: pointer;
     transition: all 0.3s ease;
     z-index: 2;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transform-style: preserve-3d; /* For 3D effect */
+    transform: rotateX(0deg); /* Initial rotation */
 }
 
 .timeline-point:hover, .timeline-point.active {
     border-color: var(--primary-color);
-    transform: scale(1.2);
+    transform: scale(1.2) rotateX(0deg); /* Keep rotateX in transform to maintain 3D effect */
     box-shadow: 0 0 0 4px rgba(10, 147, 150, 0.1);
 }
 
@@ -1756,9 +1764,44 @@ body.modal-open .floating-chat-btn {
     opacity: 1;
 }
 
+/* Icon styles */
+.point-icon {
+    font-size: 10px;
+    color: var(--secondary-color);
+    opacity: 0.7;
+    transition: all 0.3s ease;
+}
+
+.timeline-point:hover .point-icon,
+.timeline-point.active .point-icon {
+    color: var(--primary-color);
+    opacity: 1;
+}
+
+/* Add specific colors for different event types */
+.timeline-point[data-type="education"] .point-icon {
+    color: #4c8daa;
+}
+
+.timeline-point[data-type="job"] .point-icon {
+    color: #aa6c4c;
+}
+
+.timeline-point[data-type="award"] .point-icon {
+    color: #d4af37;
+}
+
+.timeline-point[data-type="conference"] .point-icon {
+    color: #6a4caa;
+}
+
+.timeline-point[data-type="publication"] .point-icon {
+    color: #4caa52;
+}
+
 .point-date {
     position: absolute;
-    top: 20px;
+    top: 28px; /* Adjusted for larger points */
     left: 50%;
     transform: translateX(-50%);
     font-size: 0.65rem;
@@ -1776,8 +1819,8 @@ body.modal-open .floating-chat-btn {
 .news-items {
     position: relative;
     width: 100%;
-    min-height: 120px;
-    margin-top: 15px;
+    min-height: 150px; /* Increased height for better spacing */
+    margin-top: 25px; /* Increased margin */
     perspective: 1000px;
 }
 
@@ -1802,17 +1845,20 @@ body.modal-open .floating-chat-btn {
 }
 
 .news-item h3 {
-    font-size: 1.1rem;
-    margin-bottom: 6px;
+    font-size: 1.2rem; /* Slightly larger */
+    margin-bottom: 10px; /* Increased spacing */
     color: var(--secondary-color);
     opacity: 0.9;
 }
 
 .news-item p {
-    font-size: 0.9rem;
-    margin-bottom: 8px;
+    font-size: 0.95rem; /* Slightly larger */
+    margin-bottom: 12px; /* More spacing */
     color: #666;
-    line-height: 1.4;
+    line-height: 1.5; /* Improved line height */
+    max-width: 700px; /* Control width */
+    margin-left: auto;
+    margin-right: auto;
 }
 
 .news-link {
@@ -1845,56 +1891,58 @@ body.modal-open .floating-chat-btn {
     width: 100%;
 }
 
-.timeline-nav {
-    display: flex;
-    justify-content: center;
-    gap: 25px;
-    margin-top: 12px;
-}
-
 .nav-arrow {
-    background: transparent;
-    border: none;
+    position: absolute;
+    top: 50%; /* Center vertically relative to the timeline */
+    transform: translateY(-50%);
+    background: rgba(255, 255, 255, 0.8);
+    border: 1px solid rgba(10, 147, 150, 0.2);
+    border-radius: 50%;
     color: var(--secondary-color);
-    font-size: 0.9rem;
-    padding: 4px;
+    font-size: 1.1rem;
+    width: 40px;
+    height: 40px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
     cursor: pointer;
     transition: all 0.3s ease;
-    opacity: 0.5;
+    opacity: 0.7;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+    z-index: 3;
+}
+
+.prev-arrow {
+    left: 0;
+}
+
+.next-arrow {
+    right: 0;
 }
 
 .nav-arrow:hover:not(.disabled) {
-    opacity: 0.8;
-    transform: scale(1.1);
+    opacity: 1;
+    transform: translateY(-50%) scale(1.1);
+    background: white;
+    box-shadow: 0 3px 8px rgba(0,0,0,0.15);
+    border-color: var(--primary-color);
 }
 
 .nav-arrow.disabled {
-    opacity: 0.2;
+    opacity: 0.3;
     cursor: default;
 }
 
-/* Media queries for responsiveness */
+
+/* Add responsive adjustments */
 @media (max-width: 768px) {
-    .timeline-indicator {
-        width: 90%;
+    .subtle-timeline {
+        padding: 0 40px;
     }
     
-    .news-item h3 {
-        font-size: 1rem;
-    }
-    
-    .news-item p {
-        font-size: 0.85rem;
-    }
-    
-    .news-section::before {
-        background: linear-gradient(90deg, 
-            rgba(248, 250, 252, 0.95) 0%,
-            rgba(248, 250, 252, 0.8) 30%,
-            rgba(248, 250, 252, 0.6) 60%,
-            rgba(248, 250, 252, 0.4) 80%,
-            rgba(248, 250, 252, 0.2) 90%,
-            rgba(248, 250, 252, 0) 100%
-        );
+    .nav-arrow {
+        width: 36px;
+        height: 36px;
+        font-size: 0.9rem;
     }
 }
