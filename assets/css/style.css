@@ -1877,6 +1877,33 @@ body.modal-open .floating-chat-btn {
     margin-right: auto;
 }
 
+.news-item p a {
+    color: var(--primary-color);
+    text-decoration: none;
+    position: relative;
+    font-weight: 500;
+    transition: all 0.3s ease;
+}
+
+.news-item p a::after {
+    content: '';
+    position: absolute;
+    bottom: -1px;
+    left: 0;
+    width: 0;
+    height: 1px;
+    background-color: var(--primary-color);
+    transition: width 0.3s ease;
+}
+
+.news-item p a:hover {
+    color: var(--accent-color);
+}
+
+.news-item p a:hover::after {
+    width: 100%;
+}
+
 .news-link {
     font-size: 0.85rem;
     color: var(--primary-color);
