@@ -67,7 +67,7 @@ async function initializeChatbot() {
             chatbotInitialized = true;
         }
 
-        $('#chat-status').text('Chatbot ready');
+        $('#chat-status').text('Chatbot ready (first response may take a moment).');
         $('#chat-input').prop('disabled', false);
         $('#send-btn').prop('disabled', false);
         scrollChatToBottom();
@@ -504,4 +504,74 @@ $(document).ready(function() {
         smartLists: true    // enable smarter list parsing
       });
       
+    if ($('.subtle-timeline').length) {
+        const totalPoints = $('.timeline-point').length;
+        let currentIndex = 0;
+        
+        // Handle timeline point clicks
+        $('.timeline-point').on('click', function() {
+            const index = parseInt($(this).data('index'));
+            navigateToNewsItem(index);
+        });
+        
+        // Handle navigation arrows
+        $('.prev-arrow').on('click', function() {
+            if (!$(this).hasClass('disabled')) {
+                navigateToNewsItem(currentIndex - 1);
+            }
+        });
+        
+        $('.next-arrow').on('click', function() {
+            if (!$(this).hasClass('disabled')) {
+                navigateToNewsItem(currentIndex + 1);
+            }
+        });
+        
+        // Navigation function
+        function navigateToNewsItem(index) {
+            // Update active state
+            $('.timeline-point').removeClass('active');
+            $(`.timeline-point[data-index="${index}"]`).addClass('active');
+            
+            // Update content with fade effect
+            $('.news-item').removeClass('active');
+            $(`.news-item[data-index="${index}"]`).addClass('active');
+            
+            // Update current index
+            currentIndex = index;
+            
+            // Update navigation state
+            updateNewsNavigation();
+        }
+        
+        function updateNewsNavigation() {
+            // Handle prev button state
+            if (currentIndex === 0) {
+                $('.prev-arrow').addClass('disabled');
+            } else {
+                $('.prev-arrow').removeClass('disabled');
+            }
+            
+            // Handle next button state
+            if (currentIndex === totalPoints - 1) {
+                $('.next-arrow').addClass('disabled');
+            } else {
+                $('.next-arrow').removeClass('disabled');
+            }
+        }
+        
+        // Initialize
+        updateNewsNavigation();
+        
+        // Optional: Add keyboard navigation
+        $(document).on('keydown', function(e) {
+            if ($('.subtle-timeline').is(':visible')) {
+                if (e.key === 'ArrowLeft' && currentIndex > 0) {
+                    navigateToNewsItem(currentIndex - 1);
+                } else if (e.key === 'ArrowRight' && currentIndex < totalPoints - 1) {
+                    navigateToNewsItem(currentIndex + 1);
+                }
+            }
+        });
+    }
 });

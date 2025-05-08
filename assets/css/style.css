@@ -144,7 +144,7 @@ ul {
     background-color: rgba(255, 255, 255, 0.15);
     transform: scale(0);
     animation: ripple-animation 2s ease-out;
-    pointer-events: none; /* Ensure ripple doesn’t block clicks */
+    pointer-events: none; /* Ensure ripple doesn't block clicks */
     z-index: 10;
 }
 
@@ -178,7 +178,7 @@ ul {
     flex-wrap: wrap;
     justify-content: center;
     gap: 10px; /* Space between buttons */
-    max-width: 100%; /* Ensure it doesn’t overflow */
+    max-width: 100%; /* Ensure it doesn't overflow */
 }
 
 
@@ -609,27 +609,28 @@ ul {
     /* Removed max-height and overflow-y to show all items */
 }
 
-.timeline {
+.cv-section .timeline {
     margin: 30px 0 0 0;
 }
 
-.timeline-item {
+.cv-section .timeline-item {
     padding: 5px 0;
     margin-bottom: 10px;
     transition: background-color 0.3s ease, transform 0.3s ease;
     cursor: pointer;
+    position: relative; /* Explicitly set position */
 }
 
-.timeline-item:hover {
+.cv-section .timeline-item:hover {
     border-left: 4px solid var(--accent-color);
 }
 
-.timeline-item.highlight .timeline-content {
+.cv-section .timeline-item.highlight .timeline-content {
     background-image: none !important;
     background-color: var(--accent-color);
 }
 
-.timeline-content {
+.cv-section .timeline-content {
     background-size: auto 40%;
     background-position: center;
     background-repeat: no-repeat;
@@ -648,12 +649,12 @@ ul {
 #amazon .timeline-content { background-image: url("../images/amazon.svg"); }
 #continental .timeline-content { background-image: url("../images/continental.png"); }
 
-.timeline-content h3 {
+.cv-section .timeline-content h3 {
     margin: 0 0 5px;
     font-size: 1.1rem;
 }
 
-.timeline-content p {
+.cv-section .timeline-content p {
     margin: 0;
     font-size: 0.95rem;
 }
@@ -1632,5 +1633,218 @@ body.modal-open .floating-chat-btn {
         font-size: 20px;
         bottom: 20px;
         right: 20px;
+    }
+}
+/* Subtle News Section */
+.news-section {
+    background-color: rgba(248, 250, 252, 0.5);  /* More transparent background */
+    padding: 40px 0;  /* Reduced padding */
+    border-top: 1px solid rgba(0, 95, 115, 0.05);  /* Lighter border */
+    border-bottom: 1px solid rgba(0, 95, 115, 0.05);
+    margin-top: -20px;  /* Pull it up slightly */
+}
+
+.news-section h2 {
+    text-align: center;
+    margin-bottom: 15px;
+    font-size: 1.6rem;  /* Smaller heading */
+    color: var(--secondary-color);
+    opacity: 0.9;  /* Slightly transparent */
+}
+
+.subtle-subtitle {
+    font-weight: 400;
+    opacity: 0.6;
+    font-size: 0.85em;
+}
+
+.subtle-timeline {
+    position: relative;
+    max-width: 700px;  /* Slightly narrower */
+    margin: 0 auto;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.timeline-indicator {
+    position: relative;
+    width: 70%;  /* Narrower indicator */
+    max-width: 400px;
+    margin-bottom: 8px;
+    padding: 8px 0;
+}
+
+.indicator-line {
+    position: absolute;
+    top: 50%;
+    left: 0;
+    width: 100%;
+    height: 1px;  /* Thinner line */
+    background-color: rgba(10, 147, 150, 0.1);  /* More transparent */
+    transform: translateY(-50%);
+}
+
+.timeline-points {
+    display: flex;
+    justify-content: space-between;
+    position: relative;
+}
+
+.timeline-point {
+    position: relative;
+    width: 10px;  /* Smaller points */
+    height: 10px;
+    background-color: #fff;
+    border: 1.5px solid rgba(10, 147, 150, 0.2);  /* Thinner, more transparent border */
+    border-radius: 50%;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.timeline-point:hover, .timeline-point.active {
+    border-color: var(--primary-color);
+    transform: scale(1.15);  /* Smaller scale effect */
+}
+
+.timeline-point::after {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%) scale(0);
+    width: 4px;  /* Smaller inner dot */
+    height: 4px;
+    background-color: var(--primary-color);
+    border-radius: 50%;
+    opacity: 0;
+    transition: all 0.3s ease;
+}
+
+.point-date {
+    position: absolute;
+    top: 18px;
+    left: 50%;
+    transform: translateX(-50%);
+    font-size: 0.65rem;  /* Smaller date text */
+    white-space: nowrap;
+    color: #888;  /* Lighter color */
+}
+
+.timeline-point:hover .point-date,
+.timeline-point.active .point-date {
+    color: var(--primary-color);
+    font-weight: 400;  /* Less bold */
+}
+
+.news-items {
+    position: relative;
+    width: 100%;
+    min-height: 120px;  /* Reduced height */
+    margin-top: 15px;
+}
+
+.news-item {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity 0.3s ease, transform 0.3s ease;  /* Faster transition */
+    transform: translateX(15px);  /* Smaller transform */
+    text-align: center;
+}
+
+.news-item.active {
+    opacity: 1;
+    visibility: visible;
+    transform: translateX(0);
+}
+
+.news-item h3 {
+    font-size: 1.1rem;  /* Smaller heading */
+    margin-bottom: 6px;
+    color: var(--secondary-color);
+    opacity: 0.9;
+}
+
+.news-item p {
+    font-size: 0.9rem;  /* Smaller text */
+    margin-bottom: 8px;
+    color: #666;  /* Lighter text */
+    line-height: 1.4;
+}
+
+.news-link {
+    font-size: 0.85rem;  /* Smaller link */
+    color: var(--primary-color);
+    text-decoration: none;
+    position: relative;
+    display: inline-block;
+    padding-bottom: 1px;
+    opacity: 0.8;  /* Slightly transparent */
+}
+
+.news-link::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 0;
+    height: 1px;
+    background-color: var(--primary-color);
+    transition: width 0.2s ease;  /* Faster transition */
+}
+
+.news-link:hover {
+    opacity: 1;
+}
+
+.news-link:hover::after {
+    width: 100%;
+}
+
+.timeline-nav {
+    display: flex;
+    justify-content: center;
+    gap: 25px;
+    margin-top: 12px;
+}
+
+.nav-arrow {
+    background: transparent;
+    border: none;
+    color: var(--secondary-color);
+    font-size: 0.9rem;  /* Smaller arrows */
+    padding: 4px;
+    cursor: pointer;
+    transition: all 0.2s ease;  /* Faster transition */
+    opacity: 0.5;  /* More transparent by default */
+}
+
+.nav-arrow:hover:not(.disabled) {
+    opacity: 0.8;
+    transform: scale(1.1);  /* Smaller scale effect */
+}
+
+.nav-arrow.disabled {
+    opacity: 0.2;
+    cursor: default;
+}
+
+/* Media queries for responsiveness */
+@media (max-width: 768px) {
+    .timeline-indicator {
+        width: 90%;
+    }
+    
+    .news-item h3 {
+        font-size: 1rem;
+    }
+    
+    .news-item p {
+        font-size: 0.85rem;
     }
 }
