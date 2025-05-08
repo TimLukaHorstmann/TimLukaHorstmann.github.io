@@ -1637,19 +1637,42 @@ body.modal-open .floating-chat-btn {
 }
 /* Subtle News Section */
 .news-section {
-    background-color: rgba(248, 250, 252, 0.5);  /* More transparent background */
-    padding: 40px 0;  /* Reduced padding */
-    border-top: 1px solid rgba(0, 95, 115, 0.05);  /* Lighter border */
+    background-color: rgba(248, 250, 252, 0.5);
+    padding: 40px 0;
+    border-top: 1px solid rgba(0, 95, 115, 0.05);
     border-bottom: 1px solid rgba(0, 95, 115, 0.05);
-    margin-top: -20px;  /* Pull it up slightly */
+    margin-top: -20px;
+    position: relative;
+    overflow: hidden;
+}
+
+.news-section::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(90deg, 
+        rgba(248, 250, 252, 0.95) 0%,
+        rgba(248, 250, 252, 0.8) 20%,
+        rgba(248, 250, 252, 0.6) 40%,
+        rgba(248, 250, 252, 0.4) 60%,
+        rgba(248, 250, 252, 0.2) 80%,
+        rgba(248, 250, 252, 0) 100%
+    );
+    pointer-events: none;
+    z-index: 1;
 }
 
 .news-section h2 {
     text-align: center;
     margin-bottom: 15px;
-    font-size: 1.6rem;  /* Smaller heading */
+    font-size: 1.6rem;
     color: var(--secondary-color);
-    opacity: 0.9;  /* Slightly transparent */
+    opacity: 0.9;
+    position: relative;
+    z-index: 2;
 }
 
 .subtle-subtitle {
@@ -1660,17 +1683,18 @@ body.modal-open .floating-chat-btn {
 
 .subtle-timeline {
     position: relative;
-    max-width: 700px;  /* Slightly narrower */
+    max-width: 900px;
     margin: 0 auto;
     display: flex;
     flex-direction: column;
     align-items: center;
+    z-index: 2;
 }
 
 .timeline-indicator {
     position: relative;
-    width: 70%;  /* Narrower indicator */
-    max-width: 400px;
+    width: 85%;
+    max-width: 600px;
     margin-bottom: 8px;
     padding: 8px 0;
 }
@@ -1680,8 +1704,12 @@ body.modal-open .floating-chat-btn {
     top: 50%;
     left: 0;
     width: 100%;
-    height: 1px;  /* Thinner line */
-    background-color: rgba(10, 147, 150, 0.1);  /* More transparent */
+    height: 1px;
+    background: linear-gradient(90deg,
+        rgba(10, 147, 150, 0.1) 0%,
+        rgba(10, 147, 150, 0.2) 50%,
+        rgba(10, 147, 150, 0.1) 100%
+    );
     transform: translateY(-50%);
 }
 
@@ -1693,18 +1721,20 @@ body.modal-open .floating-chat-btn {
 
 .timeline-point {
     position: relative;
-    width: 10px;  /* Smaller points */
-    height: 10px;
+    width: 12px;
+    height: 12px;
     background-color: #fff;
-    border: 1.5px solid rgba(10, 147, 150, 0.2);  /* Thinner, more transparent border */
+    border: 1.5px solid rgba(10, 147, 150, 0.2);
     border-radius: 50%;
     cursor: pointer;
     transition: all 0.3s ease;
+    z-index: 2;
 }
 
 .timeline-point:hover, .timeline-point.active {
     border-color: var(--primary-color);
-    transform: scale(1.15);  /* Smaller scale effect */
+    transform: scale(1.2);
+    box-shadow: 0 0 0 4px rgba(10, 147, 150, 0.1);
 }
 
 .timeline-point::after {
@@ -1713,7 +1743,7 @@ body.modal-open .floating-chat-btn {
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%) scale(0);
-    width: 4px;  /* Smaller inner dot */
+    width: 4px;
     height: 4px;
     background-color: var(--primary-color);
     border-radius: 50%;
@@ -1721,27 +1751,34 @@ body.modal-open .floating-chat-btn {
     transition: all 0.3s ease;
 }
 
+.timeline-point.active::after {
+    transform: translate(-50%, -50%) scale(1);
+    opacity: 1;
+}
+
 .point-date {
     position: absolute;
-    top: 18px;
+    top: 20px;
     left: 50%;
     transform: translateX(-50%);
-    font-size: 0.65rem;  /* Smaller date text */
+    font-size: 0.65rem;
     white-space: nowrap;
-    color: #888;  /* Lighter color */
+    color: #888;
+    transition: all 0.3s ease;
 }
 
 .timeline-point:hover .point-date,
 .timeline-point.active .point-date {
     color: var(--primary-color);
-    font-weight: 400;  /* Less bold */
+    font-weight: 500;
 }
 
 .news-items {
     position: relative;
     width: 100%;
-    min-height: 120px;  /* Reduced height */
+    min-height: 120px;
     margin-top: 15px;
+    perspective: 1000px;
 }
 
 .news-item {
@@ -1752,39 +1789,41 @@ body.modal-open .floating-chat-btn {
     height: 100%;
     opacity: 0;
     visibility: hidden;
-    transition: opacity 0.3s ease, transform 0.3s ease;  /* Faster transition */
-    transform: translateX(15px);  /* Smaller transform */
+    transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+    transform: translateX(30px) scale(0.95);
     text-align: center;
+    backface-visibility: hidden;
 }
 
 .news-item.active {
     opacity: 1;
     visibility: visible;
-    transform: translateX(0);
+    transform: translateX(0) scale(1);
 }
 
 .news-item h3 {
-    font-size: 1.1rem;  /* Smaller heading */
+    font-size: 1.1rem;
     margin-bottom: 6px;
     color: var(--secondary-color);
     opacity: 0.9;
 }
 
 .news-item p {
-    font-size: 0.9rem;  /* Smaller text */
+    font-size: 0.9rem;
     margin-bottom: 8px;
-    color: #666;  /* Lighter text */
+    color: #666;
     line-height: 1.4;
 }
 
 .news-link {
-    font-size: 0.85rem;  /* Smaller link */
+    font-size: 0.85rem;
     color: var(--primary-color);
     text-decoration: none;
     position: relative;
     display: inline-block;
     padding-bottom: 1px;
-    opacity: 0.8;  /* Slightly transparent */
+    opacity: 0.8;
+    transition: all 0.3s ease;
 }
 
 .news-link::after {
@@ -1795,7 +1834,7 @@ body.modal-open .floating-chat-btn {
     width: 0;
     height: 1px;
     background-color: var(--primary-color);
-    transition: width 0.2s ease;  /* Faster transition */
+    transition: width 0.3s ease;
 }
 
 .news-link:hover {
@@ -1817,16 +1856,16 @@ body.modal-open .floating-chat-btn {
     background: transparent;
     border: none;
     color: var(--secondary-color);
-    font-size: 0.9rem;  /* Smaller arrows */
+    font-size: 0.9rem;
     padding: 4px;
     cursor: pointer;
-    transition: all 0.2s ease;  /* Faster transition */
-    opacity: 0.5;  /* More transparent by default */
+    transition: all 0.3s ease;
+    opacity: 0.5;
 }
 
 .nav-arrow:hover:not(.disabled) {
     opacity: 0.8;
-    transform: scale(1.1);  /* Smaller scale effect */
+    transform: scale(1.1);
 }
 
 .nav-arrow.disabled {
@@ -1846,5 +1885,16 @@ body.modal-open .floating-chat-btn {
     
     .news-item p {
         font-size: 0.85rem;
+    }
+    
+    .news-section::before {
+        background: linear-gradient(90deg, 
+            rgba(248, 250, 252, 0.95) 0%,
+            rgba(248, 250, 252, 0.8) 30%,
+            rgba(248, 250, 252, 0.6) 60%,
+            rgba(248, 250, 252, 0.4) 80%,
+            rgba(248, 250, 252, 0.2) 90%,
+            rgba(248, 250, 252, 0) 100%
+        );
     }
 }

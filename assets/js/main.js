@@ -514,15 +514,17 @@ $(document).ready(function() {
             navigateToNewsItem(index);
         });
         
-        // Handle navigation arrows
+        // When the document loads, also update these handlers
         $('.prev-arrow').on('click', function() {
             if (!$(this).hasClass('disabled')) {
+                // Now prev goes to older news (lower index)
                 navigateToNewsItem(currentIndex - 1);
             }
         });
-        
+
         $('.next-arrow').on('click', function() {
             if (!$(this).hasClass('disabled')) {
+                // Now next goes to newer news (higher index)
                 navigateToNewsItem(currentIndex + 1);
             }
         });
@@ -545,14 +547,14 @@ $(document).ready(function() {
         }
         
         function updateNewsNavigation() {
-            // Handle prev button state
+            // Handle prev button state (prev now goes to older items - lower index)
             if (currentIndex === 0) {
                 $('.prev-arrow').addClass('disabled');
             } else {
                 $('.prev-arrow').removeClass('disabled');
             }
             
-            // Handle next button state
+            // Handle next button state (next now goes to newer items - higher index)
             if (currentIndex === totalPoints - 1) {
                 $('.next-arrow').addClass('disabled');
             } else {
@@ -563,12 +565,13 @@ $(document).ready(function() {
         // Initialize
         updateNewsNavigation();
         
-        // Optional: Add keyboard navigation
         $(document).on('keydown', function(e) {
             if ($('.subtle-timeline').is(':visible')) {
                 if (e.key === 'ArrowLeft' && currentIndex > 0) {
+                    // Left arrow goes to older news
                     navigateToNewsItem(currentIndex - 1);
                 } else if (e.key === 'ArrowRight' && currentIndex < totalPoints - 1) {
+                    // Right arrow goes to newer news
                     navigateToNewsItem(currentIndex + 1);
                 }
             }
