@@ -662,12 +662,18 @@ ul {
 .cv-map {
     margin-top: 30px; /* Adjusted from 100px to integrate better */
     min-height: 400px; /* Minimum height for responsiveness */
+    position: relative;
+    overflow: visible;
 }
 
 #map {
-    width: 100%;
+    position: relative;
+    left: -10%;
+    width: 120%;
     height: 100%;
     border-radius: 8px;
+    mask-image: linear-gradient(to right, black 80%, transparent 100%);
+    -webkit-mask-image: linear-gradient(to right, black 80%, transparent 100%);
 }
 
 .leaflet-control-zoom {
@@ -1183,6 +1189,18 @@ ul {
     .cv-map {
         min-height: 300px;
         margin-top: 30px;
+    }
+
+    /* Disable map overflow on small screens */
+    .cv-map {
+        overflow: hidden; /* Disable map overflow on small screens */
+    }
+
+    #map {
+        left: 0;               /* Reset map position */
+        width: 100%;           /* Full container width */
+        mask-image: none;      /* Remove fade mask */
+        -webkit-mask-image: none;
     }
 
     .skill-card {
