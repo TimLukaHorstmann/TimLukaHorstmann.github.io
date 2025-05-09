@@ -668,12 +668,18 @@ ul {
 
 #map {
     position: relative;
-    left: -10%;
+    left: -24px;
     width: 120%;
     height: 100%;
     border-radius: 8px;
-    mask-image: linear-gradient(to right, black 80%, transparent 100%);
-    -webkit-mask-image: linear-gradient(to right, black 80%, transparent 100%);
+    mask-image: 
+        linear-gradient(to right, black 80%, transparent 100%),
+        linear-gradient(to bottom, transparent 0%, black 15%, black 85%, transparent 100%);
+    -webkit-mask-image: 
+        linear-gradient(to right, black 80%, transparent 100%),
+        linear-gradient(to bottom, transparent 0%, black 15%, black 85%, transparent 100%);
+    mask-composite: intersect;
+    -webkit-mask-composite: source-in;
 }
 
 .leaflet-control-zoom {
@@ -1762,17 +1768,7 @@ body.modal-open .floating-chat-btn {
 }
 
 .timeline-point::after {
-    content: '';
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%) scale(0);
-    width: 4px;
-    height: 4px;
-    background-color: var(--primary-color);
-    border-radius: 50%;
-    opacity: 0;
-    transition: all 0.3s ease;
+display: none;
 }
 
 .timeline-point.active::after {
@@ -1936,8 +1932,8 @@ body.modal-open .floating-chat-btn {
 
 .nav-arrow {
     position: absolute;
-    top: 50%; /* Center vertically relative to the timeline */
-    transform: translateY(-50%);
+    top: 0%; /* Center vertically relative to the timeline */
+    transform: translateY(-0%);
     background: rgba(255, 255, 255, 0.8);
     border: 1px solid rgba(10, 147, 150, 0.2);
     border-radius: 50%;
@@ -1956,16 +1952,16 @@ body.modal-open .floating-chat-btn {
 }
 
 .prev-arrow {
-    left: 0;
+    left: 10%;
 }
 
 .next-arrow {
-    right: 0;
+    right: 10%;
 }
 
 .nav-arrow:hover:not(.disabled) {
     opacity: 1;
-    transform: translateY(-50%) scale(1.1);
+    transform: translateY(-0%) scale(1.1);
     background: white;
     box-shadow: 0 3px 8px rgba(0,0,0,0.15);
     border-color: var(--primary-color);
