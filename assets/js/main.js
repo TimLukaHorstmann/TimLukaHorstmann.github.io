@@ -52,7 +52,7 @@ async function initializeChatbot() {
         const modelInfoResponse = await fetch("https://Luka512-website.hf.space/model_info");
         if (modelInfoResponse.ok) {
             const modelInfo = await modelInfoResponse.json();
-            const modelName = "Deep Cogito Cogito v1-preview";
+            const modelName = "Qwen3";
             $('#chat-footer').html(`<small class="model-info">Powered by ${modelName}</small>`);
         }
 
@@ -67,7 +67,7 @@ async function initializeChatbot() {
             chatbotInitialized = true;
         }
 
-        $('#chat-status').text('Chatbot ready (first response may take a moment).');
+        $('#chat-status').text('Chatbot ready.');
         $('#chat-input').prop('disabled', false);
         $('#send-btn').prop('disabled', false);
         scrollChatToBottom();
