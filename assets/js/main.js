@@ -50,10 +50,18 @@ async function initializeChatbot() {
         }
 
         const modelInfoResponse = await fetch("https://Luka512-website.hf.space/model_info");
+        let modelInfo;
         if (modelInfoResponse.ok) {
-            const modelInfo = await modelInfoResponse.json();
-            const modelName = "Qwen3";
-            $('#chat-footer').html(`<small class="model-info">Powered by ${modelName}</small>`);
+            modelInfo = await modelInfoResponse.json();
+            let poweredByText = "";
+            if (modelInfo.model_type === "gemini") {
+                poweredByText = `Powered by ${modelInfo.model_name} (Google Gemini API)`;
+            } else if (modelInfo.model_type === "local") {
+                poweredByText = `Powered by ${modelInfo.model_name} (hosted locally)`;
+            } else {
+                poweredByText = `Powered by ${modelInfo.model_name}`;
+            }
+            $('#chat-footer').html(`<small class="model-info">${poweredByText}</small>`);
         }
 
         // Only add welcome message if not already initialized
