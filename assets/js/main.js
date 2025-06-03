@@ -132,38 +132,11 @@ function appendMessage(role, content, profilePic) {
     scrollChatToBottom();
 }
 
-function cleanText(text) {
-    // const preserveTerms = {
-    //     'MSc': true, 'BSc': true, 'PhD': true, 'MPhil': true,
-    //     'Institut Polytechnique': true, 'de Paris': true,
-    //     'RheinMain': true, 'McKinsey': true, 'GitHub': true,
-    //     'JavaScript': true, 'TypeScript': true, 'PyTorch': true,
-    //     'NumPy': true, 'TensorFlow': true, 'LinkedIn': true,
-    //     'GGUF': true, 'TOEFL': true, 'DELF': true, 'DFP': true,
-    //     'IoT': true, 'HTML/CSS': true, 'DevOps': true,
-    // };
-
-    // text = text.replace(/<\|[a-z_]+\|>|\[.*?\]/g, "");
-    // Object.keys(preserveTerms).forEach(term => {
-    //     const termPattern = term.split('').join('\\s*');
-    //     const termRegex = new RegExp(termPattern, 'gi');
-    //     text = text.replace(termRegex, term);
-    // });
-
-    // text = text.replace(/\s{2,}/g, ' ');
-    // text = text.replace(/([a-z])([A-Z][a-z]{2,})/g, '$1 $2');
-    // text = text.replace(/\s+([.,!?;:])/g, "$1");
-    // text = text.replace(/([.,!?;:])([a-zA-Z])/g, "$1 $2");
-    // text = text.replace(/\s+'/g, "'");
-    // text = text.replace(/\n+/g, "\n").trim();
-
-    return text;
-}
-
 async function streamChatResponse(query) {
     const hfSpaceUrl = "https://Luka512-website.hf.space";
     const apiUrl = `${hfSpaceUrl}/api/predict`;
 
+    // 1) Immediately append the user's question
     $('#chat-output').append(`
         <div class="chat-message user">
             <img src="assets/images/user_profile_pic.png" alt="You" class="profile-pic">
@@ -181,12 +154,12 @@ async function streamChatResponse(query) {
             headers: { "Content-Type": "application/json" },
             body: JSON.stringify({ query: query, history: conversationHistory })
         });
-
         if (!response.ok) throw new Error(`HTTP error! status: ${response.status}`);
 
         const reader = response.body.getReader();
         const decoder = new TextDecoder();
 
+        // 2) Create Luka's placeholder message
         const $lukaMessage = $(`
             <div class="chat-message luka">
                 <img src="assets/images/luka_cartoon.svg" alt="Luka" class="profile-pic">
@@ -201,6 +174,7 @@ async function streamChatResponse(query) {
         $('#chat-output').append($lukaMessage);
         scrollChatToBottom();
 
+        // 2a) Copy-button logic
         $lukaMessage.find('.copy-btn').on('click', function() {
             const textToCopy = $(this).closest('.message-content').find('.response-text').text();
             navigator.clipboard.writeText(textToCopy).then(() => {
@@ -216,44 +190,47 @@ async function streamChatResponse(query) {
         while (true) {
             const { done, value } = await reader.read();
             if (done) break;
+
             const chunk = decoder.decode(value, { stream: true });
-            const events = chunk.split("\n\n");
 
-            events.forEach(event => {
-                if (event.startsWith("data: ")) {
-                    const token = event.slice(6);
-                    if (token === "[DONE]") return;
+            // 3) Remove any "data:" prefixes
+            let cleanedChunk = chunk.replace(/data:\s?/g, '');
 
-                    finalText += token;
-                    
-                    console.log("Token:", token);
-                    console.log("Final text:", finalText);
+            // 4) Strip out "[DONE]" markers
+            if (cleanedChunk.includes('[DONE]')) {
+                cleanedChunk = cleanedChunk.replace(/\[DONE\]/g, '');
+            }
 
-                    const htmlText = marked.parse(finalText);
-                    const sanitizedHtml = DOMPurify.sanitize(htmlText, {
-                        ALLOWED_TAGS: ['p', 'br', 'strong', 'em', 'ul', 'ol', 'li', 'a', 'code', 'pre', 'blockquote', 'h1', 'h2', 'h3', 'h4'],
-                        ALLOWED_ATTR: { 'a': ['href', 'target', 'rel'] }
-                    });
-                    $lukaMessage.find('.response-text').html(sanitizedHtml);
-                    scrollChatToBottom();
-                }
+            // 5) Append verbatim
+            finalText += cleanedChunk;
+
+            // 6) Collapse newlines:
+            //    a) Replace any run of 3+ '\n' (true paragraph) with '<<PARA>>'
+            //    b) Replace all remaining '\n' with a space
+            //    c) Restore '<<PARA>>' back to '\n\n'
+            let step1 = finalText.replace(/\n{3,}/g, '<<PARA>>');
+            let step2 = step1.replace(/\n+/g, ' ');
+            let displayText = step2.replace(/<<PARA>>/g, '\n\n');
+
+            // 7) Parse & sanitize the markdown
+            const htmlText = marked.parse(displayText);
+            const sanitizedHtml = DOMPurify.sanitize(htmlText, {
+                ALLOWED_TAGS: [
+                    'p','br','strong','em','ul','ol','li','a',
+                    'code','pre','blockquote','h1','h2','h3','h4'
+                ],
+                ALLOWED_ATTR: { 'a': ['href','target','rel'] }
             });
+            $lukaMessage.find('.response-text').html(sanitizedHtml);
+            scrollChatToBottom();
         }
 
-        const cleanedFinalText = cleanText(finalText);
-        
-        // Finally parse into HTML
-        const htmlText = marked.parse(cleanedFinalText);
-        const sanitizedHtml = DOMPurify.sanitize(htmlText, {
-            ALLOWED_TAGS: ['p', 'br', 'strong', 'em', 'ul', 'ol', 'li', 'a', 'code', 'pre', 'blockquote', 'h1', 'h2', 'h3', 'h4'],
-            ALLOWED_ATTR: { 'a': ['href', 'target', 'rel'] }
-        });
-        $lukaMessage.find('.response-text').html(sanitizedHtml);
-
-        $lukaMessage.find('.timestamp').text(new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' }));
+        // 8) Once streaming is finished, set final timestamp and update history
+        $lukaMessage.find('.timestamp').text(
+            new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })
+        );
         conversationHistory.push({ role: "user", content: query });
-        conversationHistory.push({ role: "assistant", content: cleanText(finalText) });
-
+        conversationHistory.push({ role: "assistant", content: finalText });
         scrollChatToBottom();
     } catch (error) {
         console.error("Streaming error:", error);
