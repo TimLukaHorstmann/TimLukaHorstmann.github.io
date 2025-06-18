@@ -1545,23 +1545,37 @@ img {
 .publication-status-badge {
   position: absolute;
   top: 12px;
-  left: 12px; /* Changed from right to left to avoid overlap with ribbon */
-  background: var(--accent-color);
-  color: #fff;
-  padding: 4px 12px;
-  border-radius: 20px;
-  font-size: 0.7rem;
-  font-weight: 600;
-  letter-spacing: 0.5px;
-  z-index: 5; /* Ensure it's above other elements */
-  box-shadow: 0 2px 4px rgba(0,0,0,0.15);
+  left: 12px;
+  color: #333;
+  padding: 3px 10px;
+  border-radius: 16px;
+  font-size: 0.72rem;
+  font-weight: 500;
+  letter-spacing: 0.3px;
+  z-index: 5;
+  box-shadow: none;
+  border: 1px solid transparent;
+  opacity: 0.85;
+  background: none;
+  transition: background 0.2s, color 0.2s, border 0.2s;
 }
 
-/* "Upcoming" grayscale styling */
-.publication-card.upcoming {
-  filter: grayscale(70%);
-  pointer-events: none;
-  background: #f9f9f9;
+.publication-status-badge.accepted {
+  background: rgba(40, 167, 69, 0.10);   /* Soft green */
+  color: #267a3e;
+  border-color: #b8eac7;
+}
+
+.publication-status-badge.submitted {
+  background: rgba(0, 123, 255, 0.10);   /* Soft blue */
+  color: #205080;
+  border-color: #b3d8fa;
+}
+
+.publication-status-badge.wip {
+  background: rgba(255, 193, 7, 0.13);   /* Soft yellow */
+  color: #a88a1a;
+  border-color: #f7e7b3;
 }
 
 /* Ribbon styling - improved positioning and appearance */
@@ -2080,7 +2094,7 @@ display: none;
 /* Add specific adjustments for extra small screens */
 @media (max-width: 360px) {
     .timeline-points {
-        gap: 1px;
+        gap: 0;
     }
 
     .timeline-point {
