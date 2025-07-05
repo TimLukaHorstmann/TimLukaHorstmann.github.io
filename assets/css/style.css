@@ -2291,6 +2291,23 @@ display: none;
     background: linear-gradient(135deg, #4facfe, #00f2fe);
 }
 
+/* Civic/Leadership certifications */
+.certification-badge.civic {
+    background: linear-gradient(135deg, #667eea, #764ba2);
+}
+
+/* Tech certifications */
+.certification-badge.tech {
+    background: linear-gradient(135deg, #11998e, #38ef7d);
+}
+
+/* Seminar certifications - new class for visual distinction */
+.certification-badge.seminar {
+    background: linear-gradient(135deg, #ff9a9e, #fad0c4);
+    border: 2px solid #ff6f61;
+    color: #333;
+}
+
 @media (max-width: 768px) {
     .certifications-section {
         padding: 40px 15px 30px;
