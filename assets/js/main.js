@@ -8,6 +8,27 @@ let conversationHistory = [];
 let voiceEnabled = false;
 let currentAudio = null;
 
+// Notification function
+function showNotification(message, type = 'info', duration = 5000) {
+    const notificationId = 'notification-' + Date.now();
+    const notification = $(`
+        <div id="${notificationId}" class="notification ${type}">
+            <i class="fas ${type === 'error' ? 'fa-exclamation-triangle' : type === 'warning' ? 'fa-clock' : 'fa-info-circle'}"></i>
+            <span>${message}</span>
+            <button class="close-notification" onclick="$('#${notificationId}').remove()">
+                <i class="fas fa-times"></i>
+            </button>
+        </div>
+    `);
+    
+    $('body').append(notification);
+    
+    // Auto-remove after duration
+    setTimeout(() => {
+        $(`#${notificationId}`).fadeOut(300, function() { $(this).remove(); });
+    }, duration);
+}
+
 // Optimized scrollChatToBottom function
 function scrollChatToBottom() {
     const $chatOutput = $('.modal-body');
@@ -90,12 +111,17 @@ async function speakText(text) {
         });
         
         if (!response.ok) {
-            if (response.status === 503) {
+            if (response.status === 429) {
+                const errorData = await response.json().catch(() => ({}));
+                showNotification('Voice temporarily unavailable. Please wait a moment before using TTS again.', 'warning');
+                return;
+            } else if (response.status === 503) {
                 console.info('TTS service not configured on server');
+                return;
             } else {
                 console.warn(`TTS service error: ${response.status}`);
+                return;
             }
-            return;
         }
         
         const audioBlob = await response.blob();
@@ -263,7 +289,18 @@ async function streamChatResponse(query) {
             headers: { "Content-Type": "application/json" },
             body: JSON.stringify({ query: query, history: conversationHistory })
         });
-        if (!response.ok) throw new Error(`HTTP error! status: ${response.status}`);
+        
+        if (!response.ok) {
+            if (response.status === 429) {
+                // Rate limiting error
+                const errorData = await response.json().catch(() => ({}));
+                showNotification('Too many requests. Please wait a moment before sending another message.', 'warning');
+                $('.typing-indicator').hide();
+                return;
+            } else {
+                throw new Error(`HTTP error! status: ${response.status}`);
+            }
+        }
 
         const reader = response.body.getReader();
         const decoder = new TextDecoder();
