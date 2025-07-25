@@ -4,6 +4,10 @@ function isMobileDevice() {
 
 let conversationHistory = [];
 
+// Voice settings
+let voiceEnabled = false;
+let currentAudio = null;
+
 // Optimized scrollChatToBottom function
 function scrollChatToBottom() {
     const $chatOutput = $('.modal-body');
@@ -31,6 +35,106 @@ function scrollChatToBottom() {
 }
 
 let chatbotInitialized = false;
+
+// TTS Functions
+function toggleVoice() {
+    voiceEnabled = !voiceEnabled;
+    const $voiceBtn = $('#voice-toggle-btn');
+    const $voiceStatus = $('.voice-status');
+    const $voiceIcon = $('#voice-toggle-btn i');
+    
+    if (voiceEnabled) {
+        $voiceBtn.addClass('active');
+        $voiceStatus.text('Voice On');
+        $voiceIcon.removeClass('fa-volume-up').addClass('fa-volume-down');
+        
+        // Test TTS with a welcome message
+        speakText("Hey there! You've enabled my voice. Now you can hear my responses in addition to reading them.");
+    } else {
+        $voiceBtn.removeClass('active');
+        $voiceStatus.text('Voice Off');
+        $voiceIcon.removeClass('fa-volume-down').addClass('fa-volume-up');
+        
+        // Stop any current audio
+        if (currentAudio) {
+            currentAudio.pause();
+            currentAudio = null;
+            $('#voice-toggle-btn').removeClass('playing');
+        }
+    }
+    
+    // Save preference to localStorage
+    localStorage.setItem('voiceEnabled', voiceEnabled);
+}
+
+async function speakText(text) {
+    if (!voiceEnabled || !text.trim()) return;
+    
+    try {
+        // Stop any currently playing audio
+        if (currentAudio) {
+            currentAudio.pause();
+            currentAudio = null;
+            $('#voice-toggle-btn').removeClass('playing');
+        }
+        
+        const hfSpaceUrl = "https://Luka512-website.hf.space";
+        const ttsUrl = `${hfSpaceUrl}/api/tts`;
+        
+        const response = await fetch(ttsUrl, {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({ text: text })
+        });
+        
+        if (!response.ok) {
+            if (response.status === 503) {
+                console.info('TTS service not configured on server');
+            } else {
+                console.warn(`TTS service error: ${response.status}`);
+            }
+            return;
+        }
+        
+        const audioBlob = await response.blob();
+        if (audioBlob.size === 0) {
+            console.warn('Empty audio response from TTS service');
+            return;
+        }
+        
+        const audioUrl = URL.createObjectURL(audioBlob);
+        
+        currentAudio = new Audio(audioUrl);
+        currentAudio.onended = () => {
+            URL.revokeObjectURL(audioUrl);
+            currentAudio = null;
+            $('#voice-toggle-btn').removeClass('playing');
+        };
+        currentAudio.onerror = () => {
+            console.warn('Audio playback error');
+            URL.revokeObjectURL(audioUrl);
+            currentAudio = null;
+            $('#voice-toggle-btn').removeClass('playing');
+        };
+        
+        // Play with error handling
+        try {
+            $('#voice-toggle-btn').addClass('playing');
+            await currentAudio.play();
+        } catch (playError) {
+            console.warn('Audio play failed - user interaction may be required');
+            URL.revokeObjectURL(audioUrl);
+            currentAudio = null;
+            $('#voice-toggle-btn').removeClass('playing');
+        }
+        
+    } catch (error) {
+        console.warn('TTS error:', error.message);
+        // Silently fail - don't show error to user for TTS issues
+    }
+}
 
 // Initialize chatbot
 async function initializeChatbot() {
@@ -126,6 +230,11 @@ function appendMessage(role, content, profilePic) {
                 }, 2000);
             });
         });
+        
+        // Trigger TTS for Luka's messages
+        if (voiceEnabled && content.trim()) {
+            speakText(content);
+        }
     }
 
     $('#chat-output').append($message);
@@ -231,6 +340,12 @@ async function streamChatResponse(query) {
         );
         conversationHistory.push({ role: "user", content: query });
         conversationHistory.push({ role: "assistant", content: finalText });
+        
+        // Speak the response if voice is enabled
+        if (voiceEnabled && finalText.trim()) {
+            speakText(finalText);
+        }
+        
         scrollChatToBottom();
     } catch (error) {
         console.error("Streaming error:", error);
@@ -399,6 +514,20 @@ $(document).ready(function() {
 
     // Initialize on page load
     initializeChatbot();
+    
+    // Initialize voice settings from localStorage
+    const savedVoiceEnabled = localStorage.getItem('voiceEnabled') === 'true';
+    if (savedVoiceEnabled) {
+        voiceEnabled = true;
+        $('#voice-toggle-btn').addClass('active');
+        $('.voice-status').text('Voice On');
+        $('#voice-toggle-btn i').removeClass('fa-volume-up').addClass('fa-volume-down');
+    }
+    
+    // Voice toggle event handler
+    $('#voice-toggle-btn').click(function() {
+        toggleVoice();
+    });
 
     $('#chat-btn').click(async function() {
         $('body').addClass('modal-open');

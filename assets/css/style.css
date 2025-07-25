@@ -311,6 +311,66 @@ ul {
     align-items: center;
 }
 
+.header-controls {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.voice-toggle-btn {
+    background: rgba(255, 255, 255, 0.2);
+    border: 1px solid rgba(255, 255, 255, 0.3);
+    color: white;
+    padding: 8px 12px;
+    border-radius: 20px;
+    font-size: 0.85rem;
+    transition: all 0.3s ease;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    white-space: nowrap;
+}
+
+.voice-toggle-btn:hover {
+    background: rgba(255, 255, 255, 0.3);
+    border-color: rgba(255, 255, 255, 0.5);
+    transform: translateY(-1px);
+}
+
+.voice-toggle-btn.active {
+    background: rgba(148, 210, 189, 0.3);
+    border-color: rgba(148, 210, 189, 0.5);
+    color: #94d2bd;
+}
+
+.voice-toggle-btn.active:hover {
+    background: rgba(148, 210, 189, 0.4);
+}
+
+.voice-toggle-btn .voice-status {
+    font-size: 0.8rem;
+    font-weight: 500;
+}
+
+.voice-toggle-btn i {
+    font-size: 0.9rem;
+}
+
+.voice-toggle-btn.playing {
+    animation: pulse-voice 1.5s ease-in-out infinite;
+}
+
+@keyframes pulse-voice {
+    0%, 100% {
+        transform: scale(1);
+        opacity: 1;
+    }
+    50% {
+        transform: scale(1.05);
+        opacity: 0.8;
+    }
+}
+
 .clear-btn {
     background: #d3d3d3; /* Light gray, subtle */
     color: #666; /* Darker gray for icon */
@@ -2325,5 +2385,18 @@ display: none;
     
     .certifications-grid {
         gap: 10px;
+    }
+}
+
+/* Voice toggle mobile adjustments */
+@media (max-width: 767px) {
+    .voice-toggle-btn .voice-status {
+        display: none; /* Hide text on mobile, show only icon */
+    }
+    
+    .voice-toggle-btn {
+        padding: 8px;
+        border-radius: 50%;
+        min-width: auto;
     }
 }
