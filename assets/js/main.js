@@ -762,15 +762,21 @@ $(document).ready(function() {
                 const maxDistance = Math.max(activeIndex, totalPoints - activeIndex - 1);
                 const rotationX = distanceFromActive > 0 ? (distanceFromActive / maxDistance) * 15 : 0; // Max 15 degrees rotation
                 
+                // Calculate opacity based on relative position in timeline
+                // Use an exponential decay for more natural fading
+                const normalizedDistance = distanceFromActive / maxDistance;
+                // Ensure minimum opacity of 0.2 for visibility, and use exponential curve
+                const opacity = Math.max(0.2, 1 - Math.pow(normalizedDistance, 1.5) * 0.8);
+                
                 // Apply more rotation to points further from the active one
                 if (idx < activeIndex) {
                     // Points to the left (past) rotate down
                     point.css('transform', `rotateX(${rotationX}deg) scale(${idx === activeIndex ? 1.2 : 1})`);
-                    point.css('opacity', 1 - (distanceFromActive * 0.15)); // Fade out distant points
+                    point.css('opacity', opacity);
                 } else if (idx > activeIndex) {
                     // Points to the right (future) rotate up
                     point.css('transform', `rotateX(-${rotationX}deg) scale(${idx === activeIndex ? 1.2 : 1})`);
-                    point.css('opacity', 1 - (distanceFromActive * 0.15)); // Fade out distant points
+                    point.css('opacity', opacity);
                 } else {
                     // Active point is flat and fully opaque
                     point.css('transform', 'rotateX(0deg) scale(1.2)');
