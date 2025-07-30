@@ -122,47 +122,6 @@
                     <div class="demo-pair">
                         <div class="demo-header">
                             <h3>Demo 1</h3>
-                            <div class="text-sample">"Réponse, on s'en doute, rien ni personne."</div>
-                        </div>
-                        
-                        <!-- SSML Comparison -->
-                        <div class="ssml-comparison">
-                            <div class="ssml-item baseline-ssml">
-                                <h4><i class="fas fa-code"></i> Baseline SSML</h4>
-                                <pre class="ssml-code">Réponse, on s'en doute, rien ni personne.</pre>
-                                <p class="ssml-description">Raw text without prosodic enhancement</p>
-                            </div>
-                            <div class="ssml-item enhanced-ssml">
-                                <h4><i class="fas fa-magic"></i> Enhanced SSML</h4>
-                                <pre class="ssml-code">&lt;speak xmlns="http://www.w3.org/2001/10/synthesis" xmlns:mstts="http://www.w3.org/2001/mstts" version="1.0" xml:lang="fr-FR"&gt;&lt;voice name="fr-FR-HenriNeural"&gt;&lt;mstts:silence type="Leading-exact" value="0"/&gt;&lt;prosody pitch="+0.04%" rate="-2.70%" volume="+10.00%"&gt;&lt;break time="320ms"/&gt;&lt;/prosody&gt;&lt;prosody pitch="-0.24%" rate="-2.16%" volume="+10.00%"&gt;Réponse,&lt;/prosody&gt;&lt;prosody pitch="+1.34%" rate="-1.73%" volume="+10.00%"&gt;&lt;break time="320ms"/&gt;&lt;/prosody&gt;&lt;prosody pitch="+2.63%" rate="-1.38%" volume="+10.00%"&gt;on s'en doute,&lt;/prosody&gt;&lt;prosody pitch="+2.11%" rate="-1.11%" volume="+10.00%"&gt;&lt;break time="460ms"/&gt;&lt;/prosody&gt;&lt;prosody pitch="+2.36%" rate="-2.88%" volume="+10.00%"&gt;rien ni personne.&lt;/prosody&gt;&lt;prosody pitch="+1.89%" rate="-2.31%" volume="+10.00%"&gt;&lt;break time="500ms"/&gt;&lt;/prosody&gt;&lt;mstts:silence type="Tailing-exact" value="0"/&gt;&lt;/voice&gt;&lt;/speak&gt;</pre>
-                                <p class="ssml-description">AI-generated SSML with optimized prosodic parameters</p>
-                            </div>
-                        </div>
-
-                        <div class="audio-comparison">
-                            <div class="audio-item baseline">
-                                <h4><i class="fas fa-volume-down"></i> Baseline (Azure TTS)</h4>
-                                <audio controls>
-                                    <source src="audio/Az_1_5_baseline.wav" type="audio/wav">
-                                    Your browser does not support the audio element.
-                                </audio>
-                                <p class="audio-description">Standard TTS without prosodic enhancement</p>
-                            </div>
-                            <div class="audio-item enhanced">
-                                <h4><i class="fas fa-volume-up"></i> Our Method</h4>
-                                <audio controls>
-                                    <source src="audio/Az_1_5_enhanced.wav" type="audio/wav">
-                                    Your browser does not support the audio element.
-                                </audio>
-                                <p class="audio-description">Enhanced with optimized SSML prosody control</p>
-                            </div>
-                        </div>
-                    </div>
-
-                    <!-- Demo Pair 2 -->
-                    <div class="demo-pair">
-                        <div class="demo-header">
-                            <h3>Demo 2</h3>
                             <div class="text-sample">"Parmi les habitués du restaurant et donc des soirées à la maison, on comptait énormément de comédiens et de musiciens. La famille allait le plus souvent possible au cinéma et ils se rendaient dès qu'ils le pouvaient au théâtre."</div>
                         </div>
                         
@@ -199,22 +158,63 @@
                         </div>
                     </div>
 
+                    <!-- Demo Pair 2 -->
+                    <div class="demo-pair">
+                        <div class="demo-header">
+                            <h3>Demo 2</h3>
+                            <div class="text-sample">"Alors évidemment tout cela est beau, cette nécessité de maîtriser les codes de la parole en public,  de surmonter son trac parce que c'est une compétence sociale, tout cela reste maintenant à savoir comment faire  et c'est ce que nous allons voir dans l'épisode suivant."</div>
+                        </div>
+                        
+                        <!-- SSML Comparison -->
+                        <div class="ssml-comparison">
+                            <div class="ssml-item baseline-ssml">
+                                <h4><i class="fas fa-code"></i> Baseline SSML</h4>
+                                <pre class="ssml-code">Alors évidemment tout cela est beau, cette nécessité de maîtriser les codes de la parole en public, de surmonter son trac parce que c'est une compétence sociale, tout cela reste maintenant à savoir comment faire  et c'est ce que nous allons voir dans l'épisode suivant.</pre>
+                                <p class="ssml-description">Raw text without prosodic enhancement</p>
+                            </div>
+                            <div class="ssml-item enhanced-ssml">
+                                <h4><i class="fas fa-magic"></i> Enhanced SSML</h4>
+                                <pre class="ssml-code">&lt;speak xmlns=&quot;http://www.w3.org/2001/10/synthesis&quot; xmlns:mstts=&quot;http://www.w3.org/2001/mstts&quot; version=&quot;1.0&quot; xml:lang=&quot;fr-FR&quot;&gt;&lt;voice name=&quot;fr-FR-HenriNeural&quot;&gt;&lt;mstts:silence type=&quot;Leading-exact&quot; value=&quot;0&quot;/&gt;&lt;prosody pitch=&quot;-0.77%&quot; rate=&quot;-1.78%&quot; volume=&quot;-10.00%&quot;&gt;&lt;break time=&quot;360ms&quot;/&gt;&lt;/prosody&gt;&lt;prosody pitch=&quot;+0.94%&quot; rate=&quot;-1.60%&quot; volume=&quot;-10.00%&quot;&gt;Alors évidemment tout cela est beau,&lt;/prosody&gt;&lt;prosody pitch=&quot;+0.75%&quot; rate=&quot;-1.28%&quot; volume=&quot;-10.00%&quot;&gt;&lt;break time=&quot;100ms&quot;/&gt;&lt;/prosody&gt;&lt;prosody pitch=&quot;+1.65%&quot; rate=&quot;-2.00%&quot; volume=&quot;-10.00%&quot;&gt;cette nécessité de maîtriser les codes de la parole en public,&lt;/prosody&gt;&lt;prosody pitch=&quot;+0.30%&quot; rate=&quot;-1.60%&quot; volume=&quot;-10.00%&quot;&gt;&lt;break time=&quot;80ms&quot;/&gt;&lt;/prosody&gt;&lt;prosody pitch=&quot;-0.78%&quot; rate=&quot;-1.94%&quot; volume=&quot;-10.00%&quot;&gt;de surmonter son trac parce que c'est une compétence sociale,&lt;/prosody&gt;&lt;prosody pitch=&quot;-0.63%&quot; rate=&quot;-1.56%&quot; volume=&quot;-10.00%&quot;&gt;&lt;break time=&quot;340ms&quot;/&gt;&lt;/prosody&gt;&lt;prosody pitch=&quot;-1.53%&quot; rate=&quot;-1.80%&quot; volume=&quot;-10.00%&quot;&gt;tout cela reste maintenant à savoir comment faire&lt;/prosody&gt;&lt;prosody pitch=&quot;-1.22%&quot; rate=&quot;-1.44%&quot; volume=&quot;-10.00%&quot;&gt;&lt;break time=&quot;340ms&quot;/&gt;&lt;/prosody&gt;&lt;prosody pitch=&quot;+0.58%&quot; rate=&quot;-1.41%&quot; volume=&quot;-10.00%&quot;&gt;et c'est ce que nous allons voir dans l'épisode suivant.&lt;/prosody&gt;&lt;prosody pitch=&quot;+0.47%&quot; rate=&quot;-1.13%&quot; volume=&quot;-10.00%&quot;&gt;&lt;break time=&quot;500ms&quot;/&gt;&lt;/prosody&gt;&lt;mstts:silence type=&quot;Tailing-exact&quot; value=&quot;0&quot;/&gt;&lt;/voice&gt;&lt;/speak&gt;</pre>
+                                <p class="ssml-description">AI-generated SSML with optimized prosodic parameters</p>
+                            </div>
+                        </div>
+
+                        <div class="audio-comparison">
+                            <div class="audio-item baseline">
+                                <h4><i class="fas fa-volume-down"></i> Baseline (Azure TTS)</h4>
+                                <audio controls>
+                                    <source src="audio/Be_1_16_baseline.wav" type="audio/wav">
+                                    Your browser does not support the audio element.
+                                </audio>
+                                <p class="audio-description">Standard TTS without prosodic enhancement</p>
+                            </div>
+                            <div class="audio-item enhanced">
+                                <h4><i class="fas fa-volume-up"></i> Our Method</h4>
+                                <audio controls>
+                                    <source src="audio/Be_1_16_enhanced.wav" type="audio/wav">
+                                    Your browser does not support the audio element.
+                                </audio>
+                                <p class="audio-description">Enhanced with optimized SSML prosody control</p>
+                            </div>
+                        </div>
+                    </div>
+
                     <!-- Demo Pair 3 -->
                     <div class="demo-pair">
                         <div class="demo-header">
                             <h3>Demo 3</h3>
-                            <div class="text-sample">"Soyez prudent lorsque vous traversez la rue. La sécurité est très importante."</div>
+                            <div class="text-sample">"Ils frapperont à Coféville, une petite ville dont il n'y a pas grand-chose à dire, si ce n'est qu'elle est balayée par la poussière, et qu'il y a quand même deux banques, la Fédérale Nationale Banque et la Condon Bank."</div>
                         </div>
                         
                         <div class="ssml-comparison">
                             <div class="ssml-item baseline-ssml">
                                 <h4><i class="fas fa-code"></i> Baseline SSML</h4>
-                                <pre class="ssml-code">Soyez prudent lorsque vous traversez la rue. La sécurité est très importante.</pre>
+                                <pre class="ssml-code">Ils frapperont à Coféville, une petite ville dont il n'y a pas grand-chose à dire, si ce n'est qu'elle est balayée par la poussière, et qu'il y a quand même deux banques, la Fédérale Nationale Banque et la Condon Bank.</pre>
                                 <p class="ssml-description">Raw text without prosodic enhancement</p>
                             </div>
                             <div class="ssml-item enhanced-ssml">
                                 <h4><i class="fas fa-magic"></i> Enhanced SSML</h4>
-                                <pre class="ssml-code">&lt;prosody rate="-5%" pitch="-3%" volume="+5%"&gt;Soyez prudent lorsque vous traversez la rue.&lt;/prosody&gt; &lt;break time="350ms"/&gt; &lt;prosody rate="-8%" pitch="+5%" volume="+12%"&gt;La sécurité est très importante.&lt;/prosody&gt;</pre>
+                                <pre class="ssml-code">&lt;speak xmlns=&quot;http://www.w3.org/2001/10/synthesis&quot; xmlns:mstts=&quot;http://www.w3.org/2001/mstts&quot; version=&quot;1.0&quot; xml:lang=&quot;fr-FR&quot;&gt;&lt;voice name=&quot;fr-FR-HenriNeural&quot;&gt;&lt;mstts:silence type=&quot;Leading-exact&quot; value=&quot;0&quot;/&gt;&lt;prosody pitch=&quot;+1.02%&quot; rate=&quot;-1.15%&quot; volume=&quot;-10.00%&quot;&gt;&lt;break time=&quot;220ms&quot;/&gt;&lt;/prosody&gt;&lt;prosody pitch=&quot;-0.21%&quot; rate=&quot;-1.21%&quot; volume=&quot;-10.00%&quot;&gt;Ils frapperont à Coféville,&lt;/prosody&gt;&lt;prosody pitch=&quot;-0.17%&quot; rate=&quot;-0.97%&quot; volume=&quot;-10.00%&quot;&gt;&lt;break time=&quot;400ms&quot;/&gt;&lt;/prosody&gt;&lt;prosody pitch=&quot;-1.16%&quot; rate=&quot;-1.17%&quot; volume=&quot;-10.00%&quot;&gt;une petite ville dont il n'y a pas grand-chose à dire,&lt;/prosody&gt;&lt;prosody pitch=&quot;-0.93%&quot; rate=&quot;-0.94%&quot; volume=&quot;-10.00%&quot;&gt;&lt;/prosody&gt;&lt;prosody pitch=&quot;-1.24%&quot; rate=&quot;-1.18%&quot; volume=&quot;-10.00%&quot;&gt;si ce n'est qu'elle est balayée par la poussière,&lt;/prosody&gt;&lt;prosody pitch=&quot;-2.01%&quot; rate=&quot;-0.95%&quot; volume=&quot;-10.00%&quot;&gt;&lt;break time=&quot;560ms&quot;/&gt;&lt;/prosody&gt;&lt;prosody pitch=&quot;-2.44%&quot; rate=&quot;-0.85%&quot; volume=&quot;-10.00%&quot;&gt;et qu'il y a quand même deux banques,&lt;/prosody&gt;&lt;prosody pitch=&quot;-1.95%&quot; rate=&quot;-0.68%&quot; volume=&quot;-10.00%&quot;&gt;&lt;break time=&quot;180ms&quot;/&gt;&lt;/prosody&gt;&lt;prosody pitch=&quot;-0.35%&quot; rate=&quot;-2.55%&quot; volume=&quot;-10.00%&quot;&gt;la Fédérale Nationale Banque et la Condon Bank.&lt;/prosody&gt;&lt;prosody pitch=&quot;+1.28%&quot; rate=&quot;-2.04%&quot; volume=&quot;-10.00%&quot;&gt;&lt;break time=&quot;500ms&quot;/&gt;&lt;/prosody&gt;&lt;mstts:silence type=&quot;Tailing-exact&quot; value=&quot;0&quot;/&gt;&lt;/voice&gt;&lt;/speak&gt;</pre>
                                 <p class="ssml-description">AI-generated SSML with optimized prosodic parameters</p>
                             </div>
                         </div>
@@ -223,8 +223,7 @@
                             <div class="audio-item baseline">
                                 <h4><i class="fas fa-volume-down"></i> Baseline (Azure TTS)</h4>
                                 <audio controls>
-                                    <source src="demo3_baseline.wav" type="audio/wav">
-                                    <source src="demo3_baseline.mp3" type="audio/mp3">
+                                    <source src="audio/MyDal_12_baseline.wav" type="audio/wav">
                                     Your browser does not support the audio element.
                                 </audio>
                                 <p class="audio-description">Standard TTS without prosodic enhancement</p>
@@ -232,92 +231,7 @@
                             <div class="audio-item enhanced">
                                 <h4><i class="fas fa-volume-up"></i> Our Method</h4>
                                 <audio controls>
-                                    <source src="demo3_enhanced.wav" type="audio/wav">
-                                    <source src="demo3_enhanced.mp3" type="audio/mp3">
-                                    Your browser does not support the audio element.
-                                </audio>
-                                <p class="audio-description">Enhanced with optimized SSML prosody control</p>
-                            </div>
-                        </div>
-                    </div>
-
-                    <!-- Demo Pair 4 -->
-                    <div class="demo-pair">
-                        <div class="demo-header">
-                            <h3>Demo 4</h3>
-                            <div class="text-sample">"Quelle découverte extraordinaire! Cela va changer tout ce que nous savons sur le domaine."</div>
-                        </div>
-                        
-                        <div class="ssml-comparison">
-                            <div class="ssml-item baseline-ssml">
-                                <h4><i class="fas fa-code"></i> Baseline SSML</h4>
-                                <pre class="ssml-code">Quelle découverte extraordinaire! Cela va changer tout ce que nous savons sur le domaine.</pre>
-                                <p class="ssml-description">Raw text without prosodic enhancement</p>
-                            </div>
-                            <div class="ssml-item enhanced-ssml">
-                                <h4><i class="fas fa-magic"></i> Enhanced SSML</h4>
-                                <pre class="ssml-code">&lt;prosody rate="+12%" pitch="+18%" volume="+25%"&gt;Quelle découverte extraordinaire!&lt;/prosody&gt; &lt;break time="500ms"/&gt; &lt;prosody rate="+5%" pitch="+8%" volume="+15%"&gt;Cela va changer tout ce que nous savons sur le domaine.&lt;/prosody&gt;</pre>
-                                <p class="ssml-description">AI-generated SSML with optimized prosodic parameters</p>
-                            </div>
-                        </div>
-
-                        <div class="audio-comparison">
-                            <div class="audio-item baseline">
-                                <h4><i class="fas fa-volume-down"></i> Baseline (Azure TTS)</h4>
-                                <audio controls>
-                                    <source src="demo4_baseline.wav" type="audio/wav">
-                                    <source src="demo4_baseline.mp3" type="audio/mp3">
-                                    Your browser does not support the audio element.
-                                </audio>
-                                <p class="audio-description">Standard TTS without prosodic enhancement</p>
-                            </div>
-                            <div class="audio-item enhanced">
-                                <h4><i class="fas fa-volume-up"></i> Our Method</h4>
-                                <audio controls>
-                                    <source src="demo4_enhanced.wav" type="audio/wav">
-                                    <source src="demo4_enhanced.mp3" type="audio/mp3">
-                                    Your browser does not support the audio element.
-                                </audio>
-                                <p class="audio-description">Enhanced with optimized SSML prosody control</p>
-                            </div>
-                        </div>
-                    </div>
-
-                    <!-- Demo Pair 5 -->
-                    <div class="demo-pair">
-                        <div class="demo-header">
-                            <h3>Demo 5</h3>
-                            <div class="text-sample">"La présentation de la conférence s'est extrêmement bien passée. Je suis si fier du travail acharné de notre équipe."</div>
-                        </div>
-                        
-                        <div class="ssml-comparison">
-                            <div class="ssml-item baseline-ssml">
-                                <h4><i class="fas fa-code"></i> Baseline SSML</h4>
-                                <pre class="ssml-code">La présentation de la conférence s'est extrêmement bien passée. Je suis si fier du travail acharné de notre équipe.</pre>
-                                <p class="ssml-description">Raw text without prosodic enhancement</p>
-                            </div>
-                            <div class="ssml-item enhanced-ssml">
-                                <h4><i class="fas fa-magic"></i> Enhanced SSML</h4>
-                                <pre class="ssml-code">&lt;prosody rate="+3%" pitch="+5%" volume="+8%"&gt;La présentation de la conférence s'est extrêmement bien passée.&lt;/prosody&gt; &lt;break time="300ms"/&gt; &lt;prosody rate="-2%" pitch="+10%" volume="+18%"&gt;Je suis si fier du travail acharné de notre équipe.&lt;/prosody&gt;</pre>
-                                <p class="ssml-description">AI-generated SSML with optimized prosodic parameters</p>
-                            </div>
-                        </div>
-
-                        <div class="audio-comparison">
-                            <div class="audio-item baseline">
-                                <h4><i class="fas fa-volume-down"></i> Baseline (Azure TTS)</h4>
-                                <audio controls>
-                                    <source src="demo5_baseline.wav" type="audio/wav">
-                                    <source src="demo5_baseline.mp3" type="audio/mp3">
-                                    Your browser does not support the audio element.
-                                </audio>
-                                <p class="audio-description">Standard TTS without prosodic enhancement</p>
-                            </div>
-                            <div class="audio-item enhanced">
-                                <h4><i class="fas fa-volume-up"></i> Our Method</h4>
-                                <audio controls>
-                                    <source src="demo5_enhanced.wav" type="audio/wav">
-                                    <source src="demo5_enhanced.mp3" type="audio/mp3">
+                                    <source src="audio/MyDal_12_enhanced.wav" type="audio/wav">
                                     Your browser does not support the audio element.
                                 </audio>
                                 <p class="audio-description">Enhanced with optimized SSML prosody control</p>
