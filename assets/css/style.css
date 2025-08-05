@@ -2480,13 +2480,16 @@ display: none;
 /* Voice toggle mobile adjustments */
 @media (max-width: 767px) {
     .voice-toggle-btn .voice-status {
-        display: none; /* Hide text on mobile, show only icon */
+        display: inline; /* Show voice status on mobile */
+        font-size: 0.75rem; /* Smaller text for mobile */
+        margin-left: 5px;
     }
     
     .voice-toggle-btn {
-        padding: 8px;
-        border-radius: 50%;
+        padding: 8px 12px; /* Adjusted padding to accommodate text */
+        border-radius: 20px; /* Rounded but not full circle to fit text */
         min-width: auto;
+        white-space: nowrap; /* Prevent text wrapping */
     }
 }
 
