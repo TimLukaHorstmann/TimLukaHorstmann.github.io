@@ -581,8 +581,21 @@ $(document).ready(function() {
         $('#voice-toggle-btn i').removeClass('fa-volume-up').addClass('fa-volume-down');
     }
     
-    // Voice toggle event handler
-    $('#voice-toggle-btn').click(function() {
+    // Voice toggle event handler with improved mobile support
+    $('#voice-toggle-btn').off('click touchend').on('click', function(e) {
+        e.preventDefault();
+        e.stopPropagation();
+        
+        // Debounce rapid clicks/touches
+        if ($(this).data('clicking')) {
+            return;
+        }
+        $(this).data('clicking', true);
+        
+        setTimeout(() => {
+            $(this).removeData('clicking');
+        }, 500); // Increased debounce time
+        
         toggleVoice();
     });
 
@@ -855,5 +868,15 @@ $(document).ready(function() {
         
         // Listen for any user interaction to initialize audio context
         $(document).one('touchstart click', initAudioContext);
+        
+        // Also initialize on voice button specifically
+        $('#voice-toggle-btn').one('touchstart click', initAudioContext);
+        
+        // Add touch handling to ensure button responsiveness
+        $('#voice-toggle-btn').on('touchstart', function(e) {
+            $(this).addClass('touch-active');
+        }).on('touchend', function(e) {
+            $(this).removeClass('touch-active');
+        });
     }
 });

@@ -347,6 +347,12 @@ ul {
     background: rgba(148, 210, 189, 0.4);
 }
 
+.voice-toggle-btn.touch-active {
+    background: rgba(148, 210, 189, 0.4);
+    transform: scale(0.95);
+    transition: all 0.1s ease;
+}
+
 .voice-toggle-btn .voice-status {
     font-size: 0.8rem;
     font-weight: 500;
