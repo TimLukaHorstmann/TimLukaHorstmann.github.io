@@ -69,20 +69,14 @@ function toggleVoice() {
         $voiceStatus.text('Voice On');
         $voiceIcon.removeClass('fa-volume-up').addClass('fa-volume-down');
         
-        // Test TTS with a welcome message - improved for mobile
+        // Test TTS with a welcome message
         const welcomeMessage = "Hey there! You've enabled my voice. Now you can hear my responses in addition to reading them.";
         
-        // On mobile, add a slight delay but be less aggressive with notifications
-        if (isMobileDevice()) {
-            setTimeout(() => {
-                speakText(welcomeMessage);
-            }, 200); // Slightly longer delay for iOS
-            
-            // Less intrusive notification for mobile
-            console.log('Voice enabled for mobile device');
-        } else {
+        // Simple approach for all devices
+        setTimeout(() => {
             speakText(welcomeMessage);
-        }
+        }, 100);
+        
     } else {
         $voiceBtn.removeClass('active');
         $voiceStatus.text('Voice Off');
@@ -146,17 +140,9 @@ async function speakText(text) {
         
         currentAudio = new Audio(audioUrl);
         
-        // iOS-specific audio setup
-        if (isMobileDevice()) {
-            // Set audio properties for better iOS compatibility
-            currentAudio.preload = 'auto';
-            currentAudio.muted = false;
-            currentAudio.volume = 1.0;
-            
-            // iOS-specific attributes
-            currentAudio.setAttribute('playsinline', 'true');
-            currentAudio.setAttribute('webkit-playsinline', 'true');
-        }
+        // Basic audio setup for all devices
+        currentAudio.preload = 'auto';
+        currentAudio.volume = 1.0;
         
         // Set up event handlers
         currentAudio.onended = () => {
@@ -170,57 +156,27 @@ async function speakText(text) {
             URL.revokeObjectURL(audioUrl);
             currentAudio = null;
             $('#voice-toggle-btn').removeClass('playing');
+        };
+        
+        // Simplified audio playback
+        try {
+            $('#voice-toggle-btn').addClass('playing');
+            await currentAudio.play();
+        } catch (playError) {
+            console.warn('Audio play failed:', playError.message);
+            URL.revokeObjectURL(audioUrl);
+            currentAudio = null;
+            $('#voice-toggle-btn').removeClass('playing');
             
-            // Only show error on mobile after multiple failures
+            // Only log for debugging, don't show user notifications
             if (isMobileDevice()) {
-                console.log('Mobile audio failed, but silently continuing...');
+                console.log('Mobile audio playback failed - this is common on mobile devices');
             }
-        };
-        
-        // Simplified and more robust mobile audio handling
-        const playAudio = async () => {
-            try {
-                $('#voice-toggle-btn').addClass('playing');
-                
-                // For mobile devices, try a simpler approach
-                if (isMobileDevice()) {
-                    // Try to play immediately without waiting
-                    const playPromise = currentAudio.play();
-                    
-                    if (playPromise !== undefined) {
-                        await playPromise;
-                    }
-                } else {
-                    // Desktop: use the existing approach
-                    await currentAudio.play();
-                }
-            } catch (playError) {
-                console.warn('Audio play failed:', playError.message);
-                URL.revokeObjectURL(audioUrl);
-                currentAudio = null;
-                $('#voice-toggle-btn').removeClass('playing');
-                
-                // For mobile, try one more time with user interaction
-                if (isMobileDevice() && playError.name === 'NotAllowedError') {
-                    // Silent retry - don't show notification immediately
-                    console.log('Mobile audio blocked, will retry on next user interaction');
-                } else {
-                    console.warn('Audio play failed - user interaction may be required');
-                }
-            }
-        };
-        
-        // Start playback
-        await playAudio();
+        }
         
     } catch (error) {
         console.warn('TTS error:', error.message);
-        
-        // Be less aggressive with mobile error notifications
-        // Only show critical network errors, not audio playback issues
-        if (error.name === 'TypeError' && error.message.includes('fetch')) {
-            console.warn('Network error for TTS service');
-        }
+        // Don't show error notifications for TTS issues
     }
 }
 
@@ -440,16 +396,11 @@ async function streamChatResponse(query) {
         conversationHistory.push({ role: "user", content: query });
         conversationHistory.push({ role: "assistant", content: finalText });
         
-        // Speak the response if voice is enabled - with mobile-friendly timing
+        // Speak the response if voice is enabled
         if (voiceEnabled && finalText.trim()) {
-            if (isMobileDevice()) {
-                // Small delay for mobile to ensure proper audio context
-                setTimeout(() => {
-                    speakText(finalText);
-                }, 300);
-            } else {
+            setTimeout(() => {
                 speakText(finalText);
-            }
+            }, 200); // Small delay for all devices
         }
         
         scrollChatToBottom();
@@ -884,7 +835,7 @@ $(document).ready(function() {
 
     // Mobile-specific audio interaction handling
     if (isMobileDevice()) {
-        // Create a more comprehensive user interaction handler for iOS
+        // Simple user interaction detection for iOS audio context
         let userHasInteracted = false;
         
         const initAudioContext = () => {
@@ -902,17 +853,7 @@ $(document).ready(function() {
             }
         };
         
-        // Listen for various user interaction events
-        $(document).one('touchstart click tap', initAudioContext);
-        
-        // Also listen specifically on voice button
-        $('#voice-toggle-btn').on('touchstart click', function(e) {
-            initAudioContext();
-        });
-        
-        // Handle touch events on voice button to prevent issues
-        $('#voice-toggle-btn').on('touchend', function(e) {
-            e.preventDefault(); // Prevent ghost clicks
-        });
+        // Listen for any user interaction to initialize audio context
+        $(document).one('touchstart click', initAudioContext);
     }
 });
