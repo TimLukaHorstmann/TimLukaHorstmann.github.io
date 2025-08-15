@@ -1611,10 +1611,11 @@ img {
   text-align: center;
 }
 
+/* Authors styling */
 .publication-card .authors {
   font-size: 0.8rem;
   color: #6b7280;
-  margin-bottom: 18px;
+  margin-bottom: 8px;
   line-height: 1.5;
   text-align: center;
 }
@@ -1673,6 +1674,39 @@ img {
   justify-content: center;
   padding-bottom: 10px;
 }
+
+/* Subtle affiliation block for publication cards */
+.pub-affiliations {
+    display: block;
+    margin: 4px auto 10px;
+    color: #9ca3af;            /* lighter, more subtle */
+    line-height: 1.35;
+    font-size: 0.75rem;        /* smaller than authors */
+    font-weight: 400;
+    text-align: center;        /* align with author names */
+    max-width: 90%;
+}
+.pub-affiliations sup {
+    font-size: 0.7em;          /* slightly smaller superscripts */
+    vertical-align: baseline;
+}
+.pub-affiliations .equal-note {
+    margin-top: 4px;
+    font-style: italic;
+    color: #a3aab6;            /* even lighter */
+    font-size: 0.72rem;
+}
+
+/* Ordering rules: ensure affiliations appear right after authors */
+.publication-card .authors { order: 1; }
+.publication-card .venue { order: 2; }
+.publication-card .pub-desc { order: 3; }
+.publication-card .fp-iframe { order: 4; }
+.publication-card .pub-affiliations { order: 5; }
+.publication-card .publication-actions { order: 6; }
+
+/* Subtle spacing for venue after affiliations */
+.publication-card .venue { margin-top: 6px; }
 
 .publication-card .publication-actions .btn {
   font-size: 0.75rem;
