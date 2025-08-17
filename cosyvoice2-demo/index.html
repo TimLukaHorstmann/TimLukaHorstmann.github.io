@@ -1,0 +1,345 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CosyVoice2 Fine-tuning for French TTS - Demo</title>
+    <link rel="stylesheet" href="style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+</head>
+<body>
+    <!-- Header -->
+    <header class="header">
+        <div class="container">
+            <div class="header-content">
+                <h1 class="title">CosyVoice2 Fine-tuning for French TTS</h1>
+                <p class="subtitle">Investigating Component-wise Fine-tuning Strategies for Cross-lingual Text-to-Speech Adaptation</p>
+                <div class="paper-info">
+                    <span class="conference">In Progress</span>
+                    <a href="#" class="paper-link" target="_blank">
+                        <i class="fas fa-flask"></i> Research in Progress
+                    </a>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- Navigation -->
+    <nav class="nav">
+        <div class="container">
+            <ul class="nav-links">
+                <li><a href="#overview" class="nav-link active">Overview</a></li>
+                <li><a href="#architecture" class="nav-link">Architecture</a></li>
+                <li><a href="#interactive-demo" class="nav-link">Interactive Demo</a></li>
+                <li><a href="#evaluation" class="nav-link">Evaluation Results</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <!-- Main Content -->
+    <main class="main">
+        <div class="container">
+            <!-- Overview Section -->
+            <section id="overview" class="section">
+                <h2 class="section-title">Research Overview</h2>
+                <div class="overview-grid">
+                    <div class="overview-card">
+                        <div class="card-icon">
+                            <i class="fas fa-globe-americas"></i>
+                        </div>
+                        <h3>Challenge</h3>
+                        <p>Adapting state-of-the-art TTS models like CosyVoice2 to new languages (French) while maintaining quality and naturalness requires understanding which components benefit most from fine-tuning.</p>
+                    </div>
+                    <div class="overview-card">
+                        <div class="card-icon">
+                            <i class="fas fa-cogs"></i>
+                        </div>
+                        <h3>Methodology</h3>
+                        <p>Systematic investigation of component-wise fine-tuning strategies: SLM, Flow matching, and HiFiGAN vocoder, analyzing their individual and combined impact on French speech quality.</p>
+                    </div>
+                    <div class="overview-card">
+                        <div class="card-icon">
+                            <i class="fas fa-chart-bar"></i>
+                        </div>
+                        <h3>Innovation</h3>
+                        <p>First comprehensive analysis of fine-tuning efficiency in modern TTS pipelines, providing insights into optimal training strategies for cross-lingual adaptation.</p>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Architecture Section -->
+            <section id="architecture" class="section">
+                <h2 class="section-title">CosyVoice2 Architecture</h2>
+                
+                <div class="architecture-description">
+                    <p class="architecture-intro">
+                        CosyVoice2 follows a modular three-stage TTS pipeline. Each component can be fine-tuned independently 
+                        or in combination to adapt the model to French. Click on the components below to explore their role 
+                        and impact on the final speech quality.
+                    </p>
+                </div>
+
+                <!-- Architecture Diagram -->
+                <div class="architecture-diagram-container">
+                    <svg class="architecture-svg" viewBox="0 0 1000 400" xmlns="http://www.w3.org/2000/svg">
+                        <!-- Text Input -->
+                        <rect class="input-box" x="50" y="50" width="120" height="60" rx="8"/>
+                        <text x="110" y="75" text-anchor="middle" class="component-text">French Text</text>
+                        <text x="110" y="90" text-anchor="middle" class="component-subtext">"Bonjour le monde"</text>
+                        
+                        <!-- Arrow 1 -->
+                        <path class="arrow" d="M 180 80 L 220 80" marker-end="url(#arrowhead)"/>
+                        
+                        <!-- SLM Component -->
+                        <rect class="component-box slm-component" x="230" y="40" width="140" height="80" rx="12" data-component="slm"/>
+                        <text x="300" y="65" text-anchor="middle" class="component-title">SLM</text>
+                        <text x="300" y="80" text-anchor="middle" class="component-subtitle">Speech Language Model</text>
+                        <text x="300" y="95" text-anchor="middle" class="component-detail">Text → Semantic Tokens</text>
+                        <circle class="finetune-indicator slm-indicator" cx="350" cy="50" r="8"/>
+                        
+                        <!-- Arrow 2 -->
+                        <path class="arrow" d="M 380 80 L 420 80" marker-end="url(#arrowhead)"/>
+                        
+                        <!-- Flow Component -->
+                        <rect class="component-box flow-component" x="430" y="40" width="140" height="80" rx="12" data-component="flow"/>
+                        <text x="500" y="65" text-anchor="middle" class="component-title">Flow Matching</text>
+                        <text x="500" y="80" text-anchor="middle" class="component-subtitle">Diffusion Model</text>
+                        <text x="500" y="95" text-anchor="middle" class="component-detail">Semantic → Mel Spectrogram</text>
+                        <circle class="finetune-indicator flow-indicator" cx="550" cy="50" r="8"/>
+                        
+                        <!-- Arrow 3 -->
+                        <path class="arrow" d="M 580 80 L 620 80" marker-end="url(#arrowhead)"/>
+                        
+                        <!-- HiFiGAN Component -->
+                        <rect class="component-box hifigan-component" x="630" y="40" width="140" height="80" rx="12" data-component="hifigan"/>
+                        <text x="700" y="65" text-anchor="middle" class="component-title">HiFiGAN</text>
+                        <text x="700" y="80" text-anchor="middle" class="component-subtitle">Vocoder</text>
+                        <text x="700" y="95" text-anchor="middle" class="component-detail">Mel → Waveform</text>
+                        <circle class="finetune-indicator hifigan-indicator" cx="750" cy="50" r="8"/>
+                        
+                        <!-- Arrow 4 -->
+                        <path class="arrow" d="M 780 80 L 820 80" marker-end="url(#arrowhead)"/>
+                        
+                        <!-- Output -->
+                        <rect class="output-box" x="830" y="50" width="120" height="60" rx="8"/>
+                        <text x="890" y="75" text-anchor="middle" class="component-text">French Speech</text>
+                        <text x="890" y="90" text-anchor="middle" class="component-subtext">🔊 Audio Output</text>
+                        
+                        <!-- Fine-tuning Legend -->
+                        <g class="legend" transform="translate(50, 200)">
+                            <text x="0" y="0" class="legend-title">Fine-tuning Status:</text>
+                            <circle cx="20" cy="25" r="8" class="finetune-indicator inactive"/>
+                            <text x="35" y="30" class="legend-text">Not Fine-tuned</text>
+                            <circle cx="150" cy="25" r="8" class="finetune-indicator active"/>
+                            <text x="165" y="30" class="legend-text">Fine-tuned</text>
+                        </g>
+                        
+                        <!-- Arrow marker definition -->
+                        <defs>
+                            <marker id="arrowhead" markerWidth="10" markerHeight="7" 
+                                    refX="10" refY="3.5" orient="auto">
+                                <polygon points="0 0, 10 3.5, 0 7" fill="#667eea"/>
+                            </marker>
+                        </defs>
+                    </svg>
+                </div>
+
+                <!-- Component Information Panel -->
+                <div class="component-info-panel">
+                    <div class="info-content" id="info-content">
+                        <h3>Select a Component</h3>
+                        <p>Click on any component in the architecture diagram above to learn about its role and hear the impact of fine-tuning on French speech quality.</p>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Interactive Demo Section -->
+            <section id="interactive-demo" class="section">
+                <h2 class="section-title">Interactive Fine-tuning Demo</h2>
+                
+                <!-- Sample Text -->
+                <div class="demo-text-section">
+                    <h3>Sample Text</h3>
+                    <div class="text-sample">
+                        "Bonjour, je m'appelle Emmanuel et je travaille dans une entreprise de technologie à Paris. 
+                        Aujourd'hui, nous allons explorer les capacités de synthèse vocale en français avec CosyVoice2."
+                    </div>
+                </div>
+
+                <!-- Fine-tuning Controls -->
+                <div class="finetuning-controls">
+                    <h3>Fine-tuning Configuration</h3>
+                    <div class="control-grid">
+                        <div class="control-item">
+                            <label class="control-label">
+                                <input type="checkbox" id="slm-toggle" class="component-toggle" data-component="slm">
+                                <span class="checkbox-custom"></span>
+                                SLM Fine-tuning
+                            </label>
+                            <p class="control-description">Improves semantic understanding and pronunciation patterns</p>
+                        </div>
+                        <div class="control-item">
+                            <label class="control-label">
+                                <input type="checkbox" id="flow-toggle" class="component-toggle" data-component="flow">
+                                <span class="checkbox-custom"></span>
+                                Flow Matching Fine-tuning
+                            </label>
+                            <p class="control-description">Enhances prosody and natural speech rhythm</p>
+                        </div>
+                        <div class="control-item">
+                            <label class="control-label">
+                                <input type="checkbox" id="hifigan-toggle" class="component-toggle" data-component="hifigan">
+                                <span class="checkbox-custom"></span>
+                                HiFiGAN Fine-tuning
+                            </label>
+                            <p class="control-description">Improves audio quality and reduces artifacts</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Audio Comparison Grid -->
+                <div class="audio-grid">
+                    <div class="audio-card baseline-card">
+                        <h4><i class="fas fa-play-circle"></i> Baseline (No Fine-tuning)</h4>
+                        <div class="quality-indicators">
+                            <span class="quality-badge poor">Strong English Accent</span>
+                            <span class="quality-badge poor">Unnatural Prosody</span>
+                        </div>
+                        <audio controls class="audio-player" data-config="baseline">
+                            <source src="audio/original.wav" type="audio/wav">
+                            Your browser does not support the audio element.
+                        </audio>
+                        <p class="audio-description">Original CosyVoice2 model without any French-specific training.</p>
+                    </div>
+
+                    <div class="audio-card dynamic-card" id="dynamic-audio-card">
+                        <h4 id="dynamic-title"><i class="fas fa-magic"></i> Current Configuration</h4>
+                        <div class="quality-indicators" id="dynamic-indicators">
+                            <span class="quality-badge neutral">Select components to hear improvements</span>
+                        </div>
+                        <audio controls class="audio-player" id="dynamic-audio" data-config="dynamic">
+                            <source src="audio/original.wav" type="audio/wav" id="dynamic-source">
+                            Your browser does not support the audio element.
+                        </audio>
+                        <p class="audio-description" id="dynamic-description">
+                            Select fine-tuning components above to hear the progressive improvements in French speech quality.
+                        </p>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Evaluation Results Section -->
+            <section id="evaluation" class="section">
+                <h2 class="section-title">Evaluation Results</h2>
+                
+                <!-- Results Overview -->
+                <div class="results-overview">
+                    <p class="results-intro">
+                        Comprehensive evaluation across multiple metrics demonstrates the effectiveness of our component-wise fine-tuning approach. 
+                        Results show progressive improvements as more components are fine-tuned for French adaptation.
+                    </p>
+                </div>
+
+                <!-- Metrics Grid -->
+                <div class="metrics-grid">
+                    <div class="metric-card">
+                        <h3>MOS Scores</h3>
+                        <div class="chart-container">
+                            <canvas id="mosChart" width="400" height="300"></canvas>
+                        </div>
+                    </div>
+                    <div class="metric-card">
+                        <h3>Accent Strength</h3>
+                        <div class="chart-container">
+                            <canvas id="accentChart" width="400" height="300"></canvas>
+                        </div>
+                    </div>
+                    <div class="metric-card">
+                        <h3>Word Error Rate (WER)</h3>
+                        <div class="chart-container">
+                            <canvas id="werChart" width="400" height="300"></canvas>
+                        </div>
+                    </div>
+                    <div class="metric-card">
+                        <h3>Speaker Similarity</h3>
+                        <div class="chart-container">
+                            <canvas id="similarityChart" width="400" height="300"></canvas>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Data Efficiency Analysis -->
+                <div class="efficiency-analysis">
+                    <h3>Data Efficiency Analysis</h3>
+                    <p class="efficiency-intro">
+                        Understanding how much training data is required to achieve different quality thresholds across various metrics.
+                    </p>
+                    <div class="efficiency-chart-container">
+                        <canvas id="efficiencyChart" width="800" height="400"></canvas>
+                    </div>
+                </div>
+
+                <!-- Key Findings -->
+                <div class="key-findings">
+                    <h3>Key Findings</h3>
+                    <div class="findings-grid">
+                        <div class="finding-item">
+                            <div class="finding-icon">
+                                <i class="fas fa-trophy"></i>
+                            </div>
+                            <h4>Most Impactful Component</h4>
+                            <p>Flow Matching fine-tuning provides the largest improvement in naturalness and prosody, with MOS scores increasing by 0.8 points.</p>
+                        </div>
+                        <div class="finding-item">
+                            <div class="finding-icon">
+                                <i class="fas fa-database"></i>
+                            </div>
+                            <h4>Data Efficiency</h4>
+                            <p>Significant improvements achieved with just 2-4 hours of French training data when fine-tuning all components.</p>
+                        </div>
+                        <div class="finding-item">
+                            <div class="finding-icon">
+                                <i class="fas fa-layer-group"></i>
+                            </div>
+                            <h4>Component Synergy</h4>
+                            <p>Combined fine-tuning of all three components yields synergistic effects, outperforming individual component fine-tuning.</p>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </div>
+    </main>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-main">
+                    <p class="authors">
+                        <strong>Researchers:</strong> 
+                        <a href="https://horstmann.tech/" class="author-highlight">Tim Luka Horstmann</a>, 
+                        <a href="#" class="author-highlight">Collaborator Name</a>,
+                        <a href="https://en.wikipedia.org/wiki/%C3%89ric_Moulines" class="author-highlight">Eric Moulines</a>
+                    </p>
+                    <p class="affiliations">
+                        École Polytechnique, Hi! PARIS Research Center
+                    </p>
+                    <p class="copyright">&copy; 2025 Research in Progress.</p>
+                </div>
+                <div class="footer-links">
+                    <a href="#" class="footer-link">
+                        <i class="fab fa-github"></i> GitHub (Coming Soon)
+                    </a>
+                    <a href="mailto:tim.horstmann@ip-paris.fr" class="footer-link">
+                        <i class="fas fa-envelope"></i> Contact
+                    </a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="script.js"></script>
+</body>
+</html>
