@@ -182,6 +182,13 @@ body {
     display: none;
 }
 
+.fp-iframe {
+    border: 1px solid lightgray;
+    width: 100%;
+    min-height: 500px;
+    margin-top: 40px;
+}
+
 /* Navigation Styles */
 .nav {
     background: rgba(255, 255, 255, 0.9);
