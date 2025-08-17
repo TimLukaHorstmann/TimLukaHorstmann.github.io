@@ -367,6 +367,59 @@ body {
     margin-bottom: 20px;
 }
 
+/* Language Selector */
+.language-selector {
+    display: flex;
+    justify-content: center;
+    margin-bottom: 30px;
+}
+
+.language-switch {
+    display: flex;
+    background: white;
+    border-radius: 12px;
+    padding: 6px;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+    border: 1px solid #e2e8f0;
+}
+
+.language-switch input[type="radio"] {
+    display: none;
+}
+
+.language-option {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 12px 20px;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    font-weight: 500;
+    color: #4a5568;
+    position: relative;
+}
+
+.language-option:hover {
+    background: rgba(102, 126, 234, 0.1);
+    color: #667eea;
+}
+
+.language-switch input[type="radio"]:checked + .language-option {
+    background: linear-gradient(135deg, #667eea, #764ba2);
+    color: white;
+    box-shadow: 0 2px 8px rgba(102, 126, 234, 0.3);
+}
+
+.flag {
+    font-size: 1.2rem;
+}
+
+.lang-name {
+    font-size: 1rem;
+    min-width: 60px;
+}
+
 .text-sample {
     background: white;
     padding: 25px;
@@ -379,6 +432,7 @@ body {
     font-size: 1.1rem;
     line-height: 1.7;
     box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+    transition: all 0.3s ease;
 }
 
 /* Fine-tuning Controls */
@@ -556,6 +610,44 @@ body {
     color: #718096;
     font-size: 0.9rem;
     line-height: 1.5;
+}
+
+/* Research Notes and Footnotes */
+.research-notes {
+    margin-top: 40px;
+    padding: 20px;
+    background: #f8fafc;
+    border-radius: 12px;
+    border-left: 4px solid #cbd5e0;
+}
+
+.footnote {
+    display: flex;
+    align-items: flex-start;
+    gap: 8px;
+    font-size: 0.9rem;
+    line-height: 1.6;
+}
+
+.footnote-marker {
+    color: #667eea;
+    font-weight: 600;
+    font-size: 1rem;
+    flex-shrink: 0;
+}
+
+.footnote-text {
+    color: #4a5568;
+}
+
+.inline-link {
+    color: #667eea;
+    text-decoration: underline;
+    transition: color 0.3s ease;
+}
+
+.inline-link:hover {
+    color: #764ba2;
 }
 
 /* Evaluation Results Section */
@@ -813,6 +905,18 @@ body {
         padding: 20px;
     }
     
+    .language-switch {
+        flex-direction: column;
+        width: 100%;
+        max-width: 280px;
+        margin: 0 auto;
+    }
+    
+    .language-option {
+        justify-content: center;
+        padding: 15px 20px;
+    }
+    
     .footer-content {
         flex-direction: column;
         align-items: center;
@@ -848,6 +952,20 @@ body {
     .text-sample {
         padding: 20px;
         font-size: 1rem;
+    }
+    
+    .research-notes {
+        margin-top: 30px;
+        padding: 15px;
+    }
+    
+    .footnote {
+        flex-direction: column;
+        gap: 5px;
+    }
+    
+    .footnote-text {
+        font-size: 0.85rem;
     }
 }
 

@@ -1,9 +1,15 @@
 // CosyVoice2 Demo Interactive Functionality
 document.addEventListener('DOMContentLoaded', function() {
-    console.log('CosyVoice2 Demo loaded successfully!');
+    console.log('CosyVoice2 European Languages Demo loaded successfully!');
+
+    // Current language state
+    let currentLanguage = 'fr';
 
     // Navigation functionality
     initializeNavigation();
+    
+    // Language selector
+    initializeLanguageSelector();
     
     // Interactive architecture diagram
     initializeArchitectureDiagram();
@@ -68,6 +74,58 @@ document.addEventListener('DOMContentLoaded', function() {
         updateActiveNavLink();
     }
 
+    // Language Selector
+    function initializeLanguageSelector() {
+        const languageInputs = document.querySelectorAll('input[name="language"]');
+        const sampleText = document.getElementById('sample-text');
+        
+        // Sample texts for different languages
+        const sampleTexts = {
+            fr: '"Bonjour, je m\'appelle Emmanuel et je travaille dans une entreprise de technologie à Paris. Aujourd\'hui, nous allons explorer les capacités de synthèse vocale en français avec CosyVoice2."',
+            de: '"Guten Tag, mein Name ist Friedrich und ich arbeite in einem Technologieunternehmen in Berlin. Heute werden wir die Sprachsynthesefähigkeiten von CosyVoice 2 im Deutschen erkunden."'
+        };
+
+        languageInputs.forEach(input => {
+            input.addEventListener('change', function() {
+                if (this.checked) {
+                    currentLanguage = this.value;
+                    // Update sample text
+                    sampleText.textContent = sampleTexts[currentLanguage];
+                    // Update all audio sources
+                    updateAudioSources();
+                    // Update configuration
+                    updateAudioConfiguration();
+                }
+            });
+        });
+
+        function updateAudioSources() {
+            // Update baseline audio
+            const baselineAudio = document.querySelector('.audio-player[data-config="baseline"] source');
+            if (baselineAudio) {
+                baselineAudio.src = `audio/original-${currentLanguage}.wav`;
+                baselineAudio.parentElement.load();
+            }
+            
+            // Update dynamic audio source
+            const dynamicSource = document.getElementById('dynamic-source');
+            if (dynamicSource) {
+                // Get current configuration and update
+                const activeComponents = [];
+                const toggles = document.querySelectorAll('.component-toggle');
+                toggles.forEach(toggle => {
+                    if (toggle.checked) {
+                        activeComponents.push(toggle.dataset.component);
+                    }
+                });
+                
+                const configKey = activeComponents.length > 0 ? activeComponents.sort().join('_') : 'original';
+                dynamicSource.src = `audio/${configKey}-${currentLanguage}.wav`;
+                dynamicSource.parentElement.load();
+            }
+        }
+    }
+
     // Interactive Architecture Diagram
     function initializeArchitectureDiagram() {
         const componentBoxes = document.querySelectorAll('.component-box');
@@ -77,11 +135,11 @@ document.addEventListener('DOMContentLoaded', function() {
         const componentInfo = {
             slm: {
                 title: 'SLM (Speech Language Model)',
-                description: 'The Speech Language Model component converts input text into semantic tokens. Fine-tuning this component improves pronunciation accuracy and phonetic understanding for French text.',
+                description: 'The Speech Language Model component converts input text into semantic tokens. Fine-tuning this component improves pronunciation accuracy and phonetic understanding for European languages.',
                 benefits: [
-                    'Improved pronunciation of French phonemes',
-                    'Better handling of French-specific linguistic patterns',
-                    'Enhanced semantic understanding of French text'
+                    'Improved pronunciation of language-specific phonemes',
+                    'Better handling of linguistic patterns',
+                    'Enhanced semantic understanding of text'
                 ],
                 audioFile: 'audio/slm_only.wav',
                 improvements: 'Reduces pronunciation errors by ~40% and improves phonetic accuracy significantly.'
@@ -90,7 +148,7 @@ document.addEventListener('DOMContentLoaded', function() {
                 title: 'Flow Matching (Diffusion Model)',
                 description: 'The Flow Matching component generates mel spectrograms from semantic tokens. This component has the most significant impact on prosody and naturalness.',
                 benefits: [
-                    'Natural French prosody and rhythm',
+                    'Natural prosody and rhythm',
                     'Improved intonation patterns',
                     'Better emotional expressiveness'
                 ],
@@ -98,15 +156,15 @@ document.addEventListener('DOMContentLoaded', function() {
                 improvements: 'Provides the largest MOS improvement (+0.8) and dramatically enhances naturalness.'
             },
             hifigan: {
-                title: 'HiFiGAN (Vocoder)',
-                description: 'The HiFiGAN vocoder converts mel spectrograms to final audio waveforms. Fine-tuning reduces artifacts and improves audio quality.',
+                title: 'HiFiGAN (Vocoder)*',
+                description: 'The HiFiGAN vocoder converts mel spectrograms to final audio waveforms. This comparison showcases the difference between a partially trained and fully trained vocoder, demonstrating the importance of proper vocoder quality.',
                 benefits: [
                     'Cleaner audio output with fewer artifacts',
-                    'Better frequency response for French phonemes',
+                    'Better frequency response for target phonemes',
                     'Improved overall audio fidelity'
                 ],
                 audioFile: 'audio/hifigan_only.wav',
-                improvements: 'Reduces audio artifacts by ~50% and improves overall clarity and naturalness.'
+                improvements: 'Significantly reduces audio artifacts and improves overall clarity. Note: This represents using the official CosyVoice2 HiFiGAN vs. a partially trained version.'
             }
         };
 
@@ -178,60 +236,60 @@ document.addEventListener('DOMContentLoaded', function() {
         // Audio configurations for different combinations
         const audioConfigurations = {
             'baseline': {
-                file: 'audio/original.wav',
+                file: 'original',
                 title: 'Baseline (No Fine-tuning)',
                 indicators: ['Strong English Accent', 'Unnatural Prosody'],
                 indicatorClasses: ['poor', 'poor'],
-                description: 'Original CosyVoice2 model without any French-specific training.'
+                description: 'Original CosyVoice2 model without any language-specific training.'
             },
             'slm': {
-                file: 'audio/slm.wav',
+                file: 'slm',
                 title: 'SLM Fine-tuned',
                 indicators: ['Improved Pronunciation', 'Some English Accent'],
                 indicatorClasses: ['good', 'neutral'],
-                description: 'Speech Language Model fine-tuned for French pronunciation patterns.'
+                description: 'Speech Language Model fine-tuned for language-specific pronunciation patterns.'
             },
             'flow': {
-                file: 'audio/flow.wav',
+                file: 'flow',
                 title: 'Flow Fine-tuned',
                 indicators: ['Better Prosody', 'Pronunciation Issues'],
                 indicatorClasses: ['good', 'neutral'],
-                description: 'Flow matching model fine-tuned for French prosody and rhythm.'
+                description: 'Flow matching model fine-tuned for natural prosody and rhythm.'
             },
             'hifigan': {
-                file: 'audio/hifigan.wav',
-                title: 'HiFiGAN Fine-tuned',
+                file: 'hifigan',
+                title: 'HiFiGAN Optimized*',
                 indicators: ['Cleaner Audio', 'Accent Remains'],
                 indicatorClasses: ['good', 'poor'],
-                description: 'Vocoder fine-tuned for improved French audio quality.'
+                description: 'Using the official CosyVoice2 HiFiGAN model instead of partially trained version.'
             },
-            'flow,slm': {
-                file: 'audio/slm_flow.wav',
+            'flow_slm': {
+                file: 'slm_flow',
                 title: 'SLM + Flow Fine-tuned',
                 indicators: ['Good Pronunciation', 'Natural Prosody'],
                 indicatorClasses: ['good', 'good'],
                 description: 'Combined SLM and Flow fine-tuning for improved pronunciation and prosody.'
             },
-            'hifigan,slm': {
-                file: 'audio/slm_hifigan.wav',
-                title: 'SLM + HiFiGAN Fine-tuned',
+            'hifigan_slm': {
+                file: 'slm_hifigan',
+                title: 'SLM + HiFiGAN Optimized*',
                 indicators: ['Good Pronunciation', 'Clean Audio'],
                 indicatorClasses: ['good', 'good'],
-                description: 'Combined SLM and vocoder fine-tuning for pronunciation and audio quality.'
+                description: 'Combined SLM fine-tuning with official CosyVoice2 HiFiGAN model.'
             },
-            'flow,hifigan': {
-                file: 'audio/flow_hifigan.wav',
-                title: 'Flow + HiFiGAN Fine-tuned',
+            'flow_hifigan': {
+                file: 'flow_hifigan',
+                title: 'Flow + HiFiGAN Optimized*',
                 indicators: ['Natural Prosody', 'Clean Audio'],
                 indicatorClasses: ['good', 'good'],
-                description: 'Combined Flow and vocoder fine-tuning for prosody and audio quality.'
+                description: 'Combined Flow fine-tuning with official CosyVoice2 HiFiGAN model.'
             },
-            'flow,hifigan,slm': {
-                file: 'audio/slm_flow_hifigan.wav',
-                title: 'All Components Fine-tuned',
+            'flow_hifigan_slm': {
+                file: 'slm_flow_hifigan',
+                title: 'All Components Optimized*',
                 indicators: ['Excellent Pronunciation', 'Natural Prosody', 'High Quality Audio'],
                 indicatorClasses: ['excellent', 'excellent', 'excellent'],
-                description: 'All components fine-tuned for optimal French speech synthesis quality.'
+                description: 'SLM and Flow fine-tuned with official CosyVoice2 HiFiGAN for optimal quality.'
             }
         };
 
@@ -250,7 +308,7 @@ document.addEventListener('DOMContentLoaded', function() {
                 }
             });
 
-            const configKey = activeComponents.length > 0 ? activeComponents.sort().join(',') : 'baseline';
+            const configKey = activeComponents.length > 0 ? activeComponents.sort().join('_') : 'baseline';
             const config = audioConfigurations[configKey] || audioConfigurations['baseline'];
 
             // Update dynamic audio card
@@ -261,14 +319,15 @@ document.addEventListener('DOMContentLoaded', function() {
                 `<span class="quality-badge ${config.indicatorClasses[index]}">${indicator}</span>`
             ).join('');
 
-            // Update audio source
-            dynamicSource.src = config.file;
+            // Update audio source with language suffix
+            const audioFile = `audio/${config.file}-${currentLanguage}.wav`;
+            dynamicSource.src = audioFile;
             dynamicAudio.load();
 
             // Update description
             dynamicDescription.textContent = config.description;
 
-            console.log(`Updated configuration to: ${configKey}`);
+            console.log(`Updated configuration to: ${configKey} for language: ${currentLanguage}`);
         }
 
         function updateArchitectureVisualization() {

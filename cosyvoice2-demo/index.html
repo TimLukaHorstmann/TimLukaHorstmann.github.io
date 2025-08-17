@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>CosyVoice2 Fine-tuning for French TTS - Demo</title>
+    <title>CosyVoice2 for European Languages - Demo</title>
     <link rel="stylesheet" href="style.css">
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
@@ -13,8 +13,8 @@
     <header class="header">
         <div class="container">
             <div class="header-content">
-                <h1 class="title">CosyVoice2 Fine-tuning for French TTS</h1>
-                <p class="subtitle">Investigating Component-wise Fine-tuning Strategies for Cross-lingual Text-to-Speech Adaptation</p>
+                <h1 class="title">CosyVoice2 for European Languages</h1>
+                <p class="subtitle">Investigating Component-wise Fine-tuning Strategies for Cross-lingual Text-to-Speech Adaptation to French and German</p>
                 <div class="paper-info">
                     <span class="conference">In Progress</span>
                     <a href="#" class="paper-link" target="_blank">
@@ -49,14 +49,14 @@
                             <i class="fas fa-globe-americas"></i>
                         </div>
                         <h3>Challenge</h3>
-                        <p>Adapting state-of-the-art TTS models like CosyVoice2 to new languages (French) while maintaining quality and naturalness requires understanding which components benefit most from fine-tuning.</p>
+                        <p>Adapting state-of-the-art TTS models like CosyVoice2 to European languages (French and German) while maintaining quality and naturalness requires understanding which components benefit most from fine-tuning.</p>
                     </div>
                     <div class="overview-card">
                         <div class="card-icon">
                             <i class="fas fa-cogs"></i>
                         </div>
                         <h3>Methodology</h3>
-                        <p>Systematic investigation of component-wise fine-tuning strategies: SLM, Flow matching, and HiFiGAN vocoder, analyzing their individual and combined impact on French speech quality.</p>
+                        <p>Systematic investigation of component-wise fine-tuning strategies: SLM, Flow matching, and HiFiGAN vocoder, analyzing their individual and combined impact on French and German speech quality.</p>
                     </div>
                     <div class="overview-card">
                         <div class="card-icon">
@@ -75,7 +75,7 @@
                 <div class="architecture-description">
                     <p class="architecture-intro">
                         CosyVoice2 follows a modular three-stage TTS pipeline. Each component can be fine-tuned independently 
-                        or in combination to adapt the model to French. Click on the components below to explore their role 
+                        or in combination to adapt the model to European languages. Click on the components below to explore their role 
                         and impact on the final speech quality.
                     </p>
                 </div>
@@ -85,8 +85,8 @@
                     <svg class="architecture-svg" viewBox="0 0 1000 400" xmlns="http://www.w3.org/2000/svg">
                         <!-- Text Input -->
                         <rect class="input-box" x="50" y="50" width="120" height="60" rx="8"/>
-                        <text x="110" y="75" text-anchor="middle" class="component-text">French Text</text>
-                        <text x="110" y="90" text-anchor="middle" class="component-subtext">"Bonjour le monde"</text>
+                        <text x="110" y="75" text-anchor="middle" class="component-text">Input Text</text>
+                        <text x="110" y="90" text-anchor="middle" class="component-subtext">FR/DE Text</text>
                         
                         <!-- Arrow 1 -->
                         <path class="arrow" d="M 180 80 L 220 80" marker-end="url(#arrowhead)"/>
@@ -123,7 +123,7 @@
                         
                         <!-- Output -->
                         <rect class="output-box" x="830" y="50" width="120" height="60" rx="8"/>
-                        <text x="890" y="75" text-anchor="middle" class="component-text">French Speech</text>
+                        <text x="890" y="75" text-anchor="middle" class="component-text">Speech Output</text>
                         <text x="890" y="90" text-anchor="middle" class="component-subtext">🔊 Audio Output</text>
                         
                         <!-- Fine-tuning Legend -->
@@ -149,7 +149,7 @@
                 <div class="component-info-panel">
                     <div class="info-content" id="info-content">
                         <h3>Select a Component</h3>
-                        <p>Click on any component in the architecture diagram above to learn about its role and hear the impact of fine-tuning on French speech quality.</p>
+                        <p>Click on any component in the architecture diagram above to learn about its role and hear the impact of fine-tuning on European language speech quality.</p>
                     </div>
                 </div>
             </section>
@@ -161,7 +161,24 @@
                 <!-- Sample Text -->
                 <div class="demo-text-section">
                     <h3>Sample Text</h3>
-                    <div class="text-sample">
+                    
+                    <!-- Language Selector -->
+                    <div class="language-selector">
+                        <div class="language-switch">
+                            <input type="radio" id="lang-french" name="language" value="fr" checked>
+                            <label for="lang-french" class="language-option">
+                                <span class="flag">🇫🇷</span>
+                                <span class="lang-name">French</span>
+                            </label>
+                            <input type="radio" id="lang-german" name="language" value="de">
+                            <label for="lang-german" class="language-option">
+                                <span class="flag">🇩🇪</span>
+                                <span class="lang-name">German</span>
+                            </label>
+                        </div>
+                    </div>
+                    
+                    <div class="text-sample" id="sample-text">
                         "Bonjour, je m'appelle Emmanuel et je travaille dans une entreprise de technologie à Paris. 
                         Aujourd'hui, nous allons explorer les capacités de synthèse vocale en français avec CosyVoice2."
                     </div>
@@ -191,7 +208,7 @@
                             <label class="control-label">
                                 <input type="checkbox" id="hifigan-toggle" class="component-toggle" data-component="hifigan">
                                 <span class="checkbox-custom"></span>
-                                HiFiGAN Fine-tuning
+                                HiFiGAN Fine-tuning*
                             </label>
                             <p class="control-description">Improves audio quality and reduces artifacts</p>
                         </div>
@@ -207,10 +224,10 @@
                             <span class="quality-badge poor">Unnatural Prosody</span>
                         </div>
                         <audio controls class="audio-player" data-config="baseline">
-                            <source src="audio/original.wav" type="audio/wav">
+                            <source src="audio/original-fr.wav" type="audio/wav">
                             Your browser does not support the audio element.
                         </audio>
-                        <p class="audio-description">Original CosyVoice2 model without any French-specific training.</p>
+                        <p class="audio-description">Original CosyVoice2 model without any language-specific training.</p>
                     </div>
 
                     <div class="audio-card dynamic-card" id="dynamic-audio-card">
@@ -219,12 +236,25 @@
                             <span class="quality-badge neutral">Select components to hear improvements</span>
                         </div>
                         <audio controls class="audio-player" id="dynamic-audio" data-config="dynamic">
-                            <source src="audio/original.wav" type="audio/wav" id="dynamic-source">
+                            <source src="audio/original-fr.wav" type="audio/wav" id="dynamic-source">
                             Your browser does not support the audio element.
                         </audio>
                         <p class="audio-description" id="dynamic-description">
-                            Select fine-tuning components above to hear the progressive improvements in French speech quality.
+                            Select fine-tuning components above to hear the progressive improvements in speech quality.
                         </p>
+                    </div>
+                </div>
+
+                <!-- Research Notes -->
+                <div class="research-notes">
+                    <div class="footnote">
+                        <span class="footnote-marker">*</span>
+                        <span class="footnote-text">
+                            <strong>Note on HiFiGAN Training:</strong> The "original" HiFiGAN here uses a partially trained vocoder, while "fine-tuned" represents the official CosyVoice2 HiFiGAN model. 
+                            This showcases the effect of proper vocoder training, as typically 
+                            <a href="https://github.com/FunAudioLLM/CosyVoice/issues/1349#issuecomment-2942786544" target="_blank" class="inline-link">no additional HiFiGAN training is needed</a> 
+                            for cross-lingual adaptation.
+                        </span>
                     </div>
                 </div>
             </section>
@@ -236,8 +266,8 @@
                 <!-- Results Overview -->
                 <div class="results-overview">
                     <p class="results-intro">
-                        Comprehensive evaluation across multiple metrics demonstrates the effectiveness of our component-wise fine-tuning approach. 
-                        Results show progressive improvements as more components are fine-tuned for French adaptation.
+                        Comprehensive evaluation across multiple metrics demonstrates the effectiveness of our component-wise fine-tuning approach for both French and German. 
+                        Results show progressive improvements as more components are fine-tuned for European language adaptation.
                     </p>
                 </div>
 
