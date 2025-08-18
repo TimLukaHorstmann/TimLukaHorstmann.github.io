@@ -288,7 +288,8 @@ document.addEventListener('DOMContentLoaded', function() {
                 file: 'slm_flow_hifigan',
                 title: 'All Components Optimized*',
                 indicators: ['Excellent Pronunciation', 'Natural Prosody', 'High Quality Audio'],
-                indicatorClasses: ['excellent', 'excellent', 'excellent'],
+                // use 'good' so the badges appear green (CSS maps 'good' -> green, 'excellent' -> blue)
+                indicatorClasses: ['good', 'good', 'good'],
                 description: 'SLM and Flow fine-tuned with official CosyVoice2 HiFiGAN for optimal quality.'
             }
         };
