@@ -518,6 +518,122 @@ body {
     margin-left: 32px;
 }
 
+/* Prompt Audio Section */
+.prompt-audio-section {
+    text-align: center;
+    margin: 50px 0;
+}
+
+.prompt-audio-section h3 {
+    font-size: 1.8rem;
+    font-weight: 600;
+    color: #2d3748;
+    margin-bottom: 20px;
+}
+
+.prompt-description {
+    color: #4a5568;
+    font-size: 1.1rem;
+    line-height: 1.6;
+    max-width: 800px;
+    margin: 0 auto 30px;
+}
+
+.prompt-audio-container {
+    display: flex;
+    justify-content: center;
+}
+
+.prompt-audio-card {
+    background: white;
+    padding: 30px;
+    border-radius: 16px;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+    transition: all 0.3s ease;
+    border: 1px solid #e2e8f0;
+    border-top: 4px solid #f6ad55;
+    max-width: 500px;
+    width: 100%;
+}
+
+.prompt-audio-card:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 8px 30px rgba(0, 0, 0, 0.15);
+}
+
+.prompt-audio-card h4 {
+    font-size: 1.3rem;
+    font-weight: 600;
+    margin-bottom: 20px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    color: #f6ad55;
+}
+
+.prompt-info {
+    margin-bottom: 20px;
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+    gap: 8px;
+}
+
+.prompt-badge {
+    padding: 4px 12px;
+    border-radius: 12px;
+    font-size: 0.8rem;
+    font-weight: 500;
+    background: #fed7d7;
+    color: #c53030;
+}
+
+.prompt-badge.neutral {
+    background: #e2e8f0;
+    color: #4a5568;
+}
+
+.prompt-player {
+    width: 100%;
+    margin-bottom: 15px;
+    border-radius: 8px;
+    outline: none;
+}
+
+/* Inline (subtle) prompt styles placed near the sample text */
+.prompt-inline {
+    display: flex;
+    justify-content: center;
+    margin-top: 18px;
+}
+
+.prompt-inline-card {
+    background: rgba(255,255,255,0.9);
+    border-radius: 10px;
+    padding: 10px 14px;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    border: 1px solid rgba(226,232,240,0.8);
+    max-width: 720px;
+    width: 100%;
+}
+
+.prompt-inline-meta {
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+    color: #4a5568;
+    font-weight: 600;
+    min-width: 110px;
+}
+
+.prompt-inline-meta i { color: #f6ad55; }
+.prompt-inline-note { font-weight: 500; color: #718096; font-size: 12px; }
+
+.prompt-player { max-width: 420px; }
+
 /* Audio Grid */
 .audio-grid {
     display: grid;
@@ -915,6 +1031,20 @@ body {
     .language-option {
         justify-content: center;
         padding: 15px 20px;
+    }
+    
+    .prompt-audio-card {
+        padding: 20px;
+        margin: 0 20px;
+    }
+    
+    .prompt-audio-section h3 {
+        font-size: 1.5rem;
+    }
+    
+    .prompt-description {
+        font-size: 1rem;
+        padding: 0 20px;
     }
     
     .footer-content {

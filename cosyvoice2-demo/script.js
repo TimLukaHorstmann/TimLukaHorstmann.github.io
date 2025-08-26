@@ -81,8 +81,8 @@ document.addEventListener('DOMContentLoaded', function() {
         
         // Sample texts for different languages
         const sampleTexts = {
-            fr: '"Bonjour, je m\'appelle Emmanuel et je travaille dans une entreprise de technologie à Paris. Aujourd\'hui, nous allons explorer les capacités de synthèse vocale en français avec CosyVoice2."',
-            de: '"Guten Tag, mein Name ist Friedrich und ich arbeite in einem Technologieunternehmen in Berlin. Heute werden wir die Sprachsynthesefähigkeiten von CosyVoice 2 im Deutschen erkunden."'
+            fr: '"Bonjour, je m\'appelle Luka et je travaille dans une entreprise de technologie à Paris. Aujourd\'hui, nous allons explorer les capacités de synthèse vocale en français avec CosyVoice 2."',
+            de: '"Guten Tag, mein Name ist Hans und ich arbeite in einem Technologieunternehmen in Berlin. Heute werden wir die Sprachsynthesefähigkeiten von CosyVoice 2 im Deutschen erkunden."'
         };
 
         languageInputs.forEach(input => {
@@ -100,6 +100,36 @@ document.addEventListener('DOMContentLoaded', function() {
         });
 
         function updateAudioSources() {
+            // Update prompt audio (both inline and full prompt if present)
+            const promptSource = document.getElementById('prompt-source');
+            const promptLanguage = document.getElementById('prompt-language');
+            const promptLanguageInline = document.getElementById('prompt-language-inline');
+            const promptDescription = document.getElementById('prompt-description');
+            
+            const promptFiles = {
+                fr: 'common_voice_fr_40952142.wav',
+                de: 'common_voice_de_41123857.wav'
+            };
+
+            if (promptSource) {
+                promptSource.src = promptFiles[currentLanguage];
+                promptSource.parentElement.load();
+            }
+
+            // Inline audio player (if present) may share the same source element id; also update its label
+            const inlineSource = document.querySelector('#prompt-audio-inline source');
+            if (inlineSource) {
+                inlineSource.src = promptFiles[currentLanguage];
+                inlineSource.parentElement.load();
+            }
+
+            const langLabel = currentLanguage === 'fr' ? 'French' : 'German';
+            if (promptLanguage) promptLanguage.textContent = langLabel;
+            if (promptLanguageInline) promptLanguageInline.textContent = langLabel;
+            if (promptDescription) {
+                promptDescription.textContent = 'Original voice sample from Common Voice dataset used as reference for voice cloning.';
+            }
+            
             // Update baseline audio
             const baselineAudio = document.querySelector('.audio-player[data-config="baseline"] source');
             if (baselineAudio) {
@@ -124,6 +154,9 @@ document.addEventListener('DOMContentLoaded', function() {
                 dynamicSource.parentElement.load();
             }
         }
+        
+        // Initialize audio sources on page load
+        updateAudioSources();
     }
 
     // Interactive Architecture Diagram
