@@ -189,15 +189,15 @@ document.addEventListener('DOMContentLoaded', function() {
                 improvements: 'Provides the largest MOS improvement (+0.8) and dramatically enhances naturalness.'
             },
             hifigan: {
-                title: 'HiFiGAN (Vocoder)*',
-                description: 'The HiFiGAN vocoder converts mel spectrograms to final audio waveforms. This comparison showcases the difference between a partially trained and fully trained vocoder, demonstrating the importance of proper vocoder quality.',
+                title: 'HiFi-GAN (Vocoder)*',
+                description: 'The HiFi-GAN vocoder converts mel spectrograms to final audio waveforms. This comparison showcases the difference between a partially trained and fully trained vocoder, demonstrating the importance of proper vocoder quality.',
                 benefits: [
                     'Cleaner audio output with fewer artifacts',
                     'Better frequency response for target phonemes',
                     'Improved overall audio fidelity'
                 ],
                 audioFile: 'audio/hifigan_only.wav',
-                improvements: 'Significantly reduces audio artifacts and improves overall clarity. Note: This represents using the official CosyVoice2 HiFiGAN vs. a partially trained version.'
+                improvements: 'Significantly reduces audio artifacts and improves overall clarity. Note: This represents using the official CosyVoice2 HiFi-GAN vs. a partially trained version.'
             }
         };
 
@@ -291,10 +291,10 @@ document.addEventListener('DOMContentLoaded', function() {
             },
             'hifigan': {
                 file: 'hifigan',
-                title: 'HiFiGAN Optimized*',
+                title: 'HiFi-GAN Optimized* <span style="font-size: 0.8em;">(=Original CosyVoice2 model)</span>',
                 indicators: ['Cleaner Audio', 'Accent Remains'],
                 indicatorClasses: ['good', 'poor'],
-                description: 'Using the official CosyVoice2 HiFiGAN model instead of partially trained version.'
+                description: 'Using the official CosyVoice2 HiFi-GAN model instead of partially trained version.'
             },
             'flow_slm': {
                 file: 'slm_flow',

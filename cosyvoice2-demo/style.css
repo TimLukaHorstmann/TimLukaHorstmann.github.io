@@ -34,6 +34,19 @@ body {
     max-width: 800px;
     margin: 0 auto;
 }
+.header-logo {
+    display: block;
+    margin: 0 auto 20px;
+    width: auto;
+    max-height: 280px;
+    filter: drop-shadow(0 4px 8px rgba(0, 0, 0, 0.1));
+    transition: transform 0.3s ease;
+    padding-right: 60px;
+}
+
+.header-logo:hover {
+    transform: scale(1.05);
+}
 
 .title {
     font-size: 3rem;
