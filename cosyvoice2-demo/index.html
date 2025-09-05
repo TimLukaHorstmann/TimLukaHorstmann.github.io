@@ -15,7 +15,7 @@
             <div class="header-content">
                 <img src="cosyvoice2-logo-clear.png" alt="CosyVoice2 Logo" class="header-logo">
                 <!-- <h1 class="title">CosyVoice2 for European Languages</h1> -->
-                <p class="subtitle">Investigating Component-wise Fine-tuning Strategies for Cross-lingual Text-to-Speech Adaptation to French and German</p>
+                <p class="subtitle">Advancing Generative TTS: Modular Adaptation and Benchmarking of CosyVoice2 for Expressive French and German Speech</p>
                 <div class="paper-info">
                     <span class="conference">In Progress</span>
                     <a href="#" class="paper-link" target="_blank">
@@ -50,21 +50,21 @@
                             <i class="fas fa-globe-americas"></i>
                         </div>
                         <h3>Challenge</h3>
-                        <p>Adapting state-of-the-art TTS models like CosyVoice2 to European languages (French and German) while maintaining quality and naturalness requires understanding which components benefit most from fine-tuning.</p>
+                        <p>How can we push generative TTS beyond English and Chinese, enabling expressive, paragraph-level synthesis in French and German? This project pioneers the modular adaptation of CosyVoice2, tackling the underexplored challenge of high-quality, cross-lingual voice and prosody cloning.</p>
                     </div>
                     <div class="overview-card">
                         <div class="card-icon">
                             <i class="fas fa-cogs"></i>
                         </div>
                         <h3>Methodology</h3>
-                        <p>Systematic investigation of component-wise fine-tuning strategies: Text-Speech Language Model, Flow matching, and HiFi-GAN vocoder, analyzing their individual and combined impact on French and German speech quality.</p>
+                        <p>We introduce a rigorous, reproducible ablation grid—fine-tuning key components of CosyVoice2 across data budgets and language regimes. Our backbone-agnostic refactor unlocks plug-and-play LLMs and efficient LoRA adaptation, setting a new standard for multilingual TTS research.</p>
                     </div>
                     <div class="overview-card">
                         <div class="card-icon">
                             <i class="fas fa-chart-bar"></i>
                         </div>
                         <h3>Innovation</h3>
-                        <p>First comprehensive analysis of fine-tuning efficiency in modern TTS pipelines, providing insights into optimal training strategies for cross-lingual adaptation.</p>
+                        <p>This is the first open-source, component-level benchmarking of generative TTS for European languages. Our release empowers the community to transparently evaluate, extend, and deploy state-of-the-art cross-lingual voice cloning.</p>
                     </div>
                 </div>
             </section>
@@ -356,21 +356,35 @@
                                 <i class="fas fa-trophy"></i>
                             </div>
                             <h4>Most Impactful Component</h4>
-                            <p>Flow Matching fine-tuning provides the largest improvement in naturalness and prosody, with MOS scores increasing by 0.8 points.</p>
+                            <p>The text-speech language model is the key driver of quality, capturing linguistic rhythm and phrasing essential for intelligibility and natural prosody. Flow fine-tuning further improves continuity and expressiveness, while the vocoder is robust and rarely a bottleneck for cross-lingual adaptation.</p>
                         </div>
                         <div class="finding-item">
                             <div class="finding-icon">
                                 <i class="fas fa-database"></i>
                             </div>
-                            <h4>Data Efficiency</h4>
-                            <p>Significant improvements achieved with just 2-4 hours of French training data when fine-tuning all components.</p>
+                            <h4>Data Scaling & Efficiency</h4>
+                            <p>Most performance gains are achieved with 100–500 hours of training data per language, following a Pareto-like pattern: intelligibility plateaus early in our limited data setting and would require a significantly larger dataset to improve, but prosody and speaker similarity continue to improve with more data in our setting. This enables strong results even for low-resource languages.</p>
                         </div>
                         <div class="finding-item">
                             <div class="finding-icon">
                                 <i class="fas fa-layer-group"></i>
                             </div>
-                            <h4>Component Synergy</h4>
-                            <p>Combined fine-tuning of all three components yields synergistic effects, outperforming individual component fine-tuning.</p>
+                            <h4>Component Synergy & Practical Recipe</h4>
+                            <p>Fine-tune the LM for immediate gains; add flow adaptation for enhanced prosody if resources allow. Vocoder and tokenizer can remain frozen. This modular strategy streamlines adaptation for new languages and domains.</p>
+                        </div>
+                        <div class="finding-item">
+                            <div class="finding-icon">
+                                <i class="fas fa-exchange-alt"></i>
+                            </div>
+                            <h4>Cross-lingual Training Effects</h4>
+                            <p>Bilingual training consistently boosts speaker similarity (SECS) across budgets, with mixed effects on intelligibility (WER). Multilingual adaptation is most beneficial at very low and very high data scales.</p>
+                        </div>
+                        <div class="finding-item">
+                            <div class="finding-icon">
+                                <i class="fas fa-lightbulb"></i>
+                            </div>
+                            <h4>Limitations & Future Directions</h4>
+                            <p>Current results are limited by the frozen speech tokenizer. Future work should explore tokenizer adaptation and backbone swapping to further advance cross-lingual TTS.</p>
                         </div>
                     </div>
                 </div>
