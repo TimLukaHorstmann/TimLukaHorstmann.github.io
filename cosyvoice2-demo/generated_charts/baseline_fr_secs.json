@@ -3,7 +3,7 @@
     "CosyVoice2 Original",
     "Coqui XTTS v2",
     "ElevenLabs",
-    "Our Best Model"
+    "Our Best Model (anchored)"
   ],
   "datasets": [
     {
@@ -12,7 +12,7 @@
         0.15549222730066325,
         0.20279589037709508,
         0.27583761352547054,
-        0.3425360268133936
+        0.23981599617049454
       ],
       "backgroundColor": [
         "#f093fb",
