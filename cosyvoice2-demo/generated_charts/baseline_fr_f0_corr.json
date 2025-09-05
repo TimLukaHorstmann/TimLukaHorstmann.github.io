@@ -1,0 +1,32 @@
+{
+  "labels": [
+    "CosyVoice2 Original",
+    "Coqui XTTS v2",
+    "ElevenLabs",
+    "Our Best Model"
+  ],
+  "datasets": [
+    {
+      "label": "F0_CORR",
+      "data": [
+        0.5937484692732026,
+        0.6765275316506526,
+        0.6426623757499565,
+        0.657598107900147
+      ],
+      "backgroundColor": [
+        "#f093fb",
+        "#f6ad55",
+        "#63b3ed",
+        "#667eea"
+      ],
+      "borderColor": [
+        "#f093fb",
+        "#f6ad55",
+        "#63b3ed",
+        "#667eea"
+      ]
+    }
+  ],
+  "metric_label": "F0_CORR"
+}

@@ -1,0 +1,32 @@
+{
+  "labels": [
+    "CosyVoice2 Original",
+    "Coqui XTTS v2",
+    "ElevenLabs",
+    "Our Best Model"
+  ],
+  "datasets": [
+    {
+      "label": "SECS",
+      "data": [
+        0.13668511633616645,
+        0.23132970870172215,
+        0.28920286593834843,
+        0.31537624433139233
+      ],
+      "backgroundColor": [
+        "#f093fb",
+        "#f6ad55",
+        "#63b3ed",
+        "#667eea"
+      ],
+      "borderColor": [
+        "#f093fb",
+        "#f6ad55",
+        "#63b3ed",
+        "#667eea"
+      ]
+    }
+  ],
+  "metric_label": "SECS"
+}

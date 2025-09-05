@@ -57,7 +57,7 @@
                             <i class="fas fa-cogs"></i>
                         </div>
                         <h3>Methodology</h3>
-                        <p>Systematic investigation of component-wise fine-tuning strategies: SLM, Flow matching, and HiFi-GAN vocoder, analyzing their individual and combined impact on French and German speech quality.</p>
+                        <p>Systematic investigation of component-wise fine-tuning strategies: Text-Speech Language Model, Flow matching, and HiFi-GAN vocoder, analyzing their individual and combined impact on French and German speech quality.</p>
                     </div>
                     <div class="overview-card">
                         <div class="card-icon">
@@ -92,10 +92,10 @@
                         <!-- Arrow 1 -->
                         <path class="arrow" d="M 180 80 L 220 80" marker-end="url(#arrowhead)"/>
                         
-                        <!-- SLM Component -->
+                        <!-- Text-Speech Language Model Component -->
                         <rect class="component-box slm-component" x="230" y="40" width="140" height="80" rx="12" data-component="slm"/>
-                        <text x="300" y="65" text-anchor="middle" class="component-title">SLM</text>
-                        <text x="300" y="80" text-anchor="middle" class="component-subtitle">Speech Language Model</text>
+                        <text x="300" y="65" text-anchor="middle" class="component-title">Text-Speech LM</text>
+                        <text x="300" y="80" text-anchor="middle" class="component-subtitle">Text-Speech Language Model</text>
                         <text x="300" y="95" text-anchor="middle" class="component-detail">Text → Semantic Tokens</text>
                         <circle class="finetune-indicator slm-indicator" cx="350" cy="50" r="8"/>
                         
@@ -207,7 +207,7 @@
                             <label class="control-label">
                                 <input type="checkbox" id="slm-toggle" class="component-toggle" data-component="slm">
                                 <span class="checkbox-custom"></span>
-                                SLM Fine-tuning
+                                Text-Speech LM Fine-tuning
                             </label>
                             <p class="control-description">Improves semantic understanding and pronunciation patterns</p>
                         </div>
@@ -288,42 +288,62 @@
                     </p>
                 </div>
 
+                <!-- Language and Metric Selectors -->
+                <div style="display: flex; justify-content: center; gap: 40px; margin-bottom: 30px; flex-wrap: wrap;">
+                    <!-- Language Selector for Evaluation -->
+                    <div style="display: flex; align-items: center;">
+                        <label for="eval-language-select" style="font-weight:600; font-size:1.1em; margin-right:10px;">Language:</label>
+                        <select id="eval-language-select" style="font-size:1em; padding:6px 16px; border-radius:8px; border:1px solid #e2e8f0;">
+                            <option value="fr">🇫🇷 French</option>
+                            <option value="de">🇩🇪 German</option>
+                        </select>
+                    </div>
+                    
+                    <!-- Metric Selector -->
+                    <div style="display: flex; align-items: center;">
+                        <label for="metric-select" style="font-weight:600; font-size:1.1em; margin-right:10px;">Metric:</label>
+                        <select id="metric-select" style="font-size:1em; padding:6px 16px; border-radius:8px; border:1px solid #e2e8f0;">
+                            <option value="wer_norm" selected>Word Error Rate (normalized)</option>
+                            <option value="secs">Speaker Similarity</option>
+                            <option value="mcd">Mel Cepstral Distortion (MCD)</option>
+                            <option value="f0_corr">F0 Correlation</option>
+                            <option value="vuv">Voiced/Unvoiced Error (V/UV)</option>
+                        </select>
+                    </div>
+                </div>
+
                 <!-- Metrics Grid -->
+
                 <div class="metrics-grid">
                     <div class="metric-card">
-                        <h3>MOS Scores</h3>
-                        <div class="chart-container">
-                            <canvas id="mosChart" width="400" height="300"></canvas>
+                        <h3>Component Comparison</h3>
+                        <div class="chart-container large">
+                            <canvas id="radar-chart" width="520" height="380"></canvas>
+                            <button class="fullscreen-btn" data-chart="radar-chart">⛶</button>
                         </div>
                     </div>
                     <div class="metric-card">
-                        <h3>Accent Strength</h3>
+                        <h3>Learning Curve</h3>
                         <div class="chart-container">
-                            <canvas id="accentChart" width="400" height="300"></canvas>
+                            <canvas id="learning-curve-chart" width="400" height="300"></canvas>
+                            <button class="fullscreen-btn" data-chart="learning-curve-chart">⛶</button>
                         </div>
                     </div>
                     <div class="metric-card">
-                        <h3>Word Error Rate (WER)</h3>
+                        <h3>Mix vs Mono Training (across hours)</h3>
                         <div class="chart-container">
-                            <canvas id="werChart" width="400" height="300"></canvas>
-                        </div>
-                    </div>
-                    <div class="metric-card">
-                        <h3>Speaker Similarity</h3>
-                        <div class="chart-container">
-                            <canvas id="similarityChart" width="400" height="300"></canvas>
+                            <canvas id="mix-mono-curve-chart" width="400" height="300"></canvas>
+                            <button class="fullscreen-btn" data-chart="mix-mono-curve-chart">⛶</button>
                         </div>
                     </div>
                 </div>
 
-                <!-- Data Efficiency Analysis -->
-                <div class="efficiency-analysis">
-                    <h3>Data Efficiency Analysis</h3>
-                    <p class="efficiency-intro">
-                        Understanding how much training data is required to achieve different quality thresholds across various metrics.
-                    </p>
-                    <div class="efficiency-chart-container">
-                        <canvas id="efficiencyChart" width="800" height="400"></canvas>
+                <!-- Baseline vs Best Model Full Width -->
+                <div class="baseline-fullwidth">
+                    <h3>Baseline vs Best Model</h3>
+                    <div class="chart-container large">
+                        <canvas id="baseline-chart" width="800" height="400"></canvas>
+                        <button class="fullscreen-btn" data-chart="baseline-chart">⛶</button>
                     </div>
                 </div>
 

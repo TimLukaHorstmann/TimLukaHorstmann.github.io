@@ -1,0 +1,32 @@
+{
+  "labels": [
+    "CosyVoice2 Original",
+    "Coqui XTTS v2",
+    "ElevenLabs",
+    "Our Best Model"
+  ],
+  "datasets": [
+    {
+      "label": "VUV",
+      "data": [
+        46.023692486744274,
+        48.68051573437708,
+        44.79067257930718,
+        42.908317989952735
+      ],
+      "backgroundColor": [
+        "#f093fb",
+        "#f6ad55",
+        "#63b3ed",
+        "#667eea"
+      ],
+      "borderColor": [
+        "#f093fb",
+        "#f6ad55",
+        "#63b3ed",
+        "#667eea"
+      ]
+    }
+  ],
+  "metric_label": "VUV"
+}

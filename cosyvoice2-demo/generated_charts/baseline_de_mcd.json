@@ -1,0 +1,32 @@
+{
+  "labels": [
+    "CosyVoice2 Original",
+    "Coqui XTTS v2",
+    "ElevenLabs",
+    "Our Best Model"
+  ],
+  "datasets": [
+    {
+      "label": "MCD",
+      "data": [
+        8.808124979304827,
+        7.446788239520174,
+        7.964630703886869,
+        7.7483131574559545
+      ],
+      "backgroundColor": [
+        "#f093fb",
+        "#f6ad55",
+        "#63b3ed",
+        "#667eea"
+      ],
+      "borderColor": [
+        "#f093fb",
+        "#f6ad55",
+        "#63b3ed",
+        "#667eea"
+      ]
+    }
+  ],
+  "metric_label": "MCD"
+}

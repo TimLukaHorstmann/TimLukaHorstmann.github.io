@@ -1,272 +1,720 @@
-// CosyVoice2 Demo Interactive Functionality
+// Smooth scrolling navigation
 document.addEventListener('DOMContentLoaded', function() {
     console.log('CosyVoice2 European Languages Demo loaded successfully!');
 
     // Current language state
     let currentLanguage = 'fr';
 
-    // Navigation functionality
+    // Chart instances for metric selector
+    let radarChartInstance = null;
+    let learningCurveChartInstance = null;
+    let mixMonoChartInstance = null;
+    let baselineChartInstance = null;
+    let efficiencyChartInstance = null;
+    
+    // Initialize all functionality
     initializeNavigation();
-    
-    // Language selector
     initializeLanguageSelector();
-    
-    // Interactive architecture diagram
+    initializeMetricSelector();
     initializeArchitectureDiagram();
-    
-    // Fine-tuning controls
     initializeFinetuningControls();
-    
-    // Audio management
     initializeAudioPlayers();
-    
-    // Charts and visualizations
     initializeCharts();
-    
-    // Scroll animations
     initializeScrollAnimations();
 
-    // Navigation link functionality
     function initializeNavigation() {
-        const navLinks = document.querySelectorAll('.nav-link');
-        const sections = document.querySelectorAll('.section');
+        // Navigation link functionality
+    const navLinks = document.querySelectorAll('.nav-link');
+    const sections = document.querySelectorAll('.section');
 
-        function updateActiveNavLink() {
-            let current = '';
+    // Update active navigation link based on scroll position
+    function updateActiveNavLink() {
+        let current = '';
+        
+        sections.forEach(section => {
+            const sectionTop = section.offsetTop;
+            const sectionHeight = section.clientHeight;
             
-            sections.forEach(section => {
-                const sectionTop = section.offsetTop;
-                const sectionHeight = section.clientHeight;
+            if (pageYOffset >= sectionTop - 200) {
+                current = section.getAttribute('id');
+            }
+        });
+
+        navLinks.forEach(link => {
+            link.classList.remove('active');
+            if (link.getAttribute('href') === `#${current}`) {
+                link.classList.add('active');
+            }
+        });
+    }
+
+    // Smooth scrolling for navigation links
+    navLinks.forEach(link => {
+        link.addEventListener('click', function(e) {
+            e.preventDefault();
+            
+            const targetId = this.getAttribute('href');
+            const targetSection = document.querySelector(targetId);
+            
+            if (targetSection) {
+                const headerHeight = document.querySelector('.nav').offsetHeight;
+                const targetPosition = targetSection.offsetTop - headerHeight - 20;
                 
-                if (pageYOffset >= sectionTop - 200) {
-                    current = section.getAttribute('id');
+                window.scrollTo({
+                    top: targetPosition,
+                    behavior: 'smooth'
+                });
+            }
+        });
+    });
+
+    // Update active link on scroll
+    window.addEventListener('scroll', updateActiveNavLink);
+    
+    // Initial active link update
+    updateActiveNavLink();
+    }
+
+    // Language selector functionality
+    function initializeLanguageSelector() {
+        // Handle radio buttons in interactive demo
+        const languageRadios = document.querySelectorAll('input[name="language"]');
+        const evalLanguageSelect = document.getElementById('eval-language-select');
+        
+        // Set initial language from checked radio button
+        const checkedRadio = document.querySelector('input[name="language"]:checked');
+        if (checkedRadio) {
+            currentLanguage = checkedRadio.value;
+        }
+        
+        // Set evaluation language selector to match
+        if (evalLanguageSelect) {
+            evalLanguageSelect.value = currentLanguage;
+        }
+        
+        // Add listeners to radio buttons
+        languageRadios.forEach(radio => {
+            radio.addEventListener('change', function() {
+                if (this.checked) {
+                    currentLanguage = this.value;
+                    
+                    // Update evaluation language selector
+                    if (evalLanguageSelect) {
+                        evalLanguageSelect.value = currentLanguage;
+                    }
+                    
+                    updateAudioSources();
+                    updateAudioConfiguration();
+                    updateSampleText();
+                    refreshChartsForLanguage();
                 }
             });
+        });
 
-            navLinks.forEach(link => {
-                link.classList.remove('active');
-                if (link.getAttribute('href') === `#${current}`) {
-                    link.classList.add('active');
+        // Add listener to evaluation language selector
+        if (evalLanguageSelect) {
+            evalLanguageSelect.addEventListener('change', function() {
+                currentLanguage = this.value;
+                
+                // Update radio buttons
+                const targetRadio = document.querySelector(`input[name="language"][value="${currentLanguage}"]`);
+                if (targetRadio) {
+                    targetRadio.checked = true;
                 }
+                
+                updateAudioSources();
+                updateAudioConfiguration();
+                updateSampleText();
+                refreshChartsForLanguage();
             });
         }
 
-        navLinks.forEach(link => {
-            link.addEventListener('click', function(e) {
-                e.preventDefault();
-                
-                const targetId = this.getAttribute('href');
-                const targetSection = document.querySelector(targetId);
-                
-                if (targetSection) {
-                    const headerHeight = document.querySelector('.nav').offsetHeight;
-                    const targetPosition = targetSection.offsetTop - headerHeight - 20;
-                    
-                    window.scrollTo({
-                        top: targetPosition,
-                        behavior: 'smooth'
-                    });
-                }
-            });
-        });
-
-        window.addEventListener('scroll', updateActiveNavLink);
-        updateActiveNavLink();
-    }
-
-    // Language Selector
-    function initializeLanguageSelector() {
-        const languageInputs = document.querySelectorAll('input[name="language"]');
-        const sampleText = document.getElementById('sample-text');
-        
-        // Sample texts for different languages
-        const sampleTexts = {
-            fr: '"Bonjour, je m\'appelle Luka et je travaille dans une entreprise de technologie à Paris. Aujourd\'hui, nous allons explorer les capacités de synthèse vocale en français avec CosyVoice 2."',
-            de: '"Guten Tag, mein Name ist Hans und ich arbeite in einem Technologieunternehmen in Berlin. Heute werden wir die Sprachsynthesefähigkeiten von CosyVoice 2 im Deutschen erkunden."'
-        };
-
-        languageInputs.forEach(input => {
-            input.addEventListener('change', function() {
-                if (this.checked) {
-                    currentLanguage = this.value;
-                    // Update sample text
-                    sampleText.textContent = sampleTexts[currentLanguage];
-                    // Update all audio sources
-                    updateAudioSources();
-                    // Update configuration
-                    updateAudioConfiguration();
-                }
-            });
-        });
+        function updateSampleText() {
+            const sampleTextElement = document.getElementById('sample-text');
+            const promptLanguageElement = document.getElementById('prompt-language-inline');
+            
+            const sampleTexts = {
+                fr: '"Bonjour, je m\'appelle Luka et je travaille dans une entreprise de technologie à Paris. Aujourd\'hui, nous allons explorer les capacités de synthèse vocale en français avec CosyVoice 2."',
+                de: '"Guten Tag, mein Name ist Hans und ich arbeite in einem Technologieunternehmen in Berlin. Heute werden wir die Sprachsynthesefähigkeiten von CosyVoice 2 im Deutschen erkunden."'
+            };
+            
+            const languageNames = {
+                fr: 'French',
+                de: 'German'
+            };
+            
+            if (sampleTextElement) {
+                sampleTextElement.textContent = sampleTexts[currentLanguage];
+            }
+            
+            if (promptLanguageElement) {
+                promptLanguageElement.textContent = languageNames[currentLanguage];
+            }
+        }
 
         function updateAudioSources() {
-            // Update prompt audio (both inline and full prompt if present)
-            const promptSource = document.getElementById('prompt-source');
-            const promptLanguage = document.getElementById('prompt-language');
-            const promptLanguageInline = document.getElementById('prompt-language-inline');
-            const promptDescription = document.getElementById('prompt-description');
-            
+            // Update prompt audio files for language change
             const promptFiles = {
                 fr: 'common_voice_fr_40952142.wav',
                 de: 'common_voice_de_41123857.wav'
             };
 
+            // Update all audio sources based on language
+            const promptSource = document.getElementById('prompt-source');
             if (promptSource) {
                 promptSource.src = promptFiles[currentLanguage];
-                promptSource.parentElement.load();
-            }
-
-            // Inline audio player (if present) may share the same source element id; also update its label
-            const inlineSource = document.querySelector('#prompt-audio-inline source');
-            if (inlineSource) {
-                inlineSource.src = promptFiles[currentLanguage];
-                inlineSource.parentElement.load();
-            }
-
-            const langLabel = currentLanguage === 'fr' ? 'French' : 'German';
-            if (promptLanguage) promptLanguage.textContent = langLabel;
-            if (promptLanguageInline) promptLanguageInline.textContent = langLabel;
-            if (promptDescription) {
-                promptDescription.textContent = 'Original voice sample from Common Voice dataset used as reference for voice cloning.';
-            }
-            
-            // Update baseline audio
-            const baselineAudio = document.querySelector('.audio-player[data-config="baseline"] source');
-            if (baselineAudio) {
-                baselineAudio.src = `audio/original-${currentLanguage}.wav`;
-                baselineAudio.parentElement.load();
-            }
-            
-            // Update dynamic audio source
-            const dynamicSource = document.getElementById('dynamic-source');
-            if (dynamicSource) {
-                // Get current configuration and update
-                const activeComponents = [];
-                const toggles = document.querySelectorAll('.component-toggle');
-                toggles.forEach(toggle => {
-                    if (toggle.checked) {
-                        activeComponents.push(toggle.dataset.component);
-                    }
-                });
-                
-                const configKey = activeComponents.length > 0 ? activeComponents.sort().join('_') : 'original';
-                dynamicSource.src = `audio/${configKey}-${currentLanguage}.wav`;
-                dynamicSource.parentElement.load();
+                const audio = promptSource.parentElement;
+                audio.load();
             }
         }
         
-        // Initialize audio sources on page load
+        // Initialize
+        updateSampleText();
         updateAudioSources();
     }
 
-    // Interactive Architecture Diagram
-    function initializeArchitectureDiagram() {
-        const componentBoxes = document.querySelectorAll('.component-box');
-        const infoContent = document.getElementById('info-content');
+    // Metric selector functionality for charts
+    function initializeMetricSelector() {
+    const metricSelect = document.getElementById('metric-select');
+        const evalLanguageSelect = document.getElementById('eval-language-select');
+        if (!metricSelect) return;
         
-        // Component information data
-        const componentInfo = {
-            slm: {
-                title: 'SLM (Speech Language Model)',
-                description: 'The Speech Language Model component converts input text into semantic tokens. Fine-tuning this component improves pronunciation accuracy and phonetic understanding for European languages.',
-                benefits: [
-                    'Improved pronunciation of language-specific phonemes',
-                    'Better handling of linguistic patterns',
-                    'Enhanced semantic understanding of text'
-                ],
-                audioFile: 'audio/slm_only.wav',
-                improvements: 'Reduces pronunciation errors by ~40% and improves phonetic accuracy significantly.'
-            },
-            flow: {
-                title: 'Flow Matching (Diffusion Model)',
-                description: 'The Flow Matching component generates mel spectrograms from semantic tokens. This component has the most significant impact on prosody and naturalness.',
-                benefits: [
-                    'Natural prosody and rhythm',
-                    'Improved intonation patterns',
-                    'Better emotional expressiveness'
-                ],
-                audioFile: 'audio/flow_only.wav',
-                improvements: 'Provides the largest MOS improvement (+0.8) and dramatically enhances naturalness.'
-            },
-            hifigan: {
-                title: 'HiFi-GAN (Vocoder)*',
-                description: 'The HiFi-GAN vocoder converts mel spectrograms to final audio waveforms. This comparison showcases the difference between a partially trained and fully trained vocoder, demonstrating the importance of proper vocoder quality.',
-                benefits: [
-                    'Cleaner audio output with fewer artifacts',
-                    'Better frequency response for target phonemes',
-                    'Improved overall audio fidelity'
-                ],
-                audioFile: 'audio/hifigan_only.wav',
-                improvements: 'Significantly reduces audio artifacts and improves overall clarity. Note: This represents using the official CosyVoice2 HiFi-GAN vs. a partially trained version.'
-            }
-        };
-
-        componentBoxes.forEach(box => {
-            box.addEventListener('click', function() {
-                const component = this.getAttribute('data-component');
-                
-                // Update visual state
-                componentBoxes.forEach(b => b.classList.remove('active'));
-                this.classList.add('active');
-                
-                // Update info panel
-                if (componentInfo[component]) {
-                    updateInfoPanel(componentInfo[component]);
-                }
-                
-                // Update architecture diagram indicators
-                updateArchitectureDiagram(component);
-                
-                // Play component audio if available
-                playComponentAudio(componentInfo[component].audioFile);
-            });
+    let currentMetric = metricSelect.value || 'wer_norm';
+        let evalLanguage = evalLanguageSelect ? evalLanguageSelect.value || 'fr' : currentLanguage;
+        
+        // Set evaluation language to match current language initially
+        if (evalLanguageSelect) {
+            evalLanguageSelect.value = currentLanguage;
+            evalLanguage = currentLanguage;
+        }
+        
+        metricSelect.addEventListener('change', function() {
+            currentMetric = this.value;
+            loadAndRenderCharts(evalLanguage, currentMetric);
         });
 
-        function updateInfoPanel(info) {
-            infoContent.innerHTML = `
-                <h3>${info.title}</h3>
-                <p>${info.description}</p>
-                <div class="benefits-list">
-                    <h4>Key Benefits:</h4>
-                    <ul>
-                        ${info.benefits.map(benefit => `<li>${benefit}</li>`).join('')}
-                    </ul>
-                </div>
-                <div class="improvements">
-                    <h4>Impact:</h4>
-                    <p>${info.improvements}</p>
-                </div>
-            `;
+        // Add evaluation language selector listener
+        if (evalLanguageSelect) {
+            evalLanguageSelect.addEventListener('change', function() {
+                evalLanguage = this.value;
+                loadAndRenderCharts(evalLanguage, currentMetric);
+            });
         }
 
-        function updateArchitectureDiagram(activeComponent) {
-            // Don't change the fine-tuning status indicators when just showing component info
-            // The fine-tuning status should only be controlled by the checkboxes
-            console.log(`Showing info for component: ${activeComponent}`);
+        // Load chart data and render charts
+        function loadAndRenderCharts(language, metric) {
+            console.log(`Loading charts for language: ${language}, metric: ${metric}`);
+                loadRadarChart(language, metric);
+                loadLearningCurveChart(language, metric);
+                loadMixMonoCurveChart(language, metric);
+                loadBaselineChart(language, metric);
         }
 
-        function playComponentAudio(audioFile) {
-            // Stop all currently playing audio
-            const allAudio = document.querySelectorAll('audio');
-            allAudio.forEach(audio => audio.pause());
+        // Radar chart logic (per-metric)
+        function loadRadarChart(language, metric) {
+            fetch(`generated_charts/radar_${language}_${metric}.json`)
+                .then(response => {
+                    if (!response.ok) throw new Error(`HTTP ${response.status}`);
+                    return response.json();
+                })
+                .then(data => {
+                    if (radarChartInstance) radarChartInstance.destroy();
+                    const ctx = document.getElementById('radar-chart');
+                    if (ctx) {
+                        radarChartInstance = new Chart(ctx.getContext('2d'), {
+                            type: 'radar',
+                            data: data,
+                            options: {
+                                plugins: {
+                                    tooltip: {
+                                        callbacks: {
+                                            label: function(context) {
+                                                const value = context.parsed.r;
+                                                return `${context.label}: ${value}`;
+                                            }
+                                        }
+                                    },
+                                    title: {
+                                        display: true,
+                                        text: `${data.metric_label || metric.toUpperCase()} Comparison (Absolute Values)`,
+                                        font: { size: 18 }
+                                    },
+                                    legend: { position: 'top' }
+                                },
+                                scales: {
+                                    r: {
+                                        beginAtZero: false,
+                                        min: data.min || 0,
+                                        max: data.max || 100,
+                                        pointLabels: { font: { size: 14 } }
+                                    }
+                                }
+                            }
+                        });
+                    }
+                })
+                .catch(error => {
+                    console.log('Radar chart data not available:', error);
+                    const ctx = document.getElementById('radar-chart');
+                    if (ctx) {
+                        const parent = ctx.parentElement;
+                        parent.innerHTML = `<p style="text-align:center; color:#666; padding:40px;">Chart data for ${language}/${metric} not yet available</p>`;
+                    }
+                });
+        }
+
+        // Learning curve chart logic (per-metric)
+    function loadLearningCurveChart(language, metric) {
+            fetch(`generated_charts/learning_curve_${language}_${metric}.json`)
+                .then(response => {
+                    if (!response.ok) throw new Error(`HTTP ${response.status}`);
+                    return response.json();
+                })
+                .then(data => {
+                    if (learningCurveChartInstance) learningCurveChartInstance.destroy();
+                    const ctx = document.getElementById('learning-curve-chart');
+                    if (ctx) {
+                        learningCurveChartInstance = new Chart(ctx.getContext('2d'), {
+                            type: 'line',
+                            data: data,
+                            options: {
+                                plugins: {
+                                    title: {
+                                        display: true,
+                                        text: `${data.metric_label || metric.toUpperCase()} Learning Curve`,
+                                        font: { size: 18 }
+                                    },
+                                    legend: { position: 'top' }
+                                },
+                                scales: {
+                                    x: { title: { display: true, text: data.x_label || 'Epoch' } },
+                                    y: { title: { display: true, text: data.metric_label || metric.toUpperCase() }, beginAtZero: true }
+                                }
+                            }
+                        });
+                    }
+                })
+                .catch(error => {
+                    console.log('Learning curve chart data not available:', error);
+                    const ctx = document.getElementById('learning-curve-chart');
+                    if (ctx) {
+                        const parent = ctx.parentElement;
+                        parent.innerHTML = `<p style="text-align:center; color:#666; padding:40px;">Chart data for ${language}/${metric} not yet available</p>`;
+                    }
+                });
+        }
+
+        // Mix vs Mono chart logic (per-metric)
+        function loadMixMonoCurveChart(language, metric) {
+            fetch(`generated_charts/mix_mono_curve_${language}_${metric}.json`)
+                .then(response => {
+                    if (!response.ok) throw new Error(`Failed to load mix mono chart: ${response.status}`);
+                    return response.json();
+                })
+                .then(data => {
+                    const ctx = document.getElementById('mix-mono-curve-chart');
+                    if (!ctx) return;
+                    
+                    if (mixMonoChartInstance) {
+                        mixMonoChartInstance.destroy();
+                    }
+                    
+                    mixMonoChartInstance = new Chart(ctx, {
+                        type: 'line',
+                        data: data,
+                        options: {
+                            responsive: true,
+                            maintainAspectRatio: false,
+                            plugins: {
+                                title: {
+                                    display: true,
+                                    text: `Mix vs Mono Training (${data.metric_label})`
+                                },
+                                legend: {
+                                    position: 'top'
+                                }
+                            },
+                            scales: {
+                                x: {
+                                    title: {
+                                        display: true,
+                                        text: data.x_label || 'Training Hours'
+                                    }
+                                },
+                                y: {
+                                    title: {
+                                        display: true,
+                                        text: data.metric_label
+                                    }
+                                }
+                            }
+                        }
+                    });
+                })
+                .catch(error => {
+                    console.error('Error loading mix mono chart:', error);
+                    const ctx = document.getElementById('mix-mono-curve-chart');
+                    if (ctx) {
+                        const parent = ctx.parentElement;
+                        parent.innerHTML = '<p style="text-align: center; color: #666;">Chart data not available</p>';
+                    }
+                });
+        }
+
+        // Add fullscreen functionality
+        function addFullscreenButton(chartContainer, chartId) {
+            const fullscreenBtn = document.createElement('button');
+            fullscreenBtn.className = 'fullscreen-btn';
+            fullscreenBtn.innerHTML = '⛶';
+            fullscreenBtn.title = 'Fullscreen';
             
-            // This would play the component-specific audio
-            // For now, we'll just log it
-            console.log(`Playing audio: ${audioFile}`);
+            chartContainer.style.position = 'relative';
+            chartContainer.appendChild(fullscreenBtn);
+            
+            fullscreenBtn.addEventListener('click', function() {
+                const originalChart = Chart.getChart(chartId);
+                if (!originalChart) {
+                    console.error('No chart found with ID:', chartId);
+                    return;
+                }
+
+                const modal = document.createElement('div');
+                modal.style.cssText = `
+                    position: fixed;
+                    top: 0;
+                    left: 0;
+                    width: 100vw;
+                    height: 100vh;
+                    background: rgba(0,0,0,0.9);
+                    z-index: 9999;
+                    display: flex;
+                    align-items: center;
+                    justify-content: center;
+                    padding: 20px;
+                    box-sizing: border-box;
+                `;
+                
+                const modalContent = document.createElement('div');
+                modalContent.style.cssText = `
+                    background: white;
+                    border-radius: 10px;
+                    padding: 30px;
+                    width: 95%;
+                    height: 90%;
+                    position: relative;
+                    display: flex;
+                    flex-direction: column;
+                `;
+                
+                const closeBtn = document.createElement('button');
+                closeBtn.innerHTML = '×';
+                closeBtn.style.cssText = `
+                    position: absolute;
+                    top: 15px;
+                    right: 20px;
+                    background: none;
+                    border: none;
+                    font-size: 30px;
+                    cursor: pointer;
+                    color: #666;
+                    font-weight: bold;
+                    z-index: 10;
+                `;
+                
+                const chartTitle = document.createElement('h3');
+                chartTitle.style.cssText = `
+                    margin: 0 0 20px 0;
+                    color: #333;
+                    text-align: center;
+                `;
+                chartTitle.textContent = originalChart.options.plugins?.title?.text || 'Chart';
+                
+                const canvasContainer = document.createElement('div');
+                canvasContainer.style.cssText = `
+                    flex: 1;
+                    position: relative;
+                    min-height: 0;
+                `;
+                
+                const canvas = document.createElement('canvas');
+                canvas.id = chartId + '-fullscreen';
+                canvas.style.cssText = `
+                    width: 100% !important;
+                    height: 100% !important;
+                `;
+                
+                canvasContainer.appendChild(canvas);
+                modalContent.appendChild(closeBtn);
+                modalContent.appendChild(chartTitle);
+                modalContent.appendChild(canvasContainer);
+                modal.appendChild(modalContent);
+                document.body.appendChild(modal);
+                
+                // Clone chart in fullscreen with proper sizing
+                setTimeout(() => {
+                    const fullscreenChart = new Chart(canvas, {
+                        type: originalChart.config.type,
+                        data: JSON.parse(JSON.stringify(originalChart.data)), // Deep clone data
+                        options: {
+                            ...JSON.parse(JSON.stringify(originalChart.options)), // Deep clone options
+                            responsive: true,
+                            maintainAspectRatio: false,
+                            devicePixelRatio: window.devicePixelRatio || 1
+                        }
+                    });
+                }, 100);
+                
+                // Close functionality
+                function closeModal() {
+                    const fullscreenChart = Chart.getChart(chartId + '-fullscreen');
+                    if (fullscreenChart) {
+                        fullscreenChart.destroy();
+                    }
+                    document.body.removeChild(modal);
+                }
+                
+                closeBtn.addEventListener('click', closeModal);
+                modal.addEventListener('click', function(e) {
+                    if (e.target === modal) closeModal();
+                });
+                
+                // Add escape key listener
+                const escapeHandler = function(e) {
+                    if (e.key === 'Escape') {
+                        closeModal();
+                        document.removeEventListener('keydown', escapeHandler);
+                    }
+                };
+                document.addEventListener('keydown', escapeHandler);
+            });
         }
+
+        // Fullscreen button logic for all charts
+        document.querySelectorAll('.chart-container').forEach(container => {
+            const canvas = container.querySelector('canvas');
+            if (canvas) {
+                addFullscreenButton(container, canvas.id);
+            }
+        });
+
+        // Baseline chart logic (per-metric)
+        function loadBaselineChart(language, metric) {
+            fetch(`generated_charts/baseline_${language}_${metric}.json`)
+                .then(response => {
+                    if (!response.ok) throw new Error(`HTTP ${response.status}`);
+                    return response.json();
+                })
+                .then(data => {
+                    if (baselineChartInstance) baselineChartInstance.destroy();
+                    const ctx = document.getElementById('baseline-chart');
+                    if (ctx) {
+                        baselineChartInstance = new Chart(ctx.getContext('2d'), {
+                            type: 'bar',
+                            data: data,
+                            options: {
+                                responsive: true,
+                                maintainAspectRatio: false,
+                                devicePixelRatio: window.devicePixelRatio || 2,
+                                plugins: {
+                                    title: {
+                                        display: true,
+                                        text: `${data.metric_label || metric.toUpperCase()}: Baseline Comparison`,
+                                        font: { size: 18 }
+                                    },
+                                    legend: { position: 'top' }
+                                },
+                                scales: {
+                                    x: { title: { display: true, text: 'Model' } },
+                                    y: { title: { display: true, text: data.metric_label || metric.toUpperCase() }, beginAtZero: true }
+                                }
+                            }
+                        });
+                    }
+                })
+                .catch(error => {
+                    console.log('Baseline chart data not available:', error);
+                    const ctx = document.getElementById('baseline-chart');
+                    if (ctx) {
+                        const parent = ctx.parentElement;
+                        parent.innerHTML = `<p style="text-align:center; color:#666; padding:40px;">Chart data for ${language}/${metric} not yet available</p>`;
+                    }
+                });
+        }
+
+        // Efficiency chart logic (per-metric)
+        function loadEfficiencyChart(language) {
+            fetch(`generated_charts/efficiency_dual_${language}.json`)
+                .then(response => {
+                    if (!response.ok) throw new Error(`HTTP ${response.status}`);
+                    return response.json();
+                })
+                .then(data => {
+                    if (efficiencyChartInstance) efficiencyChartInstance.destroy();
+                    const ctx = document.getElementById('efficiency-chart');
+                    if (ctx) {
+                        efficiencyChartInstance = new Chart(ctx.getContext('2d'), {
+                            type: 'line',
+                            data: { labels: data.labels, datasets: data.datasets },
+                            options: {
+                                plugins: {
+                                    title: {
+                                        display: true,
+                                        text: `Data Efficiency: WER (norm) and SECS vs Training Hours`,
+                                        font: { size: 18 }
+                                    },
+                                    legend: { position: 'top' }
+                                },
+                                scales: {
+                                    x: { title: { display: true, text: 'Training Hours' } },
+                                    yWER: { type: 'linear', position: 'left', title: { display: true, text: 'WER (normalized)' } },
+                                    ySECS: { type: 'linear', position: 'right', title: { display: true, text: 'SECS' }, grid: { drawOnChartArea: false } }
+                                }
+                            }
+                        });
+                    }
+                })
+                .catch(error => {
+                    console.log('Efficiency chart data not available:', error);
+                    const ctx = document.getElementById('efficiency-chart');
+                    if (ctx) {
+                        const parent = ctx.parentElement;
+                        parent.innerHTML = `<p style="text-align:center; color:#666; padding:40px;">Efficiency chart data for ${language} not yet available</p>`;
+                    }
+                });
+        }
+
+        // Initial load
+    loadAndRenderCharts(evalLanguage, currentMetric);
     }
 
-    // Fine-tuning Controls
+    function initializeArchitectureDiagram() {
+        // Interactive architecture diagram functionality
+        const componentBoxes = document.querySelectorAll('.component-box');
+        const finetuneindicators = document.querySelectorAll('.finetune-indicator');
+        const infoContent = document.getElementById('info-content');
+        
+        const componentInfo = {
+            'slm': {
+                name: 'Text-Speech Language Model',
+                description: 'Converts input text into semantic tokens that represent the linguistic content. This component handles language-specific patterns and phonetic understanding.',
+                impact: 'Fine-tuning this component improves pronunciation accuracy and language-specific prosody patterns for French and German.'
+            },
+            'flow': {
+                name: 'Flow Matching Model', 
+                description: 'Uses diffusion-based flow matching to convert semantic tokens into mel-spectrograms, generating the acoustic features of speech.',
+                impact: 'Fine-tuning helps capture language-specific acoustic characteristics like French nasal vowels or German consonant clusters.'
+            },
+            'hifigan': {
+                name: 'HiFi-GAN Vocoder',
+                description: 'Converts mel-spectrograms into high-quality waveforms, generating the final audio output with natural prosody and timbre.',
+                impact: 'Fine-tuning improves audio quality and reduces artifacts specific to European language phonemes.'
+            }
+        };
+        
+        componentBoxes.forEach(box => {
+            box.addEventListener('click', function() {
+                // Remove active class from all components
+                componentBoxes.forEach(b => b.classList.remove('active'));
+                finetuneindicators.forEach(i => i.classList.remove('active'));
+                
+                // Add active class to clicked component
+                this.classList.add('active');
+                const componentType = this.getAttribute('data-component');
+                const indicator = document.querySelector(`.${componentType}-indicator`);
+                if (indicator) indicator.classList.add('active');
+                
+                // Update info panel
+                const info = componentInfo[componentType];
+                if (info && infoContent) {
+                    infoContent.innerHTML = `
+                        <h3>${info.name}</h3>
+                        <p><strong>Function:</strong> ${info.description}</p>
+                        <p><strong>Fine-tuning Impact:</strong> ${info.impact}</p>
+                    `;
+                }
+            });
+            
+            // Add hover effects
+            box.addEventListener('mouseenter', function() {
+                if (!this.classList.contains('active')) {
+                    this.style.opacity = '0.8';
+                }
+            });
+            
+            box.addEventListener('mouseleave', function() {
+                this.style.opacity = '1';
+            });
+        });
+        
+        console.log('Architecture diagram initialized');
+    }
+
     function initializeFinetuningControls() {
+        // Fine-tuning controls functionality - use existing HTML elements
         const toggles = document.querySelectorAll('.component-toggle');
-        const dynamicAudioCard = document.getElementById('dynamic-audio-card');
+        
+        if (toggles.length === 0) {
+            console.warn('No component toggles found');
+            return;
+        }
+        
+        // Add event listeners to existing toggles
+        toggles.forEach(toggle => {
+            toggle.addEventListener('change', function() {
+                updateAudioConfiguration();
+                updateArchitectureVisualization();
+            });
+        });
+        
+        // Initialize with default state
+        updateAudioConfiguration();
+        updateArchitectureVisualization();
+        
+        console.log('Fine-tuning controls initialized');
+    }
+
+    function initializeCharts() {
+        // Charts initialization placeholder
+        console.log('Charts initialized');
+    }
+
+    function refreshChartsForLanguage() {
+        // Refresh charts when language changes
+        const metricSelect = document.getElementById('metric-select');
+        const evalLanguageSelect = document.getElementById('eval-language-select');
+    const currentMetric = metricSelect ? metricSelect.value : 'wer_norm';
+        
+        // Update evaluation language selector to match current language
+        if (evalLanguageSelect) {
+            evalLanguageSelect.value = currentLanguage;
+        }
+        
+        // Destroy existing charts
+        if (radarChartInstance) radarChartInstance.destroy();
+        if (learningCurveChartInstance) learningCurveChartInstance.destroy();
+        if (mixMonoChartInstance) mixMonoChartInstance.destroy();
+        if (baselineChartInstance) baselineChartInstance.destroy();
+        if (efficiencyChartInstance) efficiencyChartInstance.destroy();
+        
+        // Reload with new language
+        setTimeout(() => {
+            initializeMetricSelector();
+        }, 100);
+    }
+
+    function updateAudioConfiguration() {
+        // Update audio based on fine-tuning configuration (restored from original)
         const dynamicTitle = document.getElementById('dynamic-title');
         const dynamicIndicators = document.getElementById('dynamic-indicators');
+        const dynamicDescription = document.getElementById('dynamic-description');
         const dynamicAudio = document.getElementById('dynamic-audio');
         const dynamicSource = document.getElementById('dynamic-source');
-        const dynamicDescription = document.getElementById('dynamic-description');
-
-        // Audio configurations for different combinations
+        
+        if (!dynamicTitle) return;
+        
+        const toggles = document.querySelectorAll('.component-toggle');
+        
+        // Audio configurations for different combinations (restored from original)
         const audioConfigurations = {
             'baseline': {
                 file: 'original',
@@ -277,10 +725,10 @@ document.addEventListener('DOMContentLoaded', function() {
             },
             'slm': {
                 file: 'slm',
-                title: 'SLM Fine-tuned',
+                title: 'Text-Speech LM Fine-tuned',
                 indicators: ['Improved Pronunciation', 'Some English Accent'],
                 indicatorClasses: ['good', 'neutral'],
-                description: 'Speech Language Model fine-tuned for language-specific pronunciation patterns.'
+                description: 'Text-Speech Language Model fine-tuned for language-specific pronunciation patterns.'
             },
             'flow': {
                 file: 'flow',
@@ -298,17 +746,17 @@ document.addEventListener('DOMContentLoaded', function() {
             },
             'flow_slm': {
                 file: 'slm_flow',
-                title: 'SLM + Flow Fine-tuned',
+                title: 'Text-Speech LM + Flow Fine-tuned',
                 indicators: ['Good Pronunciation', 'Natural Prosody'],
                 indicatorClasses: ['good', 'good'],
-                description: 'Combined SLM and Flow fine-tuning for improved pronunciation and prosody.'
+                description: 'Combined Text-Speech LM and Flow fine-tuning for improved pronunciation and prosody.'
             },
             'hifigan_slm': {
                 file: 'slm_hifigan',
-                title: 'SLM + HiFiGAN Optimized*',
+                title: 'Text-Speech LM + HiFiGAN Optimized*',
                 indicators: ['Good Pronunciation', 'Clean Audio'],
                 indicatorClasses: ['good', 'good'],
-                description: 'Combined SLM fine-tuning with official CosyVoice2 HiFiGAN model.'
+                description: 'Combined Text-Speech LM fine-tuning with official CosyVoice2 HiFiGAN model.'
             },
             'flow_hifigan': {
                 file: 'flow_hifigan',
@@ -321,444 +769,189 @@ document.addEventListener('DOMContentLoaded', function() {
                 file: 'slm_flow_hifigan',
                 title: 'All Components Optimized*',
                 indicators: ['Excellent Pronunciation', 'Natural Prosody', 'High Quality Audio'],
-                // use 'good' so the badges appear green (CSS maps 'good' -> green, 'excellent' -> blue)
                 indicatorClasses: ['good', 'good', 'good'],
-                description: 'SLM and Flow fine-tuned with official CosyVoice2 HiFiGAN for optimal quality.'
+                description: 'Text-Speech LM and Flow fine-tuned with official CosyVoice2 HiFiGAN for optimal quality.'
             }
         };
-
+        
+        const activeComponents = [];
         toggles.forEach(toggle => {
-            toggle.addEventListener('change', function() {
-                updateAudioConfiguration();
-                updateArchitectureVisualization();
-            });
+            if (toggle.checked) {
+                activeComponents.push(toggle.getAttribute('data-component'));
+            }
         });
 
-        function updateAudioConfiguration() {
-            const activeComponents = [];
-            toggles.forEach(toggle => {
-                if (toggle.checked) {
-                    activeComponents.push(toggle.getAttribute('data-component'));
-                }
-            });
+        const configKey = activeComponents.length > 0 ? activeComponents.sort().join('_') : 'baseline';
+        const config = audioConfigurations[configKey] || audioConfigurations['baseline'];
 
-            const configKey = activeComponents.length > 0 ? activeComponents.sort().join('_') : 'baseline';
-            const config = audioConfigurations[configKey] || audioConfigurations['baseline'];
-
-            // Update dynamic audio card
-            dynamicTitle.innerHTML = `<i class="fas fa-magic"></i> ${config.title}`;
-            
-            // Update quality indicators
+        // Update dynamic audio card
+        dynamicTitle.innerHTML = `<i class="fas fa-magic"></i> ${config.title}`;
+        
+        // Update quality indicators
+        if (dynamicIndicators) {
             dynamicIndicators.innerHTML = config.indicators.map((indicator, index) => 
                 `<span class="quality-badge ${config.indicatorClasses[index]}">${indicator}</span>`
             ).join('');
+        }
 
-            // Update audio source with language suffix
+        // Update audio source with language suffix
+        if (dynamicSource && dynamicAudio) {
             const audioFile = `audio/${config.file}-${currentLanguage}.wav`;
             dynamicSource.src = audioFile;
             dynamicAudio.load();
+        }
 
-            // Update description
+        // Update description
+        if (dynamicDescription) {
             dynamicDescription.textContent = config.description;
-
-            console.log(`Updated configuration to: ${configKey} for language: ${currentLanguage}`);
         }
 
-        function updateArchitectureVisualization() {
-            // Reset all indicators in the architecture diagram
-            const indicators = document.querySelectorAll('.finetune-indicator');
-            indicators.forEach(indicator => {
-                indicator.classList.remove('active');
-                indicator.classList.add('inactive');
-            });
-
-            // Activate indicators for checked components
-            toggles.forEach(toggle => {
-                if (toggle.checked) {
-                    const component = toggle.getAttribute('data-component');
-                    const indicator = document.querySelector(`.${component}-indicator`);
-                    if (indicator) {
-                        indicator.classList.remove('inactive');
-                        indicator.classList.add('active');
-                    }
-                }
-            });
-        }
-
-        // Initialize with baseline configuration
-        updateAudioConfiguration();
+        console.log(`Updated configuration to: ${configKey} for language: ${currentLanguage}`);
     }
 
-    // Audio Player Management
-    function initializeAudioPlayers() {
-        const audioElements = document.querySelectorAll('audio');
+    function updateArchitectureVisualization() {
+        // Update architecture diagram based on fine-tuning selection (restored from original)
+        const toggles = document.querySelectorAll('.component-toggle');
+        const indicators = document.querySelectorAll('.finetune-indicator');
         
-        audioElements.forEach(audio => {
-            // Add loading state
-            audio.addEventListener('loadstart', function() {
-                this.parentElement.classList.add('loading');
-            });
-            
-            audio.addEventListener('canplaythrough', function() {
-                this.parentElement.classList.remove('loading');
-            });
-            
-            // Pause other audio when one starts playing
-            audio.addEventListener('play', function() {
-                audioElements.forEach(otherAudio => {
-                    if (otherAudio !== audio) {
-                        otherAudio.pause();
-                    }
-                });
-            });
-
-            // Add keyboard accessibility
-            audio.addEventListener('keydown', function(e) {
-                if (e.key === 'Enter' || e.key === ' ') {
-                    e.preventDefault();
-                    if (this.paused) {
-                        this.play();
-                    } else {
-                        this.pause();
-                    }
-                }
-            });
-
-            // Error handling for missing audio files
-            audio.addEventListener('error', function() {
-                console.warn(`Audio file not found: ${this.src}`);
-                const errorMsg = document.createElement('p');
-                errorMsg.textContent = 'Audio file not yet available - upload in progress';
-                errorMsg.style.color = '#f6ad55';
-                errorMsg.style.fontSize = '0.9rem';
-                errorMsg.style.fontStyle = 'italic';
-                errorMsg.style.textAlign = 'center';
-                
-                this.parentElement.appendChild(errorMsg);
-                this.style.display = 'none';
-            });
+        // Reset all indicators in the architecture diagram
+        indicators.forEach(indicator => {
+            indicator.classList.remove('active');
+            indicator.classList.add('inactive');
         });
+
+        // Activate indicators for checked components
+        toggles.forEach(toggle => {
+            if (toggle.checked) {
+                const component = toggle.getAttribute('data-component');
+                const indicator = document.querySelector(`.${component}-indicator`);
+                if (indicator) {
+                    indicator.classList.remove('inactive');
+                    indicator.classList.add('active');
+                }
+            }
+        });
+        
+        console.log('Architecture visualization updated');
     }
 
-    // Charts and Data Visualization
-    function initializeCharts() {
-        // Sample data for demonstration
-        const sampleData = {
-            configurations: ['Baseline', 'SLM Only', 'Flow Only', 'HiFiGAN Only', 'SLM+Flow', 'SLM+HiFiGAN', 'Flow+HiFiGAN', 'All Components'],
-            mosScores: [2.1, 2.8, 3.5, 2.4, 3.8, 3.1, 3.6, 4.2],
-            accentStrength: [4.5, 3.8, 3.2, 4.3, 2.9, 3.6, 3.0, 2.1],
-            werScores: [18.5, 14.2, 12.8, 17.1, 9.4, 12.6, 11.2, 7.3],
-            speakerSimilarity: [0.62, 0.71, 0.78, 0.65, 0.83, 0.76, 0.81, 0.91]
-        };
-
-        // Chart colors
-        const colors = {
-            primary: '#667eea',
-            secondary: '#764ba2',
-            success: '#48bb78',
-            warning: '#ed8936',
-            error: '#e53e3e',
-            gradient: ['#667eea', '#764ba2', '#f093fb', '#f5576c']
-        };
-
-        // MOS Scores Chart
-        if (document.getElementById('mosChart')) {
-            new Chart(document.getElementById('mosChart'), {
-                type: 'bar',
-                data: {
-                    labels: sampleData.configurations,
-                    datasets: [{
-                        label: 'MOS Score',
-                        data: sampleData.mosScores,
-                        backgroundColor: colors.gradient,
-                        borderColor: colors.primary,
-                        borderWidth: 1
-                    }]
-                },
-                options: {
-                    responsive: true,
-                    maintainAspectRatio: false,
-                    scales: {
-                        y: {
-                            beginAtZero: true,
-                            max: 5,
-                            title: {
-                                display: true,
-                                text: 'MOS Score (1-5)'
-                            }
-                        },
-                        x: {
-                            ticks: {
-                                maxRotation: 45
-                            }
-                        }
-                    },
-                    plugins: {
-                        legend: {
-                            display: false
-                        },
-                        title: {
-                            display: true,
-                            text: 'Mean Opinion Score by Configuration'
-                        }
-                    }
-                }
-            });
-        }
-
-        // Accent Strength Chart
-        if (document.getElementById('accentChart')) {
-            new Chart(document.getElementById('accentChart'), {
-                type: 'line',
-                data: {
-                    labels: sampleData.configurations,
-                    datasets: [{
-                        label: 'Accent Strength',
-                        data: sampleData.accentStrength,
-                        borderColor: colors.error,
-                        backgroundColor: colors.error + '20',
-                        fill: true,
-                        tension: 0.4
-                    }]
-                },
-                options: {
-                    responsive: true,
-                    maintainAspectRatio: false,
-                    scales: {
-                        y: {
-                            beginAtZero: true,
-                            max: 5,
-                            title: {
-                                display: true,
-                                text: 'Accent Strength (1-5, lower is better)'
-                            }
-                        },
-                        x: {
-                            ticks: {
-                                maxRotation: 45
-                            }
-                        }
-                    },
-                    plugins: {
-                        legend: {
-                            display: false
-                        },
-                        title: {
-                            display: true,
-                            text: 'French Accent Strength (Lower is Better)'
-                        }
-                    }
-                }
-            });
-        }
-
-        // WER Chart
-        if (document.getElementById('werChart')) {
-            new Chart(document.getElementById('werChart'), {
-                type: 'bar',
-                data: {
-                    labels: sampleData.configurations,
-                    datasets: [{
-                        label: 'Word Error Rate (%)',
-                        data: sampleData.werScores,
-                        backgroundColor: colors.warning,
-                        borderColor: colors.warning,
-                        borderWidth: 1
-                    }]
-                },
-                options: {
-                    responsive: true,
-                    maintainAspectRatio: false,
-                    scales: {
-                        y: {
-                            beginAtZero: true,
-                            title: {
-                                display: true,
-                                text: 'WER (%, lower is better)'
-                            }
-                        },
-                        x: {
-                            ticks: {
-                                maxRotation: 45
-                            }
-                        }
-                    },
-                    plugins: {
-                        legend: {
-                            display: false
-                        },
-                        title: {
-                            display: true,
-                            text: 'Word Error Rate by Configuration'
-                        }
-                    }
-                }
-            });
-        }
-
-        // Speaker Similarity Chart
-        if (document.getElementById('similarityChart')) {
-            new Chart(document.getElementById('similarityChart'), {
-                type: 'radar',
-                data: {
-                    labels: ['Baseline', 'SLM Only', 'Flow Only', 'HiFiGAN Only', 'SLM+Flow', 'All Components'],
-                    datasets: [{
-                        label: 'Speaker Similarity',
-                        data: [0.62, 0.71, 0.78, 0.65, 0.83, 0.91],
-                        borderColor: colors.success,
-                        backgroundColor: colors.success + '30',
-                        pointBackgroundColor: colors.success
-                    }]
-                },
-                options: {
-                    responsive: true,
-                    maintainAspectRatio: false,
-                    scales: {
-                        r: {
-                            beginAtZero: true,
-                            max: 1,
-                            title: {
-                                display: true,
-                                text: 'Similarity Score (0-1)'
-                            }
-                        }
-                    },
-                    plugins: {
-                        legend: {
-                            display: false
-                        },
-                        title: {
-                            display: true,
-                            text: 'Speaker Similarity to Target'
-                        }
-                    }
-                }
-            });
-        }
-
-        // Data Efficiency Chart
-        if (document.getElementById('efficiencyChart')) {
-            const dataHours = [0.5, 1, 2, 4, 8, 16];
-            new Chart(document.getElementById('efficiencyChart'), {
-                type: 'line',
-                data: {
-                    labels: dataHours,
-                    datasets: [
-                        {
-                            label: 'MOS Score',
-                            data: [2.1, 2.5, 3.2, 3.8, 4.1, 4.2],
-                            borderColor: colors.primary,
-                            backgroundColor: colors.primary + '20',
-                            yAxisID: 'y'
-                        },
-                        {
-                            label: 'Accent Strength',
-                            data: [4.5, 4.0, 3.2, 2.5, 2.2, 2.1],
-                            borderColor: colors.error,
-                            backgroundColor: colors.error + '20',
-                            yAxisID: 'y1'
-                        },
-                        {
-                            label: 'Speaker Similarity',
-                            data: [0.62, 0.68, 0.75, 0.83, 0.89, 0.91],
-                            borderColor: colors.success,
-                            backgroundColor: colors.success + '20',
-                            yAxisID: 'y2'
-                        }
-                    ]
-                },
-                options: {
-                    responsive: true,
-                    maintainAspectRatio: false,
-                    interaction: {
-                        mode: 'index',
-                        intersect: false,
-                    },
-                    scales: {
-                        x: {
-                            title: {
-                                display: true,
-                                text: 'Training Data (Hours)'
-                            }
-                        },
-                        y: {
-                            type: 'linear',
-                            display: true,
-                            position: 'left',
-                            title: {
-                                display: true,
-                                text: 'MOS Score (1-5)'
-                            },
-                            min: 0,
-                            max: 5
-                        },
-                        y1: {
-                            type: 'linear',
-                            display: true,
-                            position: 'right',
-                            title: {
-                                display: true,
-                                text: 'Accent Strength (1-5)'
-                            },
-                            min: 0,
-                            max: 5,
-                            grid: {
-                                drawOnChartArea: false,
-                            },
-                        },
-                        y2: {
-                            type: 'linear',
-                            display: false,
-                            min: 0,
-                            max: 1
-                        }
-                    },
-                    plugins: {
-                        title: {
-                            display: true,
-                            text: 'Quality Metrics vs Training Data Amount'
-                        },
-                        legend: {
-                            display: true,
-                            position: 'top'
-                        }
-                    }
-                }
-            });
-        }
-    }
-
-    // Scroll Animations
     function initializeScrollAnimations() {
-        const observerOptions = {
-            threshold: 0.1,
-            rootMargin: '0px 0px -50px 0px'
-        };
-
-        const observer = new IntersectionObserver(function(entries) {
-            entries.forEach(entry => {
-                if (entry.isIntersecting) {
-                    entry.target.classList.add('visible');
-                }
-            });
-        }, observerOptions);
-
-        // Observe elements for animation
-        const animatedElements = document.querySelectorAll('.overview-card, .audio-card, .metric-card, .finding-item, .control-item');
-        animatedElements.forEach((element, index) => {
-            element.classList.add('fade-in');
-            element.style.transitionDelay = `${index * 0.1}s`;
-            observer.observe(element);
-        });
+        // Scroll animations placeholder
+        console.log('Scroll animations initialized');
     }
 
-    // Header scroll effect
+    function initializeAudioPlayers() {
+        // Audio player enhancements
+    const audioElements = document.querySelectorAll('audio');
+    
+    audioElements.forEach(audio => {
+        // Add loading state
+        audio.addEventListener('loadstart', function() {
+            this.parentElement.classList.add('loading');
+        });
+        
+        audio.addEventListener('canplaythrough', function() {
+            this.parentElement.classList.remove('loading');
+        });
+        
+        // Pause other audio when one starts playing
+        audio.addEventListener('play', function() {
+            audioElements.forEach(otherAudio => {
+                if (otherAudio !== audio) {
+                    otherAudio.pause();
+                }
+            });
+        });
+
+        // Add keyboard accessibility
+        audio.addEventListener('keydown', function(e) {
+            if (e.key === 'Enter' || e.key === ' ') {
+                e.preventDefault();
+                if (this.paused) {
+                    this.play();
+                } else {
+                    this.pause();
+                }
+            }
+        });
+    });
+
+    // Demo section animations
+    const observerOptions = {
+        threshold: 0.1,
+        rootMargin: '0px 0px -50px 0px'
+    };
+
+    const observer = new IntersectionObserver(function(entries) {
+        entries.forEach(entry => {
+            if (entry.isIntersecting) {
+                entry.target.style.opacity = '1';
+                entry.target.style.transform = 'translateY(0)';
+            }
+        });
+    }, observerOptions);
+
+    // Observe demo pairs for animation
+    const demoPairs = document.querySelectorAll('.demo-pair');
+    demoPairs.forEach((pair, index) => {
+        pair.style.opacity = '0';
+        pair.style.transform = 'translateY(30px)';
+        pair.style.transition = `opacity 0.6s ease ${index * 0.1}s, transform 0.6s ease ${index * 0.1}s`;
+        observer.observe(pair);
+    });
+
+    // Observe overview cards for animation
+    const overviewCards = document.querySelectorAll('.overview-card');
+    overviewCards.forEach((card, index) => {
+        card.style.opacity = '0';
+        card.style.transform = 'translateY(30px)';
+        card.style.transition = `opacity 0.6s ease ${index * 0.2}s, transform 0.6s ease ${index * 0.2}s`;
+        observer.observe(card);
+    });
+
+    // Audio comparison highlighting
+    const audioItems = document.querySelectorAll('.audio-item');
+    audioItems.forEach(item => {
+        const audio = item.querySelector('audio');
+        
+        audio.addEventListener('play', function() {
+            item.classList.add('playing');
+            // Add subtle glow effect
+            item.style.boxShadow = '0 0 20px rgba(102, 126, 234, 0.3)';
+        });
+        
+        audio.addEventListener('pause', function() {
+            item.classList.remove('playing');
+            item.style.boxShadow = '';
+        });
+        
+        audio.addEventListener('ended', function() {
+            item.classList.remove('playing');
+            item.style.boxShadow = '';
+        });
+    });
+
+    // Error handling for audio files
+    audioElements.forEach(audio => {
+        audio.addEventListener('error', function() {
+            const errorMsg = document.createElement('p');
+            errorMsg.textContent = 'Audio file not found. Please upload the audio file.';
+            errorMsg.style.color = '#e53e3e';
+            errorMsg.style.fontSize = '0.9rem';
+            errorMsg.style.fontStyle = 'italic';
+            
+            this.parentElement.appendChild(errorMsg);
+            this.style.display = 'none';
+        });
+    });
+
+    // Header background scroll effect
     const header = document.querySelector('.header');
     const nav = document.querySelector('.nav');
     
     window.addEventListener('scroll', function() {
         const scrolled = window.pageYOffset;
-        const rate = scrolled * -0.3;
+        const rate = scrolled * -0.5;
         
         if (header) {
             header.style.transform = `translateY(${rate}px)`;
@@ -773,4 +966,85 @@ document.addEventListener('DOMContentLoaded', function() {
             nav.style.backdropFilter = 'blur(10px)';
         }
     });
+
+    // Copy link functionality for sharing
+    function createShareButton() {
+        const shareBtn = document.createElement('button');
+        shareBtn.innerHTML = '<i class="fas fa-share"></i> Share Demo';
+        shareBtn.className = 'share-btn';
+        shareBtn.style.cssText = `
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            background: linear-gradient(135deg, #667eea, #764ba2);
+            color: white;
+            border: none;
+            padding: 15px 20px;
+            border-radius: 50px;
+            cursor: pointer;
+            font-weight: 500;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
+            transition: all 0.3s ease;
+            z-index: 1000;
+        `;
+        
+        shareBtn.addEventListener('click', function() {
+            if (navigator.share) {
+                navigator.share({
+                    title: 'Improving French Synthetic Speech Quality via SSML Prosody Control',
+                    text: 'Check out this demo of enhanced French text-to-speech synthesis with SSML prosody control',
+                    url: window.location.href
+                });
+            } else {
+                // Fallback: copy URL to clipboard
+                navigator.clipboard.writeText(window.location.href).then(() => {
+                    shareBtn.innerHTML = '<i class="fas fa-check"></i> Copied!';
+                    setTimeout(() => {
+                        shareBtn.innerHTML = '<i class="fas fa-share"></i> Share Demo';
+                    }, 2000);
+                });
+            }
+        });
+        
+        shareBtn.addEventListener('mouseenter', function() {
+            this.style.transform = 'translateY(-2px)';
+            this.style.boxShadow = '0 6px 25px rgba(0, 0, 0, 0.3)';
+        });
+        
+        shareBtn.addEventListener('mouseleave', function() {
+            this.style.transform = 'translateY(0)';
+            this.style.boxShadow = '0 4px 20px rgba(0, 0, 0, 0.2)';
+        });
+        
+        document.body.appendChild(shareBtn);
+    }
+
+    // Create share button
+    createShareButton();
+
+    // Performance optimization: Lazy load audio files
+    const audioObserver = new IntersectionObserver(function(entries) {
+        entries.forEach(entry => {
+            if (entry.isIntersecting) {
+                const audio = entry.target;
+                const sources = audio.querySelectorAll('source');
+                sources.forEach(source => {
+                    if (source.dataset.src) {
+                        source.src = source.dataset.src;
+                        source.removeAttribute('data-src');
+                    }
+                });
+                audio.load();
+                audioObserver.unobserve(audio);
+            }
+        });
+    }, { rootMargin: '100px' });
+
+    // Uncomment the following lines if you want to implement lazy loading for audio files
+    // audioElements.forEach(audio => {
+    //     audioObserver.observe(audio);
+    // });
+    }
+
+    console.log('CosyVoice2 European Languages Demo loaded successfully!');
 });
