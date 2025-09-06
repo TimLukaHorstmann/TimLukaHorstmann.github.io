@@ -1,8 +1,12 @@
+import { launchGame, closeGame } from './game.js';
+
 function isMobileDevice() {
     return /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent);
 }
 
 let conversationHistory = [];
+let currentGameContext = "";
+let gameConversationHistory = [];
 
 // Voice settings
 let voiceEnabled = false;
@@ -305,7 +309,10 @@ async function streamChatResponse(query) {
         const response = await fetch(apiUrl, {
             method: "POST",
             headers: { "Content-Type": "application/json" },
-            body: JSON.stringify({ query: query, history: conversationHistory })
+            body: JSON.stringify({ query: query
+                , history: conversationHistory
+                , game_context: currentGameContext
+            })
         });
         
         if (!response.ok) {
@@ -508,21 +515,25 @@ $(document).ready(function() {
         });
     });
 
-    $('.carousel').slick({
-        infinite: true,
-        slidesToShow: 3,
-        slidesToScroll: 1,
-        arrows: true,
-        dots: true,
-        autoplay: true,
-        autoplaySpeed: 3000,
-        lazyLoad: 'ondemand',
-        vertical: false,
-        responsive: [
-            { breakpoint: 1024, settings: { slidesToShow: 2, slidesToScroll: 1, infinite: true, dots: true } },
-            { breakpoint: 600, settings: { slidesToShow: 1, slidesToScroll: 1 } }
-        ]
-    });
+    if ($.fn && $.fn.slick) {
+        $('.carousel').slick({
+            infinite: true,
+            slidesToShow: 3,
+            slidesToScroll: 1,
+            arrows: true,
+            dots: true,
+            autoplay: true,
+            autoplaySpeed: 3000,
+            lazyLoad: 'ondemand',
+            vertical: false,
+            responsive: [
+                { breakpoint: 1024, settings: { slidesToShow: 2, slidesToScroll: 1, infinite: true, dots: true } },
+                { breakpoint: 600, settings: { slidesToShow: 1, slidesToScroll: 1 } }
+            ]
+        });
+    } else {
+        console.warn('Slick not available; skipping carousel init.');
+    }
 
     document.querySelectorAll('.project-card').forEach(card => {
         const toggle = card.querySelector('.project-toggle');
@@ -879,4 +890,139 @@ $(document).ready(function() {
             $(this).removeClass('touch-active');
         });
     }
+
+    // 1. Listen for the launch game button (navigate to game.html if href exists)
+    $('#launch-game-btn').on('click', function(e) {
+        const href = $(this).attr('href');
+        if (!href) {
+            // fallback to modal mode
+            launchGame();
+        } // else let navigation occur
+    });
+
+    // 2. Listen for the close game button
+    $('#close-game-btn').on('click', function() {
+        closeGame();
+    });
+
+    // 3. Listen for the custom 'start-chat' event from the game and open in-game dialogue
+    window.addEventListener('start-chat', async function(e) {
+        const stationContext = e.detail.context || '';
+        const stationName = e.detail.name || 'NPC';
+        currentGameContext = stationContext;
+
+        // Show in-game dialogue UI
+        const $dlg = $('#npc-dialogue');
+        $dlg.show();
+        $dlg.find('.npc-name').text(stationName);
+        $('#npc-input').prop('disabled', false).attr('placeholder', 'Ask about ' + stationName + '...').focus();
+        $('#npc-send-btn').prop('disabled', false);
+
+        // If first open, add a greeting
+        if ($('#npc-messages .npc-msg, #npc-messages .player-msg').length === 0) {
+            appendNpcMessage('npc', `Hi! I can tell you about ${stationContext}. What would you like to know?`);
+        }
+    });
+
+    // Close in-game dialogue when the game is closed
+    $('#close-game-btn').on('click', function() {
+        $('#npc-dialogue').hide();
+        $('#npc-messages').empty();
+        gameConversationHistory = [];
+        currentGameContext = '';
+    });
+
+    // 4. Reset the context when the main chat modal is closed
+    $('#close-modal').click(function() {
+        currentGameContext = ""; // Clear context when user closes chat
+    });
+
+    // In-game dialogue handlers
+    $('#npc-send-btn').on('click', async function() {
+        const q = $('#npc-input').val().trim();
+        if (!q) return;
+        $('#npc-input').val('');
+        appendNpcMessage('player', q);
+        await streamNpcChatResponse(q);
+    });
+    $('#npc-input').on('keypress', function(e) {
+        if (e.which === 13) {
+            e.preventDefault();
+            $('#npc-send-btn').click();
+        }
+    });
+    $('#npc-close-btn').on('click', function() {
+        $('#npc-dialogue').hide();
+        $('#npc-messages').empty();
+        gameConversationHistory = [];
+        currentGameContext = '';
+    });
 });
+
+// Helper: append message to in-game dialogue
+function appendNpcMessage(role, text) {
+    const $c = $('#npc-messages');
+    const div = $('<div>').addClass(role === 'npc' ? 'npc-msg' : 'player-msg').text(text);
+    $c.append(div);
+    $c.scrollTop($c[0].scrollHeight);
+}
+
+// Stream to in-game dialogue using the same backend
+async function streamNpcChatResponse(query) {
+    const hfSpaceUrl = "https://Luka512-website.hf.space";
+    const apiUrl = `${hfSpaceUrl}/api/predict`;
+    const $c = $('#npc-messages');
+
+    // Typing indicator (simple)
+    const typing = $('<div class="npc-msg">Typing…</div>');
+    $c.append(typing);
+    $c.scrollTop($c[0].scrollHeight);
+
+    try {
+        const response = await fetch(apiUrl, {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({
+                query: query,
+                history: gameConversationHistory,
+                game_context: currentGameContext
+            })
+        });
+        if (!response.ok) {
+            typing.remove();
+            appendNpcMessage('npc', 'Sorry, I had trouble answering. Please try again.');
+            return;
+        }
+        const reader = response.body.getReader();
+        const decoder = new TextDecoder();
+        let finalText = '';
+
+        // Replace typing with an empty NPC bubble that we fill as we stream
+        typing.text('');
+
+        while (true) {
+            const { done, value } = await reader.read();
+            if (done) break;
+            let chunk = decoder.decode(value, { stream: true });
+            chunk = chunk.replace(/data:\s?/g, '').replace(/\[DONE\]/g, '');
+            finalText += chunk;
+            // Collapse excessive newlines for compact in-game display
+            const display = finalText.replace(/\n{3,}/g, '\n\n');
+            typing.text(display);
+            $c.scrollTop($c[0].scrollHeight);
+        }
+        // Finalize
+        typing.remove();
+        appendNpcMessage('npc', finalText.trim() || '');
+        gameConversationHistory.push({ role: 'user', content: query });
+        gameConversationHistory.push({ role: 'assistant', content: finalText });
+
+        // Optional TTS
+        if (voiceEnabled && finalText.trim()) {
+            speakText(finalText);
+        }
+    } catch (err) {
+        typing.remove();
+        appendNpcMessage('npc', `Error: ${err.message}`);
+    }
+}

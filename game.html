@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Play My CV — Tim Luka Horstmann</title>
+  <link rel="icon" href="assets/images/favicon_io/favicon.ico" type="image/x-icon">
+  <link rel="stylesheet" href="assets/css/style.css" />
+  <script type="importmap">
+  {
+    "imports": {
+      "three": "https://unpkg.com/three@0.164.1/build/three.module.js",
+      "three/addons/": "https://unpkg.com/three@0.164.1/examples/jsm/"
+    }
+  }
+  </script>
+</head>
+<body style="margin:0; background:#000;">
+  <div id="game-modal" style="display: block;">
+    <div id="loading-screen">
+      <div class="spinner"></div>
+      <p>Loading Interactive Journey...</p>
+      <div id="loading-progress">0%</div>
+    </div>
+    <canvas id="game-canvas"></canvas>
+    <div id="game-ui">
+      <button id="close-game-btn">&times;</button>
+      <div id="interaction-prompt" style="display: none;">Press [E] to Chat</div>
+      <div id="game-controls-info">
+        Use [WASD]/Arrows to move (camera-relative). Drag to orbit. P=placement mode.
+      </div>
+      <div id="compass" class="compass">
+        <div id="compass-arrow" class="compass-arrow"></div>
+      </div>
+      <canvas id="minimap-canvas" width="140" height="140"></canvas>
+      <button id="music-toggle" class="music-toggle" title="Toggle music">♪</button>
+      <div id="credits" class="credits">3D Credits · Music</div>
+      <div id="credits-panel" class="credits-panel" style="display:none;">
+        <div class="credits-content">
+          <strong>3D Models:</strong><br/>
+          <a href="https://sketchfab.com/3d-models/road-with-trees-7c0b005885424368ac2805f232f6f649" target="_blank">Road with Trees (Sketchfab)</a><br/>
+          <a href="#" target="_blank">Car Mechanic (Sketchfab)</a><br/>
+          <small>Respect licenses on model pages.</small>
+          <hr/>
+          <strong>Music:</strong><br/>
+          <span id="music-credit">Free background music</span>
+          <button id="credits-close" class="npc-close-btn" style="float:right;">×</button>
+        </div>
+      </div>
+      <div id="placement-hint" class="placement-hint" style="display:none;"></div>
+
+      <div id="npc-dialogue" class="npc-dialogue" style="display:none;">
+        <div class="npc-dialogue-header">
+          <span class="npc-name">Station</span>
+          <button id="npc-close-btn" class="npc-close-btn">&times;</button>
+        </div>
+        <div id="npc-messages" class="npc-messages"></div>
+        <div class="npc-input-row">
+          <input id="npc-input" type="text" placeholder="Ask about this station...">
+          <button id="npc-send-btn" class="btn">Send</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script type="module" src="assets/js/game_page.js"></script>
+</body>
+</html>
+</body>
+</html>

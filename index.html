@@ -129,6 +129,9 @@
                             <button id="chat-btn" class="btn chat-btn">
                                 <i class="fas fa-comment"></i> Chat with "Luka" <span class="beta-label">Early Beta</span>
                             </button>
+                            <!-- <a id="launch-game-btn" class="btn" href="game.html">
+                                <i class="fas fa-gamepad"></i> Play My CV
+                            </a> -->
                         </div>
                     </div>
                 </div>
@@ -1429,13 +1432,54 @@
         </div>
     </div>
 
+    <!-- Game Modal -->
+    <div id="game-modal" style="display: none;">
+        <div id="loading-screen">
+            <div class="spinner"></div>
+            <p>Loading Interactive Journey...</p>
+            <div id="loading-progress">0%</div>
+        </div>
+        <canvas id="game-canvas"></canvas>
+        <div id="game-ui">
+            <button id="close-game-btn">&times;</button>
+            <div id="interaction-prompt" style="display: none;">Press [E] to Chat</div>
+            <div id="game-controls-info">
+                Use [WASD] or [Arrow Keys] to move
+            </div>
+            <div id="compass" class="compass">
+                <div id="compass-arrow" class="compass-arrow"></div>
+            </div>
+            <canvas id="minimap-canvas" width="140" height="140"></canvas>
+            <div id="placement-hint" class="placement-hint" style="display:none;"></div>
+            <div id="npc-dialogue" class="npc-dialogue" style="display:none;">
+                <div class="npc-dialogue-header">
+                    <span class="npc-name">Station</span>
+                    <button id="npc-close-btn" class="npc-close-btn">&times;</button>
+                </div>
+                <div id="npc-messages" class="npc-messages"></div>
+                <div class="npc-input-row">
+                    <input id="npc-input" type="text" placeholder="Ask about this station...">
+                    <button id="npc-send-btn" class="btn">Send</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
     <!-- Scripts at Bottom -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
     <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
     <script src="https://cdn.maptiler.com/maptiler-sdk-js/v2.2.2/maptiler-sdk.umd.js"></script>
     <script src="https://cdn.maptiler.com/leaflet-maptilersdk/v2.0.0/leaflet-maptilersdk.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/aos/2.3.4/aos.js"></script>
-    <script src="assets/js/main.js"></script>
+    <script type="importmap">
+    {
+        "imports": {
+            "three": "https://unpkg.com/three@0.164.1/build/three.module.js",
+            "three/addons/": "https://unpkg.com/three@0.164.1/examples/jsm/"
+        }
+    }
+    </script>
+    <script type="module" src="assets/js/main.js"></script>
 
     <!-- Floating Chat Button -->
     <div id="floating-chat-btn" class="floating-chat-btn" title="Chat with Luka">

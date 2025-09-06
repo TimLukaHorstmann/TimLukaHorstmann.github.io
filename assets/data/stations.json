@@ -1,0 +1,69 @@
+{
+  "spawn": { "x": 6.5, "z": 19 },
+  "stations": [
+    {
+      "id": "sge",
+      "name": "Abitur – Städtisches Gymnasium Erwitte",
+      "context": "my Abitur (valedictorian) at Städtisches Gymnasium Erwitte (2019)",
+      "x": 8.254945398931282,
+      "y": -2.231600143383094,
+      "z": 14.846730194468837
+    },
+    {
+      "id": "hsrm",
+      "name": "RheinMain University of Applied Sciences",
+      "context": "my BSc in Business Informatics at RheinMain University of Applied Sciences (2019–2022)",
+      "x": 7.997228481544237,
+      "y": -1.5139620092300414,
+      "z": 6.9879932140571075
+    },
+    {
+      "id": "continental",
+      "name": "Continental AG",
+      "context": "my dual study program at Continental AG (2019–2022)",
+      "x": 7.915578687001922,
+      "y": -1.737812292786236,
+      "z": 8.749126466974406
+    },
+    {
+      "id": "amazon",
+      "name": "Amazon",
+      "context": "my Business Intelligence internship in London (2022–2023)",
+      "x": 7.1658192997363415,
+      "y": -0.39756617899119556,
+      "z": -4.2520127373471315
+    },
+    {
+      "id": "mckinsey",
+      "name": "McKinsey & Company",
+      "context": "my Fellow Intern position in Munich (2023)",
+      "x": -0.8169346781298994,
+      "y": 0.4797207150270232,
+      "z": -8.183948203713404
+    },
+    {
+      "id": "cambridge",
+      "name": "University of Cambridge",
+      "context": "my MPhil in Advanced Computer Science (2023–2024)",
+      "x": -1.311081338328397,
+      "y": 2.2560268137263457,
+      "z": 2.2248482975764414
+    },
+    {
+      "id": "ip-paris",
+      "name": "Institut Polytechnique de Paris",
+      "context": "my MSc in Data & AI (2024–2025)",
+      "x": -1.832401978286777,
+      "y": 3.682714641665215,
+      "z": 19.91334650037287
+    },
+    {
+      "id": "hi_paris",
+      "name": "Hi! PARIS",
+      "context": "my ML Research Engineer internship (2025)",
+      "x": -8.827085006612664,
+      "y": 5.449601582469108,
+      "z": 6.406945875163989
+    }
+  ]
+}
