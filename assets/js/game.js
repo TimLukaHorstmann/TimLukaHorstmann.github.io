@@ -10,7 +10,7 @@ class CVGame {
     constructor() {
         // Core Three.js components
         this.scene = new THREE.Scene();
-        this.scene.background = new THREE.Color(0x101014);
+    this.scene.background = new THREE.Color(0xbfd9ff); // Daytime sky color (light desaturated blue)
         this.camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
         this.renderer = new THREE.WebGLRenderer({
             canvas: document.querySelector('#game-canvas'),
@@ -41,6 +41,26 @@ class CVGame {
         this.compassArrow = null;
         this.minimapCanvas = null;
         this.minimapCtx = null;
+        // Exhaust / particle system state for car player (subtle idle puffs + mild driving trail)
+        this.exhaust = {
+            particles: [],
+            spawnAccum: 0,
+            texture: null,
+            enabled: true,
+            cfg: {
+                idleRate: 6,
+                movingRate: 20,
+                maxParticles: 80,
+                lifeMin: 0.5,
+                lifeMax: 0.9,
+                baseScale: 0.14,
+                scaleJitter: 0.05,
+                upwardSpeed: 0.32,
+                backwardDrift: 0.28,
+                lateralJitter: 0.10,
+                verticalJitter: 0.035
+            }
+        };
 
         // Third-person camera boom parameters
         this.cam = {
@@ -66,19 +86,22 @@ class CVGame {
         if (THREE?.SRGBColorSpace) this.renderer.outputColorSpace = THREE.SRGBColorSpace;
 
         // Lighting
-        const hemi = new THREE.HemisphereLight(0xccccff, 0x444444, 1.1);
+    // Daytime lighting setup
+    const hemi = new THREE.HemisphereLight(0xddeeff, 0x9fc38a, 0.9);
         this.scene.add(hemi);
-        const directionalLight = new THREE.DirectionalLight(0xffffff, 2.3);
-        directionalLight.position.set(10, 15, 10);
+    const directionalLight = new THREE.DirectionalLight(0xfff7e0, 2.6);
+    directionalLight.position.set(40, 60, 25); // higher sun
         directionalLight.castShadow = true;
         directionalLight.shadow.mapSize.set(1024, 1024);
         this.scene.add(directionalLight);
-        const amb = new THREE.AmbientLight(0xffffff, 0.55);
+    const amb = new THREE.AmbientLight(0xffffff, 0.55);
         this.scene.add(amb);
-        // Add a soft fill from the opposite side
-        const fill = new THREE.DirectionalLight(0xfff4dd, 0.8);
-        fill.position.set(-8, 8, -8);
-        this.scene.add(fill);
+    // Warm subtle fill to soften shadows
+    const fill = new THREE.DirectionalLight(0xffffff, 0.25);
+    fill.position.set(-30, 35, -25);
+    this.scene.add(fill);
+    // Simple sun sprite (billboard) for visual cue
+    this.createSunSprite();
 
         // Event Listeners
         window.addEventListener('resize', () => this.onWindowResize());
@@ -109,6 +132,31 @@ class CVGame {
         if (this.minimapCanvas) this.minimapCtx = this.minimapCanvas.getContext('2d');
         // Background music
         this.setupBGM();
+        // Exhaust toggle custom event
+        window.addEventListener('toggle-exhaust', () => {
+            this.exhaust.enabled = !this.exhaust.enabled;
+            const btn = document.getElementById('exhaust-toggle');
+            if (btn) btn.classList.toggle('off', !this.exhaust.enabled);
+            if (!this.exhaust.enabled) {
+                // Clear existing particles immediately
+                for (const p of this.exhaust.particles) {
+                    this.worldGroup.remove(p.mesh);
+                    if (p.mesh.material) p.mesh.material.dispose();
+                }
+                this.exhaust.particles.length = 0;
+            }
+        });
+        // Inject exhaust toggle button if not in DOM
+        const uiRoot = document.getElementById('game-ui');
+        if (uiRoot && !document.getElementById('exhaust-toggle')) {
+            const btn = document.createElement('button');
+            btn.id = 'exhaust-toggle';
+            btn.title = 'Toggle exhaust';
+            btn.className = 'exhaust-toggle';
+            btn.textContent = '💨';
+            btn.addEventListener('click', ()=> window.dispatchEvent(new CustomEvent('toggle-exhaust')));
+            uiRoot.appendChild(btn);
+        }
     }
 
     // Load all 3D models
@@ -146,13 +194,15 @@ class CVGame {
 
         // Load Player Model (.glb first, then fallback to .gltf)
         const loadPlayerGLB = () => gltfLoader.load(
-            'assets/models/player.glb',
+            // 'assets/models/player.glb',
+            'assets/models/porsche_911_carrera_4s.glb',
             (gltf) => {
                 this.player.model = gltf.scene;
                 // Normalize size and place on ground
                 this.normalizeAndPlaceModel(this.player.model, this.config.playerHeight, new THREE.Vector3(0, 0, 10));
                 this.player.model.traverse(node => { if (node.isMesh) node.castShadow = true; });
                 this.scene.add(this.player.model);
+                this.initExhaust();
 
                 // Setup animations if they exist in the model
                 this.player.mixer = new THREE.AnimationMixer(this.player.model);
@@ -183,6 +233,7 @@ class CVGame {
                             this.fadeToAction('idle', 0.0);
                         }
                         this.assets.playerLoaded = true;
+                        this.initExhaust();
                     },
                     undefined,
                     (err2) => {
@@ -256,6 +307,7 @@ class CVGame {
             body.position.set(0, 1.0, 10);
             this.player.model = body;
             this.scene.add(this.player.model);
+            this.initExhaust();
         }
 
         // Build collidable ground list
@@ -282,8 +334,10 @@ class CVGame {
         const delta = this.clock.getDelta();
 
         this.updatePlayer(delta);
+    this.updateExhaust(delta);
         this.updateCamera();
         this.checkStations();
+    this.updateNPCOrientations();
         // Keep labels facing the camera
         for (const bb of this.billboards) {
             bb.quaternion.copy(this.camera.quaternion);
@@ -297,6 +351,154 @@ class CVGame {
         this.updateCompassAndMinimap();
 
         this.renderer.render(this.scene, this.camera);
+        // Update sun billboard to face camera
+        if (this.sunSprite) this.sunSprite.quaternion.copy(this.camera.quaternion);
+    }
+
+    createSunSprite() {
+        if (this.sunSprite) return;
+        const size = 256;
+        const canvas = document.createElement('canvas');
+        canvas.width = canvas.height = size;
+        const ctx = canvas.getContext('2d');
+        const grd = ctx.createRadialGradient(size/2, size/2, 10, size/2, size/2, size/2);
+        grd.addColorStop(0, 'rgba(255,255,230,0.95)');
+        grd.addColorStop(0.4, 'rgba(255,235,140,0.55)');
+        grd.addColorStop(0.75, 'rgba(255,210,80,0.15)');
+        grd.addColorStop(1, 'rgba(255,200,60,0)');
+        ctx.fillStyle = grd;
+        ctx.fillRect(0,0,size,size);
+        const tex = new THREE.CanvasTexture(canvas);
+        tex.minFilter = THREE.LinearFilter; tex.magFilter = THREE.LinearFilter;
+        const mat = new THREE.SpriteMaterial({ map: tex, transparent: true, depthWrite: false });
+        const sprite = new THREE.Sprite(mat);
+        sprite.scale.set(25,25,25);
+        sprite.position.set(80, 120, -40); // place high in sky
+        sprite.userData.noGround = true;
+        this.scene.add(sprite);
+        this.sunSprite = sprite;
+    }
+
+    // Create radial gradient texture for smoke if not already created
+    createSmokeTexture() {
+        const size = 128;
+        const canvas = document.createElement('canvas');
+        canvas.width = canvas.height = size;
+        const ctx = canvas.getContext('2d');
+        // More realistic faint gray exhaust: softer center, quick falloff
+        const grd = ctx.createRadialGradient(size/2, size/2, 4, size/2, size/2, size/2);
+        grd.addColorStop(0.0, 'rgba(230,230,230,0.35)');
+        grd.addColorStop(0.25,'rgba(200,200,200,0.28)');
+        grd.addColorStop(0.55,'rgba(160,160,160,0.18)');
+        grd.addColorStop(0.8, 'rgba(120,120,120,0.08)');
+        grd.addColorStop(1.0, 'rgba(120,120,120,0.0)');
+        ctx.fillStyle = grd;
+        ctx.fillRect(0,0,size,size);
+        const tex = new THREE.CanvasTexture(canvas);
+        tex.minFilter = THREE.LinearFilter;
+        tex.magFilter = THREE.LinearFilter;
+        tex.wrapS = tex.wrapT = THREE.ClampToEdgeWrapping;
+        return tex;
+    }
+
+    initExhaust() {
+        if (!this.player?.model) return;
+        if (!this.exhaust.texture) this.exhaust.texture = this.createSmokeTexture();
+        // Ensure player rotation exists
+        this.player.model.userData.hasExhaust = true;
+    }
+
+    spawnExhaustParticle() {
+        if (!this.player?.model || !this.exhaust.texture) return;
+        // Spawn two particles: one on right (0.2) and one on left (-0.2)
+        const offsets = [0.2, -0.2];
+        for (const offset of offsets) {
+            if (this.exhaust.particles.length >= this.exhaust.cfg.maxParticles) return;
+            // Determine backward direction relative to player (assuming forward is +Z in model space)
+            const forward = new THREE.Vector3(0,0,1).applyEuler(this.player.model.rotation);
+            const spawnBase = this.player.model.position.clone()
+                .addScaledVector(forward, -0.8) // behind car
+                .add(new THREE.Vector3(offset, 0, 0)); // exhaust height and lateral offset
+            // Random jitter
+            spawnBase.x += (Math.random()-0.5)*this.exhaust.cfg.lateralJitter;
+            spawnBase.y += (Math.random()-0.5)*this.exhaust.cfg.verticalJitter;
+            spawnBase.z += (Math.random()-0.5)*this.exhaust.cfg.lateralJitter;
+
+            const material = new THREE.SpriteMaterial({
+                map: this.exhaust.texture,
+                transparent: true,
+                depthWrite: false,
+                opacity: 0.4,
+                blending: THREE.NormalBlending
+            });
+            const sprite = new THREE.Sprite(material);
+            const initialScale = this.exhaust.cfg.baseScale + Math.random()*this.exhaust.cfg.scaleJitter;
+            sprite.scale.set(initialScale, initialScale, initialScale);
+            sprite.position.copy(spawnBase);
+            sprite.renderOrder = 5;
+            sprite.userData.noGround = true;
+            this.worldGroup.add(sprite);
+            // Per-particle velocity: gentle upward + slight backward drift
+            const vel = new THREE.Vector3()
+                .addScaledVector(forward, -this.exhaust.cfg.backwardDrift * (0.3 + Math.random()*0.7))
+                .add(new THREE.Vector3((Math.random()-0.5)*0.05, this.exhaust.cfg.upwardSpeed * (0.7+Math.random()*0.6), (Math.random()-0.5)*0.05));
+            const life = this.exhaust.cfg.lifeMin + Math.random()*(this.exhaust.cfg.lifeMax - this.exhaust.cfg.lifeMin);
+            this.exhaust.particles.push({ mesh: sprite, age: 0, life, startScale: initialScale, velocity: vel });
+        }
+    }
+
+    updateExhaust(delta) {
+        if (!this.player?.model) return;
+        // Decide spawn rate based on movement (check current action run vs idle)
+        const moving = this.player.currentAction === 'run';
+        const rate = moving ? this.exhaust.cfg.movingRate : this.exhaust.cfg.idleRate; // particles per second
+        this.exhaust.spawnAccum += delta * rate;
+        // Spawn whole particles
+        while (this.exhaust.spawnAccum >= 1) {
+            this.spawnExhaustParticle();
+            this.exhaust.spawnAccum -= 1;
+        }
+        // Probabilistic extra spawn for leftover fraction to reduce rhythmic pulsing
+        if (this.exhaust.spawnAccum > 0 && Math.random() < this.exhaust.spawnAccum) {
+            this.spawnExhaustParticle();
+            this.exhaust.spawnAccum = 0;
+        }
+        // Update existing particles
+        for (let i = this.exhaust.particles.length - 1; i >= 0; i--) {
+            const p = this.exhaust.particles[i];
+            p.age += delta;
+            const t = p.age / p.life;
+            if (t >= 1) {
+                this.worldGroup.remove(p.mesh);
+                if (p.mesh.material) p.mesh.material.dispose();
+                this.exhaust.particles.splice(i,1);
+                continue;
+            }
+            // Integrate velocity (slight damping for horizontal components)
+            p.mesh.position.addScaledVector(p.velocity, delta);
+            p.velocity.x *= 0.96; p.velocity.z *= 0.96; // mild horizontal damping
+            // Fade & modest expand (slower growth)
+            const scale = p.startScale * (1 + t * 1.2);
+            p.mesh.scale.set(scale, scale, scale);
+            const mat = p.mesh.material;
+            if (mat) mat.opacity = (1 - t) * 0.4; // softer fade
+        }
+    }
+
+    updateNPCOrientations() {
+        if (!this.player?.model) return;
+        for (const s of this.stations) {
+            if (!s?.npc) continue;
+            const npc = s.npc;
+            // Vector from NPC to player
+            const toPlayer = new THREE.Vector3().subVectors(this.player.model.position, npc.position);
+            // Ignore vertical component for yaw
+            toPlayer.y = 0;
+            if (toPlayer.lengthSq() === 0) continue;
+            toPlayer.normalize();
+            // Facing angle (assuming npc forward is +Z)
+            npc.rotation.y = Math.atan2(toPlayer.x, toPlayer.z);
+        }
     }
 
     // Resize + place model: targetHeight in world units, and place so feet touch ground
@@ -497,6 +699,9 @@ class CVGame {
         if (hit && this.player.model) {
             const hh = this.player.halfHeight || 0.9;
             this.player.model.position.set(center.x, hit.point.y + hh, startZ);
+            // Rotate player to face 180 degrees (turn around) on Y axis when spawned
+            // and align the camera's horizontal angle so the view matches the player's facing
+            if (this.player.model.rotation) this.player.model.rotation.y = Math.PI;
         }
     }
 
@@ -902,8 +1107,8 @@ class CVGame {
             }
         }
 
-        // Minimap: simple top-down dots
-        if (this.minimapCtx && this.worldGroup) {
+    // Minimap:
+    if (this.minimapCtx && this.worldGroup) {
             const ctx = this.minimapCtx;
             const w = this.minimapCanvas.width, h = this.minimapCanvas.height;
             ctx.clearRect(0, 0, w, h);
@@ -914,8 +1119,8 @@ class CVGame {
             const minX = box.min.x, maxX = box.max.x;
             const minZ = box.min.z, maxZ = box.max.z;
             const pad = 6;
-            const mapX = (x) => pad + (x - minX) / (maxX - minX) * (w - 2 * pad);
-            const mapY = (z) => pad + (1 - (z - minZ) / (maxZ - minZ)) * (h - 2 * pad);
+            const mapX = (x) => pad + ((x - minX) / (maxX - minX)) * (w - 2 * pad);
+            const mapY = (z) => pad + ((z - minZ) / (maxZ - minZ)) * (h - 2 * pad);
 
             // Stations
             this.stations.forEach((s, i) => {

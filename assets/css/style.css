@@ -3108,6 +3108,10 @@ display: none;
     pointer-events: none; /* Allows clicks to go through to the canvas */
 }
 
+#game-ui button, #game-ui .music-toggle, #game-ui .exhaust-toggle, #game-ui .credits, #game-ui .npc-dialogue, #game-ui .placement-hint, #game-ui #compass, #game-ui #minimap-canvas {
+    pointer-events: all; /* Re-enable on interactive elements */
+}
+
 #close-game-btn {
     position: absolute;
     top: 20px;
@@ -3150,12 +3154,15 @@ display: none;
 
 #game-controls-info {
     position: absolute;
-    bottom: 20px;
+    bottom: 90px; /* lifted to not overlap credits */
     left: 20px;
     background-color: rgba(0, 0, 0, 0.5);
     padding: 8px 15px;
     border-radius: 10px;
     font-size: 0.8rem;
+    max-width: 260px;
+    line-height: 1.25;
+    z-index: 20;
 }
 
 /* Compass */
@@ -3225,30 +3232,55 @@ display: none;
     pointer-events: all;
 }
 
+/* Exhaust toggle */
+.exhaust-toggle {
+    position: absolute;
+    bottom: 20px;
+    right: 70px; /* to left of music button */
+    width: 36px;
+    height: 36px;
+    border-radius: 50%;
+    background: rgba(0,0,0,0.45);
+    border: 1px solid rgba(255,255,255,0.18);
+    color: #fff;
+    cursor: pointer;
+    font-size: 18px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: background 0.25s, transform 0.25s;
+    pointer-events: all;
+}
+.exhaust-toggle.off { opacity: 0.5; filter: grayscale(60%); }
+.exhaust-toggle:hover { background: rgba(0,0,0,0.65); transform: scale(1.05); }
+
 /* Credits */
 .credits {
     position: absolute;
     bottom: 20px;
     left: 20px;
-    font-size: 12px;
-    color: rgba(255,255,255,0.8);
+    font-size: 11px;
+    color: rgba(255,255,255,0.78);
     background: rgba(0,0,0,0.35);
     padding: 4px 8px;
     border-radius: 6px;
     cursor: pointer;
     pointer-events: all;
+    z-index: 10;
 }
 .credits-panel {
     position: absolute;
-    bottom: 64px;
+    bottom: 70px;
     left: 20px;
-    background: rgba(0,0,0,0.8);
+    background: rgba(0,0,0,0.82);
     color: #fff;
-    border: 1px solid rgba(255,255,255,0.2);
+    border: 1px solid rgba(255,255,255,0.18);
     border-radius: 8px;
-    max-width: 60vw;
-    padding: 10px 12px;
-    font-size: 13px;
+    max-width: 50vw;
+    padding: 10px 12px 14px 12px;
+    font-size: 12.5px;
+    backdrop-filter: blur(4px);
+    z-index: 30;
 }
 
 /* In-game NPC Dialogue */
