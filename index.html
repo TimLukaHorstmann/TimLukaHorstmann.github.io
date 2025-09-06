@@ -23,6 +23,10 @@
     <link rel="icon" type="image/png" sizes="32x32" href="assets/images/favicon_io/favicon-32x32.png">
     <link rel="manifest" href="assets/images/favicon_io/site.webmanifest">
 
+    <!-- Preload logo assets for better performance -->
+    <link rel="preload" href="assets/images/gif_starter.png" as="image">
+    <link rel="preload" href="assets/images/welcome-unscreen.gif" as="image">
+
     <!-- Stylesheets -->
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css">
     <link rel="stylesheet" href="assets/css/style.css">
@@ -104,6 +108,13 @@
                     <li class="nav-item"><a class="nav-link" href="#contact">Contact</a></li>
                     <li class="nav-item"><a class="nav-link" href="travel/">Travel</a></li>
                 </ul>
+                <!-- Animated character component on the right -->
+                <div class="animated-character-wrapper">
+                    <div class="animated-logo-container">
+                        <img src="assets/images/gif_starter.png" alt="Tim Luka Horstmann" class="nav-character static-logo">
+                        <img src="assets/images/welcome-unscreen.gif" alt="Tim Luka Horstmann Waving" class="nav-character animated-logo">
+                    </div>
+                </div>
             </div>
         </div>
     </nav>

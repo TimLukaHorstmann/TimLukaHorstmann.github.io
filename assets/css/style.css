@@ -73,6 +73,74 @@ ul {
     width: auto;
 }
 
+/* Animated character on the right side */
+.animated-character-wrapper {
+    display: flex;
+    align-items: flex-end;
+    height: var(--header-height);
+    margin-left: 20px;
+    position: relative;
+}
+
+.animated-logo-container {
+    position: relative;
+    height: 60px; /* Slightly larger than navbar to extend to bottom */
+    display: flex;
+    align-items: flex-end;
+}
+
+.nav-character {
+    height: 60px;
+    width: auto;
+    transition: transform 0.3s ease;
+}
+
+.static-logo {
+    position: relative;
+    z-index: 2;
+    animation: staticLogoHide 4s ease-in-out;
+    animation-fill-mode: forwards;
+}
+
+.animated-logo {
+    position: absolute;
+    top: 0;
+    left: 0;
+    z-index: 3;
+    opacity: 0;
+    animation: welcomeAnimation 4s ease-in-out;
+    animation-fill-mode: forwards;
+}
+
+/* Welcome animation - plays once on load with proper timing */
+@keyframes welcomeAnimation {
+    0% { opacity: 0; }
+    2% { opacity: 1; }
+    98% { opacity: 1; }
+    100% { opacity: 0; }
+}
+
+/* Static logo hide animation - synchronized with gif animation */
+@keyframes staticLogoHide {
+    0% { opacity: 1; }
+    2% { opacity: 0; }
+    98% { opacity: 0; }
+    100% { opacity: 1; }
+}
+
+/* Hover effect - shows animated gif on hover */
+.animated-character-wrapper:hover .animated-logo,
+.animated-character-wrapper.touch-hover .animated-logo {
+    opacity: 1 !important;
+    animation: none; /* Disable the initial animation */
+}
+
+.animated-character-wrapper:hover .static-logo,
+.animated-character-wrapper.touch-hover .static-logo {
+    opacity: 0;
+    animation: none; /* Disable the static logo hide animation on hover */
+}
+
 .nav-logo-mobile {
     display: none;
     height: 45px;
@@ -1215,7 +1283,11 @@ ul {
 /* Responsive Adjustments */
 @media (max-width: 991px) {
     .nav-logo-wrapper {
-        display: none;
+        display: flex; /* Keep the original logo visible on mobile */
+    }
+
+    .animated-character-wrapper {
+        display: none; /* Hide the animated character on mobile screens */
     }
 
     .nav-logo-mobile {

@@ -421,6 +421,59 @@ async function streamChatResponse(query) {
 }
 
 $(document).ready(function() {
+    // Animated logo functionality
+    function setupAnimatedLogo() {
+        const $characterWrapper = $('.animated-character-wrapper');
+        const $animatedLogo = $('.animated-logo');
+        
+        if ($characterWrapper.length && $animatedLogo.length) {
+            // Function to restart the gif animation without clearing src (prevents alt/title flash).
+            // We append a cache-busting query param and keep the element hidden until it loads.
+            function restartGif() {
+                const original = $animatedLogo.attr('src') || '';
+                const base = original.split('?')[0];
+                const newSrc = base + '?_=' + Date.now();
+
+                // Hide animated img while it reloads to avoid showing alt text or flicker
+                $animatedLogo.css({ visibility: 'hidden', opacity: 0 });
+
+                // Ensure we remove any previous load handler to avoid duplicates
+                $animatedLogo.off('load.restarts');
+                $animatedLogo.on('load.restarts', function() {
+                    // show when fully loaded
+                    $(this).css({ visibility: 'visible', opacity: 1 });
+                    $(this).off('load.restarts');
+                });
+
+                // Set new src (cache-busted) to force replay
+                $animatedLogo.attr('src', newSrc);
+            }
+            
+            // Add hover event handlers for desktop
+            $characterWrapper.on('mouseenter', function() {
+                restartGif();
+            });
+            
+            // Add touch support for mobile
+            $characterWrapper.on('touchstart', function(e) {
+                e.preventDefault();
+                $(this).addClass('touch-hover');
+                restartGif();
+                
+                // Remove touch-hover class after animation
+                setTimeout(() => {
+                    $(this).removeClass('touch-hover');
+                }, 5000); // Increased to match longer animation
+            });
+            
+            // Optional: Add a class for CSS-only hover effects
+            $characterWrapper.addClass('character-ready');
+        }
+    }
+    
+    // Initialize animated logo
+    setupAnimatedLogo();
+    
     particlesJS("particles-js", {
         "particles": {
             "number": { "value": 80, "density": { "enable": true, "value_area": 800 } },
