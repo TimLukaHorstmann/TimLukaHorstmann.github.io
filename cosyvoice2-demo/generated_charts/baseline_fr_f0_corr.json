@@ -3,6 +3,7 @@
     "CosyVoice2 Original",
     "Coqui XTTS v2",
     "ElevenLabs",
+    "OpenAudio-S1-mini",
     "Our Best Model (anchored)"
   ],
   "datasets": [
@@ -12,18 +13,21 @@
         0.5937484692732026,
         0.6765275316506526,
         0.6426623757499565,
+        0.6564183973267019,
         0.6869373959259266
       ],
       "backgroundColor": [
         "#f093fb",
         "#f6ad55",
         "#63b3ed",
+        "#f093fb",
         "#667eea"
       ],
       "borderColor": [
         "#f093fb",
         "#f6ad55",
         "#63b3ed",
+        "#f093fb",
         "#667eea"
       ]
     }
