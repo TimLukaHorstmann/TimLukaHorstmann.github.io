@@ -98,6 +98,7 @@
                     <li class="nav-item"><a class="nav-link" href="#cv">Resume/CV</a></li>
                     <li class="nav-item"><a class="nav-link" href="#projects">Projects</a></li>
                     <li class="nav-item"><a class="nav-link" href="#publications">Publications</a></li>
+                    <li class="nav-item"><a class="nav-link" href="#research-demos">Demos</a></li>
                     <li class="nav-item"><a class="nav-link" href="#skills">Skills</a></li>
                     <li class="nav-item"><a class="nav-link" href="#awards">Honors</a></li>
                     <li class="nav-item"><a class="nav-link" href="#contact">Contact</a></li>
@@ -753,7 +754,7 @@
                         </iframe>
 
                         <div class="publication-actions">
-                          <a href="#" class="btn coming-soon">
+                          <a href="https://arxiv.org/abs/2508.17494" class="btn">
                             <i class="fas fa-file-pdf"></i> View Paper
                           </a>
                           <a href="https://horstmann.tech/ssml-prosody-control/" target="_blank" class="btn">
@@ -796,6 +797,197 @@
                         </p>
                     </div>
                 </div> -->
+            </div>
+        </div>
+    </section>
+
+    <!-- Research Demos Section -->
+    <section id="research-demos" class="research-demos-section">
+        <div class="container content">
+            <h2 data-aos="fade-up">Interactive Research Demos</h2>
+            <p class="section-subtitle" data-aos="fade-up" data-aos-delay="100">
+                Explore hands-on demonstrations of my research projects with live audio samples, interactive features, and detailed technical insights.
+            </p>
+            
+            <div class="demos-grid" data-aos="fade-up" data-aos-delay="200">
+                <!-- T-Rex Demo -->
+                <div class="demo-card" data-aos="fade-up" data-aos-delay="300">
+                    <div class="demo-header">
+                        <div class="demo-status published">
+                            <i class="fas fa-check-circle"></i>
+                            ECML PKDD 2025
+                        </div>
+                        <h3>T-Rex: Table – Refute or Entail eXplainer</h3>
+                        <p class="demo-subtitle">Live Tool for Verifying Claims Against Tabular Data</p>
+                    </div>
+                    
+                    <div class="demo-preview">
+                        <div class="demo-visual">
+                            <img src="assets/images/t-rex_logo.png" alt="T-Rex Logo" class="demo-logo">
+                        </div>
+                        <div class="demo-features">
+                            <div class="feature-tag">
+                                <i class="fas fa-table"></i>
+                                Table Fact Verification
+                            </div>
+                            <div class="feature-tag">
+                                <i class="fas fa-brain"></i>
+                                LLM-Powered Analysis
+                            </div>
+                            <div class="feature-tag">
+                                <i class="fas fa-search"></i>
+                                Interactive Explanations
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="demo-preview-text">
+                        <p>A live, interactive tool for verifying whether textual claims are supported or contradicted by tabular data using state-of-the-art LLMs. Features real-time fact-checking with detailed explanations.</p>
+                    </div>
+                    
+                    <div class="demo-actions">
+                        <a href="https://t-rex-demo.streamlit.app/" class="btn demo-btn primary" target="_blank">
+                            <i class="fas fa-play"></i>
+                            Launch Interactive Demo
+                        </a>
+                        <a href="https://heyzine.com/flip-book/86164bed2b.html" class="btn demo-btn secondary" target="_blank">
+                            <i class="fas fa-file-pdf"></i>
+                            ECML PKDD Paper
+                        </a>
+                    </div>
+                </div>
+
+                <!-- SSML Prosody Control Demo -->
+                <div class="demo-card" data-aos="fade-up" data-aos-delay="400">
+                    <div class="demo-header">
+                        <div class="demo-status published">
+                            <i class="fas fa-check-circle"></i>
+                            ICNLSP 2025
+                        </div>
+                        <h3>SSML Prosody Control</h3>
+                        <p class="demo-subtitle">End-to-End Pipeline for Enhanced French TTS</p>
+                    </div>
+                    
+                    <div class="demo-preview">
+                        <div class="demo-visual">
+                            <img src="ssml-prosody-control/PreprocessingPipeline.png" alt="SSML Pipeline Architecture" class="demo-architecture">
+                        </div>
+                        <div class="demo-features">
+                            <div class="feature-tag">
+                                <i class="fas fa-brain"></i>
+                                QLoRA Fine-tuned Qwen Models
+                            </div>
+                            <div class="feature-tag">
+                                <i class="fas fa-waveform-lines"></i>
+                                Prosody Parameter Control
+                            </div>
+                            <div class="feature-tag">
+                                <i class="fas fa-language"></i>
+                                French TTS Enhancement
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="demo-audio-preview">
+                        <div class="audio-comparison">
+                            <div class="audio-sample">
+                                <span class="audio-label">Baseline</span>
+                                <audio controls>
+                                    <source src="ssml-prosody-control/audio/Az_1_28_baseline.wav" type="audio/wav">
+                                </audio>
+                            </div>
+                            <div class="audio-sample">
+                                <span class="audio-label">Enhanced</span>
+                                <audio controls>
+                                    <source src="ssml-prosody-control/audio/Az_1_28_enhanced.wav" type="audio/wav">
+                                </audio>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="demo-actions">
+                        <a href="ssml-prosody-control/index.html" class="btn demo-btn primary" target="_blank">
+                            <i class="fas fa-play"></i>
+                            Launch Interactive Demo
+                        </a>
+                        <a href="https://heyzine.com/flip-book/8b56d564fe.html" class="btn demo-btn secondary" target="_blank">
+                            <i class="fas fa-file-pdf"></i>
+                            ICNLSP Paper
+                        </a>
+                    </div>
+                </div>
+
+                <!-- CosyVoice2 Demo -->
+                <div class="demo-card" data-aos="fade-up" data-aos-delay="500">
+                    <div class="demo-header">
+                        <div class="demo-status in-progress">
+                            <i class="fas fa-clock"></i>
+                            ICASSP 2025
+                        </div>
+                        <h3>CosyVoice2 for European Languages</h3>
+                        <p class="demo-subtitle">Modular Adaptation for French & German TTS</p>
+                    </div>
+                    
+                    <div class="demo-preview">
+                        <div class="demo-visual">
+                            <img src="cosyvoice2-demo/cosyvoice2-logo-clear.png" alt="CosyVoice2 Logo" class="demo-logo">
+                        </div>
+                        <div class="demo-features">
+                            <div class="feature-tag">
+                                <i class="fas fa-cogs"></i>
+                                Modular Fine-tuning
+                            </div>
+                            <div class="feature-tag">
+                                <i class="fas fa-globe-europe"></i>
+                                Multilingual Support
+                            </div>
+                            <div class="feature-tag">
+                                <i class="fas fa-chart-line"></i>
+                                Ablation Studies
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="demo-audio-preview">
+                        <div class="audio-comparison">
+                            <div class="audio-sample">
+                                <span class="audio-label">Original (FR)</span>
+                                <audio controls>
+                                    <source src="cosyvoice2-demo/audio/hifigan-fr.wav" type="audio/wav">
+                                </audio>
+                            </div>
+                            <div class="audio-sample">
+                                <span class="audio-label">Fine-tuned (FR)</span>
+                                <audio controls>
+                                    <source src="cosyvoice2-demo/audio/slm_flow_hifigan-fr.wav" type="audio/wav">
+                                </audio>
+                            </div>
+                            <div class="audio-sample">
+                                <span class="audio-label">Original (DE)</span>
+                                <audio controls>
+                                    <source src="cosyvoice2-demo/audio/hifigan-de.wav" type="audio/wav">
+                                </audio>
+                            </div>
+                            <div class="audio-sample">
+                                <span class="audio-label">Fine-tuned (DE)</span>
+                                <audio controls>
+                                    <source src="cosyvoice2-demo/audio/slm_flow_hifigan-de.wav" type="audio/wav">
+                                </audio>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="demo-actions">
+                        <a href="cosyvoice2-demo/index.html" class="btn demo-btn primary" target="_blank">
+                            <i class="fas fa-play"></i>
+                            Launch Interactive Demo
+                        </a>
+                        <a href="#" class="btn demo-btn secondary coming-soon" target="_blank">
+                            <i class="fas fa-hourglass-half"></i>
+                            Paper Coming Soon
+                        </a>
+                    </div>
+                </div>
             </div>
         </div>
     </section>
